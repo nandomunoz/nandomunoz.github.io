@@ -1306,7 +1306,7 @@ write('404.html', `<!doctype html>
     body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 2rem var(--pad); background: var(--bg); color: var(--ink); font-family: var(--sans); }
     body::before { content: ""; position: fixed; inset: 0 0 auto; height: .4rem; background: var(--stripe); }
     /* the drawing is a watermark: its lines are a mask, painted in the ink, so it follows every colour mode */
-    body::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: var(--ink); opacity: .1; -webkit-mask: url(/assets/404-marca.webp) center / cover no-repeat; mask: url(/assets/404-marca.webp) center / cover no-repeat; }
+    body::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: var(--ink); opacity: .1; -webkit-mask: url(/assets/404-marca.webp) center / contain no-repeat; mask: url(/assets/404-marca.webp) center / contain no-repeat; }
     main { position: relative; z-index: 1; max-width: 34rem; }
     h1 { margin: 0; font: 800 clamp(5rem, 22vw, 9rem)/.85 var(--sans); font-stretch: 62%; letter-spacing: 0; }
     p { margin: 1rem 0 0; font-size: 1.15rem; }
