@@ -344,7 +344,8 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
   .post__nav { margin-inline: calc(-1 * max(var(--gut), 6rem)) calc(-1 * var(--gut)); }
   .post__nav a { padding-inline: max(var(--gut), 6rem) var(--gut); }
   .post__nav a[rel="next"] { padding-inline: var(--gut); }
-  .related .brows { max-width: 64rem; }
+  /* «Sigue leyendo»: title and rows share one 64rem column, centred on wide screens */
+  .related { max-width: 64rem; margin-inline: auto; }
 
   .blogsec { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; padding-block: 10rem; }
   .blogsec > * { grid-column: 1 / -1; }
