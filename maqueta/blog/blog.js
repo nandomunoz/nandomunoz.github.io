@@ -19,8 +19,8 @@ const isProj = page === 'projects' || page === 'project';
 
 const [c, b] = await Promise.all([content(), blog()]);
 const H = {
-  es: { skip: 'Saltar al contenido', back: 'Trama', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Secciones', footer: 'Maqueta 01 · Trama' },
-  en: { skip: 'Skip to content', back: 'Trama', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Sections', footer: 'Mock-up 01 · Trama' }
+  es: { skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Secciones' },
+  en: { skip: 'Skip to content', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Sections' }
 }[lang];
 document.documentElement.lang = lang;
 document.documentElement.classList.add('js', 'docked', reduce ? 'still' : 'moving');
@@ -35,7 +35,7 @@ const put = (...kids) => main.append(...kids.filter(Boolean));
 document.body.prepend(
   el('a', { class: 'skip', href: '#main', text: H.skip }),
   el('header', { class: 'top' },
-    el('a', { class: 'top__mark', href: homeUrl() }, el('span', { 'aria-hidden': 'true', text: '01' }), el('span', { text: 'Trama' })),
+    el('a', { class: 'top__mark', href: homeUrl() }, el('span', { 'aria-hidden': 'true', text: 'FM' }), el('span', { text: c.name })),
     el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
@@ -43,7 +43,7 @@ document.body.prepend(
   main,
   el('footer', { class: 'foot' },
     el('p', {}, `${c.name} · ${new Date().getFullYear()}`),
-    el('p', {}, el('a', { href: '/maqueta/', text: lang === 'en' ? 'Home' : 'Inicio' }), ` · ${H.footer}${isProj ? "" : " · " + B.sample}`)));
+    isProj ? null : el('p', {}, B.sample)));
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it

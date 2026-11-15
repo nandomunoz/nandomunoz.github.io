@@ -4,24 +4,24 @@ import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from '
 
 const T = {
   es: {
-    skip: 'Saltar al contenido', back: 'Inicio', bio: 'Bio', work: 'Proyectos',
+    skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
     hintFine: 'mueve el puntero sobre la trama · haz clic', hintCoarse: 'toca la trama',
     legendTitle: 'Cómo leer los bloques',
     legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama.',
     count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar',
     demo: 'Ver demo', repo: 'Ver código', prev: 'Anterior', next: 'Siguiente',
     blog: 'Blog', allPosts: 'Todos los artículos',
-    footer: 'Maqueta 01 · Trama', of: 'de', sections: 'Secciones', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
+    of: 'de', sections: 'Secciones', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
   },
   en: {
-    skip: 'Skip to content', back: 'Home', bio: 'Bio', work: 'Projects',
+    skip: 'Skip to content', bio: 'Bio', work: 'Projects',
     hintFine: 'move the pointer over the dots · click', hintCoarse: 'tap the dots',
     legendTitle: 'How to read the blocks',
     legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots.',
     count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close',
     demo: 'See demo', repo: 'See code', prev: 'Previous', next: 'Next',
     blog: 'Blog', allPosts: 'All posts',
-    footer: 'Mock-up 01 · Trama', of: 'of', sections: 'Sections', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
+    of: 'of', sections: 'Sections', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
   }
 };
 const FEATURED = ['luz', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem'];
@@ -57,7 +57,6 @@ if (!sdaView) document.documentElement.classList.add('no-sda');
 
 // ------------------------------------------------------------- texts
 $$('[data-t]').forEach((n) => { const v = t[n.dataset.t]; if (typeof v === 'string') n.textContent = v; });
-$('.top__mark').setAttribute('aria-label', t.back);
 $('#nav').setAttribute('aria-label', t.sections);
 $('.panel__nav').setAttribute('aria-label', t.projects);
 $$('[data-slot]').forEach((n) => { n.textContent = c[n.dataset.slot]; });
@@ -66,7 +65,7 @@ $('#year').textContent = new Date().getFullYear();
 const lang = $('#lang');
 if (c.lang === 'en') { lang.href = '?'; lang.hreflang = 'es'; lang.lang = 'es'; lang.textContent = T.es.other; }
 else { lang.textContent = T.en.other; }
-document.title = `Trama · ${c.name}`;
+document.title = c.name;
 
 $('#bio-text').append(...c.bio.map((p, i) => el('p', { class: 'reveal' + (i === 0 ? ' bio__lead' : ''), text: p })));
 
