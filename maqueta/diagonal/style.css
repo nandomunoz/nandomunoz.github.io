@@ -137,7 +137,7 @@ a { color: inherit; }
   left: -3.9rem; top: 1.6rem;
   width: 13rem; height: 2.3rem;
   display: grid; place-items: center;
-  background: var(--speck) 0 0 / 240px, var(--blaze);
+  background: var(--blaze);
   color: var(--oat); text-decoration: none;
   font-weight: 900; font-stretch: 62%; font-size: 1.35rem; letter-spacing: .04em;
   transform: rotate(-45deg);
@@ -168,7 +168,7 @@ a { color: inherit; }
 .tag {
   display: inline-block; margin: 0 0 2rem;
   padding: .45rem 1.6rem .4rem;
-  background: var(--speck) 0 0 / 240px, var(--blaze);
+  background: var(--blaze);
   color: var(--oat);
   font-size: .82rem; font-weight: 800; font-stretch: 70%; letter-spacing: .16em; line-height: 1.4;
   clip-path: polygon(1.15rem 0, 100% 0, calc(100% - 1.15rem) 100%, 0 100%);
@@ -192,7 +192,7 @@ a { color: inherit; }
   transform: rotate(-45deg);
   transform-origin: 50% 50%;
   display: flex; align-items: center; justify-content: center;
-  background: var(--speck) calc(var(--i) * 70px) 0 / 240px, var(--blaze);
+  background: var(--blaze);
   color: var(--oat);
   font-weight: 900; font-stretch: 62%; font-size: 2.65rem; line-height: 1; letter-spacing: .01em;
   --c: calc((var(--n) - 1) / 2);
@@ -258,7 +258,7 @@ a { color: inherit; }
   width: var(--L); height: var(--t);
   margin-left: calc(var(--L) / -2); margin-top: calc(var(--t) / -2);
   display: flex; align-items: center; justify-content: center;
-  background: var(--speck) calc(var(--i) * 53px) calc(var(--i) * 31px) / 240px, var(--blaze);
+  background: var(--blaze);
   color: var(--oat); text-decoration: none;
   --hov: 0rem;
   transform: rotate(-45deg) translateX(calc(var(--base, 0px) + var(--off) * var(--jit) + var(--k) * var(--px) * 46px + var(--hov)));
@@ -376,7 +376,7 @@ a { color: inherit; }
   min-height: 46svh;
   display: grid; grid-template-rows: auto 1fr auto; gap: 1rem;
   padding: 1.25rem var(--gut) 1.4rem;
-  background: var(--speck) 0 0 / 240px, var(--blaze);
+  background: var(--blaze);
   color: var(--oat);
 }
 .sheet-no, .sheet-year { font-size: .74rem; letter-spacing: .16em; font-weight: 700; font-stretch: 85%; }
@@ -403,7 +403,7 @@ a { color: inherit; }
 .lk {
   display: flex; align-items: center; justify-content: space-between;
   height: 3.2rem; padding-inline: 3.6rem;
-  background: var(--speck) 0 0 / 240px, var(--blaze); color: var(--oat); text-decoration: none;
+  background: var(--blaze); color: var(--oat); text-decoration: none;
   font-weight: 900; font-stretch: 62%; font-size: 1.5rem; letter-spacing: .02em;
   clip-path: polygon(3.2rem 0, 100% 0, calc(100% - 3.2rem) 100%, 0 100%);
   transition: padding .4s var(--ease), background-color .3s;
@@ -424,7 +424,7 @@ a { color: inherit; }
 .sn {
   display: grid; align-content: center; gap: .1rem;
   min-height: 5.5rem; padding: .8rem 2.4rem;
-  background: var(--speck) 0 0 / 240px, var(--blaze); color: var(--oat); text-decoration: none;
+  background: var(--blaze); color: var(--oat); text-decoration: none;
   transition: translate .5s var(--ease);
 }
 .sn-prev { clip-path: polygon(0 0, 100% 0, calc(100% - 3rem) 100%, 0 100%); padding-left: var(--gut); }
@@ -579,7 +579,7 @@ a { color: inherit; }
     position: absolute; right: 0;
     top: calc(var(--k) * 4.2rem);
     width: calc(var(--len) * 1%); height: 2.6rem;
-    background: var(--speck) calc(var(--k) * 40px) 0 / 240px, var(--blaze);
+    background: var(--blaze);
     transform: rotate(-45deg) translateX(calc(var(--o) * 1%));
     transform-origin: 100% 50%;
     opacity: .9;
@@ -614,3 +614,4 @@ a { color: inherit; }
   .sash { translate: -9rem 9rem; }
   .past-hero .sash { translate: 0 0; }
 }
+
