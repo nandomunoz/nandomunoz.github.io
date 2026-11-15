@@ -4,7 +4,7 @@
 //
 //   import { content } from '../shared/content.js';
 //   const c = await content();
-//   c.name, c.nick, c.kicker, c.deck, c.bio[], c.contactTitle, c.contactText,
+//   c.name, c.nick, c.kicker, c.deck, c.bio[], c.contactTitle, c.contactText, c.motto,
 //   c.socials[{ id, label, handle, url }],
 //   c.projects[{ id, name, year, tech[], demo, repo, kicker, body[] }], c.lang
 export const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'es';
@@ -23,7 +23,8 @@ export async function content() {
     bio: t.bio,
     contactTitle: t.contactTitle,
     contactText: t.contactText,
-    socials: site.socials,
+    motto: t.motto,
+    socials: [...site.socials, ...site.extraSocials],
     projects: projects.map((p, i) => ({
       id: p.id, n: i + 1, name: p.name, year: p.year, tech: p.tech, demo: p.demo, repo: p.repo,
       kicker: p[lang].kicker, body: p[lang].body

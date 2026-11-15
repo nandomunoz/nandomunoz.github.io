@@ -864,8 +864,9 @@ const projectUrl = (l, id) => `${site.baseUrl}/${ui[l].project.slug}/${id}/`;
 // main entity, with his networks) and each project as source code with its
 // repository — all of it from the data files, nothing written by hand.
 const personNode = (t) => {
-  const [job, city] = t.kicker.split('·').map((x) => x.trim());
-  return { '@type': 'Person', '@id': `${site.baseUrl}/#person`, name: site.name, alternateName: site.nick, jobTitle: job, address: { '@type': 'PostalAddress', addressLocality: city }, url: `${site.baseUrl}/`, sameAs: [...site.socials, ...site.extraSocials].map((s) => s.url) };
+  const parts = t.kicker.split('·').map((x) => x.trim());
+  const [job, city] = [parts[0], parts.at(-1)];
+  return { '@type': 'Person', '@id': `${site.baseUrl}/#person`, name: site.name, alternateName: site.nick, jobTitle: job, address: { '@type': 'PostalAddress', addressLocality: city }, url: `${site.baseUrl}/`, sameAs: [...site.socials, ...site.extraSocials].filter((s) => s.id !== 'rss').map((s) => s.url) };
 };
 const jsonLd = (lang, t, url) => {
   const base = site.baseUrl;

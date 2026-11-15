@@ -76,6 +76,18 @@ export const homeUrl = (hash = '') => url('/') + hash;
 export const projectsUrl = (tech) => url('/proyectos/', tech ? { tech } : {});
 export const projectUrl = (p) => url('/proyectos/proyecto/', { p: p.id });
 
+// the footer of every page: © name · year, the site's ways and the motto
+const FOOT = {
+  es: { label: 'Pie', bio: 'Bio', work: 'Proyectos', blog: 'Blog', contact: 'Contacto' },
+  en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact' }
+}[lang];
+export const footer = (c) => el('footer', { class: 'foot' },
+  el('p', { class: 'foot__by', text: `© ${c.name} · ${new Date().getFullYear()}` }),
+  el('nav', { class: 'foot__nav', 'aria-label': FOOT.label }, el('ul', {},
+    ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')]]
+      .map(([text, href]) => el('li', {}, el('a', { href, text }))))),
+  el('p', { class: 'foot__motto', text: c.motto }));
+
 // the screen of a project, as on the home: denser the newer, its number cut in
 const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };
 export function projectDots(p) { const h = hashStr(p.id); return { density: DENSITY[p.year] ?? 0.6, kind: h % 6, seed: h, label: pad(p.n) }; }

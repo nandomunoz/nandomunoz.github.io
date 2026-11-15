@@ -6,7 +6,7 @@
 // Unknown ids render a "not found" page (the 404 of the sandbox).
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut } from '../dots.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots } from './parts.js';
+import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 
 const PER_PAGE = 5;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,15 +35,14 @@ const put = (...kids) => main.append(...kids.filter(Boolean));
 document.body.prepend(
   el('a', { class: 'skip', href: '#main', text: H.skip }),
   el('header', { class: 'top' },
-    el('a', { class: 'top__mark', href: homeUrl() }, el('span', { 'aria-hidden': 'true', text: 'FM' }), el('span', { text: c.name })),
+    el('a', { class: 'top__mark', href: homeUrl() }, el('span', { 'aria-hidden': 'true', text: 'NM' }), el('span', { text: c.name })),
     el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
     navItem('03', blogUrl(), B.blog, page !== '404' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
-  el('footer', { class: 'foot' },
-    el('p', {}, `${c.name} · ${new Date().getFullYear()}`),
-    isProj ? null : el('p', {}, B.sample)));
+  footer(c));
+if (!isProj) document.querySelector('.foot').append(el('p', { class: 'foot__credit', text: B.sample }));
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it

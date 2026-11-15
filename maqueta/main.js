@@ -1,5 +1,5 @@
 import { content, blog } from './shared/content.js';
-import { B, row, blogUrl, projectsUrl, projectUrl } from './blog/parts.js';
+import { B, row, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from './dots.js';
 
 const T = {
@@ -61,13 +61,24 @@ $('#nav').setAttribute('aria-label', t.sections);
 $('.panel__nav').setAttribute('aria-label', t.projects);
 $$('[data-slot]').forEach((n) => { n.textContent = c[n.dataset.slot]; });
 $('.hero__hint').textContent = fine ? t.hintFine : t.hintCoarse;
-$('#year').textContent = new Date().getFullYear();
+document.querySelector('main').after(footer(c));
 const lang = $('#lang');
 if (c.lang === 'en') { lang.href = '?'; lang.hreflang = 'es'; lang.lang = 'es'; lang.textContent = T.es.other; }
 else { lang.textContent = T.en.other; }
 document.title = c.name;
 
-$('#bio-text').append(...c.bio.map((p, i) => el('p', { class: 'reveal' + (i === 0 ? ' bio__lead' : ''), text: p })));
+// the bio's last words point to the blog and the projects
+const BIO_LINKS = { es: [['mis artículos', '#blog'], ['mis proyectos', projectsUrl()]], en: [['my articles', '#blog'], ['my projects', projectsUrl()]] }[c.lang];
+const linked = (text) => {
+  const out = []; let rest = text;
+  for (const [words, href] of BIO_LINKS) {
+    const at = rest.lastIndexOf(words);
+    if (at < 0) continue;
+    out.push(rest.slice(0, at), el('a', { href, text: words })); rest = rest.slice(at + words.length);
+  }
+  return [...out, rest];
+};
+$('#bio-text').append(...c.bio.map((p, i) => el('p', { class: 'reveal' + (i === 0 ? ' bio__lead' : '') }, ...linked(p))));
 
 const years = allProjects.map((p) => p.year);
 $('#work-count').textContent = t.count(allProjects.length, Math.min(...years), Math.max(...years));
