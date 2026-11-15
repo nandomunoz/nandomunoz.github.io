@@ -109,9 +109,13 @@ export function consent() {
   // the way back in, in the footer (hidden, its room kept, until the script
   // runs); before the banner goes in, since LUZ wires the open buttons then
   const foot = document.querySelector('.foot__nav ul');
-  if (foot && !foot.querySelector('[data-luz-consent-open]'))
-    foot.append(el('li', {}, el('a', { href: POLICY, text: CT.policy })),
-      el('li', {}, el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: CT.open })));
+  if (foot && !foot.querySelector('[data-luz-consent-open]')) {
+    // before the language link, which stays last
+    const last = foot.querySelector('.foot__lang');
+    const items = [el('li', {}, el('a', { href: POLICY, text: CT.policy })),
+      el('li', {}, el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: CT.open }))];
+    for (const li of items) foot.insertBefore(li, last);
+  }
   // first in the page after the skip link: where LUZ wants it when the window
   // is too short for a fixed card
   const skip = document.querySelector('.skip');
