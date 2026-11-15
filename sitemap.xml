@@ -61,6 +61,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nandovejer.github.io/proyectos/quien-canta-hoy/"/>
   </url>
   <url>
+    <loc>https://nandovejer.github.io/proyectos/streetcai/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nandovejer.github.io/proyectos/streetcai/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nandovejer.github.io/projects/streetcai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nandovejer.github.io/proyectos/streetcai/"/>
+  </url>
+  <url>
+    <loc>https://nandovejer.github.io/projects/streetcai/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nandovejer.github.io/proyectos/streetcai/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nandovejer.github.io/projects/streetcai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nandovejer.github.io/proyectos/streetcai/"/>
+  </url>
+  <url>
     <loc>https://nandovejer.github.io/proyectos/ares-api/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nandovejer.github.io/proyectos/ares-api/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nandovejer.github.io/projects/ares-api/"/>
