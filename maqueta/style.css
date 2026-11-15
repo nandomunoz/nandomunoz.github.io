@@ -225,6 +225,10 @@ section { position: relative; }
 .panel__body { padding: 1.5rem var(--gut) 3rem; max-width: 44rem; }
 .panel__kicker { font: 600 .72rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .22em; color: var(--mute); }
 .panel__title { margin: .6rem 0 1rem; font-weight: 800; font-stretch: 62%; font-size: clamp(3rem, 16vw, 6.5rem); line-height: .86; text-transform: uppercase; outline-offset: 8px; }
+.panel__shot { margin: 2rem 0 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-2); }
+.panel__shot:empty { display: none; }
+.panel__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(1) contrast(1.05); transition: filter .6s var(--ease); }
+.panel__shot:hover img { filter: none; }
 .panel__text { display: grid; gap: 1.1rem; margin-top: 2.25rem; color: var(--mute); }
 .panel__text p:first-child { color: var(--ink); font-size: 1.2rem; font-weight: 300; line-height: 1.5; }
 .panel__links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 2.5rem; }

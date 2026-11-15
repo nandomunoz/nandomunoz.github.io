@@ -1,6 +1,6 @@
 import { content, blog } from './shared/content.js';
 import { B, row, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
-import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from './dots.js';
+import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
 
 const T = {
@@ -8,8 +8,8 @@ const T = {
     skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
     hintFine: 'mueve el puntero sobre la trama · haz clic', hintCoarse: 'toca la trama',
     legendTitle: 'Cómo leer los bloques',
-    legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama.',
-    count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar',
+    legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama, y sus puntos dibujan el proyecto.',
+    count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar', shot: (n) => `Captura de ${n}`,
     demo: 'Ver demo', repo: 'Ver código', prev: 'Anterior', next: 'Siguiente',
     blog: 'Blog', allPosts: 'Todos los artículos',
     of: 'de', sections: 'Secciones', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
@@ -18,8 +18,8 @@ const T = {
     skip: 'Skip to content', bio: 'Bio', work: 'Projects',
     hintFine: 'move the pointer over the dots · click', hintCoarse: 'tap the dots',
     legendTitle: 'How to read the blocks',
-    legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots.',
-    count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close',
+    legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots, and its dots draw the project.',
+    count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close', shot: (n) => `Screenshot of ${n}`,
     demo: 'See demo', repo: 'See code', prev: 'Previous', next: 'Next',
     blog: 'Blog', allPosts: 'All posts',
     of: 'of', sections: 'Sections', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
@@ -97,6 +97,14 @@ for (const y of Object.keys(DENSITY)) {
 
 // ------------------------------------------------------------- projects
 const works = $('#works');
+// each project's screenshot, read as tone: its front block draws the picture
+// in dots (the year still sets how many). Without it, the pattern from its id.
+const SHOTS = new URL('./img/proyectos/', import.meta.url);
+const tones = {};
+const shot = (p) => el('picture', {},
+  el('source', { srcset: new URL(`${p.id}.avif`, SHOTS), type: 'image/avif' }),
+  el('source', { srcset: new URL(`${p.id}.webp`, SHOTS), type: 'image/webp' }),
+  el('img', { src: new URL(`${p.id}.jpg`, SHOTS), alt: t.shot(p.name), width: 1200, height: 750, loading: 'lazy', decoding: 'async' }));
 const lens = c.projects.map((p) => p.body.join(' ').length);
 const minL = Math.min(...lens), maxL = Math.max(...lens);
 c.projects.forEach((p, i) => {
@@ -117,8 +125,14 @@ c.projects.forEach((p, i) => {
   works.append(li);
   const len = (lens[i] - minL) / (maxL - minL || 1);
   const opts = (cell) => ({ cell, rows: Math.round((innerWidth < 1024 ? 9 : 11) + len * (innerWidth < 1024 ? 20 : 26)), density: densityOf(p.year), kind: h % 6, seed: h, label: pad(p.n), corner: i % 2 });
-  blocks.push({ make: (cell) => new DotBlock(front, opts(cell)), stage, front, li, i });
+  const fb = { make: (cell) => new DotBlock(front, { ...opts(cell), tone: tones[p.id] }), stage, front, li, i };
+  blocks.push(fb);
   blocks.push({ make: (cell) => new DotBlock(back, { ...opts(cell), density: densityOf(p.year) * 0.5, kind: (h >> 3) % 6, seed: h ^ 0xabc, label: '' }), stage, back: true });
+  loadTone(new URL(`${p.id}.tone.webp`, SHOTS)).then((tn) => {
+    if (!tn) return;
+    tones[p.id] = tn;
+    if (fb.block) { fb.block.o.tone = tn; fb.block.resize(); }
+  });
 });
 
 // legend keys and decorative fields
@@ -252,7 +266,7 @@ const regionOf = () => (innerWidth >= 1024
   : { x: 0, y: 0, w: innerWidth, h: Math.round(innerHeight * 0.34) });
 const fieldFor = (i) => fieldPoints(innerWidth, innerHeight, {
   region: regionOf(), label: pad(c.projects[i].n), density: densityOf(c.projects[i].year) + 0.1,
-  seed: hash(c.projects[i].id), cell: innerWidth >= 1024 ? 11 : 8
+  seed: hash(c.projects[i].id), cell: innerWidth >= 1024 ? 11 : 8, tone: tones[c.projects[i].id]
 });
 function restField() {
   field = fieldFor(cur);
@@ -269,6 +283,7 @@ function fill(i) {
   $('#p-title').textContent = p.name;
   $('#p-tech').replaceChildren(...p.tech.map((x) => el('li', { text: x })));
   $('#p-text').replaceChildren(...p.body.map((x) => el('p', { text: x })));
+  $('#p-shot').replaceChildren(shot(p));
   const links = [];
   if (p.demo) links.push(el('a', { href: p.demo, target: '_blank', rel: 'noopener' }, el('span', { text: t.demo }), el('span', { class: 'vh', text: ' ' + t.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })));
   if (p.repo) links.push(el('a', { href: p.repo, target: '_blank', rel: 'noopener' }, el('span', { text: t.repo }), el('span', { class: 'vh', text: ' ' + t.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })));

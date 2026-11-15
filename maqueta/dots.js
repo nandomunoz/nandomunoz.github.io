@@ -126,10 +126,56 @@ function sizeCanvas(cv, w, h) {
   return ctx;
 }
 
+// ---------------------------------------------------------------- tone
+// A picture read as tone: its grey levels stretched to 0–1 (2nd–98th
+// percentile). `mean` lets a block light, on average, as many cells as its
+// density (the year) asks: the picture decides where the dots go and how big
+// they are, the year still decides how many.
+export function loadTone(src) {
+  return new Promise((ok) => {
+    const im = new Image();
+    im.decoding = 'async';
+    im.onload = () => {
+      const w = im.naturalWidth, h = im.naturalHeight;
+      const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      const ctx = cv.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(im, 0, 0);
+      const px = ctx.getImageData(0, 0, w, h).data, g = new Float32Array(w * h);
+      for (let i = 0; i < g.length; i++) g[i] = (px[i * 4] * 0.2126 + px[i * 4 + 1] * 0.7152 + px[i * 4 + 2] * 0.0722) / 255;
+      const sorted = Float32Array.from(g).sort();
+      const lo = sorted[(g.length * 0.02) | 0], hi = sorted[(g.length * 0.98) | 0], span = Math.max(0.05, hi - lo);
+      let sum = 0;
+      for (let i = 0; i < g.length; i++) { g[i] = clamp((g[i] - lo) / span); sum += g[i]; }
+      ok({ w, h, g, mean: Math.max(0.08, sum / g.length) });
+    };
+    im.onerror = () => ok(null);
+    im.src = src;
+  });
+}
+
+// Halftone a cell: whether it lights (dithered against the year's density,
+// nudged by the tone) and how big its dot is (the tone itself).
+export const halftone = (t, tone, density, threshold) => {
+  const d = density * (0.3 + 0.7 * tone / t.mean);
+  return threshold < d ? 0.12 + 0.36 * Math.pow(tone, 0.8) : 0;
+};
+
+// The tone under cell (x, y) of a cols×rows grid of cw×ch cells, the
+// picture laid in like object-fit: cover, its focus near the top (where a
+// page shows what it is).
+export function toneAt(t, x, y, cols, rows, cw, ch, fy = 0.15) {
+  const W = cols * cw, H = rows * ch, s = Math.max(W / t.w, H / t.h);
+  const ox = (t.w * s - W) / 2, oy = (t.h * s - H) * fy;
+  const ix = Math.min(t.w - 1, Math.max(0, ((x + 0.5) * cw + ox) / s | 0));
+  const iy = Math.min(t.h - 1, Math.max(0, ((y + 0.5) * ch + oy) / s | 0));
+  return t.g[iy * t.w + ix];
+}
+
 // ---------------------------------------------------------------- blocks
 // A project block: a dithered rectangle. `density` (the year) sets how many
 // cells are lit, `rows` (the length of its text) sets its height, `label`
-// (its number) is cut into it in the 3×5 font.
+// (its number) is cut into it in the 3×5 font. With `tone` (loadTone) the
+// dots draw the project's picture instead of a pattern.
 export class DotBlock {
   constructor(canvas, o) {
     this.cv = canvas;
@@ -161,9 +207,15 @@ export class DotBlock {
       if (glyph.has(id)) { on = true; size = 0.46; }
       else if (clear.has(id)) on = false;
       else {
-        const d = o.density * pattern(o.kind, x, y, cols, rows, o.seed);
-        on = bayer(x, y) * 0.62 + r1 * 0.38 < d;
-        size = 0.26 + 0.14 * clamp(d);
+        const th = bayer(x, y) * 0.62 + r1 * 0.38;
+        if (o.tone) {
+          size = halftone(o.tone, toneAt(o.tone, x, y, cols, rows, cw, o.cell), o.density, th);
+          on = size > 0;
+        } else {
+          const d = o.density * pattern(o.kind, x, y, cols, rows, o.seed);
+          on = th < d;
+          size = 0.26 + 0.14 * clamp(d);
+        }
       }
       if (on) cells.push({ x: (x + 0.5) * cw, y: (y + 0.5) * o.cell, r: size * Math.min(cw, o.cell), rank: glyph.has(id) ? r2 * 0.25 : r2, g: glyph.has(id) });
     }
@@ -360,11 +412,12 @@ export class HeroField {
 // ---------------------------------------------------------------- field
 // The open project's field, on a full-screen canvas: a dithered region with
 // the project's number set big in it.
-export function fieldPoints(w, h, { region, label, density = 0.7, seed = 1, cell = 9 }) {
+export function fieldPoints(w, h, { region, label, density = 0.7, seed = 1, cell = 9, tone = null }) {
   const { x: rx, y: ry, w: rw, h: rh } = region;
   const cols = Math.floor(rw / cell), rows = Math.floor(rh / cell);
   const rand = rng(seed), out = [];
-  const scale = Math.max(2, Math.floor(Math.min((cols - 4) / (label.length * 4 - 1), (rows * 0.55) / 5)));
+  // with a picture the number gives it room: a quarter of the height, not half
+  const scale = Math.max(2, Math.floor(Math.min((cols - 4) / (label.length * 4 - 1), (rows * (tone ? 0.22 : 0.55)) / 5)));
   const g = digitCells(label, scale);
   const gx = 2, gy = rows - g.h - 2;
   const glyph = new Set(g.cells.map(([x, y]) => (gy + y) * cols + gx + x));
@@ -375,9 +428,15 @@ export function fieldPoints(w, h, { region, label, density = 0.7, seed = 1, cell
     if (glyph.has(id)) r = 0.45;
     else if (!inBox) {
       const v = y / rows, u = x / cols;
-      const d = density * (0.25 + 0.95 * Math.pow(noise(x / 7, y / 6, seed), 1.3)) * (1 - 0.55 * v) * (0.6 + 0.4 * (1 - u));
-      if (bayer(x, y) * 0.6 + rand() * 0.4 < d) r = 0.2 + 0.16 * clamp(d);
-      else continue;
+      const th = bayer(x, y) * 0.6 + rand() * 0.4;
+      if (tone) {
+        r = halftone(tone, toneAt(tone, x, y, cols, rows, rw / cols, rh / rows), density, th);
+        if (!r) continue;
+      } else {
+        const d = density * (0.25 + 0.95 * Math.pow(noise(x / 7, y / 6, seed), 1.3)) * (1 - 0.55 * v) * (0.6 + 0.4 * (1 - u));
+        if (th < d) r = 0.2 + 0.16 * clamp(d);
+        else continue;
+      }
     } else continue;
     out.push({ x: rx + (x + 0.5) * (rw / cols), y: ry + (y + 0.5) * (rh / rows), r: r * cell * 1.0, g: glyph.has(id) });
   }
