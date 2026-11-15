@@ -51,7 +51,7 @@
   padding: 1.6rem 0; border-top: 1px dotted #ffffff2e;
 }
 .brows .brow:last-child { border-bottom: 1px dotted #ffffff2e; }
-.brow__thumb { grid-row: 1 / span 3; align-self: start; padding-top: .2rem; }
+.brow__thumb { grid-row: 1 / span 3; align-self: start; margin-top: .2rem; }
 .brow__dots { display: block; width: 100%; }
 .brow__meta { display: flex; flex-wrap: wrap; gap: .25rem .9rem; font: 500 .68rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
 .brow__cat { position: relative; z-index: 1; color: var(--mute); text-decoration: none; }
@@ -110,20 +110,21 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__meta .post__n { font: 700 1.1rem/1 var(--dots); letter-spacing: 0; }
 .post__cover { margin: 0 0 3rem; }
 .post__cover canvas { display: block; width: 100%; filter: drop-shadow(0 0 14px #f4f2ee1c); }
-/* with a featured image: the real picture (alt, size: what search engines and
-   previews read) under its halftone. blog.js cycles it while it is on screen
-   (dots → black and white → colour → black and white → dots), writing the
-   filters itself. With reduced motion it rests .is-shown: the photo in black
-   and white, no dots, and hover brings the colour in and out. */
-.post__cover--img { position: relative; }
-.post__cover--img picture { position: absolute; inset: 0; overflow: hidden; filter: brightness(.32) contrast(1.1); }
+/* a featured image (article cover, the blog's featured post, post rows): the
+   real picture (the article's carries alt and size: what search engines and
+   previews read) under its halftone. coverLoop (parts.js) cycles it while it
+   is on screen (dots → black and white → colour → black and white → dots),
+   writing the filters itself. With reduced motion it rests .is-shown: the
+   photo in black and white, no dots, and hover brings the colour in and out. */
+.cover-loop { position: relative; }
+.cover-loop picture { position: absolute; inset: 0; overflow: hidden; filter: brightness(.32) contrast(1.1); }
 /* object-position matches the crop the dots use (toneAt: centred, 15 % down) */
-.post__cover--img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; filter: grayscale(1); }
-.post__cover--img canvas { position: relative; }
-.post__cover--img.is-shown picture { filter: none; }
-.post__cover--img.is-shown canvas { visibility: hidden; }
-.post__cover--img.is-shown img { transition: filter .7s var(--ease); }
-.post__cover--img.is-shown:hover img { filter: grayscale(0); }
+.cover-loop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; filter: grayscale(1); }
+.cover-loop canvas { position: relative; }
+.cover-loop.is-shown picture { filter: none; }
+.cover-loop.is-shown canvas { visibility: hidden; }
+.cover-loop.is-shown img { transition: filter .7s var(--ease); }
+.cover-loop.is-shown:hover img { filter: grayscale(0); }
 
 .post__grid { display: grid; gap: 2rem; }
 .toc { border-top: 1px dotted var(--faint); border-bottom: 1px dotted var(--faint); }

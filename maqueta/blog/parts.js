@@ -151,17 +151,66 @@ export function coverPicture(p, img = {}) {
     el('img', { src: f + '.jpg', alt: p.cover.alt, width: p.cover.w, height: p.cover.h, decoding: 'async', ...img }));
 }
 
+// A featured image cycles on its own while it is on screen (the article's
+// cover, the blog's featured post, every post row):
+// dots → black and white → colour → black and white → dots, and again.
+// One clock drives everything (no chained CSS transitions), so each step
+// flows into the next and the loop has no seam. The dots don't fade: they
+// come apart and gather with the engine itself (draw(p), 1 → 0 → 1).
+// `fig` holds the <picture> and the canvas (.cover-loop); `block()` returns
+// its current DotBlock (it is rebuilt on resize); `offset` (s) staggers a
+// list so its rows don't breathe together. Paused off screen; with reduced
+// motion it rests in black and white (.is-shown) and hover gives the colour.
+// The caller marks its block as looping, so nothing else draws it.
+const LOOP = [            // [seconds, dots, light, colour] at the end of each step
+  [1.6, 1, 0, 0],         // hold: dots
+  [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
+  [0.9, 0, 1, 0],         // hold: black and white
+  [1.6, 0, 1, 1],         // colour comes in
+  [2.0, 0, 1, 1],         // hold: colour
+  [1.6, 0, 1, 0],         // colour goes
+  [0.9, 0, 1, 0],         // hold: black and white
+  [1.8, 1, 0, 0]          // the photo sinks, the dots gather
+];
+const LOOP_T = LOOP.reduce((s, x) => s + x[0], 0);
+const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+export function coverLoop(fig, block, { offset = 0 } = {}) {
+  const pic = fig.querySelector('picture'), img = fig.querySelector('img');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return fig.classList.add('is-shown');
+  let on = false, t0 = performance.now() - offset * 1000, paused = t0 + offset * 1000;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting === on) return;
+    on = e.isIntersecting;
+    if (on) { t0 += performance.now() - paused; requestAnimationFrame(frame); } else paused = performance.now();
+  }).observe(fig);
+  function frame(now) {
+    if (!on) return;
+    let t = ((now - t0) / 1000) % LOOP_T, prev = LOOP[LOOP.length - 1], v = prev.slice(1);
+    for (const step of LOOP) {
+      if (t <= step[0]) { const k = ease(t / step[0]); v = [1, 2, 3].map((j) => prev[j] + (step[j] - prev[j]) * k); break; }
+      t -= step[0]; prev = step;
+    }
+    const [dots, light, colour] = v, b = block();
+    if (b) b.draw(dots, true);
+    pic.style.filter = `brightness(${0.32 + 0.68 * light}) contrast(${1.1 - 0.1 * light})`;
+    img.style.filter = `grayscale(${1 - colour})`;
+    requestAnimationFrame(frame);
+  }
+}
+
 // one row of a post list: screen thumbnail · date · title · excerpt · category
 export function row(p, b) {
   const cat = b.categories[p.category];
   const cv = el('canvas', { class: 'brow__dots', 'aria-hidden': 'true' });
   const li = el('li', { class: 'brow' },
-    el('div', { class: 'brow__thumb' }, cv),
+    // with a featured image the thumbnail is its picture under its dots (alt
+    // empty: the title next to it already says what the row is)
+    p.cover ? el('div', { class: 'brow__thumb cover-loop' }, coverPicture(p, { alt: '', loading: 'lazy' }), cv) : el('div', { class: 'brow__thumb' }, cv),
     el('p', { class: 'brow__meta' },
       el('time', { datetime: p.date, text: dateShort(p.date) }),
       el('a', { class: 'brow__cat', href: catUrl(cat.id), text: cat.name }),
       el('span', { text: B.minShort(p.minutes) })),
     el('h3', { class: 'brow__title', lang: p.postLang !== lang ? p.postLang : null }, el('a', { href: postUrl(p), text: p.title })),
     el('p', { class: 'brow__excerpt', lang: p.postLang !== lang ? p.postLang : null, text: p.excerpt }));
-  return { li, cv, dots: postDots(p, b.posts, cat.kind), tone: coverTone(p) };
+  return { li, cv, fig: p.cover ? cv.parentElement : null, dots: postDots(p, b.posts, cat.kind), tone: coverTone(p) };
 }

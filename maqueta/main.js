@@ -1,5 +1,5 @@
 import { content, blog } from './shared/content.js';
-import { B, row, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
+import { B, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
 
@@ -162,11 +162,12 @@ function build() {
   const ys = bl.posts.map((p) => p.year);
   $('#blog-count').textContent = B.count(bl.posts.length, Math.min(...ys), Math.max(...ys));
   $('#blog-all').href = blogUrl();
-  bl.posts.slice(0, 3).forEach((p) => {
+  bl.posts.slice(0, 3).forEach((p, k) => {
     const r = row(p, bl);
     $('#blog-rows').append(r.li);
     const rb = { make: (cell) => new DotBlock(r.cv, { cell, rows: 9, ...r.dots, label: '', tone: tones['post:' + p.id] }), stage: r.cv, deco: true };
     blocks.push(rb);
+    if (r.fig) { rb.looping = true; coverLoop(r.fig, () => rb.block, { offset: 1.3 * k }); }
     if (r.tone) loadTone(r.tone).then((tn) => {
       if (!tn) return;
       tones['post:' + p.id] = tn;
@@ -205,7 +206,7 @@ const visible = new Set();
 const io = new IntersectionObserver((es) => es.forEach((e) => {
   blocks.filter((x) => x.stage === e.target).forEach((x) => {
     if (e.isIntersecting) visible.add(x);
-    else { visible.delete(x); if (x.block && !reduce && !x.fixed) x.block.draw(0); }
+    else { visible.delete(x); if (x.block && !reduce && !x.fixed && !x.looping) x.block.draw(0); }
   });
   schedule();
 }), { rootMargin: '15% 0px' });
@@ -214,7 +215,7 @@ function tick() {
   pending = false;
   const vh = innerHeight;
   for (const b of visible) {
-    if (!b.block) continue;
+    if (!b.block || b.looping) continue;
     if (reduce || b.fixed) { b.block.draw(1); continue; }
     const r = b.stage.getBoundingClientRect();
     const enter = clamp((vh - r.top) / (vh * 0.55));

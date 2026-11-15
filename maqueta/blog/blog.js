@@ -6,7 +6,7 @@
 // Unknown ids render a "not found" page (the 404 of the sandbox).
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
+import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
@@ -82,51 +82,6 @@ function assemble(s) {
   };
   requestAnimationFrame(step);
 }
-// The featured image cycles on its own while it is on screen:
-// dots → black and white → colour → black and white → dots, and again.
-// One clock drives everything (no chained CSS transitions), so each step
-// flows into the next and the loop has no seam. The dots don't fade: they
-// come apart and gather with the engine itself (draw(p), 1 → 0 → 1).
-// Paused off screen; with reduced motion it rests in black and white
-// (.is-shown) and hover gives the colour.
-const LOOP = [            // [seconds, dots, light, colour] at the end of each step
-  [1.6, 1, 0, 0],         // hold: dots
-  [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
-  [0.9, 0, 1, 0],         // hold: black and white
-  [1.6, 0, 1, 1],         // colour comes in
-  [2.0, 0, 1, 1],         // hold: colour
-  [1.6, 0, 1, 0],         // colour goes
-  [0.9, 0, 1, 0],         // hold: black and white
-  [1.8, 1, 0, 0]          // the photo sinks, the dots gather
-];
-const LOOP_T = LOOP.reduce((s, x) => s + x[0], 0);
-const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-function coverLoop(s) {
-  const fig = s.cv.parentElement, pic = fig.querySelector('picture'), img = fig.querySelector('img');
-  s.looping = true;  // assemble() leaves it alone
-  if (reduce) { s.block?.draw(0, true); return fig.classList.add('is-shown'); }
-  let on = true, t0 = performance.now(), paused = 0;
-  new IntersectionObserver(([e]) => {
-    if (e.isIntersecting === on) return;
-    on = e.isIntersecting;
-    if (on) { t0 += performance.now() - paused; requestAnimationFrame(frame); } else paused = performance.now();
-  }).observe(fig);
-  function frame(now) {
-    if (!on) return;
-    let t = ((now - t0) / 1000) % LOOP_T, prev = LOOP[LOOP.length - 1], v = prev.slice(1);
-    for (const step of LOOP) {
-      if (t <= step[0]) { const k = ease(t / step[0]); v = [1, 2, 3].map((j) => prev[j] + (step[j] - prev[j]) * k); break; }
-      t -= step[0]; prev = step;
-    }
-    const [dots, light, colour] = v;
-    if (s.block) s.block.draw(dots, true);
-    pic.style.filter = `brightness(${0.32 + 0.68 * light}) contrast(${1.1 - 0.1 * light})`;
-    img.style.filter = `grayscale(${1 - colour})`;
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
-
 const io = new IntersectionObserver((es) => es.forEach((e) => {
   if (!e.isIntersecting) return;
   screens.filter((s) => s.cv === e.target).forEach(assemble);
@@ -191,7 +146,8 @@ function rows(posts, { group = true } = {}) {
     }
     const r = row(p, b);
     ol.append(r.li);
-    screen(r.cv, { rows: 9, ...r.dots, label: '' }, r.tone);
+    const sc = screen(r.cv, { rows: 9, ...r.dots, label: '' }, r.tone);
+    if (r.fig) { sc.looping = true; coverLoop(r.fig, () => sc.block, { offset: 1.3 * ol.children.length }); }
   }
   return wrap;
 }
@@ -209,9 +165,13 @@ function pager(cur, total, to) {
 function featured(p) {
   const cat = b.categories[p.category];
   const cv = el('canvas', { 'aria-hidden': 'true' });
-  screen(cv, (cell) => ({ rows: innerWidth < 1024 ? 22 : 30, ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
+  const sc = screen(cv, (cell) => ({ rows: innerWidth < 1024 ? 22 : 30, ...postDots(p, b.posts, cat.kind) }), coverTone(p));
+  const dots = p.cover
+    ? el('div', { class: 'feat__dots cover-loop' }, coverPicture(p, { alt: '' }), cv)
+    : el('div', { class: 'feat__dots' }, cv);
+  if (p.cover) { sc.looping = true; coverLoop(dots, () => sc.block); }
   return el('article', { class: 'feat' },
-    el('div', { class: 'feat__dots' }, cv),
+    dots,
     el('div', { class: 'feat__text' },
       el('p', { class: 'feat__kicker' }, el('span', { text: B.latest }), ' · ', el('a', { href: catUrl(cat.id), text: cat.name })),
       el('h2', { class: p.title.length > 48 ? 'feat__title feat__title--long' : 'feat__title' }, el('a', { href: postUrl(p), text: p.title })),
@@ -478,7 +438,7 @@ function postPage() {
     ? Math.round(Math.min(innerHeight * 0.6, (cover.parentElement?.clientWidth || innerWidth) / 2.4) / cell)
     : innerWidth < 768 ? 18 : innerWidth < 1024 ? 22 : 26);
   const coverScreen = screen(cover, (cell) => ({ rows: coverRows(cell), ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
-  if (p.cover) requestAnimationFrame(() => coverLoop(coverScreen));
+  if (p.cover) { coverScreen.looping = true; requestAnimationFrame(() => coverLoop(cover.parentElement, () => coverScreen.block)); }
 
   // prev/next (older = next in reading order down the list)
   const newer = b.posts[i - 1], older = b.posts[i + 1];
@@ -502,7 +462,7 @@ function postPage() {
         el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })),
         p.url ? el('div', {}, el('dt', { text: B.original }), el('dd', {}, el('a', { href: p.url, target: '_blank', rel: 'noopener', text: new URL(p.url).hostname + ' ↗' }))) : null)),
     p.cover
-      ? el('figure', { class: 'post__cover post__cover--img' }, coverPicture(p, { fetchpriority: 'high' }), cover)
+      ? el('figure', { class: 'post__cover cover-loop' }, coverPicture(p, { fetchpriority: 'high' }), cover)
       : el('div', { class: 'post__cover' }, cover),
     el('div', { class: 'post__grid' }, aside, el('div', { class: 'post__main' },
       body,
