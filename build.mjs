@@ -409,7 +409,7 @@ const page = (lang) => {
   const u = ui[lang];
   const shelfId = lang === 'es' ? 'proyectos' : 'projects';
   // an alternative version of the cassette: it names the cassette as canonical
-  const url = homeUrl(lang);
+  const url = cassetteUrl(lang);
   const bio = { id: 'bio', n: 0, code: 'NM-000', name: site.name, year: 'MMXXVI', material: 'HTML · CSS', use: t.kicker.split('·')[0].trim(), since: t.established, short: site.nick };
   return `<!doctype html>
 <html data-theme="disquetes" lang="${lang}" class="no-js">
@@ -544,7 +544,7 @@ const vhsPage = (lang) => {
   const v = u.vhs;
   const shelfId = lang === 'es' ? 'proyectos' : 'projects';
   // an alternative version of the cassette: it names the cassette as canonical
-  const url = homeUrl(lang);
+  const url = cassetteUrl(lang);
   const bio = {
     id: 'bio', n: 0, code: 'NM-000', name: site.name, year: 'MMXXVI', rate: yy(new Date().getFullYear()),
     use: t.kicker, quote: plain(t.deck).replace(/^“|”$/g, ''), art: null
@@ -665,7 +665,7 @@ ${masthead(lang, t, u, { bioHref: '#tv' })}
   </ol>
 </section>
 </main>
-${colophon(t, u, { href: `../../cassette/${lang}/`, code: u.cassetteCode, label: u.cassetteVersion }, '', { theme: false })}
+${colophon(t, u, { href: lang === 'es' ? '../../' : '../../cassette/en/', code: u.cassetteCode, label: u.cassetteVersion }, '', { theme: false })}
 </body>
 </html>
 `;
@@ -852,10 +852,10 @@ const verifyMeta = () => [
   site.verification?.bing ? `<meta name="msvalidate.01" content="${esc(site.verification.bing)}">` : ''
 ].filter(Boolean).join('\n  ');
 
-// The Digital version is the site: in Spanish it lives at the root (and at
-// /digital/es/, which names the root as its canonical address); in English at
-// /digital/en/. The other versions (Cassette, Disquetes, VHS) name these as canonical.
-const homeUrl = (l) => (l === 'es' ? `${site.baseUrl}/` : `${site.baseUrl}/digital/${l}/`);
+// The cassette is the site: in Spanish it lives at the root (and at
+// /cassette/es/, which names the root as its canonical address); in English at
+// /cassette/en/.
+const cassetteUrl = (l) => (l === 'es' ? `${site.baseUrl}/` : `${site.baseUrl}/cassette/${l}/`);
 // Each project has its own page, the one a search engine can index and a link
 // can point to (the cassette only shows a project by its hash): /proyectos/luz/,
 // /projects/luz/.
@@ -882,14 +882,12 @@ const jsonLd = (lang, t, url) => {
   ];
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 };
-// The Cassette and the Digital version are the same page (cassette.js drives
-// both): Digital draws it in line (themes/digital.css, digital.css over cassette.css).
-const cassettePage = (lang, { digital = false } = {}) => {
+const cassettePage = (lang) => {
   const t = { ...site.i18n[lang], lang };
   const u = ui[lang];
   const c = u.cassette;
   const shelfId = lang === 'es' ? 'proyectos' : 'projects';
-  const url = homeUrl(lang);
+  const url = cassetteUrl(lang);
   // the house tape, the bio: titled "Sobre mí" / "About me"; it stands first in
   // the rack and is in the deck whenever no project is
   const bio = {
@@ -922,7 +920,7 @@ const cassettePage = (lang, { digital = false } = {}) => {
         </a>
       </li>`;
   return `<!doctype html>
-<html data-theme="${digital ? 'digital' : 'cassette'}" lang="${lang}" class="no-js">
+<html data-theme="cassette" lang="${lang}" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -933,26 +931,25 @@ const cassettePage = (lang, { digital = false } = {}) => {
   ${THEME_BOOT('../../')}
   <link rel="icon" href="${ICON}" type="image/svg+xml">
   <link rel="canonical" href="${url}">
-  ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${homeUrl(l)}">`).join('\n  ')}
-  <link rel="alternate" hreflang="x-default" href="${homeUrl('es')}">
+  ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${cassetteUrl(l)}">`).join('\n  ')}
+  <link rel="alternate" hreflang="x-default" href="${cassetteUrl('es')}">
   <script type="application/ld+json">${jsonLd(lang, t, url)}</script>
   ${socialMeta({ lang, title: `${site.name} · ${t.title}`, description: t.metaDescription, url, image: ogImage(lang, 'home') })}
   <link rel="preload" href="../../assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/chakra-petch-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/vendor/luz/tokens.min.css">
-  <link rel="stylesheet" href="../../assets/css/themes/${digital ? 'digital' : 'cassette'}.css">
+  <link rel="stylesheet" href="../../assets/css/themes/cassette.css">
   <link rel="stylesheet" href="../../assets/css/archivo.css">
   <link rel="stylesheet" href="../../assets/css/chrome.css">
   <link rel="preload" href="../../assets/fonts/special-elite-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/cassette.css">
-  ${digital ? '<link rel="stylesheet" href="../../assets/css/digital.css">' : ''}
   <script>document.documentElement.classList.replace('no-js','js')</script>
   <script type="module" src="../../assets/js/cassette.js"></script>
   ${THEME_MODE_JS('../../')}
 </head>
-<body class="cas${digital ? ' dig' : ''}">
+<body class="cas">
 <a class="skip" href="#main">${t.skip}</a>
-${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (digital ? (k === 'es' ? '../../' : '../en/') : `../${k}/`) })}
+${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (k === 'es' ? '../../' : '../en/') })}
 <main id="main">
 <div class="studio">
   <div class="studio__spine" aria-hidden="true"></div>
@@ -1072,7 +1069,7 @@ ${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (digital ? (k === '
     </span>
   </div>
 </div>
-${colophon(t, u, digital ? { href: `../../cassette/${lang}/`, code: u.cassetteCode, label: u.cassetteVersion } : { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion }, voiceCredit(lang, c))}
+${colophon(t, u, { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion }, voiceCredit(lang, c))}
 </body>
 </html>
 `;
@@ -1096,7 +1093,7 @@ const projectPage = (lang, p, i) => {
   const total = o.body.reduce((n, b) => n + trackLen(b), 0);
   o.length = total > 15 * 60 ? 'C90' : 'C60';
   const url = projectUrl(lang, p.id);
-  const home = lang === 'es' ? '../../' : '../../digital/en/';
+  const home = lang === 'es' ? '../../' : '../../cassette/en/';
   const title = `${p.name} · ${o.use} · ${site.name}`;
   const description = sentences(o.body[0]);
   const card = notes(o, c, lang, {
@@ -1116,15 +1113,15 @@ const projectPage = (lang, p, i) => {
     },
     {
       '@type': 'BreadcrumbList', itemListElement: [
-        { '@type': 'ListItem', position: 1, name: u.project.home, item: homeUrl(lang) },
-        { '@type': 'ListItem', position: 2, name: u.shelf, item: `${homeUrl(lang)}#${lang === 'es' ? 'proyectos' : 'projects'}` },
+        { '@type': 'ListItem', position: 1, name: u.project.home, item: cassetteUrl(lang) },
+        { '@type': 'ListItem', position: 2, name: u.shelf, item: `${cassetteUrl(lang)}#${lang === 'es' ? 'proyectos' : 'projects'}` },
         { '@type': 'ListItem', position: 3, name: p.name, item: url }
       ]
     },
     personNode(t)
   ];
   return `<!doctype html>
-<html data-theme="digital" lang="${lang}">
+<html data-theme="cassette" lang="${lang}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1142,16 +1139,15 @@ const projectPage = (lang, p, i) => {
   <link rel="preload" href="../../assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/chakra-petch-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/vendor/luz/tokens.min.css">
-  <link rel="stylesheet" href="../../assets/css/themes/digital.css">
+  <link rel="stylesheet" href="../../assets/css/themes/cassette.css">
   <link rel="stylesheet" href="../../assets/css/archivo.css">
   <link rel="stylesheet" href="../../assets/css/chrome.css">
   <link rel="preload" href="../../assets/fonts/special-elite-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/cassette.css">
-  <link rel="stylesheet" href="../../assets/css/digital.css">
   <script type="module" src="../../assets/js/chrome.js"></script>
   ${THEME_MODE_JS('../../')}
 </head>
-<body class="cas dig">
+<body class="cas">
 <a class="skip" href="#main">${t.skip}</a>
 ${masthead(lang, t, u, { bioHref: home, home, shelfHref: `${home}#${lang === 'es' ? 'proyectos' : 'projects'}`, tag: 'p', langHref: (k) => `../../${ui[k].project.slug}/${p.id}/` })}
 <main id="main" class="project">
@@ -1243,11 +1239,11 @@ const toCassette = (lang) => `<!doctype html>
 <head>
   <meta charset="utf-8">
   <title>${site.name}</title>
-  <link rel="canonical" href="${homeUrl(lang)}">
-  <meta http-equiv="refresh" content="0; url=${lang === 'es' ? '../' : '../digital/en/'}">
-  <script>location.replace('${lang === 'es' ? '../' : '../digital/en/'}' + location.hash);</script>
+  <link rel="canonical" href="${cassetteUrl(lang)}">
+  <meta http-equiv="refresh" content="0; url=${lang === 'es' ? '../' : '../cassette/en/'}">
+  <script>location.replace('${lang === 'es' ? '../' : '../cassette/en/'}' + location.hash);</script>
 </head>
-<body><p><a href="${lang === 'es' ? '../' : '../digital/en/'}">${site.name}</a></p></body>
+<body><p><a href="${lang === 'es' ? '../' : '../cassette/en/'}">${site.name}</a></p></body>
 </html>
 `;
 for (const lang of LANGS) {
@@ -1256,12 +1252,9 @@ for (const lang of LANGS) {
 }
 // the site's front door is the cassette itself, in Spanish (no redirect): the
 // same page with its paths taken from the root
-write('index.html', cassettePage('es', { digital: true })
+write('index.html', cassettePage('es')
   .replaceAll('"../../', '"')
-  .replaceAll('href="../en/"', 'href="digital/en/"'));
-clear('digital');
-for (const lang of LANGS) write(`digital/${lang}/index.html`, cassettePage(lang, { digital: true }));
-write('digital/index.html', toLanguage('', '../assets/favicon.svg'));
+  .replaceAll('href="../en/"', 'href="cassette/en/"'));
 clear('vhs');
 for (const lang of LANGS) write(`vhs/${lang}/index.html`, vhsPage(lang));
 write('vhs/index.html', toLanguage('', '../assets/favicon.svg'));
@@ -1282,9 +1275,9 @@ write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.baseUrl}/sitemap
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${LANGS.map((l) => `  <url>
-    <loc>${homeUrl(l)}</loc>
-${LANGS.map((a) => `    <xhtml:link rel="alternate" hreflang="${a}" href="${homeUrl(a)}"/>`).join('\n')}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${homeUrl('es')}"/>
+    <loc>${cassetteUrl(l)}</loc>
+${LANGS.map((a) => `    <xhtml:link rel="alternate" hreflang="${a}" href="${cassetteUrl(a)}"/>`).join('\n')}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${cassetteUrl('es')}"/>
   </url>`).join('\n')}
 ${projects.map((p) => LANGS.map((l) => `  <url>
     <loc>${projectUrl(l, p.id)}</loc>
@@ -1328,7 +1321,7 @@ write('404.html', `<!doctype html>
     <h1>404</h1>
     <p lang="es">Esta página no existe.</p>
     <p lang="en">This page does not exist.</p>
-    <nav><a href="/">Ir al portafolio</a><a href="/digital/en/" hreflang="en" lang="en">English edition</a></nav>
+    <nav><a href="/">Ir al portafolio</a><a href="/cassette/en/" hreflang="en" lang="en">English edition</a></nav>
   </main>
 </body>
 </html>
