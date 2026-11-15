@@ -111,10 +111,10 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__cover { margin: 0 0 3rem; }
 .post__cover canvas { display: block; width: 100%; filter: drop-shadow(0 0 14px #f4f2ee1c); }
 /* with a featured image: the real picture (alt, size: what search engines and
-   previews read) under its halftone. It starts sunk and grey under the dots;
-   blog.js plays its entrance once (dots → black and white → colour → black and
-   white) and leaves it .is-shown: the photo in black and white, no dots, and
-   hover brings the colour in and out. */
+   previews read) under its halftone. blog.js cycles it while it is on screen
+   (dots → black and white → colour → black and white → dots), writing the
+   filters itself. With reduced motion it rests .is-shown: the photo in black
+   and white, no dots, and hover brings the colour in and out. */
 .post__cover--img { position: relative; }
 .post__cover--img picture { position: absolute; inset: 0; overflow: hidden; filter: brightness(.32) contrast(1.1); }
 /* object-position matches the crop the dots use (toneAt: centred, 15 % down) */

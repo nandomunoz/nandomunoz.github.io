@@ -72,7 +72,7 @@ function build() {
   }
 }
 function assemble(s) {
-  if (s.intro) return;
+  if (s.looping) return;
   if (reduce) return s.block.draw(1, true);
   const t0 = performance.now(), from = s.block.p;
   const step = (now) => {
@@ -82,52 +82,49 @@ function assemble(s) {
   };
   requestAnimationFrame(step);
 }
-// The featured image's entrance, once, when the cover comes into view:
-// the dots gather (the only time they show), come apart as the photo rises
-// in black and white, the colour comes in, and it settles back to black and
-// white, where it stays (hover gives the colour, CSS). One clock drives it
-// all, so each step flows into the next; the dots gather and part with the
-// engine's own draw(p), not a fade.
-const INTRO = [           // [seconds, dots, light, colour] at the end of each step
-  [1.3, 1, 0, 0],         // the dots gather
-  [0.7, 1, 0, 0],         // hold: dots
-  [1.8, 0, 1, 0],         // they come apart, the photo rises in black and white
-  [0.5, 0, 1, 0],         // hold: black and white
-  [1.4, 0, 1, 1],         // colour comes in
-  [1.0, 0, 1, 1],         // hold: colour
-  [1.4, 0, 1, 0]          // colour goes: black and white, to stay
+// The featured image cycles on its own while it is on screen:
+// dots → black and white → colour → black and white → dots, and again.
+// One clock drives everything (no chained CSS transitions), so each step
+// flows into the next and the loop has no seam. The dots don't fade: they
+// come apart and gather with the engine itself (draw(p), 1 → 0 → 1).
+// Paused off screen; with reduced motion it rests in black and white
+// (.is-shown) and hover gives the colour.
+const LOOP = [            // [seconds, dots, light, colour] at the end of each step
+  [1.6, 1, 0, 0],         // hold: dots
+  [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
+  [0.9, 0, 1, 0],         // hold: black and white
+  [1.6, 0, 1, 1],         // colour comes in
+  [2.0, 0, 1, 1],         // hold: colour
+  [1.6, 0, 1, 0],         // colour goes
+  [0.9, 0, 1, 0],         // hold: black and white
+  [1.8, 1, 0, 0]          // the photo sinks, the dots gather
 ];
+const LOOP_T = LOOP.reduce((s, x) => s + x[0], 0);
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-function coverIntro(s) {
+function coverLoop(s) {
   const fig = s.cv.parentElement, pic = fig.querySelector('picture'), img = fig.querySelector('img');
-  s.intro = true;  // assemble() leaves it alone
-  const done = () => {
-    pic.style.filter = img.style.filter = '';
-    fig.classList.remove('is-intro');
-    fig.classList.add('is-shown');
-  };
-  if (reduce) return done();
-  fig.classList.add('is-intro');
-  const io = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    io.disconnect();
-    const t0 = performance.now();
-    const frame = (now) => {
-      let t = (now - t0) / 1000, prev = [0, 0, 0, 0], v = null;
-      for (const step of INTRO) {
-        if (t <= step[0]) { const k = ease(t / step[0]); v = [1, 2, 3].map((j) => prev[j] + (step[j] - prev[j]) * k); break; }
-        t -= step[0]; prev = step;
-      }
-      if (!v) { if (s.block) s.block.draw(0, true); return done(); }
-      const [dots, light, colour] = v;
-      if (s.block) s.block.draw(dots, true);
-      pic.style.filter = `brightness(${0.32 + 0.68 * light}) contrast(${1.1 - 0.1 * light})`;
-      img.style.filter = `grayscale(${1 - colour})`;
-      requestAnimationFrame(frame);
-    };
+  s.looping = true;  // assemble() leaves it alone
+  if (reduce) { s.block?.draw(0, true); return fig.classList.add('is-shown'); }
+  let on = true, t0 = performance.now(), paused = 0;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting === on) return;
+    on = e.isIntersecting;
+    if (on) { t0 += performance.now() - paused; requestAnimationFrame(frame); } else paused = performance.now();
+  }).observe(fig);
+  function frame(now) {
+    if (!on) return;
+    let t = ((now - t0) / 1000) % LOOP_T, prev = LOOP[LOOP.length - 1], v = prev.slice(1);
+    for (const step of LOOP) {
+      if (t <= step[0]) { const k = ease(t / step[0]); v = [1, 2, 3].map((j) => prev[j] + (step[j] - prev[j]) * k); break; }
+      t -= step[0]; prev = step;
+    }
+    const [dots, light, colour] = v;
+    if (s.block) s.block.draw(dots, true);
+    pic.style.filter = `brightness(${0.32 + 0.68 * light}) contrast(${1.1 - 0.1 * light})`;
+    img.style.filter = `grayscale(${1 - colour})`;
     requestAnimationFrame(frame);
-  }, { rootMargin: '0px 0px -15% 0px' });
-  io.observe(fig);
+  }
+  requestAnimationFrame(frame);
 }
 
 const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -481,7 +478,7 @@ function postPage() {
     ? Math.round(Math.min(innerHeight * 0.6, (cover.parentElement?.clientWidth || innerWidth) / 2.4) / cell)
     : innerWidth < 768 ? 18 : innerWidth < 1024 ? 22 : 26);
   const coverScreen = screen(cover, (cell) => ({ rows: coverRows(cell), ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
-  if (p.cover) requestAnimationFrame(() => coverIntro(coverScreen));
+  if (p.cover) requestAnimationFrame(() => coverLoop(coverScreen));
 
   // prev/next (older = next in reading order down the list)
   const newer = b.posts[i - 1], older = b.posts[i + 1];
