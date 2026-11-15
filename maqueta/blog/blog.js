@@ -82,6 +82,59 @@ function assemble(s) {
   };
   requestAnimationFrame(step);
 }
+
+// the share dialog (when there is no system share sheet): the link, a button
+// to copy it, and the usual places as plain links (nothing loads from them
+// until the reader picks one). Built once, refilled on each open.
+let shareDlg = null;
+function shareDialog({ title, url: link }) {
+  const e = encodeURIComponent, t = e(title), u = e(link);
+  const places = [
+    ['WhatsApp', `https://wa.me/?text=${t}%20${u}`],
+    ['X (Twitter)', `https://twitter.com/intent/tweet?text=${t}&url=${u}`],
+    ['Telegram', `https://t.me/share/url?url=${u}&text=${t}`],
+    ['LinkedIn', `https://www.linkedin.com/sharing/share-offsite/?url=${u}`],
+    ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${u}`],
+    ['Bluesky', `https://bsky.app/intent/compose?text=${t}%20${u}`],
+    [B.email, `mailto:?subject=${t}&body=${u}`]
+  ];
+  if (!shareDlg) {
+    const close = el('button', { type: 'button', class: 'share__close' }, el('span', { text: B.close }), el('span', { 'aria-hidden': 'true', text: ' ×' }));
+    shareDlg = el('dialog', { class: 'consent__dialog share__dialog', 'aria-labelledby': 'share-title' },
+      el('div', { class: 'share__head' },
+        el('h2', { class: 'consent__dialog-title', id: 'share-title', text: B.shareThis }), close),
+      el('p', { class: 'share__what' }),
+      el('label', { class: 'share__field-label', for: 'share-url', text: B.shareLink }),
+      el('div', { class: 'share__copy' },
+        el('input', { class: 'share__url', id: 'share-url', type: 'text', readonly: '' }),
+        el('button', { type: 'button', class: 'share__btn share__copybtn' }, el('span', { text: B.copy }))),
+      el('p', { class: 'share__status', role: 'status' }),
+      el('p', { class: 'share__field-label', id: 'share-on', text: B.shareOn }),
+      el('ul', { class: 'share__places', 'aria-labelledby': 'share-on' }));
+    close.addEventListener('click', () => shareDlg.close());
+    shareDlg.addEventListener('click', (ev) => {
+      if (ev.target === shareDlg) shareDlg.close();               // a click on the backdrop
+      else if (ev.target.closest('.share__places a')) shareDlg.close();
+    });
+    const field = $('.share__url', shareDlg), status = $('.share__status', shareDlg);
+    field.addEventListener('focus', () => field.select());
+    $('.share__copybtn', shareDlg).addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(field.value); status.textContent = B.copied; } catch { field.focus(); status.textContent = B.copyFail; }
+      clearTimeout(status.tm);
+      status.tm = setTimeout(() => { status.textContent = ''; }, 2400);
+    });
+    document.body.append(shareDlg);
+  }
+  $('.share__what', shareDlg).textContent = title;
+  $('.share__url', shareDlg).value = link;
+  $('.share__status', shareDlg).textContent = '';
+  $('.share__places', shareDlg).replaceChildren(...places.map(([name, href]) => el('li', {},
+    href.startsWith('mailto:')
+      ? el('a', { href, text: name })
+      : el('a', { href, target: '_blank', rel: 'noopener' }, el('span', { text: name }), el('span', { class: 'vh', text: ' ' + B.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })))));
+  return shareDlg;
+}
+
 const io = new IntersectionObserver((es) => es.forEach((e) => {
   if (!e.isIntersecting) return;
   screens.filter((s) => s.cv === e.target).forEach(assemble);
@@ -410,20 +463,20 @@ function postPage() {
   p.body.forEach((x, k) => { const n = renderBlock(x, k, toc, ids); if (n) body.append(n); });
   $$('a[href^="http"]', body).forEach((a) => { a.target = '_blank'; a.rel = 'noopener'; });
 
-  // share
+  // share: one button. The system's own share sheet where the browser has
+  // one (navigator.share: phones, Safari, Chrome on Windows/macOS); anywhere
+  // else, or if it fails for any reason but the reader cancelling, a dialog
+  // with the link to copy and the usual places
   const share = el('div', { class: 'share' }, el('p', { class: 'share__label', text: B.share }));
-  const copy = el('button', { type: 'button', class: 'share__btn' }, el('span', { text: B.copy }));
-  copy.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(location.href); } catch { /* the sandbox may be on plain http */ }
-    copy.firstChild.textContent = B.copied;
-    setTimeout(() => { copy.firstChild.textContent = B.copy; }, 1800);
+  const shareBtn = el('button', { type: 'button', class: 'share__btn', 'aria-haspopup': 'dialog' }, el('span', { text: B.shareThis }));
+  shareBtn.addEventListener('click', async () => {
+    const data = { title: p.title, text: p.excerpt, url: location.href.replace(/#.*$/, '') };
+    if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
+      try { await navigator.share(data); return; } catch (e) { if (e.name === 'AbortError') return; }
+    }
+    shareDialog(data).showModal();
   });
-  share.append(copy);
-  if (navigator.share) {
-    const sys = el('button', { type: 'button', class: 'share__btn', text: B.share + ' ↗' });
-    sys.addEventListener('click', () => navigator.share({ title: p.title, url: location.href }).catch(() => {}));
-    share.append(sys);
-  }
+  share.append(shareBtn);
 
   const aside = el('aside', { class: 'post__side' },
     toc.length > 1 ? el('details', { class: 'toc', open: innerWidth >= 1024 ? '' : null },

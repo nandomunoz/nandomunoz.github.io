@@ -143,6 +143,19 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .share__btn { font: 600 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; padding: .7rem 0;
   background: radial-gradient(circle, var(--ink) 1px, transparent 1.6px) 0 100% / 6px 6px repeat-x; }
 .share__btn:hover { background-image: radial-gradient(circle, var(--blaze) 1.3px, transparent 1.8px); }
+/* the share dialog: the cookie dialog's sunk card (style.css .consent__dialog) */
+.share__head { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.share__close { font: 600 .7rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; padding: .5rem 0 .7rem; white-space: nowrap; }
+.share__close span:last-child { font: 400 1.2rem/1 Archivo; }
+.share__what { margin: 0 0 1.1rem; color: var(--mute); font-weight: 300; line-height: 1.4; }
+.share__field-label { display: block; margin: 0 0 .45rem; padding-top: .8rem; border-top: 1px dotted var(--faint); font: 500 .62rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+.share__copy { display: flex; gap: 1rem; align-items: center; }
+.share__url { flex: 1; min-width: 0; padding: .6rem .7rem; border: 0; border-radius: 0; background: var(--bg); color: var(--ink); font: 400 .8rem/1.2 var(--mono); }
+.share__status { min-height: 1.4rem; margin: .35rem 0 .4rem; font: 500 .68rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.share__places { list-style: none; margin: 0; padding: 0 0 .4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.4rem; }
+.share__places a { display: block; padding: .8rem 0; font: 600 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .16em; color: var(--ink); text-decoration: none;
+  background: radial-gradient(circle, var(--faint) 1px, transparent 1.5px) 0 100% / 6px 6px repeat-x; }
+.share__places a:hover { background-image: radial-gradient(circle, var(--blaze) 1.3px, transparent 1.8px); }
 
 .prose { display: grid; gap: 1.3rem; max-width: 40rem; font-size: 1.0625rem; line-height: 1.75; }
 .prose p { color: #dedbd5; }
