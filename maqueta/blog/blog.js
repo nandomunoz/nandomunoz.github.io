@@ -8,6 +8,8 @@ import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut } from '../dots.js';
 import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
+import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
+import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 
 const PER_PAGE = 5;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -40,10 +42,10 @@ document.body.prepend(
     el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
-    navItem('03', blogUrl(), B.blog, page !== '404' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
+    navItem('03', blogUrl(), B.blog, page !== '404' && page !== 'cookies' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
   footer(c));
-if (!isProj) document.querySelector('.foot').append(el('p', { class: 'foot__credit', text: B.sample }));
+if (!isProj && page !== 'cookies') document.querySelector('.foot').append(el('p', { class: 'foot__credit', text: B.sample }));
 consent();
 
 // ------------------------------------------------------------- dots
@@ -339,39 +341,42 @@ function renderBlock(x, k, toc, ids) {
   return null;
 }
 
-// YouTube behind a facade: nothing loads from youtube until you press play,
-// and not even then unless the cookie banner (or this button) let YouTube in:
-// without it the facade is plain trama (no thumbnail from i.ytimg.com) and
-// pressing play asks here — watch here (which counts as granting "youtube")
-// or open it on youtube.com
+// YouTube behind a facade: nothing loads from youtube until you press play.
+// Without consent for YouTube (none given yet, or rejected) the frame says so
+// up front — so it never looks broken: the video's title, that it is on
+// YouTube and needs its cookies, "Accept and watch here" (grants "youtube"
+// and plays) and "Watch on YouTube ↗"; no thumbnail is fetched either. With
+// consent it is the usual facade with its thumbnail. A choice made in the
+// cookie banner while the page is open swaps one for the other.
 function video(x) {
   const start = (x.params || '').match(/start=(\d+)/);
   const fig = el('figure', { class: 'video' });
-  const thumb = () => el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' });
-  const btn = el('button', { type: 'button', class: 'video__play', 'aria-label': `${B.play}: ${x.title}` },
-    allowed('youtube') ? thumb() : null,
-    el('span', { class: 'video__btn', 'aria-hidden': 'true' }, el('span', { text: '▶' })),
-    el('span', { class: 'video__title', text: x.title }));
-  const frame = el('div', { class: 'video__frame' }, btn);
+  const frame = el('div', { class: 'video__frame' });
   const play = () => {
     const f = el('iframe', { src: `https://www.youtube-nocookie.com/embed/${x.yt}?autoplay=1${start ? '&start=' + start[1] : ''}`, title: x.title, allow: 'autoplay; encrypted-media; picture-in-picture', allowfullscreen: '' });
     frame.replaceChildren(f); f.focus();
   };
-  btn.addEventListener('click', () => {
-    if (allowed('youtube')) return play();
+  const facade = () => {
+    const btn = el('button', { type: 'button', class: 'video__play', 'aria-label': `${B.play}: ${x.title}` },
+      el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' }),
+      el('span', { class: 'video__btn', 'aria-hidden': 'true' }, el('span', { text: '▶' })),
+      el('span', { class: 'video__title', text: x.title }));
+    btn.addEventListener('click', play);
+    return btn;
+  };
+  const gate = () => {
     const yes = el('button', { type: 'button', class: 'consent__btn', text: CT.gateYes });
-    const gate = el('div', { class: 'video__gate', role: 'group', 'aria-label': x.title },
+    yes.addEventListener('click', () => { grant('youtube'); play(); });
+    return el('div', { class: 'video__gate', role: 'group', 'aria-label': x.title },
+      el('p', { class: 'video__gate-title' }, el('span', { class: 'video__gate-icon', 'aria-hidden': 'true', text: '▶' }), x.title),
       el('p', { text: CT.gate }),
       el('div', { class: 'consent__actions' }, yes,
-        el('a', { class: 'consent__btn', href: `https://www.youtube.com/watch?v=${x.yt}${start ? '&t=' + start[1] + 's' : ''}`, target: '_blank', rel: 'noopener' },
-          CT.gateNo, ' ↗', el('span', { class: 'vh', text: ' ' + CT.newTab }))));
-    yes.addEventListener('click', () => { grant('youtube'); play(); });
-    frame.replaceChildren(gate); yes.focus();
-  });
-  // a choice made in the banner while the page is open brings the thumbnail
-  document.addEventListener('luz:consent', (e) => {
-    if (e.detail.granted.includes('youtube') && btn.isConnected && !btn.querySelector('img')) btn.prepend(thumb());
-  });
+        el('a', { class: 'consent__btn consent__btn--quiet', href: `https://www.youtube.com/watch?v=${x.yt}${start ? '&t=' + start[1] + 's' : ''}`, target: '_blank', rel: 'noopener' },
+          CT.gateNo, '\u00a0↗', el('span', { class: 'vh', text: ' ' + CT.newTab }))));
+  };
+  const show = () => { if (!frame.querySelector('iframe')) frame.replaceChildren(allowed('youtube') ? facade() : gate()); };
+  show();
+  document.addEventListener('luz:consent', () => { if (frame.isConnected && !frame.contains(document.activeElement)) show(); });
   fig.append(...[frame, caption(x.cap)].filter(Boolean));
   return fig;
 }
@@ -547,7 +552,38 @@ function projectPage() {
       el('h2', { id: 'rel-title', class: 'related__title', text: B.moreProjects }), projRows(related, { group: false })) : null));
 }
 
-({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage }[page] || notFound)();
+// the cookie policy: its texts in shared/cookies-policy.js; a summary at a
+// glance, the visitor's current choice (kept up to date) and plain sections
+function cookiesPage() {
+  document.title = `${P.title} · ${c.name}`;
+  const now = () => {
+    const status = el('p');
+    const say = () => {
+      const s = getConsent('luz-consent');
+      status.textContent = !s ? P.now.none : s.granted.includes('youtube') ? P.now.yes : P.now.no;
+    };
+    say();
+    document.addEventListener('luz:consent', say);
+    const change = el('button', { type: 'button', class: 'consent__btn', text: P.now.change });
+    change.addEventListener('click', () => document.querySelector('.foot__consent')?.click());
+    return el('section', { class: 'now', 'aria-labelledby': 'now-title' },
+      el('h2', { class: 'now__title', id: 'now-title', text: P.now.title }),
+      el('div', { 'aria-live': 'polite' }, status), change);
+  };
+  const block = (x) => {
+    if (x.h) return el('h2', { text: x.h });
+    if (x.p) return html('p', {}, x.p.replace('{contact}', homeUrl('#contacto')));
+    if (x.ul) return el('ul', {}, ...x.ul.map((li) => html('li', {}, li)));
+    if (x.glance) return el('dl', { class: 'glance' }, ...x.glance.map(([k, v]) => el('div', {}, el('dt', { text: k }), el('dd', { text: v }))));
+    if (x.now) return now();
+    return null;
+  };
+  put(
+    head({ crumbs: [[B.nfHome, homeUrl()]], title: P.title, deck: P.deck, count: `${P.updated} ${date(UPDATED)} · ${P.read}` }),
+    el('div', { class: 'prose legal' }, ...P.blocks.map(block)));
+}
+
+({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage, cookies: cookiesPage }[page] || notFound)();
 
 // ------------------------------------------------------------- go
 await document.fonts.ready;
