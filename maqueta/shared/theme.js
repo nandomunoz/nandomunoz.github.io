@@ -10,7 +10,11 @@
 // LUZ's element wants a radio group; it stays in the page (hidden by CSS) because
 // it holds the state. An `auto` radio, disabled, is only the starting state: it
 // carries the icon and name of the mode the page opened in, so the button never
-// shows blank, and a click never lands back on it.
+// shows blank, and a click never lands back on it. LUZ's Auto would follow the
+// system's colour scheme by itself, which Trama does not (dark unless chosen), so
+// `autoMode` pins it to dark; only the system's «more contrast» still moves an
+// unchosen page, and then the auto radio is renamed to match, so the button's
+// name never lags behind what the page shows.
 import { lang } from './content.js';
 import { readPalette } from '../dots.js';
 
@@ -32,18 +36,29 @@ export async function themeSwitch() {
   const option = (value, mode, disabled = false) =>
     `<label class="luz-theme-mode__option"><input class="luz-theme-mode__input" type="radio" name="luz-theme-mode" value="${value}"${disabled ? ' disabled' : ''}>` +
     `<svg class="luz-theme-mode__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICON[mode]}</svg>${T[mode]}</label>`;
+  const first = now();
   document.body.insertAdjacentHTML('beforeend',
     `<luz-theme-mode><fieldset class="luz-theme-mode__group"><legend class="luz-theme-mode__legend">${T.legend}</legend>` +
-    [option('auto', now(), true), option('light', 'light'), option('high-contrast', 'high-contrast'), option('dark', 'dark')].join('') +
+    [option('auto', first, true), option('light', 'light'), option('high-contrast', 'high-contrast'), option('dark', 'dark')].join('') +
     '</fieldset></luz-theme-mode>');
   // the palette (canvas colours), the browser's chrome and any page code follow the mode
   const sync = () => {
     readPalette();
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', BG[now()] || BG.dark);
   };
-  document.addEventListener('luz-theme-mode:change', sync);
+  const el = document.querySelector('luz-theme-mode');
+  el.autoMode = () => 'dark';
+  document.addEventListener('luz-theme-mode:change', (e) => {
+    sync();
+    const auto = el.querySelector('input[value="auto"]')?.closest('label');
+    if (e.detail.auto && auto && auto.textContent.trim() !== T[e.detail.mode]) {
+      auto.querySelector('.luz-theme-mode__icon').innerHTML = ICON[e.detail.mode];
+      auto.lastChild.textContent = T[e.detail.mode];
+      el.refresh();                                           // the button's name and icon, again
+    }
+  });
   sync();
-  reveal(document.querySelector('luz-theme-mode'));
+  reveal(el);
   await import('/assets/vendor/luz/theme-mode.min.js');
 }
 

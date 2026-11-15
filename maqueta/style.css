@@ -25,6 +25,8 @@
   --faint: #6f6c68;
   --blaze: #963641;
   --blaze-lift: brightness(1.7);               /* maroon as small text is lifted on charcoal */
+  --on-blaze: #f4f2ee;                         /* text on a maroon fill (6.5:1) */
+  --blaze-on-ink: #963641;                     /* maroon on an ink fill (the current chip) */
   --prose: #dedbd5;
   --scrim: color-mix(in srgb, #1a1a1a 80%, transparent);
   --shade: #000;
@@ -46,6 +48,8 @@
   --faint: #67635e;
   --blaze: #963641;
   --blaze-lift: none;
+  --on-blaze: #f4f2ee;
+  --blaze-on-ink: #f08a96;                     /* ink is dark here: a pale rose, 6.6:1 */
   --prose: #3a3733;
   --scrim: color-mix(in srgb, #f4f2ee 82%, transparent);
   --shade: #4a453d;
@@ -67,6 +71,8 @@
   --faint: #c9c9c9;
   --blaze: #ff7a8a;
   --blaze-lift: none;
+  --on-blaze: #000;                            /* 8.4:1 on the bright maroon */
+  --blaze-on-ink: #8a1f2e;                     /* ink is white here: 9:1 */
   --prose: #fff;
   --scrim: color-mix(in srgb, #000 88%, transparent);
   --shade: #000;
@@ -89,7 +95,7 @@ body {
   font-stretch: 100%;
   overflow-x: clip;
 }
-::selection { background: var(--blaze); color: var(--ink); }
+::selection { background: var(--blaze); color: var(--on-blaze); }
 a { color: inherit; }
 p { margin: 0; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
@@ -559,9 +565,15 @@ section { position: relative; }
 .luz-theme-mode__button:hover { box-shadow: 0 0 0 1px var(--blaze), 0 12px 28px -10px color-mix(in srgb, var(--shade) 67%, transparent); }
 .luz-theme-mode__button:focus-visible { outline: 3px dotted var(--ink); outline-offset: 5px; }
 .luz-theme-mode__icon { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-:root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { bottom: calc(var(--luz-consent-h, 0px) + max(1rem, env(safe-area-inset-bottom)) + 3.9rem); }
+/* only rides above the cookie card when the card is fixed (tall windows: see the
+   same height guard on the card itself); in a short one it stays put */
+@media (height > 30rem) {
+  :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { bottom: calc(var(--luz-consent-h, 0px) + max(1rem, env(safe-area-inset-bottom)) + 3.9rem); }
+}
 @media (min-width: 64em) {
   .luz-theme-mode__button--fixed { bottom: max(1.25rem, env(safe-area-inset-bottom)); right: max(1.25rem, env(safe-area-inset-right)); }
+}
+@media (min-width: 64em) and (height > 30rem) {
   :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { bottom: calc(var(--luz-consent-h, 0px) + 1.75rem); }
 }
 /* The change itself: a circle of the new mode grows out of the button (theme.js sets
