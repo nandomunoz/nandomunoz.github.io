@@ -275,7 +275,7 @@ section { position: relative; }
 
   /* docked: the nav slides to a rail on the left edge */
   .docked .nav {
-    top: 50%; bottom: auto; left: 1.25rem; translate: 0 -50%; padding: 1rem .7rem; border-radius: 2px;
+    top: 50%; bottom: auto; left: 1.25rem; right: auto; width: max-content; translate: 0 -50%; padding: 1rem .7rem; border-radius: 2px;
     background: none; backdrop-filter: none; box-shadow: none;
   }
   .docked .nav ol { flex-direction: column; gap: 1.6rem; }

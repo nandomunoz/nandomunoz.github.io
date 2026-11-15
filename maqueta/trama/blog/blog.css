@@ -144,6 +144,78 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .prose li { position: relative; padding-left: 1.6rem; color: #dedbd5; }
 .prose li::before { content: ''; position: absolute; left: .2rem; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
 
+/* the pieces of soynando.com's posts */
+.prose a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+.prose a:hover { text-decoration-color: var(--blaze); text-decoration-thickness: 2px; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose code { font: 500 .88em/1 var(--mono); padding: .1em .3em; background: var(--bg-2); box-shadow: inset 0 0 0 1px #ffffff14; }
+.prose pre code { padding: 0; background: none; box-shadow: none; font: inherit; }
+.prose h3 { margin: 1.4rem 0 0; font-weight: 700; font-stretch: 75%; font-size: 1.5rem; line-height: 1.15; scroll-margin-top: 2rem; }
+.prose ol { margin: 0; padding-left: 1.6rem; display: grid; gap: .55rem; }
+.prose ol li { padding-left: .3rem; }
+.prose ol li::before { content: none; }
+.prose ol li::marker { font: 700 .95rem var(--dots); color: var(--mute); }
+.prose hr { border: 0; height: 6px; margin: 2rem 0; background: radial-gradient(circle, var(--faint) 1.2px, transparent 1.7px) 0 50% / 12px 6px repeat-x; }
+.prose figure { margin: .8rem 0; }
+.prose figcaption { margin-top: .7rem; font-size: .85rem; line-height: 1.5; color: var(--mute); }
+.prose blockquote cite { display: block; margin-top: .6rem; font: 500 .72rem/1.4 var(--mono); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.prose blockquote { display: grid; gap: .8rem; }
+
+/* images sit on the charcoal in grey, and take their colour back on hover */
+.prose__fig img { display: block; width: 100%; height: auto; filter: grayscale(1) contrast(1.05); transition: filter .6s var(--ease); }
+.prose__fig:hover img { filter: none; }
+
+/* pull quotes: the carnival lyrics, line by line */
+.pull { padding: 1.6rem 0 1.6rem 1.6rem; position: relative;
+  background: radial-gradient(circle, var(--blaze) 1.6px, transparent 2.1px) 0 0 / 6px 9px repeat-y; }
+.pull blockquote { margin: 0; padding: 0; background: none; display: grid; gap: 1rem; }
+.pull blockquote p { color: var(--ink); font-weight: 300; font-style: italic; font-stretch: 90%; font-size: clamp(1.15rem, 4.6vw, 1.4rem); line-height: 1.5; }
+.pull figcaption { font: 500 .72rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+
+/* a tweet, as a quoted card */
+.tweet { padding: 1.4rem 1.5rem; box-shadow: inset 0 0 0 1px #ffffff1f; }
+.tweet blockquote { margin: 0; padding: 0; background: none; color: var(--ink); font-size: 1.1rem; line-height: 1.5; }
+.tweet figcaption { font: 500 .72rem/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+
+/* links out (facebook videos, gists) */
+.card { display: grid; grid-template-columns: 1fr auto; gap: .3rem 1rem; padding: 1.2rem 1.4rem; text-decoration: none !important; box-shadow: inset 0 0 0 1px #ffffff1f; transition: box-shadow .3s; }
+.card:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.card__label { font: 600 .78rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .18em; }
+.card__sub { grid-row: 2; font: 500 .72rem/1.2 var(--mono); letter-spacing: .08em; color: var(--mute); }
+.card__arrow { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-size: 1.4rem; transition: transform .4s var(--ease); }
+.card:hover .card__arrow { transform: translate(.2rem, -.2rem); }
+
+/* youtube facade */
+.video__frame { position: relative; aspect-ratio: 16 / 9; background: var(--bg-2); overflow: hidden; }
+.video__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video__play { position: absolute; inset: 0; width: 100%; display: block; text-align: left; }
+.video__play img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1) brightness(.55); transition: filter .6s var(--ease), transform .8s var(--ease); }
+.video__play::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, #292929 1.1px, transparent 1.5px) 0 0 / 4px 4px; opacity: .55; }
+.video__btn { position: absolute; z-index: 1; left: 50%; top: 50%; translate: -50% -50%; width: 4.5rem; height: 4.5rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--blaze); color: var(--ink); font-size: 1.3rem; box-shadow: 0 0 0 8px #96364140; transition: transform .4s var(--ease), box-shadow .4s; }
+.video__btn span { translate: .12em 0; }
+.video__title { position: absolute; z-index: 1; left: 1.1rem; right: 1.1rem; bottom: .9rem; font: 600 .72rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.video__play:hover img { filter: grayscale(.2) brightness(.7); transform: scale(1.03); }
+.video__play:hover .video__btn { transform: scale(1.08); box-shadow: 0 0 0 14px #96364133; }
+
+/* tables */
+.prose__scroll { overflow-x: auto; }
+.prose table { width: 100%; min-width: 30rem; border-collapse: collapse; font-size: .92rem; line-height: 1.45; }
+.prose th { text-align: left; font: 600 .68rem/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--mute); padding: .7rem .8rem .7rem 0; border-bottom: 1px solid var(--faint); }
+.prose td { padding: .75rem .8rem .75rem 0; vertical-align: top; border-bottom: 1px dotted #ffffff26; color: #dedbd5; }
+
+/* timelines: a rail of dots, a ring at every step */
+.tline { list-style: none; margin: 1rem 0; padding: 0 0 0 1.8rem; display: grid; gap: 1.6rem; position: relative;
+  background: radial-gradient(circle, var(--faint) 1.2px, transparent 1.7px) .3rem 0 / 6px 8px repeat-y; }
+.tline li { position: relative; display: grid; gap: .25rem; padding: 0; }
+.tline li::before { content: ''; position: absolute; left: calc(-1.8rem + .3rem - 4px); top: .25rem; width: 8px; height: 8px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 2px var(--ink); }
+.tline__when { font: 600 .7rem/1.3 var(--mono) !important; letter-spacing: .14em; text-transform: uppercase; color: var(--blaze) !important; filter: brightness(1.7); }
+.tline__title { font-weight: 700; font-stretch: 75%; font-size: 1.25rem; line-height: 1.15; color: var(--ink) !important; }
+.tline__text { font-size: .98rem; line-height: 1.6; }
+
+.post__note { font: 500 .75rem/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--blaze); filter: brightness(1.7); }
+.post__meta dd a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
+
 .post__main > .tags { margin: 3rem 0 0; }
 .author { display: grid; gap: .35rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px dotted var(--faint); max-width: 40rem; }
 .author__by { font: 500 .62rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); }
@@ -254,3 +326,8 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 @media (min-width: 90em) {
   .cats { grid-template-columns: repeat(4, 1fr); }
 }
+.feat__title--long { font-size: clamp(2.2rem, 9vw, 3.4rem); }
+@media (min-width: 64em) { .feat__title--long { font-size: clamp(2.6rem, 3.4vw, 3.6rem); } }
+.post__grid > *, .post__main, .prose, .prose > * { min-width: 0; }
+.prose { overflow-wrap: anywhere; } .prose__code { overflow-wrap: normal; } .post__title, .brow__title, .feat__title, .post__to { overflow-wrap: break-word; hyphens: auto; }
+.prose table { overflow-wrap: normal; } .prose td:first-child { min-width: 7.5rem; } .tweet blockquote { display: block; }

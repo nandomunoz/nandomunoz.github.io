@@ -6,7 +6,7 @@ export const BASE = '/maqueta/trama';
 
 export const B = {
   es: {
-    blog: 'Blog', deck: 'Notas sobre frontend, diseño y el oficio de liderar equipos.',
+    blog: 'Blog', deck: 'Código, inteligencia artificial, gestión de equipos y Carnaval de Cádiz.',
     count: (n, a, b) => `${n} artículos · ${a === b ? a : `${a}–${b}`}`, countOne: (n) => (n === 1 ? '1 artículo' : `${n} artículos`),
     all: 'Todos los artículos', categories: 'Categorías', allCategories: 'Todas las categorías', tags: 'Etiquetas', allTags: 'Todas las etiquetas',
     min: (m) => `${m} min de lectura`, minShort: (m) => `${m} min`, latest: 'Lo último',
@@ -17,10 +17,11 @@ export const B = {
     published: 'Publicado', reading: 'Lectura', number: 'Nº', in: 'en', tagged: 'Etiquetados con',
     nf: 'No encontrado', nfText: 'Esta página no existe o ha cambiado de sitio.',
     legendTitle: 'Cómo leer las tramas', legend: 'Cada categoría tiene su trama; cuanto más largo el artículo, más densa.',
-    sample: 'Los artículos son textos de ejemplo para maquetar.'
+    sample: 'Artículos de soynando.com.',
+    original: 'Original', onlyEs: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo'
   },
   en: {
-    blog: 'Blog', deck: 'Notes on frontend, design and the craft of leading teams.',
+    blog: 'Blog', deck: 'Code, artificial intelligence, team management and the Cádiz Carnival.',
     count: (n, a, b) => `${n} posts · ${a === b ? a : `${a}–${b}`}`, countOne: (n) => (n === 1 ? '1 post' : `${n} posts`),
     all: 'All posts', categories: 'Categories', allCategories: 'All categories', tags: 'Tags', allTags: 'All tags',
     min: (m) => `${m} min read`, minShort: (m) => `${m} min`, latest: 'Latest',
@@ -31,7 +32,8 @@ export const B = {
     published: 'Published', reading: 'Reading', number: 'No.', in: 'in', tagged: 'Tagged',
     nf: 'Not found', nfText: 'This page doesn’t exist or has moved.',
     legendTitle: 'How to read the screens', legend: 'Each category has its own screen; the longer the post, the denser.',
-    sample: 'The posts are sample texts for the mock-up.'
+    sample: 'Posts from soynando.com.',
+    original: 'Original', onlyEs: 'This post is only available in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video'
   }
 }[lang];
 
@@ -81,7 +83,7 @@ export function row(p, b) {
       el('time', { datetime: p.date, text: dateShort(p.date) }),
       el('a', { class: 'brow__cat', href: catUrl(cat.id), text: cat.name }),
       el('span', { text: B.minShort(p.minutes) })),
-    el('h3', { class: 'brow__title' }, el('a', { href: postUrl(p), text: p.title })),
-    el('p', { class: 'brow__excerpt', text: p.excerpt }));
+    el('h3', { class: 'brow__title', lang: p.postLang !== lang ? p.postLang : null }, el('a', { href: postUrl(p), text: p.title })),
+    el('p', { class: 'brow__excerpt', lang: p.postLang !== lang ? p.postLang : null, text: p.excerpt }));
   return { li, cv, dots: postDots(p, b.posts, cat.kind) };
 }

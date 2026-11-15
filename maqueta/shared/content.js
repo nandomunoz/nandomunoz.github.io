@@ -31,22 +31,29 @@ export async function content() {
   };
 }
 
-// The blog (sample texts in maqueta/shared/blog.json), newest first.
+// The blog: the articles of soynando.com (maqueta/shared/blog.json, made by
+// maqueta/tools/soynando-to-blog.cjs), newest first. Posts only in Spanish
+// fall back to it: `postLang` says which language the text is in.
 //   const b = await blog();
-//   b.posts[{ id, n, date, year, category, tags[], title, excerpt, body[], words, minutes }]
+//   b.posts[{ id, n, date, year, category, tags[], url, postLang, title, excerpt, body[], words, minutes }]
 //   b.categories{ id: { id, name, desc, kind, count } }, b.tags{ id: { id, label, count } }
-// body blocks: 'paragraph' | { h } | { code, lang } | { quote } | { ul: [] }
+// body blocks: { p } (inline HTML) | { h, lv } | { img, alt, cap } | { quote[], cite } | { pull[], cite }
+//   | { ul[], ol } | { code } | { yt, title, cap } | { tweet, by, url, date } | { embed, host }
+//   | { gist } | { table: { head[], rows[][] }, cap } | { timeline: [{ when, title, text }] } | { hr }
 export async function blog() {
   const raw = await fetch('/maqueta/shared/blog.json').then((r) => r.json());
-  const text = (b) => (typeof b === 'string' ? b : b.h || b.code || b.quote || (b.ul || []).join(' '));
+  const strip = (s) => String(s).replace(/<[^>]+>/g, ' ');
+  const text = (b) => strip([b.p, b.h, b.quote, b.pull, b.ul, b.tweet, b.timeline && b.timeline.map((x) => `${x.title} ${x.text}`), b.table && b.table.rows.flat()]
+    .flat().filter(Boolean).join(' '));
   const posts = raw.posts
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date))
     .map((p, i, all) => {
-      const words = p[lang].body.map(text).join(' ').split(/\s+/).length;
+      const postLang = p[lang] ? lang : 'es', t = p[postLang];
+      const words = t.body.map(text).join(' ').split(/\s+/).filter(Boolean).length;
       return {
-        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags,
-        title: p[lang].title, excerpt: p[lang].excerpt, body: p[lang].body, words, minutes: Math.max(1, Math.round(words / 200))
+        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags, url: p.url, postLang,
+        title: t.title, excerpt: t.excerpt, body: t.body, words, minutes: Math.max(1, Math.round(words / 220))
       };
     });
   const categories = Object.fromEntries(Object.entries(raw.categories).map(([id, c]) =>

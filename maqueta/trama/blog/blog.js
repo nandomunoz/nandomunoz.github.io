@@ -154,7 +154,7 @@ function featured(p) {
     el('div', { class: 'feat__dots' }, cv),
     el('div', { class: 'feat__text' },
       el('p', { class: 'feat__kicker' }, el('span', { text: B.latest }), ' · ', el('a', { href: catUrl(cat.id), text: cat.name })),
-      el('h2', { class: 'feat__title' }, el('a', { href: postUrl(p), text: p.title })),
+      el('h2', { class: p.title.length > 48 ? 'feat__title feat__title--long' : 'feat__title' }, el('a', { href: postUrl(p), text: p.title })),
       el('p', { class: 'feat__excerpt', text: p.excerpt }),
       el('p', { class: 'feat__meta' }, el('time', { datetime: p.date, text: date(p.date) }), ' · ', B.min(p.minutes))));
 }
@@ -231,6 +231,58 @@ function tagPage() {
 
 const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+const html = (tag, attrs, s) => { const n = el(tag, attrs); n.innerHTML = s; return n; };
+const caption = (s) => (s ? html('figcaption', {}, s) : null);
+const outLink = (href, label, sub) => el('a', { class: 'card', href, target: '_blank', rel: 'noopener' },
+  el('span', { class: 'card__label', text: label }), el('span', { class: 'card__sub', text: sub }), el('span', { class: 'card__arrow', 'aria-hidden': 'true', text: '↗' }));
+
+function renderBlock(x, k, toc, ids) {
+  if (x.p != null) return html('p', { class: k === 0 ? 'prose__lead' : null }, x.p);
+  if (x.h) {
+    let id = slug(x.h) || 'seccion'; while (ids.has(id)) id += '-'; ids.add(id);
+    if (x.lv === 3) return el('h3', { id, text: x.h });
+    toc.push([id, x.h]);
+    return el('h2', { id }, el('span', { text: x.h }), el('a', { class: 'prose__anchor', href: '#' + id, 'aria-hidden': 'true', tabindex: '-1', text: '#' }));
+  }
+  if (x.img) return el('figure', { class: 'prose__fig' },
+    el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt }), caption(x.cap));
+  if (x.quote) return el('blockquote', {}, ...x.quote.map((s) => html('p', {}, s)), x.cite ? html('cite', {}, x.cite) : null);
+  if (x.pull) return el('figure', { class: 'pull' }, el('blockquote', {}, ...x.pull.map((s) => html('p', {}, s))), x.cite ? html('figcaption', {}, x.cite) : null);
+  if (x.ul) return el(x.ol ? 'ol' : 'ul', {}, ...x.ul.map((s) => html('li', {}, s)));
+  if (x.code != null) return el('pre', { class: 'prose__code', 'data-lang': x.lang || 'code' }, el('code', { text: x.code }));
+  if (x.yt) return video(x);
+  if (x.tweet != null) return el('figure', { class: 'tweet' },
+    html('blockquote', {}, x.tweet),
+    el('figcaption', {}, el('span', { text: x.by }), ' · ', el('a', { href: x.url, target: '_blank', rel: 'noopener', text: x.date || 'X' })));
+  if (x.embed) return el('figure', { class: 'prose__card' }, outLink(x.embed, B.watch, x.host), caption(x.cap));
+  if (x.gist) return el('figure', { class: 'prose__card' }, outLink(x.gist, B.code, 'gist.github.com'));
+  if (x.table) return el('figure', { class: 'prose__table' },
+    el('div', { class: 'prose__scroll', tabindex: '0' }, el('table', {},
+      x.table.head.length ? el('thead', {}, el('tr', {}, ...x.table.head.map((s) => html('th', { scope: 'col' }, s)))) : null,
+      el('tbody', {}, ...x.table.rows.map((r) => el('tr', {}, ...r.map((s) => html('td', {}, s))))))), caption(x.cap));
+  if (x.timeline) return el('ol', { class: 'tline' }, ...x.timeline.map((s) => el('li', {},
+    el('p', { class: 'tline__when', text: s.when }), html('p', { class: 'tline__title' }, s.title),
+    s.text ? html('p', { class: 'tline__text' }, s.text) : null)));
+  if (x.hr) return el('hr');
+  return null;
+}
+
+// YouTube behind a facade: nothing loads from youtube until you press play
+function video(x) {
+  const start = (x.params || '').match(/start=(\d+)/);
+  const fig = el('figure', { class: 'video' });
+  const btn = el('button', { type: 'button', class: 'video__play', 'aria-label': `${B.play}: ${x.title}` },
+    el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' }),
+    el('span', { class: 'video__btn', 'aria-hidden': 'true' }, el('span', { text: '▶' })),
+    el('span', { class: 'video__title', text: x.title }));
+  btn.addEventListener('click', () => {
+    const f = el('iframe', { src: `https://www.youtube-nocookie.com/embed/${x.yt}?autoplay=1${start ? '&start=' + start[1] : ''}`, title: x.title, allow: 'autoplay; encrypted-media; picture-in-picture', allowfullscreen: '' });
+    btn.replaceWith(f); f.focus();
+  });
+  fig.append(el('div', { class: 'video__frame' }, btn), caption(x.cap));
+  return fig;
+}
+
 function postPage() {
   const i = b.posts.findIndex((p) => p.id === q.get('a'));
   if (i < 0) return notFound();
@@ -238,16 +290,11 @@ function postPage() {
   document.title = `${p.title} · ${c.name}`;
   document.documentElement.classList.add('reading');
 
-  // body
-  const toc = [];
-  const body = el('div', { class: 'prose' }, ...p.body.map((x, k) => {
-    if (typeof x === 'string') return el('p', { class: k === 0 ? 'prose__lead' : null, text: x });
-    if (x.h) { const id = slug(x.h); toc.push([id, x.h]); return el('h2', { id }, el('span', { text: x.h }), el('a', { class: 'prose__anchor', href: '#' + id, 'aria-hidden': 'true', tabindex: '-1', text: '#' })); }
-    if (x.code) return el('pre', { class: 'prose__code', 'data-lang': x.lang }, el('code', { text: x.code }));
-    if (x.quote) return el('blockquote', {}, el('p', { text: x.quote }));
-    if (x.ul) return el('ul', {}, ...x.ul.map((li) => el('li', { text: li })));
-    return null;
-  }));
+  // body (inline HTML in the blocks was whitelisted by the converter)
+  const toc = [], ids = new Set();
+  const body = el('div', { class: 'prose', lang: p.postLang !== lang ? p.postLang : null });
+  p.body.forEach((x, k) => { const n = renderBlock(x, k, toc, ids); if (n) body.append(n); });
+  $$('a[href^="http"]', body).forEach((a) => { a.target = '_blank'; a.rel = 'noopener'; });
 
   // share
   const share = el('div', { class: 'share' }, el('p', { class: 'share__label', text: B.share }));
@@ -287,12 +334,14 @@ function postPage() {
   put(el('article', { class: 'post' },
     el('header', { class: 'post__head' },
       el('p', { class: 'crumbs' }, el('a', { href: blogUrl(), text: B.blog }), el('span', { 'aria-hidden': 'true', text: ' / ' }), el('a', { href: catUrl(cat.id), text: cat.name })),
-      el('h1', { class: 'post__title', text: p.title }),
-      el('p', { class: 'post__deck', text: p.excerpt }),
+      el('h1', { class: 'post__title', text: p.title, lang: p.postLang !== lang ? p.postLang : null }),
+      el('p', { class: 'post__deck', text: p.excerpt, lang: p.postLang !== lang ? p.postLang : null }),
+      p.postLang !== lang ? el('p', { class: 'post__note', text: B.onlyEs }) : null,
       el('dl', { class: 'post__meta' },
         el('div', {}, el('dt', { text: B.published }), el('dd', {}, el('time', { datetime: p.date, text: date(p.date) }))),
         el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })),
-        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })))),
+        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })),
+        p.url ? el('div', {}, el('dt', { text: B.original }), el('dd', {}, el('a', { href: p.url, target: '_blank', rel: 'noopener', text: new URL(p.url).hostname + ' ↗' }))) : null)),
     el('div', { class: 'post__cover' }, cover),
     el('div', { class: 'post__grid' }, aside, el('div', { class: 'post__main' },
       body,
