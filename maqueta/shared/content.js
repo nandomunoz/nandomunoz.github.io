@@ -24,8 +24,8 @@ export async function content() {
     contactTitle: t.contactTitle,
     contactText: t.contactText,
     socials: site.socials,
-    projects: projects.map((p) => ({
-      id: p.id, name: p.name, year: p.year, tech: p.tech, demo: p.demo, repo: p.repo,
+    projects: projects.map((p, i) => ({
+      id: p.id, n: i + 1, name: p.name, year: p.year, tech: p.tech, demo: p.demo, repo: p.repo,
       kicker: p[lang].kicker, body: p[lang].body
     }))
   };

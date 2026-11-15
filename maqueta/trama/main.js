@@ -1,5 +1,5 @@
 import { content, blog } from '../shared/content.js';
-import { B, row, blogUrl } from './blog/parts.js';
+import { B, row, blogUrl, projectsUrl, projectUrl } from './blog/parts.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from './dots.js';
 
 const T = {
@@ -24,6 +24,7 @@ const T = {
     footer: 'Mock-up 01 · Trama', of: 'of', sections: 'Sections', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
   }
 };
+const FEATURED = ['luz', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem'];
 const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };
 const densityOf = (y) => DENSITY[y] ?? 0.6;
 
@@ -47,6 +48,9 @@ const cellSize = () => (innerWidth < 768 ? 7 : innerWidth < 1024 ? 8 : 9);
 
 const [c, bl] = await Promise.all([content(), blog()]);
 const t = T[c.lang];
+// the home shows four projects; the rest live on /proyectos/
+const allProjects = c.projects;
+c.projects = FEATURED.map((id) => allProjects.find((p) => p.id === id)).filter(Boolean);
 document.documentElement.lang = c.lang;
 document.documentElement.classList.add('js', reduce ? 'still' : 'moving');
 if (!sdaView) document.documentElement.classList.add('no-sda');
@@ -66,8 +70,10 @@ document.title = `Trama · ${c.name}`;
 
 $('#bio-text').append(...c.bio.map((p, i) => el('p', { class: 'reveal' + (i === 0 ? ' bio__lead' : ''), text: p })));
 
-const years = c.projects.map((p) => p.year);
-$('#work-count').textContent = t.count(c.projects.length, Math.min(...years), Math.max(...years));
+const years = allProjects.map((p) => p.year);
+$('#work-count').textContent = t.count(allProjects.length, Math.min(...years), Math.max(...years));
+$('#work-all').href = projectsUrl();
+$('#work-all [data-slot2]').textContent = B.allProjects;
 
 // ------------------------------------------------------------- legend
 const blocks = []; // { block, back?, stage, p }
@@ -90,7 +96,7 @@ c.projects.forEach((p, i) => {
   const openBtn = el('button', { class: 'item__open', type: 'button', 'aria-haspopup': 'dialog', 'data-i': i },
     el('span', { text: t.open }), el('span', { class: 'vh', text: ' ' + p.name }), el('span', { class: 'item__arrow', 'aria-hidden': 'true', text: '→' }));
   const text = el('div', { class: 'item__text' },
-    el('p', { class: 'item__meta' }, el('span', { class: 'item__n', text: pad(i + 1) }), el('span', { text: p.year })),
+    el('p', { class: 'item__meta' }, el('span', { class: 'item__n', text: pad(p.n) }), el('span', { text: p.year })),
     el('h3', { class: 'item__name', text: p.name }),
     el('p', { class: 'item__kicker', text: p.kicker }),
     el('ul', { class: 'tech' }, ...p.tech.map((x) => el('li', { text: x }))),
@@ -98,7 +104,7 @@ c.projects.forEach((p, i) => {
   const li = el('li', { class: 'item', style: `--k:${i};--w:${58 + (h % 43)}%;--depth:${(h >> 4) % 3}` }, stage, text);
   works.append(li);
   const len = (lens[i] - minL) / (maxL - minL || 1);
-  const opts = (cell) => ({ cell, rows: Math.round((innerWidth < 1024 ? 9 : 11) + len * (innerWidth < 1024 ? 20 : 26)), density: densityOf(p.year), kind: h % 6, seed: h, label: pad(i + 1), corner: i % 2 });
+  const opts = (cell) => ({ cell, rows: Math.round((innerWidth < 1024 ? 9 : 11) + len * (innerWidth < 1024 ? 20 : 26)), density: densityOf(p.year), kind: h % 6, seed: h, label: pad(p.n), corner: i % 2 });
   blocks.push({ make: (cell) => new DotBlock(front, opts(cell)), stage, front, li, i });
   blocks.push({ make: (cell) => new DotBlock(back, { ...opts(cell), density: densityOf(p.year) * 0.5, kind: (h >> 3) % 6, seed: h ^ 0xabc, label: '' }), stage, back: true });
 });
@@ -233,7 +239,7 @@ const regionOf = () => (innerWidth >= 1024
   ? { x: 0, y: 0, w: innerWidth * 0.42, h: innerHeight }
   : { x: 0, y: 0, w: innerWidth, h: Math.round(innerHeight * 0.34) });
 const fieldFor = (i) => fieldPoints(innerWidth, innerHeight, {
-  region: regionOf(), label: pad(i + 1), density: densityOf(c.projects[i].year) + 0.1,
+  region: regionOf(), label: pad(c.projects[i].n), density: densityOf(c.projects[i].year) + 0.1,
   seed: hash(c.projects[i].id), cell: innerWidth >= 1024 ? 11 : 8
 });
 function restField() {
@@ -246,7 +252,7 @@ function restField() {
 function fill(i) {
   const p = c.projects[i];
   cur = i;
-  $('#p-meta').textContent = `${pad(i + 1)} ${t.of} ${pad(c.projects.length)} · ${p.year}`;
+  $('#p-meta').textContent = `${pad(p.n)} · ${p.year}`;
   $('#p-kicker').textContent = p.kicker;
   $('#p-title').textContent = p.name;
   $('#p-tech').replaceChildren(...p.tech.map((x) => el('li', { text: x })));
@@ -254,6 +260,7 @@ function fill(i) {
   const links = [];
   if (p.demo) links.push(el('a', { href: p.demo, target: '_blank', rel: 'noopener' }, el('span', { text: t.demo }), el('span', { class: 'vh', text: ' ' + t.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })));
   if (p.repo) links.push(el('a', { href: p.repo, target: '_blank', rel: 'noopener' }, el('span', { text: t.repo }), el('span', { class: 'vh', text: ' ' + t.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })));
+  links.push(el('a', { href: projectUrl(p) }, el('span', { text: B.projPage }), el('span', { 'aria-hidden': 'true', text: ' →' })));
   $('#p-links').replaceChildren(...links);
   const n = c.projects.length, a = (i - 1 + n) % n, b = (i + 1) % n;
   $('#p-prev').replaceChildren(el('span', { class: 'panel__dir', text: '← ' + t.prev }), el('span', { class: 'panel__to', text: c.projects[a].name }));

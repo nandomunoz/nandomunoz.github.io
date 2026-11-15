@@ -24,7 +24,13 @@ export const B = {
     nfSearch: 'Buscar en el blog y los proyectos', nfPlaceholder: 'Margaret Hamilton, carnaval, IA…',
     nfMaybe: '¿Buscabas esto?', nfResults: (n) => (n === 1 ? '1 resultado' : `${n} resultados`), nfNone: 'Nada por aquí. Prueba con otra palabra.',
     nfWays: 'O empieza por aquí', nfHome: 'Inicio', nfLatest: 'Lo último del blog', project: 'Proyecto', post: 'Artículo',
-    original: 'Original', onlyEs: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo'
+    original: 'Original', onlyEs: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo',
+    projects: 'Proyectos', allProjects: 'Todos los proyectos', projPage: 'Ficha completa',
+    projDeck: 'Todo lo que he publicado en GitHub: sistemas de diseño, herramientas, experimentos con IA y el Carnaval de Cádiz.',
+    projCount: (n, a, b) => `${n} proyectos · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 proyecto' : `${n} proyectos`),
+    allTech: 'Todas', techLabel: 'Tecnología', year: 'Año', demo: 'Ver demo', repo: 'Ver código', moreProjects: 'Más proyectos',
+    newTab: '(se abre en otra pestaña)', projLegendTitle: 'Cómo leer los bloques',
+    projLegend: 'Cuanto más reciente el proyecto, más densa su trama; su número va calado en ella.'
   },
   en: {
     blog: 'Blog', deck: 'Code, artificial intelligence, team management and the Cádiz Carnival.',
@@ -45,7 +51,13 @@ export const B = {
     nfSearch: 'Search the blog and the projects', nfPlaceholder: 'Margaret Hamilton, carnival, AI…',
     nfMaybe: 'Were you looking for this?', nfResults: (n) => (n === 1 ? '1 result' : `${n} results`), nfNone: 'Nothing here. Try another word.',
     nfWays: 'Or start here', nfHome: 'Home', nfLatest: 'Latest on the blog', project: 'Project', post: 'Post',
-    original: 'Original', onlyEs: 'This post is only available in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video'
+    original: 'Original', onlyEs: 'This post is only available in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video',
+    projects: 'Projects', allProjects: 'All projects', projPage: 'Full page',
+    projDeck: 'Everything I’ve published on GitHub: design systems, tools, AI experiments and the Cádiz Carnival.',
+    projCount: (n, a, b) => `${n} projects · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 project' : `${n} projects`),
+    allTech: 'All', techLabel: 'Technology', year: 'Year', demo: 'See demo', repo: 'See code', moreProjects: 'More projects',
+    newTab: '(opens in a new tab)', projLegendTitle: 'How to read the blocks',
+    projLegend: 'The newer the project, the denser its screen; its number is cut into it.'
   }
 }[lang];
 
@@ -61,6 +73,26 @@ export const postUrl = (p) => url('/blog/articulo/', { a: p.id });
 export const catUrl = (id) => url('/blog/categoria/', { c: id });
 export const tagUrl = (id) => url('/blog/etiqueta/', { t: id });
 export const homeUrl = (hash = '') => url('/') + hash;
+export const projectsUrl = (tech) => url('/proyectos/', tech ? { tech } : {});
+export const projectUrl = (p) => url('/proyectos/proyecto/', { p: p.id });
+
+// the screen of a project, as on the home: denser the newer, its number cut in
+const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };
+export function projectDots(p) { const h = hashStr(p.id); return { density: DENSITY[p.year] ?? 0.6, kind: h % 6, seed: h, label: pad(p.n) }; }
+
+// one row of the project list: screen · number and year · name · kicker · tech
+export function projectRow(p) {
+  const cv = el('canvas', { class: 'brow__dots', 'aria-hidden': 'true' });
+  const li = el('li', { class: 'brow prow' },
+    el('div', { class: 'brow__thumb' }, cv),
+    el('p', { class: 'brow__meta' },
+      el('span', { class: 'prow__n', text: pad(p.n) }),
+      el('span', { text: p.year }),
+      el('span', { text: p.tech.join(' · ') })),
+    el('h3', { class: 'brow__title prow__name' }, el('a', { href: projectUrl(p), text: p.name })),
+    el('p', { class: 'brow__excerpt', text: p.kicker }));
+  return { li, cv, dots: projectDots(p) };
+}
 
 const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric' });
 const fmtShort = new Intl.DateTimeFormat(lang, { day: '2-digit', month: 'short' });

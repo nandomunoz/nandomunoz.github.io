@@ -6,7 +6,7 @@
 // Unknown ids render a "not found" page (the 404 of the sandbox).
 import { content, blog, lang } from '../../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut } from '../dots.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots } from './parts.js';
+import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots } from './parts.js';
 
 const PER_PAGE = 5;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -15,11 +15,12 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const q = new URLSearchParams(location.search);
 const page = document.body.dataset.page;
+const isProj = page === 'projects' || page === 'project';
 
 const [c, b] = await Promise.all([content(), blog()]);
 const H = {
-  es: { skip: 'Saltar al contenido', back: 'Trama', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Secciones', footer: 'Maqueta 01 · Trama · Blog' },
-  en: { skip: 'Skip to content', back: 'Trama', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Sections', footer: 'Mock-up 01 · Trama · Blog' }
+  es: { skip: 'Saltar al contenido', back: 'Trama', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Secciones', footer: 'Maqueta 01 · Trama' },
+  en: { skip: 'Skip to content', back: 'Trama', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Sections', footer: 'Mock-up 01 · Trama' }
 }[lang];
 document.documentElement.lang = lang;
 document.documentElement.classList.add('js', 'docked', reduce ? 'still' : 'moving');
@@ -37,12 +38,12 @@ document.body.prepend(
     el('a', { class: 'top__mark', href: homeUrl() }, el('span', { 'aria-hidden': 'true', text: '01' }), el('span', { text: 'Trama' })),
     el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
-    navItem('01', homeUrl('#bio'), H.bio), navItem('02', homeUrl('#trabajo'), H.work),
-    navItem('03', blogUrl(), B.blog, page !== '404'), navItem('04', homeUrl('#contacto'), c.contactTitle))),
+    navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
+    navItem('03', blogUrl(), B.blog, page !== '404' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
   el('footer', { class: 'foot' },
     el('p', {}, `${c.name} · ${new Date().getFullYear()}`),
-    el('p', {}, el('a', { href: '/maqueta/', text: lang === 'en' ? 'All versions' : 'Todas las versiones' }), ` · ${H.footer} · ${B.sample}`)));
+    el('p', {}, el('a', { href: '/maqueta/', text: lang === 'en' ? 'All versions' : 'Todas las versiones' }), ` · ${H.footer}${isProj ? "" : " · " + B.sample}`)));
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it
@@ -193,7 +194,7 @@ function notFound() {
   const index = [
     ...b.posts.map((p) => ({ kind: B.post, title: p.title, sub: `${b.categories[p.category].name} · ${p.year}`, href: postUrl(p),
       hay: norm([p.title, p.excerpt, p.tags.map((t) => b.tags[t].label).join(' '), b.categories[p.category].name].join(' ')) })),
-    ...c.projects.map((p) => ({ kind: B.project, title: p.name, sub: `${p.tech.join(' · ')} · ${p.year}`, href: homeUrl('#trabajo'),
+    ...c.projects.map((p) => ({ kind: B.project, title: p.name, sub: `${p.tech.join(' · ')} · ${p.year}`, href: projectUrl(p),
       hay: norm([p.name, p.kicker, p.tech.join(' ')].join(' ')) }))
   ];
   const input = el('input', { type: 'search', id: 'lost-q', name: 'q', autocomplete: 'off', placeholder: B.nfPlaceholder, spellcheck: 'false' });
@@ -229,7 +230,7 @@ function notFound() {
       status, list),
     el('nav', { class: 'lost__ways', 'aria-labelledby': 'lost-ways' },
       el('h2', { id: 'lost-ways', text: B.nfWays }),
-      el('ul', {}, way('01', H.bio, homeUrl('#bio')), way('02', H.work, homeUrl('#trabajo')), way('03', B.blog, blogUrl()), way('04', c.contactTitle, homeUrl('#contacto')))),
+      el('ul', {}, way('01', H.bio, homeUrl('#bio')), way('02', H.work, projectsUrl()), way('03', B.blog, blogUrl()), way('04', c.contactTitle, homeUrl('#contacto')))),
     el('section', { class: 'lost__latest', 'aria-labelledby': 'lost-latest' },
       el('h2', { id: 'lost-latest', text: B.nfLatest }), rows(b.posts.slice(0, 3), { group: false }))));
 }
@@ -439,7 +440,92 @@ function postPage() {
   $$('.prose h2').forEach((h) => tio.observe(h));
 }
 
-({ list: listPage, post: postPage, category: categoryPage, tag: tagPage }[page] || notFound)();
+// ------------------------------------------------------------- projects
+// /proyectos/?tech=<name>   every project, newest year first, filterable by technology
+// /proyectos/proyecto/?p=<id>  one project
+function projRows(list, { group = true } = {}) {
+  const wrap = el('div', { class: 'blist' });
+  let ol = null, year = null;
+  for (const p of list) {
+    if (!ol || (group && p.year !== year)) {
+      year = p.year;
+      ol = el('ol', { class: 'brows' });
+      wrap.append(group ? el('section', { class: 'byear', 'aria-label': String(year) }, el('h2', { class: 'byear__n', text: year }), ol) : ol);
+    }
+    const r = projectRow(p);
+    ol.append(r.li);
+    screen(r.cv, { rows: 9, ...r.dots, label: '' });
+  }
+  return wrap;
+}
+const byYear = (a, z) => z.year - a.year || a.n - z.n;
+
+function projectsPage() {
+  const all = c.projects.slice().sort(byYear);
+  const techs = {};
+  all.forEach((p) => p.tech.forEach((x) => { techs[x] = (techs[x] || 0) + 1; }));
+  const want = q.get('tech');
+  const tech = want && Object.keys(techs).find((x) => x.toLowerCase() === want.toLowerCase());
+  if (want && !tech) return notFound();
+  const list = tech ? all.filter((p) => p.tech.includes(tech)) : all;
+  const ys = all.map((p) => p.year);
+  document.title = `${B.projects}${tech ? ' · ' + tech : ''} · ${c.name}`;
+
+  const keys = el('ul', { class: 'legend__keys' }, ...[2023, 2024, 2025, 2026].map((y, k) => {
+    const cv = el('canvas', { 'aria-hidden': 'true' });
+    screen(cv, { cell: 6, rows: 7, density: { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 }[y], kind: 6, seed: 7 + k });
+    return el('li', {}, cv, el('span', { text: y }));
+  }));
+  put(
+    head({ n: '02', title: B.projects, deck: B.projDeck, count: tech ? `${tech} · ${B.projCountOne(list.length)}` : B.projCount(all.length, Math.min(...ys), Math.max(...ys)) }),
+    el('nav', { class: 'chips', 'aria-label': B.techLabel }, el('ul', {},
+      el('li', {}, el('a', { href: projectsUrl(), 'aria-current': tech ? null : 'page' }, el('span', { text: B.allTech }), el('sup', { text: all.length }))),
+      ...Object.entries(techs).sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0])).map(([x, n]) => el('li', {},
+        el('a', { href: projectsUrl(x), 'aria-current': tech === x ? 'page' : null }, el('span', { text: x }), el('sup', { text: n })))))),
+    el('aside', { class: 'legend' }, el('h3', { text: B.projLegendTitle }), el('p', { text: B.projLegend }), keys),
+    projRows(list));
+}
+
+function projectPage() {
+  const all = c.projects.slice().sort(byYear);
+  const i = all.findIndex((p) => p.id === q.get('p'));
+  if (i < 0) return notFound();
+  const p = all[i];
+  document.title = `${p.name} · ${B.projects} · ${c.name}`;
+  const out = (href, label) => el('a', { href, target: '_blank', rel: 'noopener' }, el('span', { text: label }), el('span', { class: 'vh', text: ' ' + B.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' }));
+  const links = el('p', { class: 'author__links plinks' }, p.demo ? out(p.demo, B.demo) : null, p.repo ? out(p.repo, B.repo) : null);
+
+  const lens = all.map((x) => x.body.join(' ').length), lo = Math.min(...lens), hi = Math.max(...lens);
+  const len = (p.body.join(' ').length - lo) / (hi - lo || 1);
+  const cover = el('canvas', { 'aria-hidden': 'true' });
+  screen(cover, () => ({ rows: Math.round((innerWidth < 1024 ? 14 : 18) + len * 12), ...projectDots(p), corner: 1 }));
+
+  const prev = all[i - 1], next = all[i + 1];
+  const pn = el('nav', { class: 'post__nav', 'aria-label': B.projects },
+    prev ? el('a', { href: projectUrl(prev), rel: 'prev' }, el('span', { class: 'post__dir', text: '← ' + B.prev }), el('span', { class: 'post__to', text: prev.name })) : el('span'),
+    next ? el('a', { href: projectUrl(next), rel: 'next' }, el('span', { class: 'post__dir', text: B.next + ' →' }), el('span', { class: 'post__to', text: next.name })) : el('span'));
+  const shared = (o) => o.tech.filter((x) => p.tech.includes(x)).length;
+  const related = all.filter((o) => o !== p && shared(o) > 0).sort((x, y) => shared(y) - shared(x) || byYear(x, y)).slice(0, 3);
+
+  put(el('article', { class: 'post project' },
+    el('header', { class: 'post__head' },
+      el('p', { class: 'crumbs' }, el('a', { href: projectsUrl(), text: B.projects }), el('span', { 'aria-hidden': 'true', text: ' / ' }), el('span', { text: p.year })),
+      el('h1', { class: 'post__title', text: p.name }),
+      el('p', { class: 'post__deck', text: p.kicker }),
+      el('dl', { class: 'post__meta' },
+        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })),
+        el('div', {}, el('dt', { text: B.year }), el('dd', { text: p.year })),
+        el('div', {}, el('dt', { text: B.techLabel }), el('dd', { class: 'ptech' }, ...p.tech.flatMap((x, k) => [k ? ' · ' : null, el('a', { href: projectsUrl(x), text: x })]).filter(Boolean)))),
+      links),
+    el('div', { class: 'post__cover' }, cover),
+    el('div', { class: 'post__grid' }, el('aside', { class: 'post__side' }),
+      el('div', { class: 'post__main' }, el('div', { class: 'prose' }, ...p.body.map((x, k) => el('p', { class: k === 0 ? 'prose__lead' : null, text: x }))))),
+    pn,
+    related.length ? el('section', { class: 'related', 'aria-labelledby': 'rel-title' },
+      el('h2', { id: 'rel-title', class: 'related__title', text: B.moreProjects }), projRows(related, { group: false })) : null));
+}
+
+({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage }[page] || notFound)();
 
 // ------------------------------------------------------------- go
 await document.fonts.ready;
