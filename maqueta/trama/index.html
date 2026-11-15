@@ -10,6 +10,7 @@
   <link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog/blog.css">
   <script type="module" src="main.js"></script>
 </head>
 <body>
@@ -24,7 +25,8 @@
     <ol>
       <li><a href="#bio"><span class="nav__n" aria-hidden="true">01</span> <span data-t="bio">Bio</span></a></li>
       <li><a href="#trabajo"><span class="nav__n" aria-hidden="true">02</span> <span data-t="work">Proyectos</span></a></li>
-      <li><a href="#contacto"><span class="nav__n" aria-hidden="true">03</span> <span data-slot="contactTitle">Escríbeme</span></a></li>
+      <li><a href="#blog"><span class="nav__n" aria-hidden="true">03</span> <span data-t="blog">Blog</span></a></li>
+      <li><a href="#contacto"><span class="nav__n" aria-hidden="true">04</span> <span data-slot="contactTitle">Escríbeme</span></a></li>
     </ol>
   </nav>
 
@@ -66,10 +68,20 @@
       <ol class="works" id="works"></ol>
     </section>
 
+    <section class="blogsec" id="blog" aria-labelledby="blog-title">
+      <header class="sec-head">
+        <p class="sec-head__n" aria-hidden="true">03</p>
+        <h2 class="decode" id="blog-title" data-t="blog">Blog</h2>
+        <p class="sec-head__count" id="blog-count"></p>
+      </header>
+      <div class="blist"><ol class="brows" id="blog-rows"></ol></div>
+      <a class="blogsec__all" id="blog-all" href="blog/"><span data-t="allPosts">Todos los artículos</span> <span aria-hidden="true">→</span></a>
+    </section>
+
     <section class="contact" id="contacto" aria-labelledby="contact-title">
       <canvas class="contact__field" id="contact-field" aria-hidden="true"></canvas>
       <header class="sec-head">
-        <p class="sec-head__n" aria-hidden="true">03</p>
+        <p class="sec-head__n" aria-hidden="true">04</p>
         <h2 class="decode contact__title" id="contact-title" data-slot="contactTitle">Escríbeme</h2>
       </header>
       <p class="contact__text reveal" data-slot="contactText"></p>

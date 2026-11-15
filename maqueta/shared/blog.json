@@ -1,0 +1,224 @@
+{
+  "_note": "Textos de ejemplo para maquetar el blog (no son artículos reales). Sustituir por los de verdad antes de llevarlo a build.mjs.",
+  "categories": {
+    "frontend": { "kind": 3, "es": { "name": "Frontend", "desc": "Código que se ve: CSS, JavaScript y la plataforma web sin capas de más." }, "en": { "name": "Frontend", "desc": "Code you can see: CSS, JavaScript and the web platform without extra layers." } },
+    "diseno": { "kind": 4, "es": { "name": "Diseño", "desc": "Interfaces, tipografía y las decisiones que no salen en el diff." }, "en": { "name": "Design", "desc": "Interfaces, type and the decisions that never show up in the diff." } },
+    "oficio": { "kind": 1, "es": { "name": "Oficio", "desc": "Equipos, revisiones y liderar sin dejar de programar." }, "en": { "name": "Craft", "desc": "Teams, reviews and leading without giving up the keyboard." } },
+    "notas": { "kind": 2, "es": { "name": "Notas", "desc": "Apuntes cortos: algo que he aprendido esta semana." }, "en": { "name": "Notes", "desc": "Short notes: something I learnt this week." } }
+  },
+  "tags": {
+    "css": { "es": "CSS", "en": "CSS" },
+    "javascript": { "es": "JavaScript", "en": "JavaScript" },
+    "canvas": { "es": "Canvas", "en": "Canvas" },
+    "rendimiento": { "es": "Rendimiento", "en": "Performance" },
+    "accesibilidad": { "es": "Accesibilidad", "en": "Accessibility" },
+    "equipos": { "es": "Equipos", "en": "Teams" },
+    "tipografia": { "es": "Tipografía", "en": "Type" }
+  },
+  "posts": [
+    {
+      "id": "puntos-en-vez-de-pixeles", "date": "2026-10-28", "category": "diseno", "tags": ["canvas", "javascript"],
+      "es": {
+        "title": "Puntos en vez de píxeles: tramar una interfaz",
+        "excerpt": "Cómo un tramado ordenado de 8×8 convierte cualquier forma en una nube de puntos que se arma con el scroll.",
+        "body": [
+          "Las imprentas resolvieron hace un siglo un problema que seguimos teniendo: representar grises con una sola tinta. La respuesta fue la trama, y sigue funcionando en una pantalla.",
+          { "h": "La matriz de Bayer" },
+          "Una matriz de Bayer reparte umbrales de forma que, para cualquier densidad, los puntos encendidos quedan lo más separados posible. Comparas cada celda con su umbral y decides: punto o vacío.",
+          { "code": "const on = bayer(x, y) * 0.62 + ruido * 0.38 < densidad;", "lang": "js" },
+          "Mezclar un poco de ruido rompe la regularidad sin perder el orden. El ojo lee textura, no cuadrícula.",
+          { "h": "Que la forma signifique algo" },
+          "En esta maqueta la densidad no es decoración: cuanto más reciente el proyecto, más denso el bloque; cuanto más largo el texto, más alto. La trama es una leyenda.",
+          { "quote": "Si un adorno no cuenta nada, sobra." }
+        ]
+      },
+      "en": {
+        "title": "Dots instead of pixels: screening an interface",
+        "excerpt": "How an 8×8 ordered dither turns any shape into a cloud of dots that assembles as you scroll.",
+        "body": [
+          "Printers solved a century ago a problem we still have: drawing greys with a single ink. The answer was the halftone screen, and it still works on a display.",
+          { "h": "The Bayer matrix" },
+          "A Bayer matrix spreads thresholds so that, at any density, the lit dots stay as far apart as possible. Compare each cell with its threshold and decide: dot or empty.",
+          { "code": "const on = bayer(x, y) * 0.62 + noise * 0.38 < density;", "lang": "js" },
+          "Mixing in a little noise breaks the regularity without losing the order. The eye reads texture, not a grid.",
+          { "h": "Let the shape mean something" },
+          "In this mock-up density is not decoration: the newer the project, the denser the block; the longer its text, the taller. The screen is a legend.",
+          { "quote": "If an ornament says nothing, it goes." }
+        ]
+      }
+    },
+    {
+      "id": "scroll-sin-javascript", "date": "2026-09-14", "category": "frontend", "tags": ["css", "rendimiento"],
+      "es": {
+        "title": "Animaciones con el scroll sin una línea de JavaScript",
+        "excerpt": "animation-timeline ya permite atar una animación a la posición de un elemento en pantalla. Y degrada bien.",
+        "body": [
+          "Durante años, animar algo según el scroll significaba escuchar el evento, medir y escribir estilos en cada fotograma. Ahora el navegador lo hace solo, fuera del hilo principal.",
+          { "h": "view() y scroll()" },
+          "Con view() la animación avanza mientras el elemento cruza el viewport; con scroll() avanza con el desplazamiento de un contenedor.",
+          { "code": ".reveal {\n  animation: rise linear both;\n  animation-timeline: view();\n  animation-range: entry 0% entry 80%;\n}", "lang": "css" },
+          { "h": "El plan B" },
+          "Donde no hay soporte, un IntersectionObserver añade una clase y una transición hace el resto. Y con prefers-reduced-motion, nada se mueve.",
+          { "ul": ["Detecta con @supports (animation-timeline: view())", "Respeta prefers-reduced-motion siempre", "No escondas contenido que no vaya a aparecer si falla la animación"] }
+        ]
+      },
+      "en": {
+        "title": "Scroll animations without a line of JavaScript",
+        "excerpt": "animation-timeline can now tie an animation to an element's position on screen. And it degrades well.",
+        "body": [
+          "For years, animating with scroll meant listening to the event, measuring and writing styles every frame. Now the browser does it on its own, off the main thread.",
+          { "h": "view() and scroll()" },
+          "With view() the animation runs while the element crosses the viewport; with scroll() it follows a container's scroll offset.",
+          { "code": ".reveal {\n  animation: rise linear both;\n  animation-timeline: view();\n  animation-range: entry 0% entry 80%;\n}", "lang": "css" },
+          { "h": "Plan B" },
+          "Where it isn't supported, an IntersectionObserver adds a class and a transition does the rest. And with prefers-reduced-motion, nothing moves.",
+          { "ul": ["Detect it with @supports (animation-timeline: view())", "Always honour prefers-reduced-motion", "Don't hide content that won't appear if the animation fails"] }
+        ]
+      }
+    },
+    {
+      "id": "liderar-sin-soltar-el-teclado", "date": "2026-08-02", "category": "oficio", "tags": ["equipos"],
+      "es": {
+        "title": "Liderar sin soltar el teclado",
+        "excerpt": "Ser tech lead no es dejar de programar: es elegir qué código escribes tú y cuál ayudas a que escriban otros.",
+        "body": [
+          "El primer error de casi todo tech lead es seguir cogiendo las tareas más difíciles. Se siente productivo y deja al equipo sin aprender.",
+          { "h": "Qué código sigo escribiendo" },
+          { "ul": ["Prototipos que desbloquean una decisión", "Las piezas de base que todos van a usar", "Arreglos pequeños que nadie tiene en el radar"] },
+          { "h": "Qué código suelto" },
+          "Todo lo que esté en el camino crítico de una entrega. Si me bloqueo yo, se bloquea el equipo.",
+          { "quote": "Tu trabajo es que el equipo no te necesite para avanzar." }
+        ]
+      },
+      "en": {
+        "title": "Leading without letting go of the keyboard",
+        "excerpt": "Being a tech lead isn't giving up code: it's choosing which code you write and which you help others write.",
+        "body": [
+          "Almost every tech lead's first mistake is to keep taking the hardest tickets. It feels productive and leaves the team without learning.",
+          { "h": "The code I still write" },
+          { "ul": ["Prototypes that unblock a decision", "The groundwork everyone will use", "Small fixes nobody has on their radar"] },
+          { "h": "The code I let go" },
+          "Anything on a delivery's critical path. If I get stuck, the team gets stuck.",
+          { "quote": "Your job is for the team not to need you to move forward." }
+        ]
+      }
+    },
+    {
+      "id": "view-transitions-en-una-web-estatica", "date": "2026-06-19", "category": "frontend", "tags": ["css", "javascript"],
+      "es": {
+        "title": "View Transitions en una web estática",
+        "excerpt": "Mover un elemento de sitio con una animación continua, sin framework y en cuatro líneas.",
+        "body": [
+          "La navegación de esta maqueta pasa de la cabecera a una píldora inferior en el móvil, y a un raíl lateral en escritorio. No hay cálculo de posiciones: lo hace el navegador.",
+          { "h": "El truco" },
+          "Le das un nombre al elemento, cambias el DOM dentro de startViewTransition y el navegador interpola entre las dos fotos.",
+          { "code": "document.startViewTransition(() =>\n  root.classList.toggle('docked', true)\n);", "lang": "js" },
+          "Si el navegador no lo soporta, el cambio ocurre sin animación. Nada se rompe."
+        ]
+      },
+      "en": {
+        "title": "View Transitions on a static site",
+        "excerpt": "Moving an element across the page with one continuous animation, no framework, four lines.",
+        "body": [
+          "This mock-up's navigation goes from the header to a bottom pill on phones, and to a side rail on desktop. No position maths: the browser does it.",
+          { "h": "The trick" },
+          "Give the element a name, change the DOM inside startViewTransition and the browser tweens between the two snapshots.",
+          { "code": "document.startViewTransition(() =>\n  root.classList.toggle('docked', true)\n);", "lang": "js" },
+          "If the browser doesn't support it, the change happens without animation. Nothing breaks."
+        ]
+      }
+    },
+    {
+      "id": "el-foco-tambien-se-disena", "date": "2026-04-07", "category": "diseno", "tags": ["accesibilidad", "css"],
+      "es": {
+        "title": "El foco también se diseña",
+        "excerpt": "Quitar el outline es fácil. Diseñar un estado de foco que encaje con la interfaz es el trabajo.",
+        "body": [
+          "Quien navega con teclado necesita saber dónde está en cada momento. El anillo por defecto del navegador cumple, pero casi nunca encaja.",
+          { "h": "Un foco con la misma tinta" },
+          "Aquí el foco es un contorno punteado del color del texto: se ve sobre el carbón y habla el mismo idioma que la trama.",
+          { "code": ":focus-visible {\n  outline: 3px dotted var(--ink);\n  outline-offset: 5px;\n}", "lang": "css" },
+          { "ul": ["Usa :focus-visible, no :focus", "Contraste de 3:1 con el fondo como mínimo", "Prueba la página entera solo con el tabulador"] }
+        ]
+      },
+      "en": {
+        "title": "Focus is designed too",
+        "excerpt": "Removing the outline is easy. Designing a focus state that fits the interface is the job.",
+        "body": [
+          "Keyboard users need to know where they are at all times. The browser's default ring does the job but rarely fits.",
+          { "h": "Focus in the same ink" },
+          "Here focus is a dotted outline in the text colour: it shows on charcoal and speaks the same language as the dots.",
+          { "code": ":focus-visible {\n  outline: 3px dotted var(--ink);\n  outline-offset: 5px;\n}", "lang": "css" },
+          { "ul": ["Use :focus-visible, not :focus", "At least 3:1 contrast against the background", "Go through the whole page with the Tab key only"] }
+        ]
+      }
+    },
+    {
+      "id": "revisiones-de-codigo-que-ensenan", "date": "2025-12-10", "category": "oficio", "tags": ["equipos"],
+      "es": {
+        "title": "Revisiones de código que enseñan",
+        "excerpt": "Una revisión no es un control de aduanas. Es la conversación técnica más frecuente que tiene un equipo.",
+        "body": [
+          "Si una revisión solo dice «cambia esto», el autor arregla una línea y no aprende nada. Si explica el porqué, arregla todas las siguientes.",
+          { "h": "Tres reglas" },
+          { "ul": ["Separa lo que bloquea de lo que es gusto", "Pregunta antes de afirmar", "Si lo explicas dos veces, escríbelo en la guía"] },
+          { "quote": "El mejor comentario es el que ya no hace falta escribir en la siguiente revisión." }
+        ]
+      },
+      "en": {
+        "title": "Code reviews that teach",
+        "excerpt": "A review isn't customs control. It's the most frequent technical conversation a team has.",
+        "body": [
+          "If a review only says “change this”, the author fixes one line and learns nothing. If it explains why, they fix all the next ones.",
+          { "h": "Three rules" },
+          { "ul": ["Separate what blocks from what is taste", "Ask before you assert", "If you explain it twice, write it in the guide"] },
+          { "quote": "The best comment is the one you no longer need to write in the next review." }
+        ]
+      }
+    },
+    {
+      "id": "un-portfolio-sin-framework", "date": "2025-10-21", "category": "frontend", "tags": ["javascript", "rendimiento"],
+      "es": {
+        "title": "Un portfolio sin framework",
+        "excerpt": "Un script de Node que escribe HTML, un CSS por versión y nada que instalar para verlo.",
+        "body": [
+          "Este sitio se genera con un único build.mjs: lee unos JSON, escribe páginas estáticas y comprueba en el pre-commit que todo está al día.",
+          { "h": "Por qué" },
+          "Porque la web ya trae casi todo lo que necesita un portfolio, y porque dentro de cinco años seguirá funcionando sin actualizar dependencias.",
+          { "h": "Lo que cuesta" },
+          "Escribir a mano lo que un framework te da hecho: plantillas, rutas, idiomas. Son pocas líneas y se entienden todas."
+        ]
+      },
+      "en": {
+        "title": "A portfolio without a framework",
+        "excerpt": "A Node script that writes HTML, one stylesheet per version and nothing to install to see it.",
+        "body": [
+          "This site is generated by a single build.mjs: it reads some JSON, writes static pages and checks in pre-commit that everything is up to date.",
+          { "h": "Why" },
+          "Because the web already ships almost everything a portfolio needs, and because in five years it will still work without updating dependencies.",
+          { "h": "What it costs" },
+          "Writing by hand what a framework hands you: templates, routes, languages. It's a few lines and you understand all of them."
+        ]
+      }
+    },
+    {
+      "id": "una-fuente-muchas-anchuras", "date": "2025-07-30", "category": "notas", "tags": ["tipografia", "css"],
+      "es": {
+        "title": "Una sola fuente, muchas anchuras",
+        "excerpt": "Con una variable que tiene eje de anchura, los titulares estrechos y el texto corrido salen del mismo archivo.",
+        "body": [
+          "Archivo trae un eje wdth que va del 62 % al 125 %. Los títulos de los proyectos usan el 62 %; el texto, el 100 %. Un solo archivo de fuente.",
+          { "code": ".item__name { font-stretch: 62%; font-weight: 800; }", "lang": "css" }
+        ]
+      },
+      "en": {
+        "title": "One typeface, many widths",
+        "excerpt": "With a variable font that has a width axis, condensed headlines and running text come from the same file.",
+        "body": [
+          "Archivo ships a wdth axis from 62% to 125%. Project titles use 62%; body text, 100%. One font file.",
+          { "code": ".item__name { font-stretch: 62%; font-weight: 800; }", "lang": "css" }
+        ]
+      }
+    }
+  ]
+}

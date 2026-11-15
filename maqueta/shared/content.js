@@ -30,3 +30,28 @@ export async function content() {
     }))
   };
 }
+
+// The blog (sample texts in maqueta/shared/blog.json), newest first.
+//   const b = await blog();
+//   b.posts[{ id, n, date, year, category, tags[], title, excerpt, body[], words, minutes }]
+//   b.categories{ id: { id, name, desc, kind, count } }, b.tags{ id: { id, label, count } }
+// body blocks: 'paragraph' | { h } | { code, lang } | { quote } | { ul: [] }
+export async function blog() {
+  const raw = await fetch('/maqueta/shared/blog.json').then((r) => r.json());
+  const text = (b) => (typeof b === 'string' ? b : b.h || b.code || b.quote || (b.ul || []).join(' '));
+  const posts = raw.posts
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map((p, i, all) => {
+      const words = p[lang].body.map(text).join(' ').split(/\s+/).length;
+      return {
+        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags,
+        title: p[lang].title, excerpt: p[lang].excerpt, body: p[lang].body, words, minutes: Math.max(1, Math.round(words / 200))
+      };
+    });
+  const categories = Object.fromEntries(Object.entries(raw.categories).map(([id, c]) =>
+    [id, { id, kind: c.kind, name: c[lang].name, desc: c[lang].desc, count: posts.filter((p) => p.category === id).length }]));
+  const tags = Object.fromEntries(Object.entries(raw.tags).map(([id, t]) =>
+    [id, { id, label: t[lang], count: posts.filter((p) => p.tags.includes(id)).length }]));
+  return { posts, categories, tags };
+}

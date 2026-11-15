@@ -1,4 +1,5 @@
-import { content } from '../shared/content.js';
+import { content, blog } from '../shared/content.js';
+import { B, row, blogUrl } from './blog/parts.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from './dots.js';
 
 const T = {
@@ -9,6 +10,7 @@ const T = {
     legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama.',
     count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar',
     demo: 'Ver demo', repo: 'Ver código', prev: 'Anterior', next: 'Siguiente',
+    blog: 'Blog', allPosts: 'Todos los artículos',
     footer: 'Maqueta 01 · Trama', of: 'de', sections: 'Secciones', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
   },
   en: {
@@ -18,6 +20,7 @@ const T = {
     legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots.',
     count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close',
     demo: 'See demo', repo: 'See code', prev: 'Previous', next: 'Next',
+    blog: 'Blog', allPosts: 'All posts',
     footer: 'Mock-up 01 · Trama', of: 'of', sections: 'Sections', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
   }
 };
@@ -42,7 +45,7 @@ const el = (tag, attrs = {}, ...kids) => {
 const pad = (n) => String(n).padStart(2, '0');
 const cellSize = () => (innerWidth < 768 ? 7 : innerWidth < 1024 ? 8 : 9);
 
-const c = await content();
+const [c, bl] = await Promise.all([content(), blog()]);
 const t = T[c.lang];
 document.documentElement.lang = c.lang;
 document.documentElement.classList.add('js', reduce ? 'still' : 'moving');
@@ -120,6 +123,18 @@ function build() {
   });
   lastCell = cell;
   tick();
+}
+
+// ------------------------------------------------------------- blog: the latest three
+{
+  const ys = bl.posts.map((p) => p.year);
+  $('#blog-count').textContent = B.count(bl.posts.length, Math.min(...ys), Math.max(...ys));
+  $('#blog-all').href = blogUrl();
+  bl.posts.slice(0, 3).forEach((p) => {
+    const r = row(p, bl);
+    $('#blog-rows').append(r.li);
+    blocks.push({ make: (cell) => new DotBlock(r.cv, { cell, rows: 9, ...r.dots, label: '' }), stage: r.cv, deco: true });
+  });
 }
 
 // ------------------------------------------------------------- socials
@@ -324,7 +339,7 @@ new IntersectionObserver(([e]) => {
   else flip();
 }, { rootMargin: '-35% 0px 0px 0px' }).observe($('.hero__copy'));
 // mark the section in view
-const secs = ['bio', 'trabajo', 'contacto'].map((id) => document.getElementById(id));
+const secs = ['bio', 'trabajo', 'blog', 'contacto'].map((id) => document.getElementById(id));
 const sectionIO = new IntersectionObserver((es) => es.forEach((e) => {
   if (!e.isIntersecting) return;
   $$('a', nav).forEach((a) => (a.hash === '#' + e.target.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
@@ -360,7 +375,7 @@ if (!sdaView && !reduce) {
 // ------------------------------------------------------------- go
 await document.fonts.ready;
 build();
-$$('.item__stage, .bio__cols canvas, #contact-field, #legend-keys canvas').forEach((n) => io.observe(n));
+$$('.item__stage, .bio__cols canvas, #contact-field, #legend-keys canvas, .brow__dots').forEach((n) => io.observe(n));
 hero.layout();
 hero.start();
 titles.forEach((x) => titleIO.observe(x.cv));
