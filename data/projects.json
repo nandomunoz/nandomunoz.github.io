@@ -15,11 +15,11 @@
       "kicker": "Sistema de diseño",
       "body": [
         "LUZ (Light, Usable & Zero-dependency) es un sistema de diseño en HTML, CSS y módulos ES, sin dependencias en tiempo de ejecución. El HTML que escribes sale con estilo sin poner ninguna clase, y las clases solo añaden lo que el HTML no puede decir.",
-        "Se adopta por capas independientes: solo los tokens, los tokens con los componentes, o además el catálogo con buscador, aviso de cookies, selector de idioma y patrones de landing, blog o documentación. En un proyecto que ya tiene diseño puede cargarse solo dentro de una región marcada y migrarse página a página.",
+        "Son cuatro paquetes en npm que se apilan en un solo sentido: los tokens, el núcleo con el HTML sin clases y los componentes, y el catálogo, con buscador, aviso de cookies, selector de idioma y patrones de landing, blog, aplicación o documentación. En un proyecto que ya tiene diseño puede cargarse solo dentro de una región marcada y migrarse página a página.",
         "Trae componentes de botones, formularios y tablas a pestañas, ventanas modales, avisos o un reproductor de vídeo, audio y MIDI. Cada uno tiene su página en la documentación con un ejemplo en vivo, el código para copiar y cuándo usarlo y cuándo no.",
         "Apunta al nivel AA de WCAG 2.2 en sus tres modos de color, claro, oscuro y alto contraste: se maneja con teclado, el foco siempre se ve y cada página funciona sin JavaScript. Las pruebas automáticas pasan en cada cambio, y la declaración de accesibilidad dice también lo que aún no se ha probado.",
         "Está pensado para personas y a la vez es sencillo para que un agente de IA lo escriba bien: la web publica la lista cerrada de clases, y luz-check lee sin conexión el HTML y el CSS de un proyecto y dice qué clases, elementos, orden de carga o colores están mal.",
-        "Cada cambio empieza con un test que falla, y cada archivo tiene un tamaño máximo que nadie sube para que pase. La paleta de color es propia y todo, fuentes incluidas, tiene licencia MIT, sin registro ni telemetría."
+        "Cada cambio empieza con un test que falla, y cada archivo tiene un tamaño máximo que nadie sube para que pase. La paleta de color es propia y todo, fuentes incluidas, tiene licencia MIT, sin registro ni telemetría. Está en beta y es un punto de partida, no una web terminada: el contenido, la marca y las decisiones finales son tuyos."
       ],
       "quote": "Mejorar el HTML nativo en lugar de sustituirlo.",
       "caption": "La lámpara"
@@ -28,11 +28,11 @@
       "kicker": "Design system",
       "body": [
         "LUZ (Light, Usable & Zero-dependency) is a design system in HTML, CSS and ES modules, with no runtime dependencies. The HTML you write comes out styled with no class, and classes only add what HTML cannot say.",
-        "You adopt it in independent layers: just the tokens, the tokens and the components, or the catalog on top, with search, cookie consent, a language switch and patterns for a landing page, a blog or documentation. A project that already has a design can load it inside one marked region and migrate page by page.",
+        "It is four npm packages that stack in one direction: the tokens, the core with the class-free HTML and the components, and the catalog, with search, cookie consent, a language switch and patterns for a landing page, a blog, a web application or documentation. A project that already has a design can load it inside one marked region and migrate page by page.",
         "It brings components from buttons, forms and tables to tabs, modal dialogs, alerts and a video, audio and MIDI player. Each one has a page in the documentation with a live example, the markup to copy, and when to use it and when not to.",
         "It aims for WCAG 2.2 level AA in its three colour modes, light, dark and high contrast: it works with a keyboard, focus is always visible and every page works without JavaScript. Automated checks run on every change, and the accessibility statement also says what has not been tested yet.",
         "It is made for people while staying plain enough for an AI agent to write it correctly: the site publishes the closed list of classes, and luz-check reads a project's HTML and CSS offline and says which classes, elements, load order or colours are wrong.",
-        "Every change starts with a failing test, and every file has a size ceiling that nobody raises to make it pass. The colour palette is its own, and everything, fonts included, is under the MIT licence, with no registration and no telemetry."
+        "Every change starts with a failing test, and every file has a size ceiling that nobody raises to make it pass. The colour palette is its own, and everything, fonts included, is under the MIT licence, with no registration and no telemetry. It is in beta and a starting point, not a finished site: the content, the brand and the final decisions are yours."
       ],
       "quote": "Enhance native HTML instead of replacing it.",
       "caption": "The lamp"
@@ -95,8 +95,9 @@
       "kicker": "IA en el navegador",
       "body": [
         "Demos de las APIs de IA que Chrome trae integradas con Gemini Nano. Todo se ejecuta en tu dispositivo: no hay servidor y, una vez descargado el modelo, tampoco hace falta conexión.",
-        "Hay un playground con respuesta en streaming, un chat con varias sesiones que se pueden bifurcar, salida en JSON que sigue un esquema, recetas para clasificar, extraer o moderar textos, un buscador de sinónimos con matices y una caja de herramientas para resumir, traducir y reescribir un mismo texto.",
-        "Cada demo empieza con una guía paso a paso; el sitio es bilingüe y está hecho con Astro, TypeScript y LUZ."
+        "Son quince demos sobre siete APIs: un playground con respuesta en streaming, un chat con varias sesiones que se pueden bifurcar, salida en JSON que sigue un esquema, recetas para clasificar, extraer o moderar textos, preguntas sobre una imagen, un buscador de sinónimos con matices, un corrector que marca el tipo de error y una caja de herramientas para resumir, traducir y reescribir un mismo texto.",
+        "La portada comprueba si tu navegador es compatible, enseña el estado de cada API, deja descargar los modelos con un botón y trae preguntas frecuentes. Cada demo empieza con una guía paso a paso.",
+        "Todas pasan por un motor propio, ai-engine-local, que si falta una API experimental recurre a la Prompt API y lo indica en el resultado. El sitio es bilingüe y está hecho con Astro, TypeScript y LUZ, con tests del motor y de los textos."
       ],
       "quote": "Inteligencia artificial que no sale de tu ordenador."
     },
@@ -104,8 +105,9 @@
       "kicker": "AI in the browser",
       "body": [
         "Demos of the AI APIs built into Chrome with Gemini Nano. Everything runs on your device: there is no server and, once the model is downloaded, no connection is needed either.",
-        "There is a playground with streamed answers, a chat with several sessions you can branch, JSON output that follows a schema, recipes to classify, extract or moderate text, a synonym finder that explains the nuances, and a toolkit to summarise, translate and rewrite the same text.",
-        "Every demo starts with a step-by-step guide; the site is bilingual and built with Astro, TypeScript and LUZ."
+        "There are fifteen demos on seven APIs: a playground with streamed answers, a chat with several sessions you can branch, JSON output that follows a schema, recipes to classify, extract or moderate text, questions about an image, a synonym finder that explains the nuances, a proofreader that marks the type of each error and a toolkit to summarise, translate and rewrite the same text.",
+        "The home page checks whether your browser is compatible, shows the state of each API, lets you download the models with a button and answers common questions. Every demo starts with a step-by-step guide.",
+        "They all go through an engine of its own, ai-engine-local, which falls back to the Prompt API when an experimental API is missing and says so in the result. The site is bilingual and built with Astro, TypeScript and LUZ, with tests for the engine and the texts."
       ],
       "quote": "Artificial intelligence that never leaves your computer."
     }
@@ -120,8 +122,8 @@
       "Vite",
       "LUZ"
     ],
-    "demo": "https://nandovejer.github.io/coac-quien-canta-hoy/",
-    "repo": "https://github.com/nandovejer/coac-quien-canta-hoy",
+    "demo": "https://coac.com.es/",
+    "repo": "https://github.com/nandovejer/coac",
     "plate": "mask",
     "es": {
       "kicker": "Carnaval de Cádiz",
@@ -130,8 +132,8 @@
         "Esta web la convierte en una página para el móvil que dice qué sesión es la de hoy, a qué hora aproximada sale cada agrupación, cuál está en directo y cuánto falta para la próxima.",
         "La hora de cada agrupación se calcula a partir del orden de actuación, sumando lo que duran la actuación y el montaje; son estimaciones, no el horario oficial. Todas las horas son las de Cádiz estés donde estés, y la sesión de la noche sigue contando como la de ese día hasta la madrugada.",
         "Cada agrupación lleva su modalidad, coro, comparsa, chirigota o cuarteto, su autor y su ciudad. Un buscador por autor lleva a la agrupación dentro de su sesión, y hay un enlace a la emisión en directo en YouTube y otro que busca lo que la agrupación presentó el año anterior.",
-        "Al construir la web, el contenido real de las sesiones se escribe dentro del HTML, con sus datos estructurados, para buscadores y lectores sin JavaScript. Tiene modo claro, oscuro y alto contraste, y los dos últimos cumplen el nivel AA de WCAG.",
-        "Sin cuentas, sin cookies y sin servidor: React y TypeScript sobre un tema propio de LUZ, con la lógica de fechas separada de los componentes y probada, también con un reloj simulado. Cambiar de fase es añadir el JSON copiado del listado oficial y tocar un solo archivo; las fechas salen del propio JSON."
+        "Al construir la web, el contenido real de las sesiones se escribe dentro del HTML, con sus datos estructurados, para buscadores y lectores sin JavaScript. Tiene modo claro, oscuro y alto contraste, y los dos últimos cumplen el nivel AA de WCAG, que se comprueba con tests de contraste y de accesibilidad.",
+        "Sin cuentas, sin cookies y sin servidor: React y TypeScript sobre un tema propio de LUZ, con la lógica de fechas separada de los componentes y probada, también con un reloj simulado. Cambiar de fase es añadir el JSON copiado del listado oficial y tocar un solo archivo; las fechas salen del propio JSON. La web está en coac.com.es y se publica sola desde GitHub Actions."
       ],
       "quote": "Qué agrupaciones cantan hoy, y en qué orden.",
       "caption": "El antifaz"
@@ -143,11 +145,46 @@
         "This site turns it into a page for your phone that tells you which session is tonight, roughly when each group goes on, which one is live and how long until the next.",
         "Each group's time is worked out from the running order, adding up the length of the performance and the set-up; they are estimates, not the official schedule. Every time is Cádiz time wherever you are, and the night's session still counts as that day's until the early morning.",
         "Each group shows its category, coro, comparsa, chirigota or cuarteto, its author and its town. A search by author takes you to the group inside its session, and there is a link to the live broadcast on YouTube and another that looks up what the group performed the year before.",
-        "When the site is built, the real content of the sessions is written into the HTML, with its structured data, for search engines and readers without JavaScript. It has light, dark and high-contrast modes, and the last two meet WCAG level AA.",
-        "No accounts, no cookies and no server: React and TypeScript on a LUZ theme of its own, with the date logic kept apart from the components and tested, also against a simulated clock. Moving to a new round means adding the JSON copied from the official listing and editing a single file; the dates come from the JSON itself."
+        "When the site is built, the real content of the sessions is written into the HTML, with its structured data, for search engines and readers without JavaScript. It has light, dark and high-contrast modes, and the last two meet WCAG level AA, checked with contrast and accessibility tests.",
+        "No accounts, no cookies and no server: React and TypeScript on a LUZ theme of its own, with the date logic kept apart from the components and tested, also against a simulated clock. Moving to a new round means adding the JSON copied from the official listing and editing a single file; the dates come from the JSON itself. The site lives at coac.com.es and publishes itself from GitHub Actions."
       ],
       "quote": "Which groups sing today, and in what order.",
       "caption": "The mask"
+    }
+  },
+  {
+    "id": "streetcai",
+    "name": "Street Cai",
+    "year": 2026,
+    "tech": [
+      "TypeScript",
+      "Vite",
+      "PWA"
+    ],
+    "demo": "https://nandovejer.github.io/streetcai/",
+    "repo": "https://github.com/nandovejer/streetcai",
+    "ornament": "fleuron",
+    "es": {
+      "kicker": "Videojuego",
+      "body": [
+        "Street Cai es un juego de lucha arcade en 2D que se juega en el navegador, en escritorio y en el móvil, ambientado en Cádiz. Hay ocho luchadores, desde Chapa, el guerrero, hasta Bizcocho, el cantaor, y un jefe final, el Tío de la Tiza.",
+        "Cada luchador pelea en su barrio, de Candelaria o Santa María a La Caleta y el Teatro Falla. En la selección se puede luchar en el barrio del rival, como en las recreativas, o dejar que el escenario y hasta el luchador salgan al azar. Se juega contra la CPU, en tres dificultades, o entre dos personas en el mismo teclado.",
+        "El combate tiene golpes flojos y fuertes, combos por cancelación, bloqueo con una barra de guardia que se rompe si se abusa, un especial por personaje y un súper que se carga al pegar y al recibir. Las rondas son al mejor de tres.",
+        "Se juega gratis, sin monedas: al perder sale la pantalla de CONTINUE, con la cara del ganador y la del derrotado y una frase que se escribe sola, y al ganar el arcade pasan los créditos como en una recreativa. Si no tocas nada en la portada, empieza un combate de exhibición entre dos luchadores de la CPU.",
+        "En el móvil tiene un mando táctil con palanca y pulsadores de recreativa de los noventa; en vertical queda debajo de la pantalla, a mano del pulgar. También funciona con teclado y con mando.",
+        "El locutor es una voz generada con Piper, escrita a la gaditana, con seseo y expresiones del lugar. El juego es un canvas 2D propio, sin motor y sin dependencias de ejecución, pensado para cargar rápido en el móvil: arranca con unos 0,35 MB, trae el resto bajo demanda y funciona sin conexión."
+      ]
+    },
+    "en": {
+      "kicker": "Video game",
+      "body": [
+        "Street Cai is a 2D arcade fighting game that runs in the browser, on desktop and on phones, set in Cádiz. There are eight fighters, from Chapa, the warrior, to Bizcocho, the flamenco singer, and a final boss, the Chalk Uncle.",
+        "Each fighter battles in their own neighbourhood, from Candelaria or Santa María to La Caleta and the Teatro Falla. On the select screen you can fight in your rival’s neighbourhood, as in the arcades, or leave the stage and even the fighter to chance. You play against the CPU, on three difficulties, or two people share one keyboard.",
+        "Combat has light and heavy hits, cancel combos, blocking with a guard bar that breaks if you lean on it, one special per fighter and a super that charges as you hit and as you get hit. Rounds are best of three.",
+        "It is free to play, no coins: when you lose the CONTINUE screen comes up, with the winner’s face and the beaten one’s and a line that types itself out, and when you win the arcade the credits roll like in a cabinet. If you leave the title screen alone, an exhibition match between two CPU fighters starts.",
+        "On a phone it has a touch pad with a joystick and buttons styled after a nineties arcade cabinet; held upright it sits below the screen, under the thumb. It also works with a keyboard and a gamepad.",
+        "The announcer is a voice generated with Piper, written the Cádiz way, with its lisp and local phrases. The game is a canvas 2D of its own, with no engine and no runtime dependencies, built to load fast on a phone: it starts at about 0.35 MB, brings the rest on demand and works offline."
+      ]
     }
   },
   {
