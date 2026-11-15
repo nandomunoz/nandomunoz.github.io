@@ -159,7 +159,7 @@ Las cuatro piezas del motor:
 - vídeos de YouTube tras una portada gris tramada con un botón ▶ granate, que solo cargan YouTube (sin cookies) al pulsarlo;
 - tuits como tarjeta con borde;
 - tablas que se desplazan de lado;
-- líneas de tiempo en un raíl de puntos con anillos;
+- líneas de tiempo con el `<luz-timeline>` de LUZ (`assets/vendor/luz/timeline.min.js`, copiado por `tools/luz-sync.mjs`) vestido de Trama, en sus dos versiones: **horizontal** por defecto (una tarjeta cada vez, tallo punteado hasta su fecha en una cinta de fechas, flechas a los lados, teclado Inicio/Fin/flechas y gesto de deslizar) y **vertical** con `"layout": "vertical"` en el bloque de `blog.json` (todos los pasos a lo largo de un raíl de puntos; el que cruza la mitad de la pantalla se rellena, crece y pone su fecha en granate; los anteriores pasan a tinta). Hoy: la historia de la IA en horizontal y la carrera de los modelos en vertical. El bloque lleva `label` (nombre accesible) y cada paso `when`, `title`, `text` y, opcional, `by`; la fecha es un `<time datetime>` cuando el texto da una fecha. Sin JS o antes de cargar el script, es la lista ordenada;
 - vídeos de Facebook y gists como tarjetas que enlazan fuera (↗).
 
 ## 11. La 404

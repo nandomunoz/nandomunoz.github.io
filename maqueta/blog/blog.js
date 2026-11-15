@@ -377,6 +377,21 @@ function tagPage() {
 
 const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+// <luz-timeline>'s own script, copied by tools/luz-sync.mjs; defines the element when evaluated
+let timelineLoaded = false;
+const lazyTimeline = () => { if (!timelineLoaded) { timelineLoaded = true; import('/assets/vendor/luz/timeline.min.js').catch(() => {}); } };
+// a timeline's date: a <time> with its machine-readable value when the text gives one
+// ("11 de junio de 2018", "junio de 2018", "1206"); "Siglo IV a. C." stays plain text
+const MONTHS = { enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6, julio: 7, agosto: 8, septiembre: 9, setiembre: 9, octubre: 10, noviembre: 11, diciembre: 12 };
+function dated(when) {
+  const t = String(when).trim().toLowerCase();
+  const p = (n) => String(n).padStart(2, '0');
+  let m, iso = null;
+  if ((m = /^(\d{1,2}) de ([a-zé]+) de (\d{3,4})$/.exec(t)) && MONTHS[m[2]]) iso = `${m[3].padStart(4, '0')}-${p(MONTHS[m[2]])}-${p(m[1])}`;
+  else if ((m = /^([a-zé]+) de (\d{3,4})$/.exec(t)) && MONTHS[m[1]]) iso = `${m[2].padStart(4, '0')}-${p(MONTHS[m[1]])}`;
+  else if (/^\d{4}$/.test(t)) iso = t;
+  return iso ? el('time', { class: 'luz-timeline__date', datetime: iso, text: when }) : el('span', { class: 'luz-timeline__date', text: when });
+}
 const html = (tag, attrs, s) => { const n = el(tag, attrs); n.innerHTML = s; return n; };
 const caption = (s) => (s ? html('figcaption', {}, s) : null);
 const outLink = (href, label, sub) => el('a', { class: 'card', href, target: '_blank', rel: 'noopener' },
@@ -413,9 +428,17 @@ function renderBlock(x, k, toc, ids) {
     el('div', { class: 'prose__scroll', tabindex: '0' }, el('table', {},
       x.table.head.length ? el('thead', {}, el('tr', {}, ...x.table.head.map((s) => html('th', { scope: 'col' }, s)))) : null,
       el('tbody', {}, ...x.table.rows.map((r) => el('tr', {}, ...r.map((s) => html('td', {}, s))))))), caption(x.cap));
-  if (x.timeline) return el('ol', { class: 'tline' }, ...x.timeline.map((s) => el('li', {},
-    el('p', { class: 'tline__when', text: s.when }), html('p', { class: 'tline__title' }, s.title),
-    s.text ? html('p', { class: 'tline__text' }, s.text) : null)));
+  if (x.timeline) {
+    // LUZ's <luz-timeline>: horizontal (one card at a time, a rail of dates) by default,
+    // layout="vertical" (every step down a line) when the block says so. The chunk is
+    // loaded once; until it is (or without JS) the ordered list is the timeline.
+    lazyTimeline();
+    return el('luz-timeline', { 'aria-label': x.label || B.timeline, ...(x.layout === 'vertical' ? { layout: 'vertical' } : {}) },
+      el('ol', { class: 'luz-timeline' }, ...x.timeline.map((s) => el('li', { class: 'luz-timeline__item' },
+        dated(s.when), html('p', { class: 'luz-timeline__title' }, s.title),
+        s.text ? html('p', { class: 'luz-timeline__text' }, s.text) : null,
+        s.by ? el('p', { class: 'luz-timeline__by', text: s.by }) : null))));
+  }
   if (x.hr) return el('hr');
   return null;
 }

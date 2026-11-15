@@ -371,7 +371,8 @@
         "title": "El Nobel de las redes neuronales",
         "text": "La Real Academia Sueca de Ciencias da el <a href=\"https://www.agenciasinc.es/Noticias/Nobel-de-Fisica-2024-para-dos-pioneros-en-redes-neuronales-artificiales\">Nobel de Física</a> a John Hopfield y Geoffrey Hinton por hacer posible el aprendizaje automático con redes neuronales. Más de ochenta años después de McCulloch y Pitts."
        }
-      ]
+      ],
+      "label": "De las sirvientas de Hefesto a 2024: casi tres mil años intentando fabricar a alguien"
      },
      {
       "p": "En esa lista se cruzan cuatro caminos: imitar el cuerpo, imitar el razonamiento, imitar el cerebro y, por último, dejar que la máquina aprenda sola. Casi todo lo que hoy llamamos inteligencia artificial va por el cuarto, y de la neurociencia heredó sus dos piezas: la neurona como ladrillo y el aprendizaje como ajuste de conexiones."
@@ -643,7 +644,9 @@
         "text": "La nueva generación de Google, a la altura de Astra y Opus; de momento, solo para expertos en ciberseguridad.",
         "by": "Google"
        }
-      ]
+      ],
+      "label": "De GPT-1, en junio de 2018, a septiembre de 2026: la carrera de los modelos de IA",
+      "layout": "vertical"
      },
      {
       "p": "Entre el primer ChatGPT y el primer modelo que razona antes de contestar pasan menos de dos años, y cuando una empresa estrena una idea, las demás la tienen a los pocos meses. Son pocas empresas, porque entrenar uno de los grandes cuesta decenas o cientos de millones en ordenadores y electricidad, y conviene no confundirlas con sus productos: OpenAI fabrica los modelos GPT, y ChatGPT es la aplicación para hablar con ellos."
@@ -885,7 +888,8 @@
         "title": "El Nobel de las redes neuronales",
         "text": "La Real Academia Sueca de Ciencias da el <a href=\"https://www.agenciasinc.es/Noticias/Nobel-de-Fisica-2024-para-dos-pioneros-en-redes-neuronales-artificiales\">Nobel de Física</a> a John Hopfield y Geoffrey Hinton por hacer posible el aprendizaje automático con redes neuronales. Más de ochenta años después de McCulloch y Pitts."
        }
-      ]
+      ],
+      "label": "De las sirvientas de Hefesto a 2024: casi tres mil años intentando fabricar a alguien"
      },
      {
       "p": "En esa línea se cruzan cuatro intentos: imitar el cuerpo, imitar el razonamiento, imitar el cerebro y, por fin, dejar que la máquina aprenda sola. Los autómatas dejaron máquinas que parecían vivas y, sobre todo, gente dispuesta a creer que lo estaban. La lógica dejó la convicción de que pensar es seguir reglas y que bastaría con escribirlas todas: funcionó para el ajedrez, no para reconocer un gato. Y la neurociencia dejó las dos piezas que hay dentro de ChatGPT: la neurona como ladrillo y el aprendizaje como ajuste de conexiones."
@@ -1191,7 +1195,9 @@
         "text": "La nueva generación de Google, a la altura de Astra y Opus; de momento, solo para expertos en ciberseguridad.",
         "by": "Google"
        }
-      ]
+      ],
+      "label": "De GPT-1, en junio de 2018, a septiembre de 2026: la carrera de los modelos de IA",
+      "layout": "vertical"
      },
      {
       "p": "Entre el primer ChatGPT y el primer modelo que razona pasan menos de dos años. Y cuando una empresa estrena una idea, las demás la tienen a los pocos meses. Por eso cualquier «el mejor es X» caduca antes de que termines la frase."

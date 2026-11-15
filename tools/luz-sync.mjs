@@ -5,6 +5,7 @@
 //   theme-mode.min.js   @luz-ds/core: <luz-theme-mode>, the colour-mode switch
 //   theme-boot.min.js   @luz-ds/core: sets data-mode before the first paint
 //   cookie-consent.min.js  @luz-ds/catalog: <luz-cookie-consent>, the cookie banner (the maqueta styles it as Trama)
+//   timeline.min.js     @luz-ds/catalog: <luz-timeline>, the timeline, horizontal and vertical (the maqueta styles it as Trama)
 // The site's own look is in assets/css/themes/ (a LUZ theme per version).
 // LUZ is in beta: the versions are pinned here. To update them, change them,
 // run `node tools/luz-sync.mjs`, rebuild and compare the pages before committing.
@@ -17,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const VERSIONS = { tokens: '0.4.1', core: '0.4.1', catalog: '0.4.1' };
-const FILES = [['tokens', 'dist/tokens.min.css', 'tokens.min.css'], ['core', 'dist/theme-mode.min.js', 'theme-mode.min.js'], ['core', 'dist/theme-boot.min.js', 'theme-boot.min.js'], ['catalog', 'dist/cookie-consent.min.js', 'cookie-consent.min.js']];
+const FILES = [['tokens', 'dist/tokens.min.css', 'tokens.min.css'], ['core', 'dist/theme-mode.min.js', 'theme-mode.min.js'], ['core', 'dist/theme-boot.min.js', 'theme-boot.min.js'], ['catalog', 'dist/cookie-consent.min.js', 'cookie-consent.min.js'], ['catalog', 'dist/timeline.min.js', 'timeline.min.js']];
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'assets/vendor/luz');
