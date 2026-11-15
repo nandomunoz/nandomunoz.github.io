@@ -1,10 +1,10 @@
-import { content, blog } from '../shared/content.js';
+import { content, blog } from './shared/content.js';
 import { B, row, blogUrl, projectsUrl, projectUrl } from './blog/parts.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from './dots.js';
 
 const T = {
   es: {
-    skip: 'Saltar al contenido', back: 'Todas las versiones', bio: 'Bio', work: 'Proyectos',
+    skip: 'Saltar al contenido', back: 'Inicio', bio: 'Bio', work: 'Proyectos',
     hintFine: 'mueve el puntero sobre la trama · haz clic', hintCoarse: 'toca la trama',
     legendTitle: 'Cómo leer los bloques',
     legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama.',
@@ -14,7 +14,7 @@ const T = {
     footer: 'Maqueta 01 · Trama', of: 'de', sections: 'Secciones', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
   },
   en: {
-    skip: 'Skip to content', back: 'All versions', bio: 'Bio', work: 'Projects',
+    skip: 'Skip to content', back: 'Home', bio: 'Bio', work: 'Projects',
     hintFine: 'move the pointer over the dots · click', hintCoarse: 'tap the dots',
     legendTitle: 'How to read the blocks',
     legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots.',

@@ -1,6 +1,6 @@
 # Trama · decisiones de diseño
 
-Trama es la versión del portfolio que se llevará a `main`. Hoy vive en la rama `proto/home` como maqueta (`maqueta/trama/`). Se sirve con `python3 maqueta/serve.py` → http://localhost:8766/maqueta/trama/.
+Trama es la versión del portfolio que se llevará a `main`. Hoy vive en la rama `proto/home` como maqueta (`maqueta/`). Se sirve con `python3 maqueta/serve.py` → http://localhost:8766/maqueta/.
 
 Este documento recoge **qué se decidió y por qué**, para que cualquier pieza nueva hable el mismo idioma. Si algo de aquí cambia, se cambia aquí también.
 
@@ -125,7 +125,7 @@ Las cuatro piezas del motor:
 
 | Página | URL (maqueta) | Claves |
 |---|---|---|
-| **Home** | `/maqueta/trama/` | Hero «NANDO» en partículas. 01 Bio con tres columnas de trama. 02 Proyectos: solo **cinco destacados** (LUZ, ¿Quién canta hoy?, Street Cai, IKAY, Toolbar AEM) y el enlace «Todos los proyectos». 03 Blog: los tres últimos artículos y «Todos los artículos». 04 Escríbeme: campo de puntos y redes con una línea de puntos que se mueve en hover. |
+| **Home** | `/maqueta/` | Hero «NANDO» en partículas. 01 Bio con tres columnas de trama. 02 Proyectos: solo **cinco destacados** (LUZ, ¿Quién canta hoy?, Street Cai, IKAY, Toolbar AEM) y el enlace «Todos los proyectos». 03 Blog: los tres últimos artículos y «Todos los artículos». 04 Escríbeme: campo de puntos y redes con una línea de puntos que se mueve en hover. |
 | **Proyectos** | `/proyectos/` | Los 13, agrupados por año, con filtros por tecnología (`?tech=`) y la leyenda. |
 | **Proyecto** | `/proyectos/proyecto/?p=id` | Nº, año, tecnologías (enlazan al filtro), demo y código, el bloque grande, el texto, anterior y siguiente, y «Más proyectos» que comparten tecnología. |
 | **Blog** | `/blog/` | El último artículo destacado en grande. El resto agrupado por año, con el año en Doto fijo a la izquierda en escritorio. Paginación de 5 en 5. Filtros por categoría. |
@@ -153,7 +153,7 @@ Las cuatro piezas del motor:
 - Titular: «Esta página se ha deshecho en puntos.». Debajo va la dirección que ha fallado, en mono.
 - **Buscador** sobre artículos y proyectos, que ya viene relleno con lo que traía la dirección. `/blog/margaret` ofrece «¿Buscabas esto?» con el artículo de Margaret Hamilton.
 - Debajo, las cuatro secciones en una rejilla punteada y lo último del blog.
-- El servidor de la maqueta devuelve el **código 404** con esta página para cualquier ruta bajo `/maqueta/trama/`.
+- El servidor de la maqueta devuelve el **código 404** con esta página para cualquier ruta bajo `/maqueta/`.
 
 ## 12. Accesibilidad
 

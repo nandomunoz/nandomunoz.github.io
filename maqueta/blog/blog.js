@@ -4,7 +4,7 @@
 //   category  /blog/categoria/[?c=<id>]   all categories, or the posts of one
 //   tag       /blog/etiqueta/[?t=<id>]    all tags, or the posts of one
 // Unknown ids render a "not found" page (the 404 of the sandbox).
-import { content, blog, lang } from '../../shared/content.js';
+import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut } from '../dots.js';
 import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots } from './parts.js';
 
@@ -43,7 +43,7 @@ document.body.prepend(
   main,
   el('footer', { class: 'foot' },
     el('p', {}, `${c.name} · ${new Date().getFullYear()}`),
-    el('p', {}, el('a', { href: '/maqueta/', text: lang === 'en' ? 'All versions' : 'Todas las versiones' }), ` · ${H.footer}${isProj ? "" : " · " + B.sample}`)));
+    el('p', {}, el('a', { href: '/maqueta/', text: lang === 'en' ? 'Home' : 'Inicio' }), ` · ${H.footer}${isProj ? "" : " · " + B.sample}`)));
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it

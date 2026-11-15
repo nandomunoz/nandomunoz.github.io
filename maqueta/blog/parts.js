@@ -1,8 +1,8 @@
 // Trama · blog pieces shared by the home (section 03) and the blog pages:
 // strings, URLs that keep ?lang=en, dates and the post row.
-import { lang } from '../../shared/content.js';
+import { lang } from '../shared/content.js';
 
-export const BASE = '/maqueta/trama';
+export const BASE = '/maqueta';
 
 export const B = {
   es: {
