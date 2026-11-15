@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nando · Esténcil</title>
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#2a1a24">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,100..900&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="mark" aria-label="Fernando Muñoz">
+    <a class="mark__name" href="#top">Nando</a>
+    <a class="mark__lang" href="?lang=en" hreflang="en" lang="en">EN</a>
+  </header>
+
+  <!-- the deepest layer: one gigantic letter that drifts with the pointer -->
+  <div class="abyss" aria-hidden="true"><span>N</span></div>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__letters" aria-hidden="true">
+        <div class="row" style="--from:-.22em;--to:-1.4em"><span>NANDO</span><span>NANDO</span></div>
+        <div class="row" style="--from:-1.02em;--to:.1em"><span>ANDO</span><span>NANDO</span></div>
+        <div class="row row--short" style="--from:-.14em;--to:-.6em"><span>M</span><span class="wide-only">U</span></div>
+        <div class="row" style="--from:-.3em;--to:-1.2em"><span>UÑOZ</span><span>MUÑOZ</span></div>
+      </div>
+      <div class="hero__title">
+        <h1 id="hero-title"><span>Fernando</span> <span>Muñoz</span></h1>
+        <p class="hero__kicker" data-slot="kicker"></p>
+        <p class="hero__deck" data-slot="deck"></p>
+      </div>
+      <p class="hero__cue" aria-hidden="true">↓</p>
+    </section>
+
+    <section class="bio" aria-labelledby="bio-title">
+      <div class="giant giant--bio" aria-hidden="true" data-slot="bioWord"></div>
+      <div class="bio__text">
+        <h2 class="label" id="bio-title" data-slot="bioTitle"></h2>
+        <div data-slot="bio"></div>
+      </div>
+    </section>
+
+    <section class="works" aria-labelledby="works-title">
+      <div class="works__head">
+        <div class="giant giant--works" aria-hidden="true" data-slot="worksWord"></div>
+        <h2 class="label" id="works-title" data-slot="worksTitle"></h2>
+        <p class="works__hint" data-slot="worksHint"></p>
+      </div>
+      <ol class="reel" data-slot="projects"></ol>
+    </section>
+
+    <section class="contact" aria-labelledby="contact-title">
+      <div class="contact__text">
+        <h2 class="label" id="contact-title" data-slot="contactTitle"></h2>
+        <p data-slot="contactText"></p>
+        <ul class="socials" data-slot="socials"></ul>
+      </div>
+      <div class="giant giant--contact" aria-hidden="true" data-slot="helloWord"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Fernando Muñoz · <span data-slot="year"></span></p>
+    <p><a href="../">Maqueta</a> · 04 · Esténcil</p>
+  </footer>
+
+  <dialog class="sheet" aria-labelledby="sheet-title">
+    <div class="sheet__num" aria-hidden="true"></div>
+    <div class="sheet__inner">
+      <p class="sheet__kicker"></p>
+      <h2 class="sheet__name" id="sheet-title"></h2>
+      <ul class="sheet__tech"></ul>
+      <div class="sheet__body"></div>
+      <p class="sheet__links"></p>
+      <nav class="sheet__nav">
+        <button type="button" data-go="-1"></button>
+        <button type="button" data-go="close" class="sheet__close" autofocus></button>
+        <button type="button" data-go="1"></button>
+      </nav>
+    </div>
+  </dialog>
+</body>
+</html>
