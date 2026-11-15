@@ -1266,6 +1266,13 @@ write('digital/index.html', toLanguage('', '../assets/favicon.svg'));
 // page, at the same depth, so its relative paths hold; only English is elsewhere
 write('maqueta/digital/index.html', cassettePage('es', { digital: true })
   .replaceAll('href="../en/"', 'href="../../digital/en/"'));
+// …and the other three versions too (Disquetes, VHS, Cassette), in Spanish;
+// their language switch leads to the real pages
+for (const [v, html] of [['disquetes', page('es')], ['vhs', vhsPage('es')], ['cassette', cassettePage('es')]]) {
+  write(`maqueta/${v}/index.html`, html
+    .replaceAll('href="../es/"', 'href="./"')
+    .replaceAll('href="../en/"', `href="../../${v}/en/"`));
+}
 clear('vhs');
 for (const lang of LANGS) write(`vhs/${lang}/index.html`, vhsPage(lang));
 write('vhs/index.html', toLanguage('', '../assets/favicon.svg'));
