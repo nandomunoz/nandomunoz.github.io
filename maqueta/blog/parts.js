@@ -132,7 +132,8 @@ export const el = (tag, attrs = {}, ...kids) => {
 // the screen of a post: its category's pattern, denser the longer it is
 export function postDots(p, posts, kind) {
   const ws = posts.map((q) => q.words), lo = Math.min(...ws), hi = Math.max(...ws);
-  return { density: 0.38 + 0.52 * ((p.words - lo) / (hi - lo || 1)), kind, seed: hashStr(p.id), label: pad(p.n) };
+  // no number cut into it: a post's number means nothing (a project's is its place in the list)
+  return { density: 0.38 + 0.52 * ((p.words - lo) / (hi - lo || 1)), kind, seed: hashStr(p.id), label: '' };
 }
 function hashStr(s) { let h = 2166136261; for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
 
