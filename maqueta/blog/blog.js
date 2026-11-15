@@ -7,6 +7,7 @@
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut } from '../dots.js';
 import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
+import { consent, allowed, grant, CT } from '../shared/consent.js';
 
 const PER_PAGE = 5;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -43,6 +44,7 @@ document.body.prepend(
   main,
   footer(c));
 if (!isProj) document.querySelector('.foot').append(el('p', { class: 'foot__credit', text: B.sample }));
+consent();
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it
@@ -337,19 +339,40 @@ function renderBlock(x, k, toc, ids) {
   return null;
 }
 
-// YouTube behind a facade: nothing loads from youtube until you press play
+// YouTube behind a facade: nothing loads from youtube until you press play,
+// and not even then unless the cookie banner (or this button) let YouTube in:
+// without it the facade is plain trama (no thumbnail from i.ytimg.com) and
+// pressing play asks here — watch here (which counts as granting "youtube")
+// or open it on youtube.com
 function video(x) {
   const start = (x.params || '').match(/start=(\d+)/);
   const fig = el('figure', { class: 'video' });
+  const thumb = () => el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' });
   const btn = el('button', { type: 'button', class: 'video__play', 'aria-label': `${B.play}: ${x.title}` },
-    el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' }),
+    allowed('youtube') ? thumb() : null,
     el('span', { class: 'video__btn', 'aria-hidden': 'true' }, el('span', { text: '▶' })),
     el('span', { class: 'video__title', text: x.title }));
-  btn.addEventListener('click', () => {
+  const frame = el('div', { class: 'video__frame' }, btn);
+  const play = () => {
     const f = el('iframe', { src: `https://www.youtube-nocookie.com/embed/${x.yt}?autoplay=1${start ? '&start=' + start[1] : ''}`, title: x.title, allow: 'autoplay; encrypted-media; picture-in-picture', allowfullscreen: '' });
-    btn.replaceWith(f); f.focus();
+    frame.replaceChildren(f); f.focus();
+  };
+  btn.addEventListener('click', () => {
+    if (allowed('youtube')) return play();
+    const yes = el('button', { type: 'button', class: 'consent__btn', text: CT.gateYes });
+    const gate = el('div', { class: 'video__gate', role: 'group', 'aria-label': x.title },
+      el('p', { text: CT.gate }),
+      el('div', { class: 'consent__actions' }, yes,
+        el('a', { class: 'consent__btn', href: `https://www.youtube.com/watch?v=${x.yt}${start ? '&t=' + start[1] + 's' : ''}`, target: '_blank', rel: 'noopener' },
+          CT.gateNo, ' ↗', el('span', { class: 'vh', text: ' ' + CT.newTab }))));
+    yes.addEventListener('click', () => { grant('youtube'); play(); });
+    frame.replaceChildren(gate); yes.focus();
   });
-  fig.append(el('div', { class: 'video__frame' }, btn), caption(x.cap));
+  // a choice made in the banner while the page is open brings the thumbnail
+  document.addEventListener('luz:consent', (e) => {
+    if (e.detail.granted.includes('youtube') && btn.isConnected && !btn.querySelector('img')) btn.prepend(thumb());
+  });
+  fig.append(...[frame, caption(x.cap)].filter(Boolean));
   return fig;
 }
 

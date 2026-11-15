@@ -357,3 +357,80 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
 }
+
+/* ------------------------------------------------------------ cookies
+   LUZ's <luz-cookie-consent> (shared/consent.js) in Trama's clothes: a band
+   of the sunk charcoal fixed at the bottom, a row of dots for its top edge,
+   the title in Doto, the rest in Chakra caps; Accept and Reject alike (the
+   same weight, side by side). Behaviour and the room it keeps are LUZ's:
+   no motion, no focus taken; its height comes as --luz-consent-h. */
+.luz-cookie-consent {
+  padding: 1.6rem var(--gut) 1.4rem;
+  background: var(--bg-2) radial-gradient(circle, var(--faint) 1.1px, transparent 1.6px) 0 0 / 8px 6px repeat-x;
+  color: var(--ink);
+  font: 400 .95rem/1.55 Archivo, system-ui, sans-serif;
+}
+.luz-cookie-consent[hidden], .luz-cookie-consent [hidden] { display: none; }
+.consent__ask { display: grid; gap: 1rem 2.5rem; }
+.luz-cookie-consent__title { margin: 0 0 .35rem; font: 700 1.5rem/1 var(--dots); letter-spacing: .02em; }
+.consent__text { margin: 0; max-width: 46rem; color: var(--mute); text-wrap: pretty; }
+.consent__text a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
+.consent__text a:hover { color: var(--ink); text-decoration-color: var(--blaze); }
+.consent__actions { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; align-items: center; margin: 0; }
+/* the site's buttons: Chakra caps over a row of dots that turns maroon */
+.consent__btn {
+  display: inline-flex; align-items: center; min-height: 2.75rem; padding: .7rem 0;
+  font: 600 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--ink); text-decoration: none;
+  background: radial-gradient(circle, var(--ink) 1px, transparent 1.6px) 0 100% / 6px 6px repeat-x;
+}
+.consent__btn:hover { background-image: radial-gradient(circle, var(--blaze) 1.3px, transparent 1.8px); }
+.luz-cookie-consent__choices { grid-column: 1 / -1; }
+.luz-cookie-consent__choices summary {
+  display: inline-flex; gap: .6em; align-items: center; min-height: 2.75rem; cursor: pointer; list-style: none;
+  font: 600 .66rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--mute);
+}
+.luz-cookie-consent__choices summary::-webkit-details-marker { display: none; }
+.luz-cookie-consent__choices summary::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--faint); transition: background .3s var(--ease); }
+.luz-cookie-consent__choices[open] summary::before, .luz-cookie-consent__choices summary:hover::before { background: var(--blaze); }
+.luz-cookie-consent__choices summary:hover { color: var(--ink); }
+.luz-cookie-consent__choices form { display: grid; gap: .8rem; padding: .4rem 0 0; }
+.luz-cookie-consent__choices fieldset { margin: 0; padding: 0; border: 0; }
+.luz-cookie-consent__choices legend { padding: 0; margin-bottom: .5rem; font: 500 .62rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); filter: brightness(1.5); }
+.consent__check { display: inline-flex; gap: .7rem; align-items: center; min-height: 2.75rem; cursor: pointer; }
+.consent__check input { width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--blaze); }
+.consent__hint { margin: 0 0 0 1.85rem; font: 500 .7rem/1.5 var(--mono); letter-spacing: .06em; color: var(--mute); }
+.consent__done { display: flex; flex-wrap: wrap; gap: .4rem 2rem; align-items: center; outline-offset: 8px; }
+.consent__done p { margin: 0; color: var(--mute); }
+.foot__consent { display: inline-block; padding: .35rem 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--mute); }
+.foot__consent:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+/* LUZ: the open button keeps its room until the script shows it */
+[data-luz-consent-open][hidden] { display: inline-block; visibility: hidden; }
+
+/* a post's video before YouTube is let in: the question, on the trama */
+.video__gate { position: absolute; inset: 0; display: grid; align-content: center; gap: .6rem; padding: 1.2rem clamp(1.2rem, 5%, 2.4rem);
+  background: var(--bg-2) radial-gradient(circle, #ffffff10 1.1px, transparent 1.5px) 0 0 / 6px 6px; }
+.video__gate p { margin: 0; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; color: var(--mute); }
+
+@media screen and (height > 30rem) {
+  .luz-cookie-consent { position: fixed; inset: auto 0 0; z-index: 40; max-height: 50dvh; overflow-y: auto; overscroll-behavior: contain;
+    box-shadow: 0 -24px 48px -24px #000c; }
+  :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-bottom: var(--luz-consent-h); }
+  :root:has(luz-cookie-consent > :not([hidden])) body { padding-bottom: var(--luz-consent-h); }
+  /* the phone's pill rides on the band's top edge */
+  :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { bottom: calc(var(--luz-consent-h) + 1rem); }
+}
+@media (min-width: 48em) {
+  .consent__ask { grid-template-columns: 1fr auto; align-items: end; }
+  .consent__ask > .consent__actions { justify-content: flex-end; }
+}
+@media (min-width: 64em) {
+  /* the left rail stays clear of the band */
+  .luz-cookie-consent { padding-left: max(var(--gut), 6rem); }
+  :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { bottom: auto; }
+}
+@media (forced-colors: active) {
+  .luz-cookie-consent { border-top: 1px solid CanvasText; }
+  .consent__btn { text-decoration: underline; }
+  .luz-cookie-consent__choices summary::before { background: CanvasText; }
+}
+@media print { luz-cookie-consent { display: none; } }

@@ -164,6 +164,7 @@ Las cuatro piezas del motor:
 - Los enlaces que se abren en otra pestaña lo dicen con un texto solo para lectores de pantalla.
 - Los artículos que solo existen en español llevan `lang="es"` aunque la interfaz esté en inglés, con un aviso visible.
 - Movimiento reducido respetado en todo (§9).
+- **Aviso de cookies**: el `<luz-cookie-consent>` de LUZ (`@luz-ds/catalog`, copiado en `assets/vendor/luz/` por `tools/luz-sync.mjs`) con el comportamiento de LUZ intacto: banda fija abajo, que no roba el foco ni se anima; Aceptar y Rechazar con el mismo peso; «Elegir» en un `<details>`; la confirmación sí toma el foco; y un botón «Cookies» en el pie para volver a abrirlo. Sin JS no aparece. Solo pregunta por lo único que hay: los vídeos de YouTube. Sin permiso, un artículo no pide nada a YouTube, ni siquiera la miniatura: al darle a ▶ pregunta allí mismo si verlo aquí (cuenta como permiso) o abrirlo en youtube.com. El aspecto es de Trama: carbón hundido, una fila de puntos como borde, el título en Doto y los botones en Chakra sobre su fila de puntos. En el móvil, la píldora del menú se apoya sobre la banda. Código en `maqueta/shared/consent.js` y estilos al final de `style.css`.
 
 ## 13. Contenido
 

@@ -1,6 +1,7 @@
 import { content, blog } from './shared/content.js';
 import { B, row, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp } from './dots.js';
+import { consent } from './shared/consent.js';
 
 const T = {
   es: {
@@ -62,6 +63,7 @@ $('.panel__nav').setAttribute('aria-label', t.projects);
 $$('[data-slot]').forEach((n) => { n.textContent = c[n.dataset.slot]; });
 $('.hero__hint').textContent = fine ? t.hintFine : t.hintCoarse;
 document.querySelector('main').after(footer(c));
+consent();
 const lang = $('#lang');
 if (c.lang === 'en') { lang.href = '?'; lang.hreflang = 'es'; lang.lang = 'es'; lang.textContent = T.es.other; }
 else { lang.textContent = T.en.other; }
