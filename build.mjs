@@ -1262,6 +1262,10 @@ write('index.html', cassettePage('es', { digital: true })
 clear('digital');
 for (const lang of LANGS) write(`digital/${lang}/index.html`, cassettePage(lang, { digital: true }));
 write('digital/index.html', toLanguage('', '../assets/favicon.svg'));
+// the layout sandbox (maqueta/) shows Digital as one of its versions: the same
+// page, at the same depth, so its relative paths hold; only English is elsewhere
+write('maqueta/digital/index.html', cassettePage('es', { digital: true })
+  .replaceAll('href="../en/"', 'href="../../digital/en/"'));
 clear('vhs');
 for (const lang of LANGS) write(`vhs/${lang}/index.html`, vhsPage(lang));
 write('vhs/index.html', toLanguage('', '../assets/favicon.svg'));
