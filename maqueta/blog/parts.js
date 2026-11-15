@@ -178,6 +178,14 @@ const LOOP_BW = [         // the same, without the colour
   [2.4, 0, 1, 0],         // hold: black and white
   [1.8, 1, 0, 0]          // the photo sinks, the dots gather
 ];
+// how far a picture sinks under its dots depends on the mode (--sink-b, --sink-c)
+let sink = { b: 0.32, c: 1.1 };
+const readSink = () => {
+  const cs = getComputedStyle(document.documentElement);
+  sink = { b: parseFloat(cs.getPropertyValue('--sink-b')) || 0.32, c: parseFloat(cs.getPropertyValue('--sink-c')) || 1.1 };
+};
+readSink();
+document.addEventListener('luz-theme-mode:change', readSink);
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 export function coverLoop(fig, block, { offset = 0, colour: withColour = true } = {}) {
   const pic = fig.querySelector('picture'), img = fig.querySelector('img');
@@ -199,7 +207,7 @@ export function coverLoop(fig, block, { offset = 0, colour: withColour = true } 
     }
     const [dots, light, colour] = v, b = block();
     if (b) b.draw(dots, true);
-    pic.style.filter = `brightness(${0.32 + 0.68 * light}) contrast(${1.1 - 0.1 * light})`;
+    pic.style.filter = `brightness(${sink.b + (1 - sink.b) * light}) contrast(${sink.c + (1 - sink.c) * light})`;
     img.style.filter = `grayscale(${1 - colour})`;
     requestAnimationFrame(frame);
   }

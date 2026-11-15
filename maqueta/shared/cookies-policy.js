@@ -25,7 +25,7 @@ export const POLICY = {
         ['Publicidad', 'Ninguna'],
         ['Contar visitas o seguirte', 'No'],
         ['Vídeos de YouTube', 'Solo si tú dices que sí'],
-        ['Lo que se guarda', 'Tu respuesta a este aviso, y nada más']
+        ['Lo que se guarda', 'Tu respuesta a este aviso y, si la cambias, tu elección de color']
       ] },
       { now: true },
 
@@ -37,14 +37,15 @@ export const POLICY = {
       { p: '<strong>No. Esta web no pone ninguna cookie suya.</strong> No hay anuncios, no cuenta tus visitas y no apunta lo que haces.' },
       { p: 'Las letras que ves están guardadas en esta misma web, así que tampoco hace falta pedírselas a Google ni a nadie.' },
 
-      { h: 'Lo único que se guarda: tu respuesta' },
-      { p: 'Cuando eliges en el aviso de cookies, tu navegador guarda <strong>una sola nota</strong> con lo que has elegido y el día en que lo hiciste. Así no te volvemos a preguntar cada vez que entras.' },
+      { h: 'Lo único que se guarda: tus elecciones' },
+      { p: 'Cuando eliges en el aviso de cookies, tu navegador guarda <strong>una nota</strong> con lo que has elegido y el día en que lo hiciste. Así no te volvemos a preguntar cada vez que entras.' },
       { ul: [
         'Se queda en tu aparato. No se envía a ningún sitio.',
         'Dura 6 meses. Después te lo volvemos a preguntar.',
         'Si cambiamos estas normas, también te lo volvemos a preguntar.'
       ] },
       { p: 'Esta nota es parecida a una cookie, pero no viaja por internet. La necesita el propio aviso para funcionar, por eso no te pedimos permiso para guardarla.' },
+      { p: 'Si pulsas el botón de color (el círculo de abajo a la derecha) para cambiar entre claro, oscuro y contraste alto, tu navegador guarda <strong>otra nota</strong> con el modo que has elegido, para ponértelo igual la próxima vez. Solo se guarda si lo pulsas. También se queda en tu aparato y no se envía a ningún sitio, y tampoco te pedimos permiso, porque lo has pedido tú.' },
 
       { h: 'Los vídeos de YouTube' },
       { p: 'Algunos artículos tienen vídeos de YouTube. YouTube es de Google, y Google sí puede guardar sus propias cookies cuando ves un vídeo.' },
@@ -93,7 +94,7 @@ export const POLICY = {
         ['Advertising', 'None'],
         ['Counting visits or following you', 'No'],
         ['YouTube videos', 'Only if you say yes'],
-        ['What is stored', 'Your answer to this notice, and nothing else']
+        ['What is stored', 'Your answer to this notice and, if you change it, your colour choice']
       ] },
       { now: true },
 
@@ -105,14 +106,15 @@ export const POLICY = {
       { p: '<strong>No. This site sets no cookies of its own.</strong> There are no adverts, it does not count your visits and it does not write down what you do.' },
       { p: 'The letters you see are kept on this same site, so there is no need to ask Google or anyone else for them either.' },
 
-      { h: 'The only thing kept: your answer' },
-      { p: 'When you choose in the cookie notice, your browser keeps <strong>one single note</strong> with what you chose and the day you did it. That way we do not ask you again every time you come in.' },
+      { h: 'The only things kept: your choices' },
+      { p: 'When you choose in the cookie notice, your browser keeps <strong>one note</strong> with what you chose and the day you did it. That way we do not ask you again every time you come in.' },
       { ul: [
         'It stays on your device. It is not sent anywhere.',
         'It lasts 6 months. After that we ask you again.',
         'If we change these rules, we ask you again too.'
       ] },
       { p: 'This note is like a cookie, but it does not travel over the internet. The notice itself needs it to work, which is why we do not ask your permission to keep it.' },
+      { p: 'If you press the colour button (the circle at the bottom right) to switch between light, dark and high contrast, your browser keeps <strong>another note</strong> with the mode you picked, so it can show it the same way next time. It is only kept if you press it. It also stays on your device and is not sent anywhere, and we do not ask your permission for it either, because you asked for it.' },
 
       { h: 'YouTube videos' },
       { p: 'Some posts have YouTube videos. YouTube belongs to Google, and Google can keep its own cookies when you watch a video.' },

@@ -4,9 +4,18 @@
 // a project block (a dithered rectangle that assembles with scroll) and the
 // flight of dots between two sets of points (opening a project).
 
-export const INK = '#f4f2ee';
-export const BLAZE = '#963641';
-export const MID = '#c98a8f';
+// The dots' three colours come from the tokens of the current colour mode
+// (--dot-ink, --dot-mid, --dot-blaze in style.css) and are read again whenever
+// the mode changes (shared/theme.js calls readPalette). LIGHT: the dots are
+// dark on paper, so a picture is read the other way round (halftone below).
+const PAL = { ink: '#f4f2ee', mid: '#c98a8f', blaze: '#963641' };
+export let LIGHT = false;
+export function readPalette() {
+  const cs = getComputedStyle(document.documentElement), g = (n, d) => cs.getPropertyValue(n).trim() || d;
+  PAL.ink = g('--dot-ink', PAL.ink); PAL.mid = g('--dot-mid', PAL.mid); PAL.blaze = g('--dot-blaze', PAL.blaze);
+  LIGHT = document.documentElement.dataset.mode === 'light';
+}
+readPalette();
 export const DPR = () => Math.min(window.devicePixelRatio || 1, 2);
 
 const B8 = (() => {
@@ -146,12 +155,13 @@ export function loadTone(src) {
       // draw the thing and not the paper around it: ink is light here
       let raw = 0;
       for (let i = 0; i < g.length; i++) raw += g[i];
-      if (raw / g.length > 0.55) for (let i = 0; i < g.length; i++) g[i] = 1 - g[i];
+      const negated = raw / g.length > 0.55;
+      if (negated) for (let i = 0; i < g.length; i++) g[i] = 1 - g[i];
       const sorted = Float32Array.from(g).sort();
       const lo = sorted[(g.length * 0.02) | 0], hi = sorted[(g.length * 0.98) | 0], span = Math.max(0.05, hi - lo);
       let sum = 0;
       for (let i = 0; i < g.length; i++) { g[i] = clamp((g[i] - lo) / span); sum += g[i]; }
-      ok({ w, h, g, mean: Math.max(0.08, sum / g.length) });
+      ok({ w, h, g, negated, mean: Math.max(0.08, sum / g.length) });
     };
     im.onerror = () => ok(null);
     im.src = src;
@@ -161,8 +171,11 @@ export function loadTone(src) {
 // Halftone a cell: whether it lights (dithered against the year's density,
 // nudged by the tone) and how big its dot is (the tone itself).
 export const halftone = (t, tone, density, threshold) => {
-  const d = density * (0.3 + 0.7 * tone / t.mean);
-  return threshold < d ? 0.12 + 0.36 * Math.pow(tone, 0.8) : 0;
+  // light mode: the dots are dark, so they draw the dark parts of a photo
+  // (a picture already read as a negative, a page on white, draws its content either way)
+  const flip = LIGHT && !t.negated, v = flip ? 1 - tone : tone, mean = Math.max(0.08, flip ? 1 - t.mean : t.mean);
+  const d = density * (0.3 + 0.7 * v / mean);
+  return threshold < d ? 0.12 + 0.36 * Math.pow(v, 0.8) : 0;
 };
 
 // The tone under cell (x, y) of a cols×rows grid of cw×ch cells, the
@@ -252,9 +265,9 @@ export class DotBlock {
       paths[b].moveTo(x + r, y);
       paths[b].arc(x, y, r, 0, Math.PI * 2);
     }
-    ctx.fillStyle = INK; ctx.fill(paths[0]);
-    ctx.fillStyle = MID; ctx.fill(paths[1]);
-    ctx.fillStyle = BLAZE; ctx.fill(paths[2]);
+    ctx.fillStyle = PAL.ink; ctx.fill(paths[0]);
+    ctx.fillStyle = PAL.mid; ctx.fill(paths[1]);
+    ctx.fillStyle = PAL.blaze; ctx.fill(paths[2]);
   }
   // the lit dots, in viewport coordinates
   points() {
@@ -407,10 +420,10 @@ export class HeroField {
     }
     if (this.intro && !introLeft) { this.intro = false; this.done = true; }
     ctx.clearRect(0, 0, this.w, this.h);
-    ctx.globalAlpha = 0.55; ctx.fillStyle = INK; ctx.fill(dust); ctx.globalAlpha = 1;
-    ctx.fillStyle = INK; ctx.fill(paths[0]);
-    ctx.fillStyle = MID; ctx.fill(paths[1]);
-    ctx.fillStyle = BLAZE; ctx.fill(paths[2]);
+    ctx.globalAlpha = 0.55; ctx.fillStyle = PAL.ink; ctx.fill(dust); ctx.globalAlpha = 1;
+    ctx.fillStyle = PAL.ink; ctx.fill(paths[0]);
+    ctx.fillStyle = PAL.mid; ctx.fill(paths[1]);
+    ctx.fillStyle = PAL.blaze; ctx.fill(paths[2]);
   }
 }
 
@@ -452,7 +465,7 @@ export function drawPoints(ctx, w, h, pts) {
   ctx.clearRect(0, 0, w, h);
   const a = new Path2D();
   for (const p of pts) { a.moveTo(p.x + p.r, p.y); a.arc(p.x, p.y, p.r, 0, 6.283); }
-  ctx.fillStyle = INK; ctx.fill(a);
+  ctx.fillStyle = PAL.ink; ctx.fill(a);
 }
 
 // Flight: every target dot leaves from one of the source dots and curves
@@ -483,9 +496,9 @@ export function fly(cv, sources, targets, { dur = 950, reverse = false } = {}) {
         const path = heat > 0.6 ? p2 : heat > 0.15 ? p1 : p0;
         path.moveTo(x + r, y); path.arc(x, y, Math.max(0.4, r), 0, 6.283);
       }
-      ctx.fillStyle = INK; ctx.fill(p0);
-      ctx.fillStyle = MID; ctx.fill(p1);
-      ctx.fillStyle = BLAZE; ctx.fill(p2);
+      ctx.fillStyle = PAL.ink; ctx.fill(p0);
+      ctx.fillStyle = PAL.mid; ctx.fill(p1);
+      ctx.fillStyle = PAL.blaze; ctx.fill(p2);
       if (T < 1) requestAnimationFrame(step); else done(ctx);
     };
     requestAnimationFrame(step);

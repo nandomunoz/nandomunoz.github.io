@@ -8,6 +8,7 @@ import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
+import { themeSwitch, onMode } from '../shared/theme.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
 import { CREDITS as CR, UPDATED as CR_UPDATED } from '../shared/credits.js';
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
@@ -47,6 +48,8 @@ document.body.prepend(
   main,
   footer(c));
 consent();
+themeSwitch();
+onMode(() => { build(); titles.forEach((t) => t.f && t.f.layout()); });
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it

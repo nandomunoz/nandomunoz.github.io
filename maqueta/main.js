@@ -1,5 +1,6 @@
 import { content, blog } from './shared/content.js';
 import { B, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
+import { themeSwitch, onMode } from './shared/theme.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
 
@@ -64,6 +65,9 @@ $$('[data-slot]').forEach((n) => { n.textContent = c[n.dataset.slot]; });
 $('.hero__hint').textContent = fine ? t.hintFine : t.hintCoarse;
 document.querySelector('main').after(footer(c));
 consent();
+themeSwitch();
+// a new mode: the dots are redrawn in its colours (and, in light, read the pictures the other way round)
+onMode(() => { hero.layout(); relayoutTitles(); build(); if (panel.open) restField(); });
 const lang = $('#lang');
 if (c.lang === 'en') { lang.href = '?'; lang.hreflang = 'es'; lang.lang = 'es'; lang.textContent = T.es.other; }
 else { lang.textContent = T.en.other; }

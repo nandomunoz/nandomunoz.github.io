@@ -6,7 +6,17 @@
 @font-face { font-family: 'Chakra Petch'; src: url(/assets/fonts/chakra-petch-latin-500-normal.woff2) format('woff2'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Chakra Petch'; src: url(/assets/fonts/chakra-petch-latin-600-normal.woff2) format('woff2'); font-weight: 600; font-display: swap; }
 
+/* Colour modes. Dark is Trama's own and the default (charcoal, off-white ink, one maroon).
+   LUZ's <luz-theme-mode> (shared/theme.js) writes data-mode on <html> — light, dark or
+   high-contrast — and its boot script sets it before the first paint. Everything below
+   reads these tokens; the dot engine reads --dot-* and --sink-* (dots.js, blog/parts.js). */
 :root {
+  --gut: clamp(1.25rem, 5.5vw, 7rem);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --mono: 'Chakra Petch', ui-monospace, monospace;
+  --dots: Doto, 'Chakra Petch', monospace;
+}
+:root, :root[data-mode="dark"] {
   color-scheme: dark;
   --bg: #292929;
   --bg-2: #232323;
@@ -14,10 +24,59 @@
   --mute: #b9b6b0;
   --faint: #6f6c68;
   --blaze: #963641;
-  --gut: clamp(1.25rem, 5.5vw, 7rem);
-  --ease: cubic-bezier(.2, .8, .2, 1);
-  --mono: 'Chakra Petch', ui-monospace, monospace;
-  --dots: Doto, 'Chakra Petch', monospace;
+  --blaze-lift: brightness(1.7);               /* maroon as small text is lifted on charcoal */
+  --prose: #dedbd5;
+  --scrim: color-mix(in srgb, #1a1a1a 80%, transparent);
+  --shade: #000;
+  --edge: color-mix(in srgb, var(--ink) 8%, transparent);
+  --edge-2: color-mix(in srgb, var(--ink) 12%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 18%, transparent);
+  --glow: color-mix(in srgb, var(--ink) 11%, transparent);
+  --dot-ink: #f4f2ee; --dot-mid: #c98a8f; --dot-blaze: #963641;
+  --sink: brightness(.32) contrast(1.1);       /* a featured image sunk under its dots */
+  --sink-b: .32; --sink-c: 1.1;
+}
+/* Light: the same sheet on paper. Ink #232323 on #f4f2ee is 14:1; the faint grey 5:1. */
+:root[data-mode="light"] {
+  color-scheme: light;
+  --bg: #f4f2ee;
+  --bg-2: #e8e5df;
+  --ink: #232323;
+  --mute: #55524d;
+  --faint: #67635e;
+  --blaze: #963641;
+  --blaze-lift: none;
+  --prose: #3a3733;
+  --scrim: color-mix(in srgb, #f4f2ee 82%, transparent);
+  --shade: #4a453d;
+  --edge: color-mix(in srgb, var(--ink) 10%, transparent);
+  --edge-2: color-mix(in srgb, var(--ink) 16%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 30%, transparent);
+  --glow: color-mix(in srgb, var(--ink) 8%, transparent);
+  --dot-ink: #232323; --dot-mid: #8c4a54; --dot-blaze: #b3263a;
+  --sink: brightness(1.8) contrast(.55);       /* pale, so dark dots show on it */
+  --sink-b: 1.8; --sink-c: .55;
+}
+/* High contrast: pure black and white, a brighter maroon, rules that show. */
+:root[data-mode="high-contrast"] {
+  color-scheme: dark;
+  --bg: #000;
+  --bg-2: #0d0d0d;
+  --ink: #fff;
+  --mute: #f0f0f0;
+  --faint: #c9c9c9;
+  --blaze: #ff7a8a;
+  --blaze-lift: none;
+  --prose: #fff;
+  --scrim: color-mix(in srgb, #000 88%, transparent);
+  --shade: #000;
+  --edge: color-mix(in srgb, var(--ink) 55%, transparent);
+  --edge-2: color-mix(in srgb, var(--ink) 65%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 70%, transparent);
+  --glow: transparent;
+  --dot-ink: #fff; --dot-mid: #ffc2ca; --dot-blaze: #ff6479;
+  --sink: brightness(.45) contrast(1.2);
+  --sink-b: .45; --sink-c: 1.2;
 }
 
 * { box-sizing: border-box; }
@@ -69,7 +128,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   padding: .55rem 1.1rem; border-radius: 999px;
   background: color-mix(in srgb, var(--bg-2) 82%, transparent);
   backdrop-filter: blur(10px) saturate(.6);
-  box-shadow: 0 0 0 1px #ffffff14, 0 18px 40px -12px #000a, 0 0 40px -10px #f4f2ee22;
+  box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 40px -10px var(--rule);
 }
 .docked .nav ol { gap: 1rem; }
 /* the pill is as wide as its four links: on a tablet the inline nav's right
@@ -103,7 +162,7 @@ body[data-glide] .nav { --glide: .9s cubic-bezier(.45, 0, .2, 1); transition: le
 /* ------------------------------------------------------------ sections */
 section { position: relative; }
 .sec-head { display: grid; gap: .5rem; margin-bottom: 3rem; }
-.sec-head__n { font: 600 .72rem/1 var(--mono); letter-spacing: .2em; color: var(--blaze); filter: brightness(1.7); }
+.sec-head__n { font: 600 .72rem/1 var(--mono); letter-spacing: .2em; color: var(--blaze); filter: var(--blaze-lift); }
 .sec-head h2 { margin: 0; font: 700 clamp(3.25rem, 16vw, 5rem)/.88 var(--dots); letter-spacing: -.02em; }
 .sec-head__count { font: 500 .75rem/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
 
@@ -132,7 +191,7 @@ section { position: relative; }
 .item__block { position: relative; display: block; transform-style: preserve-3d; transition: transform .6s var(--ease); cursor: pointer;
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
 .item__block canvas { display: block; width: 100%; }
-.item__block .front { position: relative; transform: translateZ(20px); filter: drop-shadow(0 0 14px #f4f2ee1c); }
+.item__block .front { position: relative; transform: translateZ(20px); filter: drop-shadow(0 0 14px var(--glow)); }
 .item__block .back { position: absolute; inset: 0; opacity: .28; transform: translate3d(14px, 16px, -40px); transition: transform .6s var(--ease), opacity .6s; }
 .item__block.is-hot { transition-duration: .15s; }
 .item__block.is-hot .back { transform: translate3d(26px, 30px, -90px); opacity: .4; }
@@ -172,7 +231,7 @@ section { position: relative; }
 .socials a:hover .socials__lead, .socials a:focus-visible .socials__lead { background-image: radial-gradient(circle, var(--blaze) 1.6px, transparent 2.1px); background-position: 64px 50%; }
 .socials a:hover .socials__handle { color: var(--ink); }
 
-.foot { padding: 3rem var(--gut) 7rem; display: grid; gap: .6rem; font: 500 .7rem/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); border-top: 1px dotted #ffffff1c; }
+.foot { padding: 3rem var(--gut) 7rem; display: grid; gap: .6rem; font: 500 .7rem/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); border-top: 1px dotted var(--glow); }
 .foot a { color: var(--mute); text-decoration: none; }
 .foot a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
 .foot__nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; }
@@ -210,7 +269,7 @@ section { position: relative; }
 .panel__field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .panel__sheet {
   position: absolute; inset: 34svh 0 0 0; overflow: auto; overscroll-behavior: contain;
-  background: var(--bg); box-shadow: 0 -30px 60px -20px #0009, 0 -1px 0 #ffffff14;
+  background: var(--bg); box-shadow: 0 -30px 60px -20px color-mix(in srgb, var(--shade) 60%, transparent), 0 -1px 0 var(--edge);
   transition: opacity .55s var(--ease), transform .7s var(--ease);
 }
 .panel.is-forming .panel__sheet { opacity: 0; transform: translateY(3rem); }
@@ -300,7 +359,7 @@ section { position: relative; }
   .docked .nav__n { font-size: .8rem; }
 
   .rail { display: block; position: fixed; right: 1.4rem; top: 25vh; height: 50vh; width: 8px; z-index: 4;
-    background: radial-gradient(circle, #ffffff2a 1.3px, transparent 1.8px) 50% 0 / 8px 9px repeat-y; }
+    background: radial-gradient(circle, var(--rule) 1.3px, transparent 1.8px) 50% 0 / 8px 9px repeat-y; }
   .rail i { position: absolute; inset: 0; background: radial-gradient(circle, var(--ink) 1.6px, transparent 2.1px) 50% 0 / 8px 9px repeat-y;
     clip-path: inset(0 0 calc((1 - var(--p, 0)) * 100%) 0); }
 
@@ -318,7 +377,7 @@ section { position: relative; }
   /* the third of every four: the text card floats over the block's corner */
   .item:nth-child(4n+3) .item__text { grid-column: 6 / 11; align-self: end; margin-bottom: -5rem; padding: 2rem 2.25rem; z-index: 2;
     background: color-mix(in srgb, var(--bg-2) 94%, transparent); backdrop-filter: blur(6px);
-    box-shadow: 0 40px 80px -30px #000c, 0 0 0 1px #ffffff12, 0 0 60px -20px #f4f2ee26; }
+    box-shadow: 0 40px 80px -30px color-mix(in srgb, var(--shade) 80%, transparent), 0 0 0 1px var(--edge), 0 0 60px -20px var(--rule); }
   .item:nth-child(4n) .item__text { align-self: start; margin-top: 4rem; }
   .item:nth-child(4n+2) .item__text { align-self: end; }
 
@@ -328,7 +387,7 @@ section { position: relative; }
   .contact__field { margin-bottom: -4rem; }
 
   .panel__field { inset: 0; }
-  .panel__sheet { inset: 0 0 0 42vw; box-shadow: -40px 0 80px -30px #000c, -1px 0 0 #ffffff14; }
+  .panel__sheet { inset: 0 0 0 42vw; box-shadow: -40px 0 80px -30px color-mix(in srgb, var(--shade) 80%, transparent), -1px 0 0 var(--edge); }
   .panel.is-forming .panel__sheet { transform: translateX(4rem); }
   .panel__body { padding: 3rem clamp(2rem, 5vw, 6rem) 4rem; }
   .panel__bar { padding-inline: clamp(2rem, 5vw, 6rem); }
@@ -411,10 +470,10 @@ section { position: relative; }
   width: min(28rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; margin: auto; padding: 1.6rem 1.5rem 1rem;
   border: 0; color: var(--ink);
   background: var(--bg-2) radial-gradient(circle, var(--faint) 1.1px, transparent 1.6px) 0 0 / 8px 6px repeat-x;
-  box-shadow: 0 0 0 1px #ffffff14, 0 30px 60px -20px #000;
+  box-shadow: 0 0 0 1px var(--edge), 0 30px 60px -20px var(--shade);
   font: 400 .95rem/1.5 Archivo, system-ui, sans-serif;
 }
-.consent__dialog::backdrop { background: #1a1a1acc; backdrop-filter: blur(3px); }
+.consent__dialog::backdrop { background: var(--scrim); backdrop-filter: blur(3px); }
 .consent__dialog-title { margin: 0 0 .7rem; font: 700 1.35rem/1.1 var(--dots); }
 .consent__dialog form { display: grid; gap: .9rem; }
 .consent__lead { margin: 0; color: var(--mute); }
@@ -429,7 +488,7 @@ section { position: relative; }
 
 /* a post's video before YouTube is let in: the question, on the trama */
 .video__gate { position: absolute; inset: 0; display: grid; align-content: center; gap: .6rem; padding: 1.2rem clamp(1.2rem, 5%, 2.4rem);
-  background: var(--bg-2) radial-gradient(circle, #ffffff10 1.1px, transparent 1.5px) 0 0 / 6px 6px; }
+  background: var(--bg-2) radial-gradient(circle, var(--edge) 1.1px, transparent 1.5px) 0 0 / 6px 6px; }
 .video__gate p { margin: 0; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; color: var(--mute); }
 .video__gate .consent__actions { gap: 0 1.6rem; }
 .video__gate .video__gate-title { display: flex; gap: .8rem; align-items: center; font: 600 .72rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
@@ -441,7 +500,7 @@ section { position: relative; }
 
 @media screen and (height > 30rem) {
   .luz-cookie-consent { position: fixed; z-index: 40; inset: auto .75rem max(.75rem, env(safe-area-inset-bottom)); max-height: 50dvh; overflow-y: auto; overscroll-behavior: contain;
-    box-shadow: 0 0 0 1px #ffffff14, 0 18px 40px -12px #000c; }
+    box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 80%, transparent); }
   :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-bottom: calc(var(--luz-consent-h) + .75rem); }
   :root:has(luz-cookie-consent > :not([hidden])) body { padding-bottom: calc(var(--luz-consent-h) + .75rem); }
 }
@@ -477,3 +536,35 @@ section { position: relative; }
 .now__title::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: .6em; border-radius: 50%; background: var(--blaze); vertical-align: .1em; }
 .now p { margin: 0; }
 .now .consent__btn { justify-self: start; }
+
+/* ------------------------------------------------------------ colour mode
+   LUZ's <luz-theme-mode> (shared/theme.js) as one round button fixed at the
+   bottom right — round, like the menu pill, because it floats under the thumb.
+   The radio group inside only keeps the state; the button steps through it.
+   It rides above the cookie card (its height is LUZ's --luz-consent-h) and, on
+   a phone, above the menu pill. */
+.luz-theme-mode__group { display: none; }
+.luz-theme-mode__status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.luz-theme-mode__button {
+  display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; border-radius: 50%;
+  color: var(--ink); background: color-mix(in srgb, var(--bg-2) 82%, transparent); cursor: pointer;
+  backdrop-filter: blur(10px) saturate(.6);
+  box-shadow: 0 0 0 1px var(--edge), 0 12px 28px -10px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 30px -10px var(--rule);
+  transition: box-shadow .3s var(--ease), color .3s var(--ease);
+}
+.luz-theme-mode__button--fixed {
+  position: fixed; z-index: 30; right: max(1rem, env(safe-area-inset-right));
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.9rem);        /* a phone: above the menu pill */
+}
+.luz-theme-mode__button:hover { box-shadow: 0 0 0 1px var(--blaze), 0 12px 28px -10px color-mix(in srgb, var(--shade) 67%, transparent); }
+.luz-theme-mode__button:focus-visible { outline: 3px dotted var(--ink); outline-offset: 5px; }
+.luz-theme-mode__icon { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+:root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { bottom: calc(var(--luz-consent-h, 0px) + max(1rem, env(safe-area-inset-bottom)) + 3.9rem); }
+@media (min-width: 64em) {
+  .luz-theme-mode__button--fixed { bottom: max(1.25rem, env(safe-area-inset-bottom)); right: max(1.25rem, env(safe-area-inset-right)); }
+  :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { bottom: calc(var(--luz-consent-h, 0px) + 1.75rem); }
+}
+@media (prefers-reduced-motion: reduce) { .luz-theme-mode__button { transition: none; } }
+@media (forced-colors: active) {
+  .luz-theme-mode__button { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText; }
+}
