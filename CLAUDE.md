@@ -10,3 +10,17 @@ Cada vez que cambies la descripción de un proyecto (`data/projects.json`), la b
 4. Commitea juntos los textos, las páginas y los cambios en `assets/audio/` (altas y bajas).
 
 Si el build dice que la voz no está instalada, ejecuta `tools/voice-setup.sh` (Piper y las voces en `~/.cache/tts`).
+
+## Imágenes: siempre `<picture>`, nunca un `<img>` suelto
+
+Toda imagen de contenido va dentro de un `<picture>`, aunque hoy solo haya un formato, para poder añadir otros (AVIF, WebP…) con `<source type="…">` sin tocar el marcado. El `<img>` de dentro es el formato de respaldo y es el que lleva `alt`, `width`, `height` y `loading`. Esto vale para el HTML que escribas a mano, para el que genera `build.mjs` y para el que monta el JS de la maqueta.
+
+```html
+<picture>
+  <source srcset="foto.avif" type="image/avif">
+  <source srcset="foto.webp" type="image/webp">
+  <img src="foto.jpg" alt="…" width="1200" height="630" loading="lazy">
+</picture>
+```
+
+Quedan fuera las imágenes que no son de contenido: favicons, `og:image` y los `<img>` que solo sirven para leer píxeles en un canvas.
