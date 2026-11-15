@@ -38,7 +38,7 @@ document.body.prepend(
     el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', homeUrl('#trabajo'), H.work),
-    navItem('03', blogUrl(), B.blog, true), navItem('04', homeUrl('#contacto'), c.contactTitle))),
+    navItem('03', blogUrl(), B.blog, page !== '404'), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
   el('footer', { class: 'foot' },
     el('p', {}, `${c.name} · ${new Date().getFullYear()}`),
@@ -159,9 +159,79 @@ function featured(p) {
       el('p', { class: 'feat__meta' }, el('time', { datetime: p.date, text: date(p.date) }), ' · ', B.min(p.minutes))));
 }
 
+// ------------------------------------------------------------- 404
+// The number in dots, with some of them fallen to the floor (tap to mend it);
+// the address that failed; a search over posts and projects, prefilled from
+// that address; the four sections; the latest posts.
+const later = [];
+const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/<[^>]+>/g, ' ');
 function notFound() {
-  document.title = `${B.nf} · Blog · ${c.name}`;
-  put(head({ title: '404', deck: B.nfText }), el('p', { class: 'back' }, el('a', { href: blogUrl(), text: '← ' + B.back })));
+  document.title = `404 · ${B.nf} · ${c.name}`;
+  document.documentElement.classList.add('is-lost');
+  const shown = decodeURIComponent(location.pathname + location.search).replace(/[?&]lang=en/, '');
+
+  // the field
+  const cv = el('canvas', { class: 'lost__field', 'aria-hidden': 'true' });
+  const hint = el('p', { class: 'lost__hint', 'aria-hidden': 'true', text: fine ? B.nfHintFine : B.nfHint });
+  const stage = el('div', { class: 'lost__stage' }, cv, hint);
+  later.push(() => {
+    const f = new HeroField(cv, '404', { reduce, lost: 0.16 });
+    f.start();
+    const at = (e) => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    cv.addEventListener('pointermove', (e) => { f.ptr = at(e); });
+    cv.addEventListener('pointerleave', () => { f.ptr = null; });
+    cv.addEventListener('pointerdown', (e) => {
+      const p = at(e); f.poke(p.x, p.y); f.mend();
+      hint.classList.add('is-done');
+      if (e.pointerType !== 'mouse') setTimeout(() => { f.ptr = null; }, 250);
+    });
+    new IntersectionObserver(([e]) => (e.isIntersecting ? f.start() : f.stop())).observe(cv);
+    addEventListener('resize', () => { clearTimeout(f.tm); f.tm = setTimeout(() => f.layout(), 200); });
+  });
+
+  // search
+  const index = [
+    ...b.posts.map((p) => ({ kind: B.post, title: p.title, sub: `${b.categories[p.category].name} · ${p.year}`, href: postUrl(p),
+      hay: norm([p.title, p.excerpt, p.tags.map((t) => b.tags[t].label).join(' '), b.categories[p.category].name].join(' ')) })),
+    ...c.projects.map((p) => ({ kind: B.project, title: p.name, sub: `${p.tech.join(' · ')} · ${p.year}`, href: homeUrl('#trabajo'),
+      hay: norm([p.name, p.kicker, p.tech.join(' ')].join(' ')) }))
+  ];
+  const input = el('input', { type: 'search', id: 'lost-q', name: 'q', autocomplete: 'off', placeholder: B.nfPlaceholder, spellcheck: 'false' });
+  const status = el('p', { class: 'lost__status', role: 'status' });
+  const list = el('ol', { class: 'lost__results' });
+  const find = (raw, guess) => {
+    const words = norm(raw).split(/[^a-z0-9ñ]+/).filter((w) => w.length > 1);
+    const hits = !words.length ? [] : index
+      .map((it) => ({ it, s: words.filter((w) => it.hay.includes(w)).length }))
+      .filter((x) => (guess ? x.s > 0 : x.s === words.length))
+      .sort((x, y) => y.s - x.s).slice(0, 6).map((x) => x.it);
+    list.replaceChildren(...hits.map((it) => el('li', {}, el('a', { href: it.href },
+      el('span', { class: 'lost__kind', text: it.kind }), el('span', { class: 'lost__rtitle', text: it.title }), el('span', { class: 'lost__sub', text: it.sub })))));
+    status.textContent = !words.length ? '' : hits.length ? (guess ? B.nfMaybe : B.nfResults(hits.length)) : guess ? '' : B.nfNone;
+  };
+  input.addEventListener('input', () => find(input.value));
+  // a first guess from the address: /blog/articulo/?a=margaret → «margaret»
+  const guess = (q.get('a') || q.get('c') || q.get('t') || location.pathname.split('/').filter(Boolean).pop() || '')
+    .replace(/\.html?$/, '').replace(/[-_+]/g, ' ');
+  if (page !== '404' || !/^(trama|maqueta)$/.test(guess)) find(guess, true);
+
+  const way = (n, label, href) => el('li', {}, el('a', { href }, el('span', { class: 'lost__n', 'aria-hidden': 'true', text: n }), el('span', { text: label }), el('span', { class: 'lost__arrow', 'aria-hidden': 'true', text: '→' })));
+
+  put(el('section', { class: 'lost', 'aria-labelledby': 'lost-title' },
+    stage,
+    el('div', { class: 'lost__copy' },
+      el('p', { class: 'lost__kicker', text: B.nfKicker }),
+      el('h1', { class: 'lost__title', id: 'lost-title', text: B.nfTitle }),
+      el('p', { class: 'lost__lead' }, B.nfLead + ' ', el('code', { text: shown }), B.nfLead2)),
+    el('form', { class: 'lost__search', role: 'search', onsubmit: 'return false' },
+      el('label', { for: 'lost-q', text: B.nfSearch }),
+      el('div', { class: 'lost__field-row' }, input),
+      status, list),
+    el('nav', { class: 'lost__ways', 'aria-labelledby': 'lost-ways' },
+      el('h2', { id: 'lost-ways', text: B.nfWays }),
+      el('ul', {}, way('01', H.bio, homeUrl('#bio')), way('02', H.work, homeUrl('#trabajo')), way('03', B.blog, blogUrl()), way('04', c.contactTitle, homeUrl('#contacto')))),
+    el('section', { class: 'lost__latest', 'aria-labelledby': 'lost-latest' },
+      el('h2', { id: 'lost-latest', text: B.nfLatest }), rows(b.posts.slice(0, 3), { group: false }))));
 }
 
 // ------------------------------------------------------------- pages
@@ -381,6 +451,7 @@ const tio = new IntersectionObserver((es) => es.forEach((e) => {
   else if (t.f) t.f.stop();
 }));
 titles.forEach((t) => tio.observe(t.cv));
+later.forEach((f) => f());
 let rw = innerWidth;
 addEventListener('resize', () => {
   clearTimeout(build.tm);

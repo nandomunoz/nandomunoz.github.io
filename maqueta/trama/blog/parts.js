@@ -18,6 +18,12 @@ export const B = {
     nf: 'No encontrado', nfText: 'Esta página no existe o ha cambiado de sitio.',
     legendTitle: 'Cómo leer las tramas', legend: 'Cada categoría tiene su trama; cuanto más largo el artículo, más densa.',
     sample: 'Artículos de soynando.com.',
+    nfKicker: 'Error 404 · Página no encontrada', nfTitle: 'Esta página se ha deshecho en puntos.',
+    nfLead: 'No hay nada en', nfLead2: '. Puede que el enlace esté mal escrito o que la página se haya mudado.',
+    nfHint: 'Toca la trama para recomponerla', nfHintFine: 'Haz clic en la trama para recomponerla',
+    nfSearch: 'Buscar en el blog y los proyectos', nfPlaceholder: 'Margaret Hamilton, carnaval, IA…',
+    nfMaybe: '¿Buscabas esto?', nfResults: (n) => (n === 1 ? '1 resultado' : `${n} resultados`), nfNone: 'Nada por aquí. Prueba con otra palabra.',
+    nfWays: 'O empieza por aquí', nfHome: 'Inicio', nfLatest: 'Lo último del blog', project: 'Proyecto', post: 'Artículo',
     original: 'Original', onlyEs: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo'
   },
   en: {
@@ -33,6 +39,12 @@ export const B = {
     nf: 'Not found', nfText: 'This page doesn’t exist or has moved.',
     legendTitle: 'How to read the screens', legend: 'Each category has its own screen; the longer the post, the denser.',
     sample: 'Posts from soynando.com.',
+    nfKicker: 'Error 404 · Page not found', nfTitle: 'This page has come apart into dots.',
+    nfLead: 'There’s nothing at', nfLead2: '. The link may be mistyped, or the page may have moved.',
+    nfHint: 'Tap the dots to put it back together', nfHintFine: 'Click the dots to put it back together',
+    nfSearch: 'Search the blog and the projects', nfPlaceholder: 'Margaret Hamilton, carnival, AI…',
+    nfMaybe: 'Were you looking for this?', nfResults: (n) => (n === 1 ? '1 result' : `${n} results`), nfNone: 'Nothing here. Try another word.',
+    nfWays: 'Or start here', nfHome: 'Home', nfLatest: 'Latest on the blog', project: 'Project', post: 'Post',
     original: 'Original', onlyEs: 'This post is only available in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video'
   }
 }[lang];

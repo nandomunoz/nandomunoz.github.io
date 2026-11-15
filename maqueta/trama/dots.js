@@ -213,8 +213,10 @@ export class DotBlock {
 // fall into place; floating dithered patches around it echo the reference
 // sheet. The pointer pushes them (blaze where it touches).
 export class HeroField {
-  constructor(canvas, text, { reduce = false, plain = 0 } = {}) {
-    this.cv = canvas; this.text = text; this.reduce = reduce; this.plain = plain;
+  // lost: share of the letters' dots that have fallen to the floor of the
+  // field (more towards the right); mend() puts them back for a moment.
+  constructor(canvas, text, { reduce = false, plain = 0, lost = 0 } = {}) {
+    this.cv = canvas; this.text = text; this.reduce = reduce; this.plain = plain; this.lost = lost; this.mendT = 0;
     this.ptr = null; this.t0 = 0; this.running = false; this.wave = null;
     this.layout();
   }
@@ -269,6 +271,17 @@ export class HeroField {
         delay: kind === 1 ? 250 + (x - tx) / tCols * 700 + rand() * 300 : rand() * 900
       });
     }
+    if (this.lost) {
+      for (const p of parts) {
+        if (p.kind !== 1) continue;
+        const u = clamp((p.hx / w - 0.45) / 0.5);
+        if (rand() > this.lost * (0.25 + 1.75 * u * u)) continue;
+        p.lost = true; p.ox = p.hx; p.oy = p.hy;
+        p.hx = clamp(p.hx + (rand() - 0.5) * cw * 10, p.r, w - p.r);
+        p.hy = h - p.r - 1 - rand() * rand() * ch * 2.2;
+        p.fx = p.hx; p.fy = p.hy;
+      }
+    }
     parts.forEach((p) => { p.sx = p.x; p.sy = p.y; });
     if (this.reduce || this.done) parts.forEach((p) => { p.x = p.hx; p.y = p.hy; });
     this.parts = parts;
@@ -284,6 +297,7 @@ export class HeroField {
   }
   stop() { this.running = false; }
   poke(x, y) { if (!this.reduce) this.wave = { x, y, t: performance.now() }; }
+  mend() { this.mendT = performance.now(); if (this.reduce) { this.parts.forEach((p) => { if (p.lost) { p.x = p.ox; p.y = p.oy; } }); this.frame(this.mendT); } }
   frame(now) {
     const ctx = this.ctx;
     if (!ctx) return;
@@ -292,7 +306,22 @@ export class HeroField {
     const paths = [new Path2D(), new Path2D(), new Path2D()];
     const dust = new Path2D();
     const wave = this.wave && (now - this.wave.t) < 1400 ? this.wave : null;
+    const mending = this.lost && this.mendT && now - this.mendT < 2600;
     for (const p of this.parts) {
+      if (p.lost && !this.intro && !this.reduce) {
+        // mended: back to its place in the letter; otherwise it falls and bounces on the floor
+        p.hx = mending ? p.ox : p.fx; p.hy = mending ? p.oy : p.fy;
+        if (!mending) {
+          let fx = 0;
+          if (ptr) { const dx = p.x - ptr.x, dy = p.y - ptr.y, d = Math.hypot(dx, dy); if (d < R) fx = (dx / (d || 1)) * Math.pow(1 - d / R, 2) * 6; }
+          p.vx = (p.vx + fx) * 0.94; p.vy += 0.55;
+          p.x = clamp(p.x + p.vx, p.r, this.w - p.r); p.y += p.vy;
+          if (p.y > p.fy) { p.y = p.fy; p.vy *= -0.32; p.vx *= 0.8; if (Math.abs(p.vy) < 0.6) p.vy = 0; }
+          p.hx = p.x; p.hy = p.fy;
+          paths[1].moveTo(p.x + p.r, p.y); paths[1].arc(p.x, p.y, p.r, 0, 6.283);
+          continue;
+        }
+      }
       if (this.intro) {
         const k = clamp((t - p.delay) / 1300);
         if (k < 1) introLeft = true;
