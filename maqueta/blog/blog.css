@@ -126,6 +126,9 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__cover--img:hover picture { filter: brightness(1) contrast(1); transition-delay: 0s; }
 .post__cover--img:hover canvas { opacity: 0; transition-delay: 0s; }
 .post__cover--img:hover img { filter: grayscale(0); transition-delay: var(--step); }
+/* TEST (?loop): a clock in blog.js drives it; no transitions, no hover */
+.post__cover--img.is-loop :is(picture, img, canvas) { transition: none; }
+.post__cover--img.is-loop:hover canvas { opacity: 1; }
 
 .post__grid { display: grid; gap: 2rem; }
 .toc { border-top: 1px dotted var(--faint); border-bottom: 1px dotted var(--faint); }
