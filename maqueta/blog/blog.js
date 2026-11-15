@@ -49,7 +49,7 @@ document.body.prepend(
   footer(c));
 consent();
 themeSwitch();
-onMode(() => { build(); titles.forEach((t) => t.f && t.f.layout()); });
+onMode(() => { build(); titles.forEach((t) => t.f && t.f.repaint()); });
 
 // ------------------------------------------------------------- dots
 // every screen assembles once when it comes into view; the pointer pushes it

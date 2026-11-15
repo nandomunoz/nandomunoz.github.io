@@ -43,7 +43,38 @@ export async function themeSwitch() {
   };
   document.addEventListener('luz-theme-mode:change', sync);
   sync();
+  reveal(document.querySelector('luz-theme-mode'));
   await import('/assets/vendor/luz/theme-mode.min.js');
+}
+
+// The change is a reveal: the new mode grows as a circle out of the button, over
+// the page as it was (a View Transition on the root, its new snapshot clipped by
+// a circle: style.css, «colour mode»). The click is caught before LUZ's own
+// handler (capture phase) so the mode changes once, inside the transition, to
+// the same next mode LUZ would pick. The radius reaches the farthest corner
+// exactly, so no time is spent growing off screen. Without View Transitions, or
+// with reduced motion, LUZ's plain change runs untouched.
+function reveal(el) {
+  el.addEventListener('click', (e) => {
+    const btn = e.target.closest?.('.luz-theme-mode__button');
+    if (!btn || !document.startViewTransition || document.visibilityState === 'hidden' ||
+        matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const values = [...el.querySelectorAll('input[type=radio]')].filter((r) => !r.disabled).map((r) => r.value);
+    if (!values.length) return;
+    const next = values[(values.indexOf(el.choice) + 1) % values.length];
+    e.stopImmediatePropagation();
+    const r = btn.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+    root.style.setProperty('--vt-x', `${x}px`);
+    root.style.setProperty('--vt-y', `${y}px`);
+    root.style.setProperty('--vt-r', `${Math.ceil(Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)))}px`);
+    root.dataset.vt = 'theme';
+    const done = () => { if (root.dataset.vt === 'theme') delete root.dataset.vt; };
+    try {
+      const vt = document.startViewTransition(() => { el.choice = next; });
+      vt.finished.then(done, done);
+      vt.ready.catch(() => {});
+    } catch { el.choice = next; done(); }
+  }, true);
 }
 
 // run `fn` whenever the mode changes (a page redraws its dots); `detail.mode` is the new one

@@ -366,6 +366,8 @@ export class HeroField {
     requestAnimationFrame(loop);
   }
   stop() { this.running = false; }
+  // draw once now, as it stands, in the colours of the current mode (a running field does it every frame anyway)
+  repaint() { if (this.ctx && !this.running) this.frame(performance.now()); }
   poke(x, y) { if (!this.reduce) this.wave = { x, y, t: performance.now() }; }
   mend() { this.mendT = performance.now(); if (this.reduce) { this.parts.forEach((p) => { if (p.lost) { p.x = p.ox; p.y = p.oy; } }); this.frame(this.mendT); } }
   frame(now) {

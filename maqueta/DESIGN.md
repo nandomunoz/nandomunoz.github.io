@@ -124,7 +124,7 @@ Las cuatro piezas del motor:
 - **Raíl de progreso** (escritorio): una columna de puntos a la derecha que se rellena con el scroll.
 - **Progreso de lectura** en los artículos: una fila de puntos granates arriba que se rellena.
 - **Las páginas interiores** (blog, proyectos, 404) llevan el menú anclado desde el principio.
-- **Modo de color**: botón redondo fijo abajo a la derecha (`shared/theme.js`; estilos al final de `style.css`). Se levanta por encima del aviso de cookies (`--luz-consent-h`) y, en el móvil, de la píldora del menú. Redondo, como ella, porque flota bajo el pulgar.
+- **Modo de color**: botón redondo fijo abajo a la derecha (`shared/theme.js`; estilos al final de `style.css`). Se levanta por encima del aviso de cookies (`--luz-consent-h`) y, en el móvil, de la píldora del menú. Redondo, como ella, porque flota bajo el pulgar. **El cambio es un círculo que crece desde el botón** con el modo nuevo, sobre la página como estaba (idea de coac.com.es): una View Transition sobre la raíz cuya instantánea nueva se recorta con `clip-path: circle()` en .65 s; el clic se captura antes del de LUZ para que el modo cambie una vez, dentro de la transición, y el radio llega justo a la esquina más lejana. La píldora del menú pierde su `view-transition-name` mientras dura (si no, se fundiría aparte), y las transiciones CSS se anulan para que nada se congele a medias. Sin View Transitions o con movimiento reducido, el cambio es directo.
 - **Idioma**: `?lang=en`. Todos los enlaces internos lo conservan. El selector de idioma va arriba a la derecha.
 
 ## 9. Movimiento

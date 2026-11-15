@@ -564,6 +564,21 @@ section { position: relative; }
   .luz-theme-mode__button--fixed { bottom: max(1.25rem, env(safe-area-inset-bottom)); right: max(1.25rem, env(safe-area-inset-right)); }
   :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { bottom: calc(var(--luz-consent-h, 0px) + 1.75rem); }
 }
+/* The change itself: a circle of the new mode grows out of the button (theme.js sets
+   --vt-x, --vt-y, --vt-r and data-vt="theme" for the length of the transition).
+   Nothing may be mid-transition when the page is captured, and the menu pill
+   (which has its own view-transition-name for docking) rides in the root snapshot
+   so the circle reveals it too. */
+:root[data-vt="theme"] .nav { view-transition-name: none; }
+:root[data-vt="theme"] *, :root[data-vt="theme"] *::before, :root[data-vt="theme"] *::after { transition: none !important; }
+:root[data-vt="theme"]::view-transition-old(root), :root[data-vt="theme"]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-vt="theme"]::view-transition-new(root) { animation: theme-reveal .65s cubic-bezier(.65, 0, .35, 1) both; }
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 100%)); }
+  to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 100%)); }
+}
 @media (prefers-reduced-motion: reduce) { .luz-theme-mode__button { transition: none; } }
 @media (forced-colors: active) {
   .luz-theme-mode__button { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText; }

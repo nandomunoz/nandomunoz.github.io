@@ -67,7 +67,7 @@ document.querySelector('main').after(footer(c));
 consent();
 themeSwitch();
 // a new mode: the dots are redrawn in its colours (and, in light, read the pictures the other way round)
-onMode(() => { hero.layout(); relayoutTitles(); build(); if (panel.open) restField(); });
+onMode(() => { hero.repaint(); titles.forEach((x) => x.f && x.f.repaint()); build(); if (panel.open) restField(); });
 const lang = $('#lang');
 if (c.lang === 'en') { lang.href = '?'; lang.hreflang = 'es'; lang.lang = 'es'; lang.textContent = T.es.other; }
 else { lang.textContent = T.en.other; }
