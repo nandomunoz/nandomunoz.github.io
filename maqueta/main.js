@@ -167,7 +167,7 @@ function build() {
     $('#blog-rows').append(r.li);
     const rb = { make: (cell) => new DotBlock(r.cv, { cell, rows: 9, ...r.dots, label: '', tone: tones['post:' + p.id] }), stage: r.cv, deco: true };
     blocks.push(rb);
-    if (r.fig) { rb.looping = true; coverLoop(r.fig, () => rb.block, { offset: 1.3 * k }); }
+    if (r.fig) { rb.looping = true; coverLoop(r.fig, () => rb.block, { offset: 1.3 * k, colour: false }); }
     if (r.tone) loadTone(r.tone).then((tn) => {
       if (!tn) return;
       tones['post:' + p.id] = tn;

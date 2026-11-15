@@ -200,7 +200,7 @@ function rows(posts, { group = true } = {}) {
     const r = row(p, b);
     ol.append(r.li);
     const sc = screen(r.cv, { rows: 9, ...r.dots, label: '' }, r.tone);
-    if (r.fig) { sc.looping = true; coverLoop(r.fig, () => sc.block, { offset: 1.3 * ol.children.length }); }
+    if (r.fig) { sc.looping = true; coverLoop(r.fig, () => sc.block, { offset: 1.3 * ol.children.length, colour: false }); }
   }
   return wrap;
 }
@@ -467,7 +467,7 @@ function postPage() {
   // one (navigator.share: phones, Safari, Chrome on Windows/macOS); anywhere
   // else, or if it fails for any reason but the reader cancelling, a dialog
   // with the link to copy and the usual places
-  const share = el('div', { class: 'share' }, el('p', { class: 'share__label', text: B.share }));
+  const share = el('div', { class: 'share' });
   const shareBtn = el('button', { type: 'button', class: 'share__btn', 'aria-haspopup': 'dialog' }, el('span', { text: B.shareThis }));
   shareBtn.addEventListener('click', async () => {
     const data = { title: p.title, text: p.excerpt, url: location.href.replace(/#.*$/, '') };

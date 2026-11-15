@@ -11,7 +11,7 @@ export const B = {
     all: 'Todos los artículos', categories: 'Categorías', allCategories: 'Todas las categorías', tags: 'Etiquetas', allTags: 'Todas las etiquetas',
     min: (m) => `${m} min de lectura`, minShort: (m) => `${m} min`, latest: 'Lo último',
     newer: 'Más recientes', older: 'Anteriores', page: (a, b) => `Página ${a} de ${b}`, pages: 'Páginas',
-    toc: 'En este artículo', share: 'Compartir', shareThis: 'Compartir artículo', copy: 'Copiar enlace', copied: 'Enlace copiado', copyFail: 'Selecciona el enlace y cópialo', shareLink: 'Enlace del artículo', shareOn: 'Compartir en', email: 'Correo', close: 'Cerrar', newTab: '(se abre en otra pestaña)',
+    toc: 'En este artículo', shareThis: 'Compartir artículo', copy: 'Copiar enlace', copied: 'Enlace copiado', copyFail: 'Selecciona el enlace y cópialo', shareLink: 'Enlace del artículo', shareOn: 'Compartir en', email: 'Correo', close: 'Cerrar', newTab: '(se abre en otra pestaña)',
     prev: 'Anterior', next: 'Siguiente', related: 'Sigue leyendo', back: 'Volver al blog',
     by: 'Escrito por', authorMore: 'Más sobre mí', write: 'Escríbeme',
     published: 'Publicado', reading: 'Lectura', number: 'Nº', in: 'en', tagged: 'Etiquetados con',
@@ -38,7 +38,7 @@ export const B = {
     all: 'All posts', categories: 'Categories', allCategories: 'All categories', tags: 'Tags', allTags: 'All tags',
     min: (m) => `${m} min read`, minShort: (m) => `${m} min`, latest: 'Latest',
     newer: 'Newer', older: 'Older', page: (a, b) => `Page ${a} of ${b}`, pages: 'Pages',
-    toc: 'In this post', share: 'Share', shareThis: 'Share this post', copy: 'Copy link', copied: 'Link copied', copyFail: 'Select the link and copy it', shareLink: 'Link to this post', shareOn: 'Share on', email: 'Email', close: 'Close', newTab: '(opens in a new tab)',
+    toc: 'In this post', shareThis: 'Share this post', copy: 'Copy link', copied: 'Link copied', copyFail: 'Select the link and copy it', shareLink: 'Link to this post', shareOn: 'Share on', email: 'Email', close: 'Close', newTab: '(opens in a new tab)',
     prev: 'Previous', next: 'Next', related: 'Keep reading', back: 'Back to the blog',
     by: 'Written by', authorMore: 'More about me', write: 'Write to me',
     published: 'Published', reading: 'Reading', number: 'No.', in: 'in', tagged: 'Tagged',
@@ -161,8 +161,10 @@ export function coverPicture(p, img = {}) {
 // its current DotBlock (it is rebuilt on resize); `offset` (s) staggers a
 // list so its rows don't breathe together. Paused off screen; with reduced
 // motion it rests in black and white (.is-shown) and hover gives the colour.
+// `colour: false` (the thumbnails of post rows) skips the colour: dots ↔
+// black and white only, on a shorter table, and no colour on hover either.
 // The caller marks its block as looping, so nothing else draws it.
-const LOOP = [            // [seconds, dots, light, colour] at the end of each step
+const LOOP_COLOUR = [     // [seconds, dots, light, colour] at the end of each step
   [1.6, 1, 0, 0],         // hold: dots
   [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
   [0.9, 0, 1, 0],         // hold: black and white
@@ -172,10 +174,17 @@ const LOOP = [            // [seconds, dots, light, colour] at the end of each s
   [0.9, 0, 1, 0],         // hold: black and white
   [1.8, 1, 0, 0]          // the photo sinks, the dots gather
 ];
-const LOOP_T = LOOP.reduce((s, x) => s + x[0], 0);
+const LOOP_BW = [         // the same, without the colour
+  [1.6, 1, 0, 0],         // hold: dots
+  [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
+  [2.4, 0, 1, 0],         // hold: black and white
+  [1.8, 1, 0, 0]          // the photo sinks, the dots gather
+];
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-export function coverLoop(fig, block, { offset = 0 } = {}) {
+export function coverLoop(fig, block, { offset = 0, colour: withColour = true } = {}) {
   const pic = fig.querySelector('picture'), img = fig.querySelector('img');
+  const LOOP = withColour ? LOOP_COLOUR : LOOP_BW, LOOP_T = LOOP.reduce((s, x) => s + x[0], 0);
+  if (!withColour) fig.classList.add('cover-loop--bw');
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return fig.classList.add('is-shown');
   let on = false, t0 = performance.now() - offset * 1000, paused = t0 + offset * 1000;
   new IntersectionObserver(([e]) => {
