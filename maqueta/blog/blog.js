@@ -45,7 +45,6 @@ document.body.prepend(
     navItem('03', blogUrl(), B.blog, page !== '404' && page !== 'cookies' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
   footer(c));
-if (!isProj && page !== 'cookies') document.querySelector('.foot').append(el('p', { class: 'foot__credit', text: B.sample }));
 consent();
 
 // ------------------------------------------------------------- dots
@@ -388,7 +387,14 @@ function renderBlock(x, k, toc, ids) {
     return el('h2', { id }, el('span', { text: x.h }), el('a', { class: 'prose__anchor', href: '#' + id, 'aria-hidden': 'true', tabindex: '-1', text: '#' }));
   }
   if (x.img) return el('figure', { class: 'prose__fig' },
-    el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt }), caption(x.cap));
+    // local files (maqueta/img/blog/posts/, from tools/soynando-images.cjs) come in avif, webp and jpg
+    /\.jpe?g$/.test(x.img) && x.img.startsWith('/')
+      ? el('picture', {},
+        el('source', { srcset: x.img.replace(/\.jpe?g$/, '.avif'), type: 'image/avif' }),
+        el('source', { srcset: x.img.replace(/\.jpe?g$/, '.webp'), type: 'image/webp' }),
+        el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt }))
+      : el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt }),
+    caption(x.cap));
   if (x.quote) return el('blockquote', {}, ...x.quote.map((s) => html('p', {}, s)), x.cite ? html('cite', {}, x.cite) : null);
   if (x.pull) return el('figure', { class: 'pull' }, el('blockquote', {}, ...x.pull.map((s) => html('p', {}, s))), x.cite ? html('figcaption', {}, x.cite) : null);
   if (x.ul) return el(x.ol ? 'ol' : 'ul', {}, ...x.ul.map((s) => html('li', {}, s)));
@@ -512,8 +518,7 @@ function postPage() {
       el('dl', { class: 'post__meta' },
         el('div', {}, el('dt', { text: B.published }), el('dd', {}, el('time', { datetime: p.date, text: date(p.date) }))),
         el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })),
-        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })),
-        p.url ? el('div', {}, el('dt', { text: B.original }), el('dd', {}, el('a', { href: p.url, target: '_blank', rel: 'noopener', text: new URL(p.url).hostname + ' ↗' }))) : null)),
+        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })))),
     p.cover
       ? el('figure', { class: 'post__cover cover-loop' }, coverPicture(p, { fetchpriority: 'high' }), cover)
       : el('div', { class: 'post__cover' }, cover),

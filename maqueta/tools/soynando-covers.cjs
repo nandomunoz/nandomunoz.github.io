@@ -1,6 +1,6 @@
 // The featured image of each soynando.com post → maqueta/img/blog/<id>.{avif,webp,jpg}
 // (for <picture>) plus <id>.tone.webp (192 px, grey, read by the dot engine),
-// and `cover: { w, h, alt, src }` on each post of maqueta/shared/blog.json.
+// and `cover: { w, h, alt }` on each post of maqueta/shared/blog.json.
 // It only adds covers: the posts' text is left as soynando-to-blog.cjs made it.
 //   node maqueta/tools/soynando-covers.cjs [id…]
 // Needs ImageMagick. The featured image matters for SEO later (og:image,
@@ -41,7 +41,7 @@ const cleanAlt = (s) => String(s || '').replace(/\*\*/g, '').replace(/\s+/g, ' '
     execFileSync('magick', [src, '-auto-orient', '-resize', '192x', '-colorspace', 'Gray', '-quality', '80', base + '.tone.webp']);
     fs.unlinkSync(src);
     const [cw, ch] = execFileSync('magick', ['identify', '-format', '%w %h', base + '.jpg']).toString().split(' ').map(Number);
-    p.cover = { w: cw, h: ch, alt: cleanAlt(m.alt_text), src: m.source_url };
+    p.cover = { w: cw, h: ch, alt: cleanAlt(m.alt_text) };
     console.log('✓', p.id, `${cw}×${ch}`, p.cover.alt ? '' : '(no alt)');
   }
   fs.writeFileSync(JSON_PATH, JSON.stringify(blog, null, 1));

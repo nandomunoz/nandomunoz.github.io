@@ -100,10 +100,10 @@
       "p": "Y aquí viene lo que a mí más me impresiona: aquel oficio estaba por inventar. Los estudios de informática apenas empezaban (Purdue abrió el primer departamento de Estados Unidos en 1962), no había métodos asentados, y lo que se aprendía se aprendía equivocándose. «No había más remedio que ser pioneros», recordaba ella."
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2026/10/Margaret_Hamilton_-_restoration.jpg",
+      "img": "/maqueta/img/blog/posts/margaret-hamilton-7.jpg",
       "alt": "Margaret Hamilton, sonriente, de pie junto a una pila de listados de código impresos que le llega a la altura de la cabeza",
-      "w": null,
-      "hgt": null,
+      "w": 1600,
+      "hgt": 1990,
       "cap": "Margaret Hamilton junto a los listados del software de a bordo del Apolo, en el Instrumentation Laboratory del MIT (1969) · Laboratorio Draper, restaurada por Adam Cuerden. Dominio público, vía <a href=\"https://commons.wikimedia.org/wiki/File:Margaret_Hamilton_-_restoration.jpg\">Wikimedia Commons</a>."
      },
      {
@@ -184,8 +184,7 @@
    "cover": {
     "w": 1600,
     "h": 1067,
-    "alt": "Barack Obama le impone la Medalla Presidencial de la Libertad en la Casa Blanca, el 22 de noviembre de 2016 · Lawrence Jackson, fotografía oficial de la Casa Blanca. Dominio público, vía Wikimedia Commons.",
-    "src": "https://soynando.com/wp-content/uploads/2026/10/2026-10-13-margaret-hamilton-medalla.jpg"
+    "alt": "Barack Obama le impone la Medalla Presidencial de la Libertad en la Casa Blanca, el 22 de noviembre de 2016 · Lawrence Jackson, fotografía oficial de la Casa Blanca. Dominio público, vía Wikimedia Commons."
    }
   },
   {
@@ -695,8 +694,7 @@
    "cover": {
     "w": 1600,
     "h": 1374,
-    "alt": "",
-    "src": "https://soynando.com/wp-content/uploads/2026/10/Racknitz-The-Turk.jpg"
+    "alt": ""
    }
   },
   {
@@ -1315,8 +1313,7 @@
    "cover": {
     "w": 1600,
     "h": 1374,
-    "alt": "",
-    "src": "https://soynando.com/wp-content/uploads/2026/10/Racknitz-The-Turk.jpg"
+    "alt": ""
    }
   },
   {
@@ -1506,8 +1503,7 @@
    "cover": {
     "w": 1600,
     "h": 900,
-    "alt": "La imagen muestra un escritorio profesional de un desarrollador web en estilo pixel art, con una configuración de doble monitor: uno exhibe un editor de código en modo oscuro con líneas destacadas y el otro muestra un navegador en modo depuración con herramientas de desarrollo activas. Sobre el escritorio hay una taza de café, un teclado inalámbrico, un ratón y una libreta, todo en un ambiente ordenado, moderno y bien iluminado, que refleja productividad y enfoque en el desarrollo web.",
-    "src": "https://soynando.com/wp-content/uploads/2021/05/Aprendiendo-Web-Components.jpg"
+    "alt": "La imagen muestra un escritorio profesional de un desarrollador web en estilo pixel art, con una configuración de doble monitor: uno exhibe un editor de código en modo oscuro con líneas destacadas y el otro muestra un navegador en modo depuración con herramientas de desarrollo activas. Sobre el escritorio hay una taza de café, un teclado inalámbrico, un ratón y una libreta, todo en un ambiente ordenado, moderno y bien iluminado, que refleja productividad y enfoque en el desarrollo web."
    }
   },
   {
@@ -1697,8 +1693,7 @@
    "cover": {
     "w": 1000,
     "h": 750,
-    "alt": "Martinez ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo",
-    "src": "https://soynando.com/wp-content/uploads/2024/02/oveja-negra.jpg"
+    "alt": "Martinez ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo"
    }
   },
   {
@@ -1960,8 +1955,7 @@
    "cover": {
     "w": 1600,
     "h": 930,
-    "alt": "Imagen de la comparsa la ciudad invisble interpretando en el escenario",
-    "src": "https://soynando.com/wp-content/uploads/2023/04/ciudad-invisble.jpg"
+    "alt": "Imagen de la comparsa la ciudad invisble interpretando en el escenario"
    }
   },
   {
@@ -2056,7 +2050,7 @@
       "lv": 3
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2023/01/alexander-shatov-mr4JG4SYOF8-unsplash-1024x768.jpg",
+      "img": "/maqueta/img/blog/posts/tu-empresa-necesita-un-sistema-de-diseno-y-no-lo-sabes-18.jpg",
       "alt": "",
       "w": 1024,
       "hgt": 768,
@@ -2087,7 +2081,7 @@
       "lv": 3
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2023/01/markus-spiske-QozzJpFZ2lg-unsplash-1024x683.jpg",
+      "img": "/maqueta/img/blog/posts/tu-empresa-necesita-un-sistema-de-diseno-y-no-lo-sabes-26.jpg",
       "alt": "",
       "w": 1024,
       "hgt": 683,
@@ -2194,7 +2188,7 @@
       "lv": 3
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2023/01/What-are-Figma-design-tokens.png",
+      "img": "/maqueta/img/blog/posts/tu-empresa-necesita-un-sistema-de-diseno-y-no-lo-sabes-57.jpg",
       "alt": "",
       "w": 1000,
       "hgt": 331,
@@ -2308,7 +2302,7 @@
       "lv": 2
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2023/01/thisisengineering-raeng-64YrPKiguAE-unsplash-1024x683.jpg",
+      "img": "/maqueta/img/blog/posts/tu-empresa-necesita-un-sistema-de-diseno-y-no-lo-sabes-80.jpg",
       "alt": "",
       "w": 1024,
       "hgt": 683,
@@ -2348,7 +2342,7 @@
       "lv": 3
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2023/01/alice-gu-Xh9vvqf_3G4-unsplash-1024x576.jpg",
+      "img": "/maqueta/img/blog/posts/tu-empresa-necesita-un-sistema-de-diseno-y-no-lo-sabes-91.jpg",
       "alt": "",
       "w": 1024,
       "hgt": 576,
@@ -2438,8 +2432,7 @@
    "cover": {
     "w": 1600,
     "h": 2000,
-    "alt": "un monitor muestra un ejemplo de sistema de diseño",
-    "src": "https://soynando.com/wp-content/uploads/2023/01/balazs-ketyi-FeuEg-8XlA8-unsplash.jpg"
+    "alt": "un monitor muestra un ejemplo de sistema de diseño"
    }
   },
   {
@@ -2808,8 +2801,7 @@
    "cover": {
     "w": 1000,
     "h": 668,
-    "alt": "",
-    "src": "https://soynando.com/wp-content/uploads/2022/06/sumisos_martinez_ares.jpeg"
+    "alt": ""
    }
   },
   {
@@ -3210,8 +3202,7 @@
    "cover": {
     "w": 1500,
     "h": 500,
-    "alt": "Comparsa - Los Renacidos",
-    "src": "https://soynando.com/wp-content/uploads/2022/06/portada_los_renacidos_comparsa.jpeg"
+    "alt": "Comparsa - Los Renacidos"
    }
   },
   {
@@ -3248,8 +3239,7 @@
    "cover": {
     "w": 1600,
     "h": 1066,
-    "alt": "Libro de css sobre la mesa",
-    "src": "https://soynando.com/wp-content/uploads/2021/08/css.jpg"
+    "alt": "Libro de css sobre la mesa"
    }
   },
   {
@@ -3502,10 +3492,10 @@
       "p": "Cómo programador con muchos años a mis espaldas trabajando en el mundo de internet, <a href=\"https://nandovejer.github.io/ikay\">me fue sencillo desarrollar el proyecto IKAY (I know about you</a>). IKAY es una web dónde te muestro de forma sencilla los <em><a href=\"#webapi\">datos más básicos</a></em> que cualquier web puede saber de ti, unido a recomendaciones para evitar su filtración en la medida de lo posible."
      },
      {
-      "img": "https://soynando.com/wp-content/uploads/2020/11/ikay-1024x341.jpg",
+      "img": "/maqueta/img/blog/posts/tu-navegador-sabe-sobre-ti-mas-de-lo-que-crees-36.jpg",
       "alt": "",
-      "w": null,
-      "hgt": null
+      "w": 1500,
+      "hgt": 500
      },
      {
       "p": "Todos los datos que aparecen en IKAY únicamente se almacenan en tu dispositivo, en ningún momento son envidos a ningún servicio externo, ¿por qué? porque no me interesan tus datos, me interesa tu concienciación."
@@ -3607,8 +3597,7 @@
    "cover": {
     "w": 1600,
     "h": 1067,
-    "alt": "Candado atado con un débil cable oxidado",
-    "src": "https://soynando.com/wp-content/uploads/2022/05/markus-winkler-OjSG0E_qcbo-unsplash-scaled.jpg"
+    "alt": "Candado atado con un débil cable oxidado"
    }
   }
  ]

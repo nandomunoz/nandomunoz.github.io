@@ -178,7 +178,6 @@ section { position: relative; }
 .foot__nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; }
 .foot__nav a { display: inline-block; padding: .35rem 0; }
 .foot__motto { grid-column: 1 / -1; margin-top: .8rem; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
-.foot__credit { grid-column: 1 / -1; }
 .bio__text a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
 .bio__text a:hover { color: var(--blaze); }
 

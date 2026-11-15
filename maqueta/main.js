@@ -177,7 +177,8 @@ function build() {
 }
 
 // ------------------------------------------------------------- socials
-$('#socials').append(...c.socials.map((s) => el('li', {},
+// no «Blog» among the networks: the blog is this site (data/site.json keeps it for the other versions)
+$('#socials').append(...c.socials.filter((s) => s.id !== 'blog').map((s) => el('li', {},
   el('a', { href: s.url, rel: 'me noopener', target: '_blank' },
     el('span', { class: 'socials__label', text: s.label }),
     el('span', { class: 'socials__lead', 'aria-hidden': 'true' }),
