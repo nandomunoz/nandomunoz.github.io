@@ -136,6 +136,20 @@ export function postDots(p, posts, kind) {
 }
 function hashStr(s) { let h = 2166136261; for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
 
+// a post's featured image (maqueta/img/blog/, made by tools/soynando-covers.cjs):
+// the real picture for the article (SEO: alt, size; later og:image and the
+// JSON-LD image) and a grey tone map the dots draw it from
+const IMG = '/maqueta/img/';
+export const coverTone = (p) => (p.cover ? `${IMG}blog/${p.id}.tone.webp` : null);
+export const projectTone = (p) => `${IMG}proyectos/${p.id}.tone.webp`;
+export function coverPicture(p, img = {}) {
+  const f = `${IMG}blog/${p.id}`;
+  return el('picture', {},
+    el('source', { srcset: f + '.avif', type: 'image/avif' }),
+    el('source', { srcset: f + '.webp', type: 'image/webp' }),
+    el('img', { src: f + '.jpg', alt: p.cover.alt, width: p.cover.w, height: p.cover.h, decoding: 'async', ...img }));
+}
+
 // one row of a post list: screen thumbnail · date · title · excerpt · category
 export function row(p, b) {
   const cat = b.categories[p.category];
@@ -148,5 +162,5 @@ export function row(p, b) {
       el('span', { text: B.minShort(p.minutes) })),
     el('h3', { class: 'brow__title', lang: p.postLang !== lang ? p.postLang : null }, el('a', { href: postUrl(p), text: p.title })),
     el('p', { class: 'brow__excerpt', lang: p.postLang !== lang ? p.postLang : null, text: p.excerpt }));
-  return { li, cv, dots: postDots(p, b.posts, cat.kind) };
+  return { li, cv, dots: postDots(p, b.posts, cat.kind), tone: coverTone(p) };
 }

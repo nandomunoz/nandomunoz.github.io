@@ -165,7 +165,13 @@ function build() {
   bl.posts.slice(0, 3).forEach((p) => {
     const r = row(p, bl);
     $('#blog-rows').append(r.li);
-    blocks.push({ make: (cell) => new DotBlock(r.cv, { cell, rows: 9, ...r.dots, label: '' }), stage: r.cv, deco: true });
+    const rb = { make: (cell) => new DotBlock(r.cv, { cell, rows: 9, ...r.dots, label: '', tone: tones['post:' + p.id] }), stage: r.cv, deco: true };
+    blocks.push(rb);
+    if (r.tone) loadTone(r.tone).then((tn) => {
+      if (!tn) return;
+      tones['post:' + p.id] = tn;
+      if (rb.block) { rb.block.o.tone = tn; rb.block.resize(); }
+    });
   });
 }
 

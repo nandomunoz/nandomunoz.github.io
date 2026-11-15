@@ -82,7 +82,7 @@ Las cuatro piezas del motor:
 | **Bloques de proyecto** | La **densidad** es el año (2023 → .36, 2024 → .52, 2025 → .68, 2026 → .86). La **altura** es la longitud del texto. El **dibujo** es la captura del proyecto en semitono (ver abajo); si no carga, un patrón sacado del id. El **número** va calado en la trama. Detrás, una copia más tenue (siempre con patrón) da profundidad 3D. |
 | **Imagen del proyecto** | Cada proyecto tiene su captura (`maqueta/img/proyectos/`, generada con `maqueta/tools/project-shots.cjs`). Nunca aparece como foto en la home: el motor lee su gris (`<id>.tone.webp`, 192 px) y la convierte en **semitono**. El gris decide el tamaño de cada punto y empuja un poco cuáles se encienden, pero la media sigue siendo la densidad del año, así que la leyenda sigue valiendo. Una imagen clara (media de gris > .55, como una página o una ilustración sobre blanco) se lee en negativo, para que los puntos dibujen el objeto y no el papel. Si un proyecto tiene una imagen propia mejor que la captura, va en `IMAGES` del script (hoy, Toolbar AEM). Al abrir el proyecto, el campo a pantalla completa la dibuja con más resolución (el número baja a un cuarto de la altura para dejarle sitio), y en la hoja aparece la captura real en un `<picture>`, en gris, que recupera el color al pasar el ratón. |
 | **Leyenda** («Cómo leer los bloques») | Cuatro muestras, una por año. Aparece en la home y en /proyectos/. |
-| **Artículos** | El **patrón** es la categoría (Código y gestión → columnas; Literatura y pensamiento → racimos). La **densidad** es la longitud del artículo. |
+| **Artículos** | El **patrón** es la categoría (Código y gestión → columnas; Literatura y pensamiento → racimos). La **densidad** es la longitud del artículo. Si el post tiene imagen destacada (todos la tienen; `maqueta/img/blog/`, traída con `maqueta/tools/soynando-covers.cjs`), la trama la dibuja en semitono, igual que en los proyectos: en la portada, el destacado del blog y las miniaturas de las listas. |
 | **Categorías** | Cada una con su muestra de trama. |
 | **404** | El «404» en puntos, con puntos caídos (más del último 4). |
 
@@ -130,7 +130,7 @@ Las cuatro piezas del motor:
 | **Proyectos** | `/proyectos/` | Los 13, agrupados por año, con filtros por tecnología (`?tech=`) y la leyenda. |
 | **Proyecto** | `/proyectos/proyecto/?p=id` | Nº, año, tecnologías (enlazan al filtro), demo y código, el bloque grande, el texto, anterior y siguiente, y «Más proyectos» que comparten tecnología. |
 | **Blog** | `/blog/` | El último artículo destacado en grande. El resto agrupado por año, con el año en Doto fijo a la izquierda en escritorio. Paginación de 5 en 5. Filtros por categoría. |
-| **Artículo** | `/blog/articulo/?a=id` | Migas, título en Archivo 62 % mayúsculas, entradilla, metadatos (fecha, lectura, nº, enlace al original), portada en trama, índice fijo a la izquierda (desplegable en móvil), compartir, etiquetas, autor, anterior y siguiente, relacionados y progreso de lectura. |
+| **Artículo** | `/blog/articulo/?a=id` | Migas, título en Archivo 62 % mayúsculas, entradilla, metadatos (fecha, lectura, nº, enlace al original), portada: la imagen destacada como `<picture>` real (con `alt` y tamaño, porque importa para el SEO: será la `og:image` y el `image` del JSON-LD), en gris y hundida bajo su semitono en trama; al pasar el ratón la trama se aparta y la foto recupera el color. Índice fijo a la izquierda (desplegable en móvil), compartir, etiquetas, autor, anterior y siguiente, relacionados y progreso de lectura. |
 | **Categorías / categoría** | `/blog/categoria/[?c=]` | Tarjetas con la muestra de trama de cada una, o la lista de una. |
 | **Etiquetas / etiqueta** | `/blog/etiqueta/[?t=]` | Nube: más grande cuanto más se usa. |
 | **404** | cualquier ruta inexistente | Ver §11. |
@@ -181,5 +181,5 @@ Las cuatro piezas del motor:
 ## 15. Pendiente antes de llevarlo a `main`
 
 - Hoy la maqueta **sin JavaScript queda vacía**. Hay que generar el HTML estático con `build.mjs`, con páginas por proyecto, artículo, categoría y etiqueta en rutas limpias (no `?a=`), y añadir SEO, RSS y un `404.html` en la raíz.
-- Copiar al repo las imágenes de los artículos, que hoy se cargan desde soynando.com.
+- Copiar al repo las imágenes de dentro de los artículos, que hoy se cargan desde soynando.com. Las destacadas ya están en `maqueta/img/blog/`.
 - Medir el hero en móviles modestos (redibuja 3–6 mil puntos por fotograma) y probarlo en Safari.

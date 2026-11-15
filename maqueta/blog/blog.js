@@ -5,8 +5,8 @@
 //   tag       /blog/etiqueta/[?t=<id>]    all tags, or the posts of one
 // Unknown ids render a "not found" page (the 404 of the sandbox).
 import { content, blog, lang } from '../shared/content.js';
-import { DotBlock, HeroField, clamp, easeOut } from '../dots.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
+import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
+import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
@@ -52,12 +52,22 @@ consent();
 // every screen assembles once when it comes into view; the pointer pushes it
 const cellSize = () => (innerWidth < 768 ? 7 : innerWidth < 1024 ? 8 : 9);
 const screens = [];
-function screen(cv, opts) { const s = { cv, opts, block: null }; screens.push(s); return s; }
+// a screen with `tone` (a grey map's url) draws that picture once it loads
+function screen(cv, opts, tone) {
+  const s = { cv, opts, block: null };
+  screens.push(s);
+  if (tone) loadTone(tone).then((t) => {
+    if (!t) return;
+    s.tone = t;
+    if (s.block) { s.block.o.tone = t; s.block.resize(); }
+  });
+  return s;
+}
 function build() {
   const cell = cellSize();
   for (const s of screens) {
     const p = s.block ? s.block.p : reduce ? 1 : 0;
-    s.block = new DotBlock(s.cv, { cell, ...(typeof s.opts === 'function' ? s.opts(cell) : s.opts) });
+    s.block = new DotBlock(s.cv, { cell, ...(typeof s.opts === 'function' ? s.opts(cell) : s.opts), tone: s.tone });
     s.block.draw(p, true);
   }
 }
@@ -135,7 +145,7 @@ function rows(posts, { group = true } = {}) {
     }
     const r = row(p, b);
     ol.append(r.li);
-    screen(r.cv, { rows: 9, ...r.dots, label: '' });
+    screen(r.cv, { rows: 9, ...r.dots, label: '' }, r.tone);
   }
   return wrap;
 }
@@ -153,7 +163,7 @@ function pager(cur, total, to) {
 function featured(p) {
   const cat = b.categories[p.category];
   const cv = el('canvas', { 'aria-hidden': 'true' });
-  screen(cv, (cell) => ({ rows: innerWidth < 1024 ? 22 : 30, ...postDots(p, b.posts, cat.kind), corner: 1 }));
+  screen(cv, (cell) => ({ rows: innerWidth < 1024 ? 22 : 30, ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
   return el('article', { class: 'feat' },
     el('div', { class: 'feat__dots' }, cv),
     el('div', { class: 'feat__text' },
@@ -417,7 +427,11 @@ function postPage() {
 
   // cover
   const cover = el('canvas', { 'aria-hidden': 'true' });
-  screen(cover, () => ({ rows: innerWidth < 768 ? 18 : innerWidth < 1024 ? 22 : 26, ...postDots(p, b.posts, cat.kind), corner: 1 }));
+  // with a featured image the band opens to ~2.4:1 (at most 60 % of the screen) so the picture reads
+  const coverRows = (cell) => (p.cover
+    ? Math.round(Math.min(innerHeight * 0.6, (cover.parentElement?.clientWidth || innerWidth) / 2.4) / cell)
+    : innerWidth < 768 ? 18 : innerWidth < 1024 ? 22 : 26);
+  screen(cover, (cell) => ({ rows: coverRows(cell), ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
 
   // prev/next (older = next in reading order down the list)
   const newer = b.posts[i - 1], older = b.posts[i + 1];
@@ -440,7 +454,9 @@ function postPage() {
         el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })),
         el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })),
         p.url ? el('div', {}, el('dt', { text: B.original }), el('dd', {}, el('a', { href: p.url, target: '_blank', rel: 'noopener', text: new URL(p.url).hostname + ' ↗' }))) : null)),
-    el('div', { class: 'post__cover' }, cover),
+    p.cover
+      ? el('figure', { class: 'post__cover post__cover--img' }, coverPicture(p, { fetchpriority: 'high' }), cover)
+      : el('div', { class: 'post__cover' }, cover),
     el('div', { class: 'post__grid' }, aside, el('div', { class: 'post__main' },
       body,
       el('ul', { class: 'tags', 'aria-label': B.tags }, ...p.tags.map((tg) => el('li', {}, el('a', { href: tagUrl(tg), text: '#' + b.tags[tg].label })))),
@@ -481,7 +497,7 @@ function projRows(list, { group = true } = {}) {
     }
     const r = projectRow(p);
     ol.append(r.li);
-    screen(r.cv, { rows: 9, ...r.dots, label: '' });
+    screen(r.cv, { rows: 9, ...r.dots, label: '' }, projectTone(p));
   }
   return wrap;
 }
@@ -525,7 +541,7 @@ function projectPage() {
   const lens = all.map((x) => x.body.join(' ').length), lo = Math.min(...lens), hi = Math.max(...lens);
   const len = (p.body.join(' ').length - lo) / (hi - lo || 1);
   const cover = el('canvas', { 'aria-hidden': 'true' });
-  screen(cover, () => ({ rows: Math.round((innerWidth < 1024 ? 14 : 18) + len * 12), ...projectDots(p), corner: 1 }));
+  screen(cover, () => ({ rows: Math.round((innerWidth < 1024 ? 14 : 18) + len * 12), ...projectDots(p), corner: 1 }), projectTone(p));
 
   const prev = all[i - 1], next = all[i + 1];
   const pn = el('nav', { class: 'post__nav', 'aria-label': B.projects },

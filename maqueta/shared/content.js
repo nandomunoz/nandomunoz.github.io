@@ -36,7 +36,7 @@ export async function content() {
 // maqueta/tools/soynando-to-blog.cjs), newest first. Posts only in Spanish
 // fall back to it: `postLang` says which language the text is in.
 //   const b = await blog();
-//   b.posts[{ id, n, date, year, category, tags[], url, postLang, title, excerpt, body[], words, minutes }]
+//   b.posts[{ id, n, date, year, category, tags[], url, postLang, cover{ w, h, alt, src }, title, excerpt, body[], words, minutes }]
 //   b.categories{ id: { id, name, desc, kind, count } }, b.tags{ id: { id, label, count } }
 // body blocks: { p } (inline HTML) | { h, lv } | { img, alt, cap } | { quote[], cite } | { pull[], cite }
 //   | { ul[], ol } | { code } | { yt, title, cap } | { tweet, by, url, date } | { embed, host }
@@ -53,7 +53,7 @@ export async function blog() {
       const postLang = p[lang] ? lang : 'es', t = p[postLang];
       const words = t.body.map(text).join(' ').split(/\s+/).filter(Boolean).length;
       return {
-        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags, url: p.url, postLang,
+        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags, url: p.url, postLang, cover: p.cover || null,
         title: t.title, excerpt: t.excerpt, body: t.body, words, minutes: Math.max(1, Math.round(words / 220))
       };
     });

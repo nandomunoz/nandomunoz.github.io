@@ -180,6 +180,12 @@
       "p": "La noticia de su muerte la confirmó su hija, Lauren. La misma niña que, con cuatro años, pulsó la tecla que nadie debía pulsar."
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 1067,
+    "alt": "Barack Obama le impone la Medalla Presidencial de la Libertad en la Casa Blanca, el 22 de noviembre de 2016 · Lawrence Jackson, fotografía oficial de la Casa Blanca. Dominio público, vía Wikimedia Commons.",
+    "src": "https://soynando.com/wp-content/uploads/2026/10/2026-10-13-margaret-hamilton-medalla.jpg"
    }
   },
   {
@@ -685,6 +691,12 @@
       "p": "La máquina niño existe. Se ha educado con casi todo lo que hemos escrito, y por eso habla como nosotros, acierta como nosotros y se equivoca como nosotros. Pero la objeción de Lovelace sigue en pie: lo que dice no lo origina ella. Lo originaron las personas que escribieron antes, las que la corrigieron después y la que ahora teclea la pregunta. En Schönbrunn, el público miraba al muñeco cuando debía mirar a quien se sentaba al otro lado del tablero, porque esa persona decidía qué jugada valía la pena. Con la inteligencia artificial, esa persona eres tú."
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 1374,
+    "alt": "",
+    "src": "https://soynando.com/wp-content/uploads/2026/10/Racknitz-The-Turk.jpg"
    }
   },
   {
@@ -1299,6 +1311,12 @@
       "p": "Eres tú."
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 1374,
+    "alt": "",
+    "src": "https://soynando.com/wp-content/uploads/2026/10/Racknitz-The-Turk.jpg"
    }
   },
   {
@@ -1484,6 +1502,12 @@
       "p": "Los Web Components representan un paso firme hacia la estandarización y modularización del desarrollo frontend. Nos permiten crear elementos totalmente reutilizables, integrables en cualquier proyecto y libres de dependencias con frameworks específicos. Ya sea usando vanilla JS o librerías como LitElement, la curva de aprendizaje se ve recompensada por la claridad, mantenibilidad y escalabilidad que estos componentes aportan a nuestras aplicaciones web."
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "La imagen muestra un escritorio profesional de un desarrollador web en estilo pixel art, con una configuración de doble monitor: uno exhibe un editor de código en modo oscuro con líneas destacadas y el otro muestra un navegador en modo depuración con herramientas de desarrollo activas. Sobre el escritorio hay una taza de café, un teclado inalámbrico, un ratón y una libreta, todo en un ambiente ordenado, moderno y bien iluminado, que refleja productividad y enfoque en el desarrollo web.",
+    "src": "https://soynando.com/wp-content/uploads/2021/05/Aprendiendo-Web-Components.jpg"
    }
   },
   {
@@ -1669,6 +1693,12 @@
       "p": "<strong>Foto principal de <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\">https://www.facebook.com/LaComparsaDeMartinezAres</a> realizada por <a href=\"https://twitter.com/farre_diaz\">https://twitter.com/farre_diaz</a> </strong>"
      }
     ]
+   },
+   "cover": {
+    "w": 1000,
+    "h": 750,
+    "alt": "Martinez ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo",
+    "src": "https://soynando.com/wp-content/uploads/2024/02/oveja-negra.jpg"
    }
   },
   {
@@ -1926,6 +1956,12 @@
       "p": "En resumen. Un popurrí espléndido, un poco más flojito literariamente para ser Martínez Ares (aunque cualquiera que no fuera Antonio mataría por escribir esto) pero interpretativamente y musicalmente es una joya para enmarcar, llenísimo de cientos de matices, homenajes conscientes o inconscientes a sus comparsas de los 90, en fin, un regalo maravilloso para todo aficionado al carnaval."
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 930,
+    "alt": "Imagen de la comparsa la ciudad invisble interpretando en el escenario",
+    "src": "https://soynando.com/wp-content/uploads/2023/04/ciudad-invisble.jpg"
    }
   },
   {
@@ -2398,6 +2434,12 @@
       "p": "<strong>Este artículo está enfocado en aspectos menos técnicos y más divulgativos, lo que significa que se presenta la información de una manera fácil de entender para el público en general. En lugar de profundizar en detalles técnicos, el artículo se centra en explicar los conceptos de manera clara y accesible para todos.</strong>"
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 2000,
+    "alt": "un monitor muestra un ejemplo de sistema de diseño",
+    "src": "https://soynando.com/wp-content/uploads/2023/01/balazs-ketyi-FeuEg-8XlA8-unsplash.jpg"
    }
   },
   {
@@ -2762,6 +2804,12 @@
       "host": "facebook.com"
      }
     ]
+   },
+   "cover": {
+    "w": 1000,
+    "h": 668,
+    "alt": "",
+    "src": "https://soynando.com/wp-content/uploads/2022/06/sumisos_martinez_ares.jpeg"
    }
   },
   {
@@ -3158,6 +3206,12 @@
       "date": "June 11, 2022"
      }
     ]
+   },
+   "cover": {
+    "w": 1500,
+    "h": 500,
+    "alt": "Comparsa - Los Renacidos",
+    "src": "https://soynando.com/wp-content/uploads/2022/06/portada_los_renacidos_comparsa.jpeg"
    }
   },
   {
@@ -3190,6 +3244,12 @@
       "gist": "https://gist.github.com/Silencespainter/a6096b7b63593afaa588bf45eabec947"
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 1066,
+    "alt": "Libro de css sobre la mesa",
+    "src": "https://soynando.com/wp-content/uploads/2021/08/css.jpg"
    }
   },
   {
@@ -3543,6 +3603,12 @@
       "p": "Internet es un lugar maravilloso donde aportar conocimiento, aprender, informarse, comunicarse o comprar. Por ello no debemos tenerle miedo, sino ser consciente del valor de nuestros datos. Existen <a href=\"https://es.wikipedia.org/wiki/Reglamento_General_de_Protecci%C3%B3n_de_Datos\">personas e instituciones que velan por la seguridad de los mismos</a>, démosle la importancia que tienen y podremos manejar los retos del siglo XXI."
      }
     ]
+   },
+   "cover": {
+    "w": 1600,
+    "h": 1067,
+    "alt": "Candado atado con un débil cable oxidado",
+    "src": "https://soynando.com/wp-content/uploads/2022/05/markus-winkler-OjSG0E_qcbo-unsplash-scaled.jpg"
    }
   }
  ]

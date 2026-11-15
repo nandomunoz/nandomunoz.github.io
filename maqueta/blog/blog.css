@@ -110,6 +110,16 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__meta .post__n { font: 700 1.1rem/1 var(--dots); letter-spacing: 0; }
 .post__cover { margin: 0 0 3rem; }
 .post__cover canvas { display: block; width: 100%; filter: drop-shadow(0 0 14px #f4f2ee1c); }
+/* with a featured image: the real picture (alt, size: what search engines and
+   previews read) sits under its halftone, grey and sunk; on hover the dots
+   step aside and it gets its colour back */
+.post__cover--img { position: relative; }
+.post__cover--img picture { position: absolute; inset: 0; overflow: hidden; }
+/* object-position matches the crop the dots use (toneAt: centred, 15 % down) */
+.post__cover--img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; filter: grayscale(1) brightness(.32) contrast(1.1); transition: filter .7s var(--ease); }
+.post__cover--img canvas { position: relative; transition: opacity .7s var(--ease); }
+.post__cover--img:hover img { filter: none; }
+.post__cover--img:hover canvas { opacity: 0; }
 
 .post__grid { display: grid; gap: 2rem; }
 .toc { border-top: 1px dotted var(--faint); border-bottom: 1px dotted var(--faint); }
