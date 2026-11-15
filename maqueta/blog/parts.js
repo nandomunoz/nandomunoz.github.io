@@ -76,8 +76,8 @@ export const projectUrl = (p) => url('/proyectos/proyecto/', { p: p.id });
 
 // the footer of every page: © name · year, the site's ways and the motto
 const FOOT = {
-  es: { label: 'Pie', bio: 'Bio', work: 'Proyectos', blog: 'Blog', contact: 'Contacto', other: 'English', otherLang: 'en' },
-  en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact', other: 'Español', otherLang: 'es' }
+  es: { label: 'Pie', bio: 'Bio', work: 'Proyectos', blog: 'Blog', contact: 'Contacto', credits: 'Créditos', other: 'English', otherLang: 'en' },
+  en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact', credits: 'Credits', other: 'Español', otherLang: 'es' }
 }[lang];
 // this same page in the other language (what the header's link points to)
 function otherLangHref() {
@@ -88,7 +88,7 @@ function otherLangHref() {
 export const footer = (c) => el('footer', { class: 'foot' },
   el('p', { class: 'foot__by', text: `© ${c.name} · ${new Date().getFullYear()}` }),
   el('nav', { class: 'foot__nav', 'aria-label': FOOT.label }, el('ul', {},
-    ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')]]
+    ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')], [FOOT.credits, url('/creditos/')]]
       .map(([text, href]) => el('li', {}, el('a', { href, text }))),
     el('li', { class: 'foot__lang' }, el('a', { href: otherLangHref(), hreflang: FOOT.otherLang, lang: FOOT.otherLang, text: FOOT.other })))),
   el('p', { class: 'foot__motto', text: c.motto }));

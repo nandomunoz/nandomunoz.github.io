@@ -110,6 +110,8 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__meta .post__n { font: 700 1.1rem/1 var(--dots); letter-spacing: 0; }
 .post__cover { margin: 0 0 3rem; }
 .post__cover canvas { display: block; width: 100%; filter: drop-shadow(0 0 14px #f4f2ee1c); }
+.post__credit { margin: .7rem 0 0; font: 500 .62rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+.post__credit a { color: var(--mute); text-decoration: underline dotted; text-underline-offset: .3em; }
 /* a featured image (article cover, the blog's featured post, post rows): the
    real picture (the article's carries alt and size: what search engines and
    previews read) under its halftone. coverLoop (parts.js) cycles it while it

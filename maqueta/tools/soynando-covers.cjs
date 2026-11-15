@@ -41,7 +41,11 @@ const cleanAlt = (s) => String(s || '').replace(/\*\*/g, '').replace(/\s+/g, ' '
     execFileSync('magick', [src, '-auto-orient', '-resize', '192x', '-colorspace', 'Gray', '-quality', '80', base + '.tone.webp']);
     fs.unlinkSync(src);
     const [cw, ch] = execFileSync('magick', ['identify', '-format', '%w %h', base + '.jpg']).toString().split(' ').map(Number);
-    p.cover = { w: cw, h: ch, alt: cleanAlt(m.alt_text) };
+    // the alt describes the picture; a credit that WordPress put after « · » in it is
+    // not part of it. `credit` (inline HTML, shown under the cover) is written by hand
+    // in blog.json and survives a re-run.
+    const alt = cleanAlt(m.alt_text), [desc, ...rest] = alt.split(' · ');
+    p.cover = { w: cw, h: ch, alt: desc, ...(p.cover && p.cover.credit ? { credit: p.cover.credit } : rest.length ? { credit: rest.join(' · ') } : {}) };
     console.log('✓', p.id, `${cw}×${ch}`, p.cover.alt ? '' : '(no alt)');
   }
   fs.writeFileSync(JSON_PATH, JSON.stringify(blog, null, 1));

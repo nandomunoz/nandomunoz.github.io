@@ -184,7 +184,8 @@
    "cover": {
     "w": 1600,
     "h": 1067,
-    "alt": "Barack Obama le impone la Medalla Presidencial de la Libertad en la Casa Blanca, el 22 de noviembre de 2016 · Lawrence Jackson, fotografía oficial de la Casa Blanca. Dominio público, vía Wikimedia Commons."
+    "alt": "Barack Obama le impone la Medalla Presidencial de la Libertad en la Casa Blanca, el 22 de noviembre de 2016",
+    "credit": "Lawrence Jackson, fotografía oficial de la Casa Blanca. Dominio público, vía Wikimedia Commons."
    }
   },
   {
@@ -694,7 +695,8 @@
    "cover": {
     "w": 1600,
     "h": 1374,
-    "alt": ""
+    "alt": "",
+    "credit": "Joseph Friedrich zu Racknitz, ilustración de «El Turco» (1789). Dominio público."
    }
   },
   {
@@ -1313,7 +1315,8 @@
    "cover": {
     "w": 1600,
     "h": 1374,
-    "alt": ""
+    "alt": "",
+    "credit": "Joseph Friedrich zu Racknitz, ilustración de «El Turco» (1789). Dominio público."
    }
   },
   {
@@ -1693,7 +1696,8 @@
    "cover": {
     "w": 1000,
     "h": 750,
-    "alt": "Martinez ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo"
+    "alt": "Martinez ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo",
+    "credit": "Imagen: <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."
    }
   },
   {
@@ -1955,7 +1959,8 @@
    "cover": {
     "w": 1600,
     "h": 930,
-    "alt": "Imagen de la comparsa la ciudad invisble interpretando en el escenario"
+    "alt": "Imagen de la comparsa la ciudad invisble interpretando en el escenario",
+    "credit": "Imagen: <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."
    }
   },
   {
@@ -2432,7 +2437,8 @@
    "cover": {
     "w": 1600,
     "h": 2000,
-    "alt": "un monitor muestra un ejemplo de sistema de diseño"
+    "alt": "un monitor muestra un ejemplo de sistema de diseño",
+    "credit": "Foto de Balázs Kétyi en <a href=\"https://unsplash.com\" rel=\"noopener\">Unsplash</a>."
    }
   },
   {
@@ -3239,7 +3245,8 @@
    "cover": {
     "w": 1600,
     "h": 1066,
-    "alt": "Libro de css sobre la mesa"
+    "alt": "Libro de css sobre la mesa",
+    "credit": "Foto de KOBU Agency en <a href=\"https://unsplash.com\" rel=\"noopener\">Unsplash</a>."
    }
   },
   {
@@ -3597,7 +3604,8 @@
    "cover": {
     "w": 1600,
     "h": 1067,
-    "alt": "Candado atado con un débil cable oxidado"
+    "alt": "Candado atado con un débil cable oxidado",
+    "credit": "Foto de Markus Winkler en <a href=\"https://unsplash.com\" rel=\"noopener\">Unsplash</a>."
    }
   }
  ]

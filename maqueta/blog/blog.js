@@ -9,6 +9,7 @@ import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
+import { CREDITS as CR, UPDATED as CR_UPDATED } from '../shared/credits.js';
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 
 const PER_PAGE = 5;
@@ -42,7 +43,7 @@ document.body.prepend(
     el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
-    navItem('03', blogUrl(), B.blog, page !== '404' && page !== 'cookies' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
+    navItem('03', blogUrl(), B.blog, page !== '404' && page !== 'cookies' && page !== 'creditos' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
   footer(c));
 consent();
@@ -520,7 +521,10 @@ function postPage() {
         el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })),
         el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })))),
     p.cover
-      ? el('figure', { class: 'post__cover cover-loop' }, coverPicture(p, { fetchpriority: 'high' }), cover)
+      ? el('figure', { class: 'post__cover' },
+        el('div', { class: 'cover-loop' }, coverPicture(p, { fetchpriority: 'high' }), cover),
+        // the credit is its own line (the alt describes the picture, it does not credit it)
+        p.cover.credit ? html('figcaption', { class: 'post__credit' }, p.cover.credit) : null)
       : el('div', { class: 'post__cover' }, cover),
     el('div', { class: 'post__grid' }, aside, el('div', { class: 'post__main' },
       body,
@@ -664,7 +668,24 @@ function cookiesPage() {
     el('div', { class: 'prose legal' }, ...P.blocks.map(block)));
 }
 
-({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage, cookies: cookiesPage }[page] || notFound)();
+// the credits: its texts in shared/credits.js; the credited featured images
+// come from blog.json, one line per article
+function creditsPage() {
+  document.title = `${CR.title} · ${c.name}`;
+  const block = (x) => {
+    if (x.h) return el('h2', { text: x.h });
+    if (x.p) return html('p', {}, x.p);
+    if (x.ul) return el('ul', {}, ...x.ul.map((li) => html('li', {}, li)));
+    if (x.covers) return el('ul', {}, ...b.posts.filter((p) => p.cover && p.cover.credit).map((p) =>
+      el('li', {}, el('a', { href: postUrl(p), text: p.title, lang: p.postLang !== lang ? p.postLang : null }), ' · ', html('span', {}, p.cover.credit))));
+    return null;
+  };
+  put(
+    head({ crumbs: [[B.nfHome, homeUrl()]], title: CR.title, deck: CR.deck, count: `${CR.updated} ${date(CR_UPDATED)}` }),
+    el('div', { class: 'prose legal' }, ...CR.blocks.map(block)));
+}
+
+({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage, cookies: cookiesPage, creditos: creditsPage }[page] || notFound)();
 
 // ------------------------------------------------------------- go
 await document.fonts.ready;

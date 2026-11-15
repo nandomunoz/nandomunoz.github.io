@@ -134,6 +134,7 @@ Las cuatro piezas del motor:
 | **Categorías / categoría** | `/blog/categoria/[?c=]` | Tarjetas con la muestra de trama de cada una, o la lista de una. |
 | **Etiquetas / etiqueta** | `/blog/etiqueta/[?t=]` | Nube: más grande cuanto más se usa. |
 | **404** | cualquier ruta inexistente | Ver §11. |
+| **Créditos** | `/creditos/` | Tipografías (OFL), código de LUZ (MIT), una línea por artículo con el crédito de su imagen destacada (sale de `blog.json`) y de dónde salen las imágenes de los proyectos. Enlazada desde el pie. No dice licencia del texto ni del código propios: sigue sin decidirse (plan, L4–L6). Textos en `maqueta/shared/credits.js`. |
 
 **Una fila de lista** (artículos y proyectos) tiene siempre la misma forma: miniatura en trama, metadatos en mono, título y entradilla. Toda la fila es clicable con un enlace estirado; la categoría queda por encima como enlace propio.
 
@@ -182,4 +183,5 @@ Las cuatro piezas del motor:
 
 - Hoy la maqueta **sin JavaScript queda vacía**. Hay que generar el HTML estático con `build.mjs`, con páginas por proyecto, artículo, categoría y etiqueta en rutas limpias (no `?a=`), y añadir SEO, RSS y un `404.html` en la raíz.
 - **Esto será soynando.com**, así que nada puede depender del WordPress de hoy. Hecho: las imágenes destacadas (`maqueta/img/blog/`) y las de dentro de los artículos (`maqueta/img/blog/posts/`, con `maqueta/tools/soynando-images.cjs`) están en el repo y salen en `<picture>`; se quitaron el «Artículos de soynando.com» del pie, el enlace «Original» de los artículos y el «Blog» de las redes (`data/site.json` lo conserva para las otras versiones). Pendiente: el campo `url` de cada artículo en `blog.json` es la dirección del WordPress y se guarda solo para generar las redirecciones `/<slug>/` → `/blog/<slug>/`; `baseUrl` y el canonical de `data/site.json` siguen siendo los de nandovejer.github.io y habrá que cambiarlos al hacer el cambio de dominio.
+- **Licencias y créditos**: la maqueta ya enseña el crédito de cada portada bajo la imagen (`cover.credit` en `blog.json`, que `soynando-covers.cjs` respeta al volver a ejecutarse; el `alt` solo describe) y tiene `/creditos/`. Lo demás está en el plan, L5–L9: permiso de las fotos del Carnaval, licencia del texto y del código, la portada con IA, las licencias de fuentes y voces, y el aviso legal.
 - Medir el hero en móviles modestos (redibuja 3–6 mil puntos por fotograma) y probarlo en Safari.
