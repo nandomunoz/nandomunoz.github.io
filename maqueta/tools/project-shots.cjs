@@ -1,4 +1,5 @@
-// Screenshots of each project's demo (or its GitHub page when it has none),
+// Screenshots of each project's demo (or its GitHub page when it has none, or
+// the image named in IMAGES),
 // saved as maqueta/img/proyectos/<id>.{avif,webp,jpg} for <picture>, plus
 // <id>.tone.webp (192 px, grey) that the dot engine samples.
 // The home reads them only to place dots; the panel shows them in grey.
@@ -14,6 +15,10 @@ const root = path.resolve(__dirname, '../..');
 const out = path.join(root, 'maqueta/img/proyectos');
 const projects = require(path.join(root, 'data/projects.json'));
 const only = process.argv.slice(2);
+// projects whose picture is an image of their own rather than a screenshot
+const IMAGES = {
+  'toolbar-aem': 'https://raw.githubusercontent.com/nandovejer/toolbar-aem/master/toolbar-aem-01.jpeg'
+};
 
 (async () => {
   fs.mkdirSync(out, { recursive: true });
@@ -24,9 +29,15 @@ const only = process.argv.slice(2);
     const url = p.demo || p.repo;
     const png = path.join(out, `${p.id}.png`);
     try {
-      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
-      await page.waitForTimeout(1500);
-      await page.screenshot({ path: png });
+      if (IMAGES[p.id]) {
+        const res = await fetch(IMAGES[p.id]);
+        if (!res.ok) throw new Error(`${res.status} ${IMAGES[p.id]}`);
+        fs.writeFileSync(png, Buffer.from(await res.arrayBuffer()));
+      } else {
+        await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+        await page.waitForTimeout(1500);
+        await page.screenshot({ path: png });
+      }
     } catch (e) { console.log('✗', p.id, e.message.split('\n')[0]); continue; }
     const base = path.join(out, p.id);
     execFileSync('magick', [png, '-resize', '1200x', '-quality', '50', base + '.avif']);
@@ -35,7 +46,7 @@ const only = process.argv.slice(2);
     // a tiny grey copy, read only by the dot engine (tone per cell)
     execFileSync('magick', [png, '-resize', '192x', '-colorspace', 'Gray', '-quality', '80', base + '.tone.webp']);
     fs.unlinkSync(png);
-    console.log('✓', p.id, url);
+    console.log('✓', p.id, IMAGES[p.id] || url);
   }
   await browser.close();
 })();

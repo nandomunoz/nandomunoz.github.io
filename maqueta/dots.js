@@ -142,6 +142,11 @@ export function loadTone(src) {
       ctx.drawImage(im, 0, 0);
       const px = ctx.getImageData(0, 0, w, h).data, g = new Float32Array(w * h);
       for (let i = 0; i < g.length; i++) g[i] = (px[i * 4] * 0.2126 + px[i * 4 + 1] * 0.7152 + px[i * 4 + 2] * 0.0722) / 255;
+      // a light picture (a page on white) is read in negative, so the dots
+      // draw the thing and not the paper around it: ink is light here
+      let raw = 0;
+      for (let i = 0; i < g.length; i++) raw += g[i];
+      if (raw / g.length > 0.55) for (let i = 0; i < g.length; i++) g[i] = 1 - g[i];
       const sorted = Float32Array.from(g).sort();
       const lo = sorted[(g.length * 0.02) | 0], hi = sorted[(g.length * 0.98) | 0], span = Math.max(0.05, hi - lo);
       let sum = 0;
