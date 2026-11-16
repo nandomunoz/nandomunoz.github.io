@@ -519,8 +519,10 @@ function postPage() {
   const coverRows = (cell) => (p.cover
     ? Math.round(Math.min(innerHeight * 0.6, (cover.parentElement?.clientWidth || innerWidth) / 2.4) / cell)
     : innerWidth < 768 ? 18 : innerWidth < 1024 ? 22 : 26);
-  const coverScreen = screen(cover, (cell) => ({ rows: coverRows(cell), ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
-  if (p.cover) { coverScreen.looping = true; requestAnimationFrame(() => coverLoop(cover.parentElement, () => coverScreen.block)); }
+  // a post with a featured image shows the picture under a dotted screen (like a video's facade) that
+  // fades away under the pointer and comes back when it leaves (blog.css: .cover-screen); a post without
+  // one gets the dots of its category
+  if (!p.cover) screen(cover, (cell) => ({ rows: coverRows(cell), ...postDots(p, b.posts, cat.kind), corner: 1 }), coverTone(p));
 
   // prev/next (older = next in reading order down the list)
   const newer = b.posts[i - 1], older = b.posts[i + 1];
@@ -540,11 +542,10 @@ function postPage() {
       p.postLang !== lang ? el('p', { class: 'post__note', text: B.onlyEs }) : null,
       el('dl', { class: 'post__meta' },
         el('div', {}, el('dt', { text: B.published }), el('dd', {}, el('time', { datetime: p.date, text: date(p.date) }))),
-        el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })),
-        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })))),
+        el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })))),
     p.cover
       ? el('figure', { class: 'post__cover' },
-        el('div', { class: 'cover-loop' }, coverPicture(p, { fetchpriority: 'high' }), cover),
+        el('div', { class: 'cover-screen' }, coverPicture(p, { fetchpriority: 'high' })),
         // the credit is its own line (the alt describes the picture, it does not credit it)
         p.cover.credit ? html('figcaption', { class: 'post__credit' }, p.cover.credit) : null)
       : el('div', { class: 'post__cover' }, cover),
