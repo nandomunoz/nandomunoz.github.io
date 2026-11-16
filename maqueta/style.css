@@ -37,7 +37,7 @@
   --edge-2: color-mix(in srgb, var(--ink) 12%, transparent);
   --rule: color-mix(in srgb, var(--ink) 18%, transparent);
   --glow: color-mix(in srgb, var(--ink) 11%, transparent);
-  --dot-ink: #f4f2ee; --dot-mid: #c98a8f; --dot-blaze: #963641;
+  --dot-ink: #f4f2ee; --dot-mid: #9bdcb0; --dot-blaze: #3dff7a;   /* moved dots turn the rain's green */
   --sink: brightness(.32) contrast(1.1);       /* a featured image sunk under its dots */
   --sink-b: .32; --sink-c: 1.1;
 }
@@ -85,7 +85,7 @@
   --edge-2: color-mix(in srgb, var(--ink) 65%, transparent);
   --rule: color-mix(in srgb, var(--ink) 70%, transparent);
   --glow: transparent;
-  --dot-ink: #fff; --dot-mid: #ffc2ca; --dot-blaze: #ff6479;
+  --dot-ink: #fff; --dot-mid: #c2ffd4; --dot-blaze: #5dff8f;
   --sink: brightness(.45) contrast(1.2);
   --sink-b: .45; --sink-c: 1.2;
 }
