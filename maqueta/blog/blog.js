@@ -252,7 +252,7 @@ function notFound() {
   const hint = el('p', { class: 'lost__hint', 'aria-hidden': 'true', text: fine ? B.nfHintFine : B.nfHint });
   const stage = el('div', { class: 'lost__stage' }, cv, hint);
   later.push(() => {
-    const f = new RainField(cv, { mask: 'image' });                  // the rain, with the desk picture drawn in it (rain.js)
+    const f = new RainField(cv, { mask: 'image', dots: true });                  // the rain, with the desk picture drawn in it (rain.js)
     f.start();
     cv.addEventListener('pointerdown', (e) => {
       const r = cv.getBoundingClientRect(); f.poke(e.clientX - r.left, e.clientY - r.top);

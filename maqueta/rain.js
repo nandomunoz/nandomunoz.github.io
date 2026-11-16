@@ -13,7 +13,8 @@
 // in a circle, as the colour-mode button reveals the page: a dotted green ring grows
 // from the point, decoding every cell it crosses, the green easing out behind it.
 //
-//   const f = new RainField(canvas, { mask: 'cycle' | 'name' | 'cats' | 'image', name, src });
+//   const f = new RainField(canvas, { mask: 'cycle' | 'name' | 'cats' | 'image', name, src, dots });
+//   (dots: the site's dots, small and on a fine grid, instead of the pen's glyphs)
 //   f.layout(); f.start(); f.poke(x, y); f.repaint(); f.stop();
 import { rng, clamp } from './dots.js';
 import { CATS } from './gatos.js';
@@ -134,7 +135,8 @@ const TRAIL = 1600, L = 7, easeIn = (k) => k * k * (3 - 2 * k);                 
 const lluvia = {
   build(f) {
     const { narrow, w, h } = f, rand = rng(44);
-    const fs = narrow ? 9 : w < 1100 ? 10 : 11, gw = Math.round(fs * 1.1), gh = Math.round(fs * 1.25);
+    const dots = f.opt.dots, fs = narrow ? 9 : w < 1100 ? 10 : 11;
+    const gw = dots ? (narrow ? 5 : w < 1600 ? 6 : 7) : Math.round(fs * 1.1), gh = dots ? gw : Math.round(fs * 1.25);   // dots: a finer grid than the rest of the site
     const gc = Math.floor((w - 8) / gw), gr = Math.floor(h / gh), ox = (w - gc * gw) / 2;
     // columns: long runs with a blank between, as on the poster (few, so the name has an even field to be cut from)
     const on = new Uint8Array(gc);
@@ -189,7 +191,7 @@ const lluvia = {
         for (let c = 0; c < gc; c++) {
           if (!r.on[c]) continue;
           const dx = ox + (c + 0.5) * gw - sc.x, d = Math.hypot(dx, dy);
-          if (d >= R0 && d < R) r.c[gy * gc + c] = gi();               // the ring passes: the cell decodes
+          if (d >= R0 && d < R && Math.random() < (f.opt.dots ? 0.3 : 1)) r.c[gy * gc + c] = gi();   // the ring passes: the cell decodes (dots: some of them, there are many more)
         }
       }
       out.push({ x: sc.x, y: sc.y, R, band });
@@ -199,12 +201,15 @@ const lluvia = {
     return out;
   },
   atlas(f) {                                                          // the 33 glyphs in mute, ink and green; rebuilt when the size or the colours change
-    const key = `${f.gw}x${f.gh} ${P.mute} ${P.ink} ${P.green}`;
+    const key = `${f.gw}x${f.gh} ${f.opt.dots ? 'dots' : 'glyphs'} ${P.mute} ${P.ink} ${P.green}`;
     if (f.atlasKey === key) return f.atl;
     const dpr = Math.min(devicePixelRatio || 1, 2), w = Math.round(f.gw * dpr), h = Math.round(f.gh * dpr), cv = document.createElement('canvas');
     cv.width = w * 33; cv.height = h * 3;
     const g = cv.getContext('2d'); g.font = `500 ${f.fs * dpr}px ${FAM}`; g.textAlign = 'center'; g.textBaseline = 'middle';
-    [P.mute, P.ink, P.green].forEach((col, row) => { g.fillStyle = col; for (let k = 0; k < 33; k++) g.fillText(ch33(k), (k + 0.5) * w, (row + 0.5) * h); });
+    [P.mute, P.ink, P.green].forEach((col, row) => { g.fillStyle = col; for (let k = 0; k < 33; k++) {
+      if (f.opt.dots) { g.beginPath(); g.arc((k + 0.5) * w, (row + 0.5) * h, Math.min(w, h) * (0.16 + 0.17 * (k / 32)), 0, TAU); g.fill(); }   // a dot, its size standing for the glyph
+      else g.fillText(ch33(k), (k + 0.5) * w, (row + 0.5) * h);
+    } });
     f.atlasKey = key; return (f.atl = { cv, w, h });
   },
   frame(f, now, dt = 16) {
@@ -219,8 +224,7 @@ const lluvia = {
       const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
       const cv3 = document.createElement('canvas'); cv3.width = cv.width; cv3.height = cv.height;
       const g3 = cv3.getContext('2d'); g3.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const rad = document.createElement('canvas'); rad.width = cv.width; rad.height = cv.height;
-      f.sheet = { cv, g, cv3, g3, rad, key: f.atlasKey, seen: new Int16Array(r.t.length).fill(-1), seen2: new Int8Array(r.t.length).fill(-2) };
+      f.sheet = { cv, g, cv3, g3, key: f.atlasKey, seen: new Int16Array(r.t.length).fill(-1), seen2: new Int8Array(r.t.length).fill(-2) };
     }
     const sh = f.sheet, g = sh.g, g3 = sh.g3;
     for (let i = 0; i < r.t.length; i++) {
@@ -251,15 +255,17 @@ const lluvia = {
       ctx.drawImage(sh.cv3, x * dpr, 0, gw * dpr, sh.cv3.height, x, 0, gw, h);
     }
     ctx.globalAlpha = 1;
-    // the scans' green: the green copy seen through a ring-shaped gradient, full at the ring and fading towards the centre
+    // the scans' green: the green copy seen through bands of the ring, strong at the front and fainter towards the
+    // centre (clipped draws: only the bands are painted, cheap even on a big field)
     for (const sc of rings) {
-      const rg = sh.rad.getContext('2d'), X = sc.x * dpr, Y = sc.y * dpr, R = sc.R * dpr, Ri = Math.max(0, sc.R - sc.band) * dpr;
-      rg.globalCompositeOperation = 'copy'; rg.drawImage(sh.cv3, 0, 0);
-      const gd = rg.createRadialGradient(X, Y, Ri, X, Y, R + 1);
-      gd.addColorStop(0, 'rgba(0,0,0,0)'); gd.addColorStop(0.55, 'rgba(0,0,0,0.25)'); gd.addColorStop(0.96, 'rgba(0,0,0,1)'); gd.addColorStop(1, 'rgba(0,0,0,0)');
-      rg.globalCompositeOperation = 'destination-in'; rg.fillStyle = gd; rg.fillRect(0, 0, sh.rad.width, sh.rad.height);
-      rg.globalCompositeOperation = 'source-over';
-      ctx.drawImage(sh.rad, 0, 0, w, h);
+      const bands = [[0, 0.06, 0.95], [0.06, 0.3, 0.55], [0.3, 0.65, 0.28], [0.65, 1, 0.1]];
+      for (const [a0, a1, al] of bands) {
+        const ro = Math.max(0, sc.R - a0 * sc.band), ri = Math.max(0, sc.R - a1 * sc.band); if (ro <= 0) continue;
+        const x0 = Math.max(0, sc.x - ro), y0b = Math.max(0, sc.y - ro), x1 = Math.min(w, sc.x + ro), y1 = Math.min(h, sc.y + ro);
+        if (x1 <= x0 || y1 <= y0b) continue;
+        ctx.save(); ctx.beginPath(); ctx.arc(sc.x, sc.y, ro, 0, TAU); if (ri > 0) ctx.arc(sc.x, sc.y, ri, 0, TAU, true); ctx.clip('evenodd');
+        ctx.globalAlpha = al; ctx.drawImage(sh.cv3, x0 * dpr, y0b * dpr, (x1 - x0) * dpr, (y1 - y0b) * dpr, x0, y0b, x1 - x0, y1 - y0b); ctx.restore();
+      }
     }
     // the foot: the rain dissolves into the page below the name, so the field melts into the next section
     const y0 = f.baseRow * gh + 2;

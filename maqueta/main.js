@@ -2,6 +2,7 @@ import { content, blog } from './shared/content.js';
 import { B, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { themeSwitch, onMode } from './shared/theme.js';
 import { RainField } from './rain.js';
+import { greenOnHover } from './shared/green.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
 
@@ -67,6 +68,7 @@ $('.hero__hint').textContent = fine ? t.hintFine : t.hintCoarse;
 document.querySelector('main').after(footer(c));
 consent();
 themeSwitch();
+greenOnHover();                                                    // the projects' dotted fields turn green on hover
 // a new mode: the dots are redrawn in its colours (and, in light, read the pictures the other way round)
 onMode(() => { hero.repaint(); titles.forEach((x) => x.f && x.f.repaint()); build(); if (panel.open) restField(); });
 const lang = $('#lang');
@@ -193,7 +195,7 @@ $('#socials').append(...c.socials.filter((s) => s.id !== 'blog').map((s) => el('
 // ------------------------------------------------------------- hero
 // Matrix rain with a mask cut out of it, in turn the name, the poster's cats and the desk
 // picture (rain.js); a click scans in a circle
-const hero = new RainField($('#hero-field'), { mask: 'cycle', name: c.name });
+const hero = new RainField($('#hero-field'), { mask: 'cycle', name: c.name, dots: true });
 const heroEl = $('.hero');
 new IntersectionObserver(([e]) => (e.isIntersecting ? hero.start() : hero.stop())).observe(heroEl);
 hero.cv.addEventListener('pointerdown', (e) => {

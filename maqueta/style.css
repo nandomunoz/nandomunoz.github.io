@@ -157,7 +157,7 @@ body[data-glide] .nav { --glide: .9s cubic-bezier(.45, 0, .2, 1); transition: le
 
 /* ------------------------------------------------------------ hero */
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; padding-top: 5.5rem; }
-.hero__field { display: block; width: 100%; height: 58svh; min-height: 320px; touch-action: pan-y; cursor: crosshair; }
+.hero__field { display: block; width: 100%; height: 58svh; min-height: 320px; touch-action: pan-y; cursor: pointer; }
 .hero__copy { padding: 2.5rem var(--gut) 0; display: grid; gap: 1.1rem; }
 .hero__name { margin: 0; font: 300 1.5rem/1.1 Archivo; letter-spacing: .01em; }
 .hero__kicker { font: 600 .72rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .22em; color: var(--mute); }
@@ -279,7 +279,7 @@ section { position: relative; }
 .panel.is-on { background: var(--bg-2); }
 [tabindex="-1"]:focus { outline: none; }
 .panel::backdrop { background: transparent; }
-.panel__field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.panel__field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
 .panel__sheet {
   position: absolute; inset: 34svh 0 0 0; overflow: auto; overscroll-behavior: contain;
   background: var(--bg); box-shadow: 0 -30px 60px -20px color-mix(in srgb, var(--shade) 60%, transparent), 0 -1px 0 var(--edge);
