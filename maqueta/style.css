@@ -65,7 +65,7 @@
   --edge-2: color-mix(in srgb, var(--ink) 16%, transparent);
   --rule: color-mix(in srgb, var(--ink) 30%, transparent);
   --glow: color-mix(in srgb, var(--ink) 8%, transparent);
-  --dot-ink: #18222c; --dot-mid: #4a76a3; --dot-blaze: #1f6fc2;
+  --dot-ink: #18222c; --dot-mid: #86bf98; --dot-blaze: #22c55e;   /* the same greens as dark: the moved dots are the rain's green here too */
   --sink: brightness(1.8) contrast(.55);       /* pale, so dark dots show on it */
   --sink-b: 1.8; --sink-c: .55;
 }
@@ -284,7 +284,10 @@ section { position: relative; }
 .foot a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
 .foot__nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; }
 .foot__nav a { display: inline-block; padding: .35rem 0; }
-.foot__motto { grid-column: 1 / -1; margin-top: .8rem; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
+.foot__legal a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
+.foot__legal .foot__consent { padding: 0; color: var(--ink); cursor: pointer; text-decoration: underline dotted; text-underline-offset: .25em; }
+.foot__legal a:hover, .foot__legal .foot__consent:hover { color: var(--blaze); filter: var(--blaze-lift); }
+.foot__legal { grid-column: 1 / -1; margin-top: .8rem; max-width: 44rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
 .bio__text a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
 .bio__text a:hover { color: var(--blaze); }
 

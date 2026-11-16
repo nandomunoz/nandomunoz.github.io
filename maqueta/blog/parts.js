@@ -28,7 +28,7 @@ export const B = {
     projects: 'Proyectos', allProjects: 'Todos los proyectos', projPage: 'Ficha completa',
     projDeck: 'Todo lo que he publicado en GitHub: sistemas de diseño, herramientas, experimentos con IA y el Carnaval de Cádiz.',
     projCount: (n, a, b) => `${n} proyectos · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 proyecto' : `${n} proyectos`),
-    allTech: 'Todas', techLabel: 'Tecnología', year: 'Año', demo: 'Ver demo', repo: 'Ver código', moreProjects: 'Más proyectos',
+    allTech: 'Todas', techLabel: 'Tecnología', year: 'Año', demo: 'Ver demo', repo: 'Ver código', shot: (n) => `Captura de ${n}`, moreProjects: 'Más proyectos',
     newTab: '(se abre en otra pestaña)', projLegendTitle: 'Cómo leer los bloques',
     projLegend: 'Cuanto más reciente el proyecto, más densa su trama; su kanji va dibujado en ella.'
   },
@@ -54,7 +54,7 @@ export const B = {
     projects: 'Projects', allProjects: 'All projects', projPage: 'Full page',
     projDeck: 'Everything I’ve published on GitHub: design systems, tools, AI experiments and the Cádiz Carnival.',
     projCount: (n, a, b) => `${n} projects · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 project' : `${n} projects`),
-    allTech: 'All', techLabel: 'Technology', year: 'Year', demo: 'See demo', repo: 'See code', moreProjects: 'More projects',
+    allTech: 'All', techLabel: 'Technology', year: 'Year', demo: 'See demo', repo: 'See code', shot: (n) => `Screenshot of ${n}`, moreProjects: 'More projects',
     newTab: '(opens in a new tab)', projLegendTitle: 'How to read the blocks',
     projLegend: 'The newer the project, the denser its screen; its kanji is drawn in it.'
   }
@@ -75,10 +75,15 @@ export const homeUrl = (hash = '') => url('/') + hash;
 export const projectsUrl = (tech) => url('/proyectos/', tech ? { tech } : {});
 export const projectUrl = (p) => url('/proyectos/proyecto/', { p: p.id });
 
-// the footer of every page: © name · year, the site's ways and the motto
+// the footer of every page: © name · year, the site's ways and the small print (credits, the
+// licence of what it is made with, the cookie policy and the way back into the cookie settings) (who owns what,
+// what it is made with and under which licence, where the code is; it claims no licence for the
+// site's own text and code: that is still open, see shared/credits.js)
 const FOOT = {
-  es: { label: 'Pie', bio: 'Bio', work: 'Proyectos', blog: 'Blog', contact: 'Contacto', credits: 'Créditos', other: 'English', otherLang: 'en' },
-  en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact', credits: 'Credits', other: 'Español', otherLang: 'es' }
+  es: { label: 'Pie', bio: 'Bio', work: 'Proyectos', blog: 'Blog', contact: 'Contacto', credits: 'Créditos', other: 'English', otherLang: 'en',
+    legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.'] },
+  en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact', credits: 'Credits', other: 'Español', otherLang: 'es',
+    legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.'] }
 }[lang];
 // this same page in the other language (what the header's link points to)
 function otherLangHref() {
@@ -86,13 +91,18 @@ function otherLangHref() {
   if (lang === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', 'en');
   return u.pathname + u.search;
 }
+const ext = (href, text) => el('a', { href, target: '_blank', rel: 'noopener' }, el('span', { text }), el('span', { class: 'vh', text: ' ' + B.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' }));
+const legal = (c) => { const [a, b, cr, d, e, f, g, h, i] = FOOT.legal; return [
+  a + c.name, b, el('a', { href: url('/creditos/'), text: cr }), d, ext('https://luzds.com/', 'LUZ'), e,
+  el('a', { href: url('/cookies/'), text: f }), g,
+  el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: h }), i]; };   // consent.js wires it (hidden, its room kept, until the script runs)
 export const footer = (c) => el('footer', { class: 'foot' },
   el('p', { class: 'foot__by', text: `© ${c.name} · ${new Date().getFullYear()}` }),
   el('nav', { class: 'foot__nav', 'aria-label': FOOT.label }, el('ul', {},
-    ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')], [FOOT.credits, url('/creditos/')]]
+    ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')]]
       .map(([text, href]) => el('li', {}, el('a', { href, text }))),
     el('li', { class: 'foot__lang' }, el('a', { href: otherLangHref(), hreflang: FOOT.otherLang, lang: FOOT.otherLang, text: FOOT.other })))),
-  el('p', { class: 'foot__motto', text: c.motto }));
+  el('p', { class: 'foot__legal' }, ...legal(c)));
 
 // the screen of a project, as on the home: denser the newer, its kanji drawn in
 const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };
@@ -145,6 +155,14 @@ function hashStr(s) { let h = 2166136261; for (const ch of s) { h ^= ch.codePoin
 const IMG = '/maqueta/img/';
 export const coverTone = (p) => (p.cover ? `${IMG}blog/${p.id}.tone.webp` : null);
 export const projectTone = (p) => `${IMG}proyectos/${p.id}.tone.webp`;
+// a project's own screenshot (made by tools/project-shots.cjs): the demo, or the repo's demo page, or its README
+export function projectPicture(p, alt, img = {}) {
+  const f = `${IMG}proyectos/${p.id}`;
+  return el('picture', {},
+    el('source', { srcset: f + '.avif', type: 'image/avif' }),
+    el('source', { srcset: f + '.webp', type: 'image/webp' }),
+    el('img', { src: f + '.jpg', alt, width: 1200, height: 750, loading: 'lazy', decoding: 'async', ...img }));
+}
 export function coverPicture(p, img = {}) {
   const f = `${IMG}blog/${p.id}`;
   return el('picture', {},

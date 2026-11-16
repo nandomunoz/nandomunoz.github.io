@@ -110,6 +110,9 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__meta .post__n { font: 700 1.1rem/1 var(--dots); letter-spacing: 0; }
 .post__cover { position: relative; margin: 0 0 3rem; }
 .post__cover canvas { display: block; width: 100%; filter: drop-shadow(0 0 14px var(--glow)); }
+/* a project's own screenshot, under its text */
+.post__shot { margin: 3rem 0 0; background: var(--bg-2); border: 1px dotted var(--rule); }
+.post__shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
 .post__credit { margin: .7rem 0 0; font: 500 .62rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
 .post__credit a { color: var(--mute); text-decoration: underline dotted; text-underline-offset: .3em; }
 /* a featured image (article cover, the blog's featured post, post rows): the

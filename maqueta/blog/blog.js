@@ -7,7 +7,7 @@
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
+import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
@@ -654,7 +654,8 @@ function projectPage() {
       links),
     el('div', { class: 'post__cover' }, cover, glossEl(p)),
     el('div', { class: 'post__grid' }, el('aside', { class: 'post__side' }),
-      el('div', { class: 'post__main' }, el('div', { class: 'prose' }, ...p.body.map((x, k) => el('p', { class: k === 0 ? 'prose__lead' : null, text: x }))))),
+      el('div', { class: 'post__main' }, el('div', { class: 'prose' }, ...p.body.map((x, k) => el('p', { class: k === 0 ? 'prose__lead' : null, text: x }))),
+        el('figure', { class: 'post__shot' }, projectPicture(p, B.shot(p.name))))),
     pn,
     related.length ? el('section', { class: 'related', 'aria-labelledby': 'rel-title' },
       el('h2', { id: 'rel-title', class: 'related__title', text: B.moreProjects }), projRows(related, { group: false })) : null));
@@ -696,7 +697,7 @@ function cookiesPage() {
 function creditsPage() {
   document.title = `${CR.title} · ${c.name}`;
   const block = (x) => {
-    if (x.h) return el('h2', { text: x.h });
+    if (x.h) return el('h2', { id: slug(x.h) || null, text: x.h });
     if (x.p) return html('p', {}, x.p);
     if (x.ul) return el('ul', {}, ...x.ul.map((li) => html('li', {}, li)));
     if (x.covers) return el('ul', {}, ...b.posts.filter((p) => p.cover && p.cover.credit).map((p) =>

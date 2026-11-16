@@ -106,16 +106,8 @@ export function consent() {
       el('div', { class: 'consent__done', 'data-luz-consent-done': '', tabindex: '-1', hidden: '' },
         el('p', { text: CT.done }),
         el('button', { class: 'consent__btn', type: 'button', 'data-luz-consent-close': '', text: CT.close }))));
-  // the way back in, in the footer (hidden, its room kept, until the script
-  // runs); before the banner goes in, since LUZ wires the open buttons then
-  const foot = document.querySelector('.foot__nav ul');
-  if (foot && !foot.querySelector('[data-luz-consent-open]')) {
-    // before the language link, which stays last
-    const last = foot.querySelector('.foot__lang');
-    const items = [el('li', {}, el('a', { href: POLICY, text: CT.policy })),
-      el('li', {}, el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: CT.open }))];
-    for (const li of items) foot.insertBefore(li, last);
-  }
+  // the way back in is the «cookie settings» button in the footer's small print (blog/parts.js: footer),
+  // which is there before the banner goes in, since LUZ wires the open buttons then
   // first in the page after the skip link: where LUZ wants it when the window
   // is too short for a fixed card
   const skip = document.querySelector('.skip');
