@@ -32,16 +32,16 @@ Este documento recoge **qué se decidió y por qué**, para que cualquier pieza 
 
 | Token | Oscuro | Claro | Contraste alto |
 |---|---|---|---|
-| `--bg` / `--bg-2` | `#292929` / `#232323` | `#f4f2ee` / `#e8e5df` | `#000` / `#0d0d0d` |
-| `--ink` | `#f4f2ee` | `#232323` | `#fff` |
-| `--mute` | `#b9b6b0` | `#55524d` | `#f0f0f0` |
-| `--faint` | `#6f6c68` | `#67635e` | `#c9c9c9` |
-| `--blaze` (texto, UI) | `#963641` (+ `brightness(1.7)` si es texto pequeño) | `#963641` | `#ff7a8a` |
-| `--on-blaze` (texto sobre relleno granate: selección, ▶ del vídeo) | `#f4f2ee` | `#f4f2ee` | `#000` |
-| `--blaze-on-ink` (granate sobre relleno de tinta: el número del chip actual) | `#963641` | `#f08a96` | `#8a1f2e` |
-| `--dot-ink` / `--dot-mid` / `--dot-blaze` (canvas) | `#f4f2ee` / `#c98a8f` / `#963641` | `#232323` / `#8c4a54` / `#b3263a` | `#fff` / `#ffc2ca` / `#ff6479` |
+| `--bg` / `--bg-2` | `#292929` / `#232323` | `#e9eff5` / `#d9e3ed` | `#000` / `#0d0d0d` |
+| `--ink` | `#f4f2ee` | `#18222c` | `#fff` |
+| `--mute` | `#b9b6b0` | `#434f5b` | `#f0f0f0` |
+| `--faint` | `#6f6c68` | `#56626e` | `#c9c9c9` |
+| `--blaze` (texto, UI) | `#963641` (+ `brightness(1.7)` si es texto pequeño) | `#2a5f94` (azul) | `#ff7a8a` |
+| `--on-blaze` (texto sobre relleno granate: selección, ▶ del vídeo) | `#f4f2ee` | `#e9eff5` | `#000` |
+| `--blaze-on-ink` (granate sobre relleno de tinta: el número del chip actual) | `#963641` | `#8fc2f2` | `#8a1f2e` |
+| `--dot-ink` / `--dot-mid` / `--dot-blaze` (canvas) | `#f4f2ee` / `#c98a8f` / `#963641` | `#18222c` / `#4a76a3` / `#1f6fc2` | `#fff` / `#ffc2ca` / `#ff6479` |
 
-  Todo el CSS lee tokens (también los blancos translúcidos: `--edge`, `--edge-2`, `--rule`, `--glow`, y `--shade` para las sombras); en contraste alto las líneas se hacen visibles. Los contrastes de texto sobre fondo en claro y en contraste alto cumplen AA (claro: tinta 14:1, apagado 5:1; contraste alto: ≥ 12:1). El apagado del oscuro sigue en 2,8:1 (hallazgo del informe de accesibilidad). «Auto» está fijado a oscuro (`autoMode` en `shared/theme.js`): el esquema del sistema no mueve la página; solo «más contraste» lo hace, y entonces el radio `auto` se renombra para que el nombre del botón no se quede atrás. El título de la puerta del vídeo va sobre su propia placa oscura, para leerse sobre cualquier miniatura en cualquier modo.
+  Todo el CSS lee tokens (también los blancos translúcidos: `--edge`, `--edge-2`, `--rule`, `--glow`, y `--shade` para las sombras); en contraste alto las líneas se hacen visibles. Los contrastes de texto sobre fondo en claro y en contraste alto cumplen AA (claro: tinta 14:1, apagado 4,8:1; contraste alto: ≥ 12:1). El apagado del oscuro sigue en 2,8:1 (hallazgo del informe de accesibilidad). «Auto» está fijado a oscuro (`autoMode` en `shared/theme.js`): el esquema del sistema no mueve la página; solo «más contraste» lo hace, y entonces el radio `auto` se renombra para que el nombre del botón no se quede atrás. El título de la puerta del vídeo va sobre su propia placa oscura, para leerse sobre cualquier miniatura en cualquier modo.
 - **En claro, los puntos son oscuros sobre papel**, así que una foto se lee al revés que en oscuro (los puntos dibujan lo oscuro, como una impresión), salvo una imagen clara ya leída en negativo (una página sobre blanco), que dibuja su contenido en los dos modos. Una imagen hundida bajo sus puntos se aclara en lugar de oscurecerse (`--sink`).
 - Al cambiar de modo se redibuja todo con los colores nuevos (`readPalette` en `dots.js`, y cada página recrea sus bloques).
 - El granate sobre carbón es oscuro. Cuando va como texto pequeño (números de sección, kickers) se aclara con `filter: brightness(1.7)`.

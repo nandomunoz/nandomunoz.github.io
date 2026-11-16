@@ -27,7 +27,7 @@ const ICON = {
   'high-contrast': '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor"/>',
   dark: '<path d="M19.5 14.5A8 8 0 1 1 9.5 4.5a6.5 6.5 0 0 0 10 10Z"/>'
 };
-const BG = { light: '#f4f2ee', dark: '#292929', 'high-contrast': '#000' };  // <meta name="theme-color">
+const BG = { light: '#e9eff5', dark: '#292929', 'high-contrast': '#000' };  // <meta name="theme-color">
 
 const root = document.documentElement;
 const now = () => root.dataset.mode || 'dark';

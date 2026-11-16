@@ -38,26 +38,26 @@
   --sink: brightness(.32) contrast(1.1);       /* a featured image sunk under its dots */
   --sink-b: .32; --sink-c: 1.1;
 }
-/* Light: the same sheet on paper. Ink #232323 on #f4f2ee is 14:1; the faint grey 5:1. */
+/* Light: the same sheet on pale sky paper. Ink #18222c on #e9eff5 is 14:1; the faint grey 4.8:1. */
 :root[data-mode="light"] {
   color-scheme: light;
-  --bg: #f4f2ee;
-  --bg-2: #e8e5df;
-  --ink: #232323;
-  --mute: #55524d;
-  --faint: #67635e;
-  --blaze: #963641;
+  --bg: #e9eff5;
+  --bg-2: #d9e3ed;
+  --ink: #18222c;
+  --mute: #434f5b;
+  --faint: #56626e;
+  --blaze: #2a5f94;                            /* the accent in light is a blue: 5.7:1 on the paper */
   --blaze-lift: none;
-  --on-blaze: #f4f2ee;
-  --blaze-on-ink: #f08a96;                     /* ink is dark here: a pale rose, 6.6:1 */
-  --prose: #3a3733;
-  --scrim: color-mix(in srgb, #f4f2ee 82%, transparent);
-  --shade: #4a453d;
+  --on-blaze: #e9eff5;
+  --blaze-on-ink: #8fc2f2;                     /* ink is dark here: a pale blue, 8.6:1 */
+  --prose: #27323d;
+  --scrim: color-mix(in srgb, #e9eff5 82%, transparent);
+  --shade: #2f3d4b;
   --edge: color-mix(in srgb, var(--ink) 10%, transparent);
   --edge-2: color-mix(in srgb, var(--ink) 16%, transparent);
   --rule: color-mix(in srgb, var(--ink) 30%, transparent);
   --glow: color-mix(in srgb, var(--ink) 8%, transparent);
-  --dot-ink: #232323; --dot-mid: #8c4a54; --dot-blaze: #b3263a;
+  --dot-ink: #18222c; --dot-mid: #4a76a3; --dot-blaze: #1f6fc2;
   --sink: brightness(1.8) contrast(.55);       /* pale, so dark dots show on it */
   --sink-b: 1.8; --sink-c: .55;
 }
