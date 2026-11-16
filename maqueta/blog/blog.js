@@ -7,6 +7,7 @@
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
+import { codeBlock } from './code.js';
 import { B, langSwitch, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
@@ -413,7 +414,7 @@ function renderBlock(x, k, toc, ids) {
   if (x.quote) return el('blockquote', {}, ...x.quote.map((s) => html('p', {}, s)), x.cite ? html('cite', {}, x.cite) : null);
   if (x.pull) return el('figure', { class: 'pull' }, el('blockquote', {}, ...x.pull.map((s) => html('p', {}, s))), x.cite ? html('figcaption', {}, x.cite) : null);
   if (x.ul) return el(x.ol ? 'ol' : 'ul', {}, ...x.ul.map((s) => html('li', {}, s)));
-  if (x.code != null) return el('pre', { class: 'prose__code', 'data-lang': x.lang || 'code' }, el('code', { text: x.code }));
+  if (x.code != null) return codeBlock(x.code, { lang: x.lang, labels: { copy: B.codeCopy, copyCode: B.codeCopyLabel }, el });
   if (x.yt) return video(x);
   if (x.tweet != null) return el('figure', { class: 'tweet' },
     html('blockquote', {}, x.tweet),

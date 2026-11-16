@@ -180,9 +180,29 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .prose h2 { position: relative; margin: 2.2rem 0 0; font: 700 clamp(1.7rem, 7vw, 2.4rem)/1 var(--dots); letter-spacing: -.01em; scroll-margin-top: 2rem; }
 .prose__anchor { margin-left: .5rem; color: var(--faint); text-decoration: none; opacity: 0; transition: opacity .3s; }
 .prose h2:hover .prose__anchor { opacity: 1; }
-.prose__code { position: relative; margin: .6rem 0; padding: 2.2rem 1.25rem 1.25rem; overflow-x: auto; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--edge);
-  font: 500 .85rem/1.65 var(--mono); color: var(--ink); tab-size: 2; }
-.prose__code::before { content: attr(data-lang); position: absolute; top: .8rem; left: 1.25rem; font: 600 .62rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--blaze); filter: var(--blaze-lift); }
+/* a block of code (blog/code.js): LUZ's highlighter and copy button, Trama's look — a bar with the
+   language and the button over the code, in a real monospace face (--mono is Chakra Petch, which is not
+   one). The colours are LUZ's --luz-code-* tokens (style.css), as in LUZ's own docs: keywords in ink and
+   bold, colour for what the author wrote (names, properties, strings, literals), comments quiet and
+   italic; weight and style survive forced colours. */
+.code { margin: .6rem 0; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--edge); }
+.code__bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .3rem .4rem .3rem 1.25rem; border-bottom: 1px dotted var(--rule); }
+.code__lang { font: 600 .62rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--blaze); filter: var(--blaze-lift); }
+.code__copy { padding: .55rem .7rem; font: 600 .62rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); cursor: pointer; }
+.code__copy:hover, .code__copy:focus-visible { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+.code__copy:focus-visible { outline: 2px solid var(--blaze); outline-offset: 2px; }
+.code__copy.is-copied { color: var(--blaze); filter: var(--blaze-lift); }
+.luz-code-block { margin: 0; padding: 1.1rem 1.25rem 1.25rem; overflow-x: auto; color: var(--ink);
+  font: 400 .84rem/1.75 var(--code); font-variant-ligatures: none; tab-size: 2; -moz-tab-size: 2; white-space: pre; }
+.luz-code-block:focus-visible { outline: 2px solid var(--blaze); outline-offset: -2px; }
+.prose .luz-code-block code { font: inherit; color: inherit; padding: 0; background: none; box-shadow: none; white-space: inherit; }
+.luz-code-block .tok-comment { color: var(--luz-code-comment); font-style: italic; }
+.luz-code-block .tok-keyword { color: var(--luz-code-keyword); font-weight: 600; }
+.luz-code-block .tok-name { color: var(--luz-code-name); }
+.luz-code-block .tok-property { color: var(--luz-code-property); }
+.luz-code-block .tok-string { color: var(--luz-code-string); }
+.luz-code-block .tok-literal { color: var(--luz-code-literal); }
+@media (min-width: 48em) { .luz-code-block { font-size: .88rem; padding-inline: 1.5rem; } .code__bar { padding-left: 1.5rem; } }
 .prose blockquote { margin: 1.2rem 0; padding: .2rem 0 .2rem 1.6rem; background: radial-gradient(circle, var(--blaze) 1.6px, transparent 2.1px) 0 0 / 6px 9px repeat-y; }
 .prose blockquote p { color: var(--ink); font-weight: 300; font-stretch: 85%; font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.25; }
 .prose ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
@@ -193,8 +213,7 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .prose a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; text-decoration-thickness: 1px; }
 .prose a:hover { text-decoration-color: var(--blaze); text-decoration-thickness: 2px; }
 .prose strong { color: var(--ink); font-weight: 600; }
-.prose code { font: 500 .88em/1 var(--mono); padding: .1em .3em; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--edge); }
-.prose pre code { padding: 0; background: none; box-shadow: none; font: inherit; }
+.prose code { font: 500 .88em/1 var(--code); padding: .1em .3em; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--edge); }
 .prose h3 { margin: 1.4rem 0 0; font-weight: 700; font-stretch: 75%; font-size: 1.5rem; line-height: 1.15; scroll-margin-top: 2rem; }
 .prose ol { margin: 0; padding-left: 1.6rem; display: grid; gap: .55rem; }
 .prose ol li { padding-left: .3rem; }
@@ -449,7 +468,7 @@ luz-timeline[data-luz-ready] { container-type: inline-size; }
 .feat__title--long { font-size: clamp(2.2rem, 9vw, 3.4rem); }
 @media (min-width: 64em) { .feat__title--long { font-size: clamp(2.6rem, 3.4vw, 3.6rem); } }
 .post__grid > *, .post__main, .prose, .prose > * { min-width: 0; }
-.prose { overflow-wrap: anywhere; } .prose__code { overflow-wrap: normal; } .post__title, .brow__title, .feat__title, .post__to { overflow-wrap: break-word; hyphens: auto; }
+.prose { overflow-wrap: anywhere; } .code { overflow-wrap: normal; } .post__title, .brow__title, .feat__title, .post__to { overflow-wrap: break-word; hyphens: auto; }
 .prose table { overflow-wrap: normal; } .prose td:first-child { min-width: 7.5rem; } .tweet blockquote { display: block; }
 
 /* ------------------------------------------------------------ 404 */
@@ -466,7 +485,7 @@ luz-timeline[data-luz-ready] { container-type: inline-size; }
 .lost__kicker { font: 600 .72rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .22em; color: var(--blaze); filter: var(--blaze-lift); }
 .lost__title { margin: 0; font-weight: 200; font-stretch: 78%; font-size: clamp(2.3rem, 10vw, 4.6rem); line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 .lost__lead { max-width: 34rem; color: var(--mute); font-size: 1.05rem; }
-.lost__lead code { font: 500 .85em/1.4 var(--mono); color: var(--ink); padding: .1em .35em; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--edge); overflow-wrap: anywhere; }
+.lost__lead code { font: 500 .85em/1.4 var(--code); color: var(--ink); padding: .1em .35em; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--edge); overflow-wrap: anywhere; }
 
 .lost__search { display: grid; gap: .7rem; margin-top: 3.5rem; max-width: 46rem; }
 .lost__search label { font: 600 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; }
