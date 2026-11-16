@@ -1,5 +1,5 @@
 import { content, blog } from './shared/content.js';
-import { B, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
+import { B, langSwitch, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { themeSwitch, onMode } from './shared/theme.js';
 import { RainField } from './rain.js';
 import { greenOnHover } from './shared/green.js';
@@ -11,7 +11,6 @@ import { typePoster } from './shared/poster.js';
 const T = {
   es: {
     skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
-    hintFine: 'haz clic para escanear', hintCoarse: 'toca para escanear',
     heroPre: 'una web de', motto: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio',
     mottoKey: /(Proyecto|Humano|IA|motivo|centro|medio)/, mottoGreen: ['Proyecto', 'Humano', 'IA'],
     legendTitle: 'Cómo leer los bloques',
@@ -23,7 +22,6 @@ const T = {
   },
   en: {
     skip: 'Skip to content', bio: 'Bio', work: 'Projects',
-    hintFine: 'click to scan', hintCoarse: 'tap to scan',
     heroPre: 'a site by', motto: 'Project, the reason. Human, the core. TechnologAI, only the means',
     mottoKey: /(Project|Human|AI|reason|core|means)/, mottoGreen: ['Project', 'Human', 'AI'],
     legendTitle: 'How to read the blocks',
@@ -70,16 +68,13 @@ $$('[data-t]').forEach((n) => { const v = t[n.dataset.t]; if (typeof v === 'stri
 $('#nav').setAttribute('aria-label', t.sections);
 $('.panel__nav').setAttribute('aria-label', t.projects);
 $$('[data-slot]').forEach((n) => { n.textContent = c[n.dataset.slot]; });
-$('.hero__hint').textContent = fine ? t.hintFine : t.hintCoarse;
 document.querySelector('main').after(footer(c));
 consent();
 themeSwitch();
 greenOnHover();                                                    // the projects' dotted fields turn green on hover
 // a new mode: the dots are redrawn in its colours (and, in light, read the pictures the other way round)
 onMode(() => { hero.repaint(); titles.forEach((x) => x.f && x.f.repaint()); build(); if (panel.open) restField(); });
-const lang = $('#lang');
-if (c.lang === 'en') { lang.href = '?'; lang.hreflang = 'es'; lang.lang = 'es'; lang.textContent = T.es.other; }
-else { lang.textContent = T.en.other; }
+$('#lang').replaceWith(langSwitch('langs top__lang'));            // ES · EN (blog/parts.js)
 document.title = c.name;
 
 // the bio's last words point to the blog and the projects

@@ -85,12 +85,22 @@ const FOOT = {
   en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact', credits: 'Credits', other: 'Español', otherLang: 'es',
     legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.'] }
 }[lang];
-// this same page in the other language (what the header's link points to)
-function otherLangHref() {
+// this same page in a language (Spanish is the page without ?lang)
+function langHref(l) {
   const u = new URL(location.href);
-  if (lang === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', 'en');
+  if (l === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang');
   return u.pathname + u.search;
 }
+// the language switch, ES · EN: the page's own language is plain text (aria-current), the other a link
+// to this same page in it; each carries its language and its full name for a screen reader.
+// In the masthead and, the same, in the footer. No choice is stored: the ?lang in every link carries it.
+const LANGS = [['es', 'ES', 'Español'], ['en', 'EN', 'English']];
+export const langSwitch = (cls = 'langs') => el('span', { class: cls, role: 'group', 'aria-label': lang === 'en' ? 'Language' : 'Idioma' },
+  ...LANGS.flatMap(([l, code, name], i) => [
+    i ? el('span', { class: 'langs__sep', 'aria-hidden': 'true', text: '·' }) : null,
+    l === lang
+      ? el('span', { class: 'langs__cur', lang: l, 'aria-current': 'true', 'aria-label': name, text: code })
+      : el('a', { href: langHref(l), hreflang: l, lang: l, 'aria-label': name, title: name, text: code })].filter(Boolean)));
 const ext = (href, text) => el('a', { href, target: '_blank', rel: 'noopener' }, el('span', { text }), el('span', { class: 'vh', text: ' ' + B.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' }));
 const legal = (c) => { const [a, b, cr, d, e, f, g, h, i] = FOOT.legal; return [
   a + c.name, b, el('a', { href: url('/creditos/'), text: cr }), d, ext('https://luzds.com/', 'LUZ'), e,
@@ -101,7 +111,8 @@ export const footer = (c) => el('footer', { class: 'foot' },
   el('nav', { class: 'foot__nav', 'aria-label': FOOT.label }, el('ul', {},
     ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')]]
       .map(([text, href]) => el('li', {}, el('a', { href, text }))),
-    el('li', { class: 'foot__lang' }, el('a', { href: otherLangHref(), hreflang: FOOT.otherLang, lang: FOOT.otherLang, text: FOOT.other })))),
+    )),
+  langSwitch('langs foot__lang'),
   el('p', { class: 'foot__legal' }, ...legal(c)));
 
 // the screen of a project, as on the home: denser the newer, its kanji drawn in

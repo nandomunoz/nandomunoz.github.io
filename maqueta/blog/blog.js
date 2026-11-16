@@ -7,7 +7,7 @@
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
+import { B, langSwitch, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
@@ -32,8 +32,6 @@ document.documentElement.lang = lang;
 document.documentElement.classList.add('js', 'docked', reduce ? 'still' : 'moving');
 
 // ------------------------------------------------------------- chrome
-const other = new URL(location.href);
-if (lang === 'en') other.searchParams.delete('lang'); else other.searchParams.set('lang', 'en');
 const navItem = (n, href, label, current) => el('li', {}, el('a', { href, 'aria-current': current ? 'page' : null },
   el('span', { class: 'nav__n', 'aria-hidden': 'true', text: n }), ' ', el('span', { text: label })));
 const main = el('main', { id: 'main', class: 'blog' });
@@ -42,7 +40,7 @@ document.body.prepend(
   el('a', { class: 'skip', href: '#main', text: H.skip }),
   el('header', { class: 'top' },
     el('a', { class: 'top__mark', href: homeUrl() }, el('span', { 'aria-hidden': 'true', text: 'NM' }), el('span', { text: c.name })),
-    el('a', { class: 'top__lang', href: other.pathname + other.search, hreflang: lang === 'en' ? 'es' : 'en', lang: lang === 'en' ? 'es' : 'en', text: H.other })),
+    langSwitch('langs top__lang')),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
     navItem('03', blogUrl(), B.blog, page !== '404' && page !== 'cookies' && page !== 'creditos' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
