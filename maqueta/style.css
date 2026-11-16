@@ -248,7 +248,6 @@ section { position: relative; }
 .item__text { display: grid; gap: .55rem; justify-items: start; max-width: 26rem; }
 .item:nth-child(even) .item__text { margin-left: auto; text-align: right; justify-items: end; }
 .item__meta { display: flex; gap: 1rem; align-items: baseline; font: 500 .72rem/1 var(--mono); letter-spacing: .16em; color: var(--mute); }
-.item__n { font: 700 1.6rem/1 var(--dots); letter-spacing: 0; color: var(--ink); }
 .item__name { margin: .2rem 0 0; font-weight: 800; font-stretch: 62%; font-size: clamp(2.6rem, 13vw, 3.4rem); line-height: .88; text-transform: uppercase; letter-spacing: -.005em; text-wrap: balance; }
 .item__kicker { font-weight: 300; font-size: 1.1rem; color: var(--mute); }
 .tech { list-style: none; margin: .35rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem .7rem; font: 500 .68rem/1.5 var(--mono); text-transform: uppercase; letter-spacing: .14em; color: var(--mute); }

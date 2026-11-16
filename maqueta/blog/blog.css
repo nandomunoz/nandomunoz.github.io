@@ -507,7 +507,6 @@ luz-timeline[data-luz-ready] { container-type: inline-size; }
 .is-lost .blog { overflow-x: clip; }
 
 /* ------------------------------------------------------------ projects */
-.prow__n { font: 700 .9rem/1 var(--dots); letter-spacing: 0; color: var(--ink); }
 .prow__name { text-transform: uppercase; font-weight: 800; font-stretch: 62%; }
 .project .post__title { max-width: none; }
 .project .plinks { margin-top: .4rem; }

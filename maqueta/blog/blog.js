@@ -649,7 +649,6 @@ function projectPage() {
       el('h1', { class: 'post__title', text: p.name }),
       el('p', { class: 'post__deck', text: p.kicker }),
       el('dl', { class: 'post__meta' },
-        el('div', {}, el('dt', { text: B.number }), el('dd', { class: 'post__n', text: pad(p.n) })),
         el('div', {}, el('dt', { text: B.year }), el('dd', { text: p.year })),
         el('div', {}, el('dt', { text: B.techLabel }), el('dd', { class: 'ptech' }, ...p.tech.flatMap((x, k) => [k ? ' · ' : null, el('a', { href: projectsUrl(x), text: x })]).filter(Boolean)))),
       links),

@@ -129,7 +129,7 @@ c.projects.forEach((p, i) => {
   const openBtn = el('button', { class: 'item__open', type: 'button', 'aria-haspopup': 'dialog', 'data-i': i },
     el('span', { text: t.open }), el('span', { class: 'vh', text: ' ' + p.name }), el('span', { class: 'item__arrow', 'aria-hidden': 'true', text: '→' }));
   const text = el('div', { class: 'item__text' },
-    el('p', { class: 'item__meta' }, el('span', { class: 'item__n', text: pad(p.n) }), el('span', { text: p.year })),
+    el('p', { class: 'item__meta' }, el('span', { text: p.year })),
     el('h3', { class: 'item__name', text: p.name }),
     el('p', { class: 'item__kicker', text: p.kicker }),
     el('ul', { class: 'tech' }, ...p.tech.map((x) => el('li', { text: x }))),
@@ -300,7 +300,7 @@ function restField() {
 function fill(i) {
   const p = c.projects[i];
   cur = i;
-  $('#p-meta').textContent = `${pad(p.n)} · ${p.year}`;
+  $('#p-meta').textContent = p.year;
   $('#p-gloss').textContent = glossOf(p);
   $('#p-kicker').textContent = p.kicker;
   $('#p-title').textContent = p.name;

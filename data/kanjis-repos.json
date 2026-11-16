@@ -176,13 +176,15 @@
       "archived": false,
       "inferred": false,
       "kanji": {
-        "char": "紋",
+        "char": "跡",
         "on": [
-          "mon"
+          "seki"
         ],
-        "kun": [],
-        "meaning": "dibujo, huella, emblema",
-        "meaning_en": "design, print, emblem",
+        "kun": [
+          "ato"
+        ],
+        "meaning": "huella, rastro, marca",
+        "meaning_en": "footprint, trace, mark",
         "reason": "Visualiza tu huella de navegador"
       },
       "alternative": {
@@ -222,12 +224,15 @@
       "archived": false,
       "inferred": false,
       "kanji": {
-        "char": "紋",
+        "char": "跡",
         "on": [
-          "mon"
+          "seki"
         ],
-        "kun": [],
-        "meaning": "huella",
+        "kun": [
+          "ato"
+        ],
+        "meaning": "huella, rastro, marca",
+        "meaning_en": "footprint, trace, mark",
         "reason": "Mismo proyecto, otra versión"
       },
       "alternative": {

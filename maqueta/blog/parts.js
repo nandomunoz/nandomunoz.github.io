@@ -102,13 +102,12 @@ export const glossOf = (p) => kanjiGloss(kanjiOf(p.id), lang);
 export const glossEl = (p) => { const t = glossOf(p); return t ? el('span', { class: 'gloss', text: t }) : null; };
 export function projectDots(p) { const h = hashStr(p.id); return { density: DENSITY[p.year] ?? 0.6, kind: h % 6, seed: h, label: kanjiOf(p.id) || pad(p.n), gloss: glossOf(p).length }; }
 
-// one row of the project list: screen · number and year · name · kicker · tech
+// one row of the project list: screen · year and tech · name · kicker
 export function projectRow(p) {
   const cv = el('canvas', { class: 'brow__dots', 'aria-hidden': 'true' });
   const li = el('li', { class: 'brow prow' },
     el('div', { class: 'brow__thumb' }, cv),
     el('p', { class: 'brow__meta' },
-      el('span', { class: 'prow__n', text: pad(p.n) }),
       el('span', { text: p.year }),
       el('span', { text: p.tech.join(' · ') })),
     el('h3', { class: 'brow__title prow__name' }, el('a', { href: projectUrl(p), text: p.name })),
