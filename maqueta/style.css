@@ -29,7 +29,7 @@
   --blaze-lift: brightness(1.7);               /* maroon as small text is lifted on charcoal */
   --on-blaze: #f4f2ee;                         /* text on a maroon fill (6.5:1) */
   --blaze-on-ink: #963641;                     /* maroon on an ink fill (the current chip) */
-  --matrix: #3dff7a; --on-matrix: #292929; --matrix-on-ink: #0b6b34;   /* the hero's green (rain.js), 11:1 on charcoal */
+  --matrix: #22c55e; --on-matrix: #1a1a1a; --matrix-on-ink: #0b6b34;   /* the accent: the rain's green (rain.js), 6.9:1 on charcoal */
   --prose: #dedbd5;
   --scrim: color-mix(in srgb, #1a1a1a 80%, transparent);
   --shade: #000;
@@ -37,7 +37,7 @@
   --edge-2: color-mix(in srgb, var(--ink) 12%, transparent);
   --rule: color-mix(in srgb, var(--ink) 18%, transparent);
   --glow: color-mix(in srgb, var(--ink) 11%, transparent);
-  --dot-ink: #f4f2ee; --dot-mid: #9bdcb0; --dot-blaze: #3dff7a;   /* moved dots turn the rain's green */
+  --dot-ink: #f4f2ee; --dot-mid: #86bf98; --dot-blaze: #22c55e;   /* moved dots turn the rain's green */
   --sink: brightness(.32) contrast(1.1);       /* a featured image sunk under its dots */
   --sink-b: .32; --sink-c: 1.1;
 }
@@ -89,6 +89,8 @@
   --sink: brightness(.45) contrast(1.2);
   --sink-b: .45; --sink-c: 1.2;
 }
+/* the accent is the rain's green in every mode (rain.js): it replaces the maroon (and the light mode's blue) */
+:root, :root[data-mode] { --blaze: var(--matrix); --blaze-lift: none; --on-blaze: var(--on-matrix); --blaze-on-ink: var(--matrix-on-ink); }
 
 * { box-sizing: border-box; }
 html { background: var(--bg); scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -154,8 +156,6 @@ body[data-glide] .nav { --glide: .9s cubic-bezier(.45, 0, .2, 1); transition: le
 ::view-transition-group(root) { animation-duration: 0s; }
 
 /* ------------------------------------------------------------ hero */
-/* while the hero is in view the accent is the rain's green; it turns back to the maroon past it */
-:root.at-hero { --blaze: var(--matrix); --blaze-lift: none; --on-blaze: var(--on-matrix); --blaze-on-ink: var(--matrix-on-ink); }
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; padding-top: 5.5rem; }
 .hero__field { display: block; width: 100%; height: 58svh; min-height: 320px; touch-action: pan-y; cursor: crosshair; }
 .hero__copy { padding: 2.5rem var(--gut) 0; display: grid; gap: 1.1rem; }
