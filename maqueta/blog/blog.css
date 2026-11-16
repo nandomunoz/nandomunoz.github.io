@@ -380,6 +380,9 @@ luz-timeline[data-luz-ready] { container-type: inline-size; }
   background: radial-gradient(circle, var(--rule) 1.2px, transparent 1.7px) 0 50% / 8px 6px repeat-x; }
 .progress i { position: absolute; inset: 0; background: radial-gradient(circle, var(--blaze) 1.6px, transparent 2.1px) 0 50% / 8px 6px repeat-x; filter: brightness(1.5);
   clip-path: inset(0 calc((1 - var(--p, 0)) * 100%) 0 0); }
+/* a fade of the page's colour under the line, so the dots read over the text that scrolls beneath */
+.progress::before { content: ''; position: absolute; z-index: -1; inset: 0 0 auto; height: 3.4rem;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 96%, transparent) 0, color-mix(in srgb, var(--bg) 82%, transparent) 40%, transparent 100%); }
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
     .progress i { animation: fill-bar linear both; animation-timeline: scroll(root); }
