@@ -190,7 +190,7 @@ $('#socials').append(...c.socials.filter((s) => s.id !== 'blog').map((s) => el('
     el('span', { class: 'vh', text: ' ' + t.newTab })))));
 
 // ------------------------------------------------------------- hero
-const hero = new HeroField($('#hero-field'), c.nick, { reduce });
+const hero = new HeroField($('#hero-field'), c.name, { reduce });
 const heroEl = $('.hero');
 new IntersectionObserver(([e]) => (e.isIntersecting ? hero.start() : hero.stop())).observe(heroEl);
 const heroPtr = (e) => {

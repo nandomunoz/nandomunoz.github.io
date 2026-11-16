@@ -303,11 +303,17 @@ export class HeroField {
     const rand = rng(hash(this.text) ^ cols);
     // the name, at the foot of the field
     const tCols = plain ? cols : cols - (narrow ? 2 : 6);
-    const tRows = plain ? rows : Math.min(rows - 6, narrow ? Math.round(tCols * 0.5) : Math.round(tCols * 0.27));
+    // a two-word name sits on one line when wide (a low band) and on two when narrow (one word a line)
+    const words = !plain && this.text.includes(' ') ? this.text.split(' ') : null, stacked = !!words && narrow;
+    const tRows = plain ? rows : Math.min(rows - 6, narrow ? Math.round(tCols * 0.5) : Math.round(tCols * (words ? 0.15 : 0.27)));
     const tx = plain ? 0 : Math.round((cols - tCols) / 2), ty = plain ? 0 : rows - tRows - (narrow ? 1 : 2);
-    const cov = plain
-      ? sampleText(this.text, tCols, tRows, { stretch: 'semi-condensed', weight: 800, fill: 0.86, align: 'left' })
-      : sampleText(this.text.toUpperCase(), tCols, tRows, { stretch: narrow ? 'extra-condensed' : 'semi-condensed', fill: 1 });
+    const opt = { stretch: narrow ? 'extra-condensed' : 'semi-condensed', fill: 1 };
+    let cov;
+    if (plain) cov = sampleText(this.text, tCols, tRows, { stretch: 'semi-condensed', weight: 800, fill: 0.86, align: 'left' });
+    else if (stacked) {
+      const top = tRows >> 1, a = sampleText(words[0].toUpperCase(), tCols, top, opt), b = sampleText(words.slice(1).join(' ').toUpperCase(), tCols, tRows - top, opt);
+      cov = new Float32Array(tCols * tRows); cov.set(a); cov.set(b, a.length);
+    } else cov = sampleText(this.text.toUpperCase(), tCols, tRows, opt);
     const covAt = (x, y) => (x < tx || y < ty || x >= tx + tCols || y >= ty + tRows) ? 0 : cov[(y - ty) * tCols + (x - tx)];
     // floating patches above the name
     const patches = [], n = plain ? 0 : narrow ? 4 : 7, top = ty - 3;
