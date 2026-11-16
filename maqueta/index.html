@@ -38,9 +38,12 @@
     <section class="hero" aria-labelledby="hero-name">
       <canvas class="hero__field" id="hero-field" aria-hidden="true"></canvas>
       <div class="hero__copy">
-        <h1 id="hero-name" class="hero__name"><span data-slot="name">Nando Muñoz</span></h1>
-        <p class="hero__kicker" data-slot="kicker"></p>
-        <p class="hero__deck" data-slot="deck"></p>
+        <p class="hero__deck"></p>
+        <div class="hero__billing">
+          <p class="hero__pre" aria-hidden="true" data-t="heroPre">una web de</p>
+          <h1 id="hero-name" class="hero__name" data-slot="name">Nando Muñoz</h1>
+          <p class="hero__kicker" data-slot="kicker"></p>
+        </div>
       </div>
       <p class="hero__hint" aria-hidden="true" data-t="hint">mueve el puntero · toca</p>
     </section>

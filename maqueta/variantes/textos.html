@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="dark light">
+  <script>try{var m=localStorage.getItem('luz-theme');document.documentElement.dataset.mode=m==='light'||m==='high-contrast'||m==='dark'?m:matchMedia('(prefers-contrast: more)').matches?'high-contrast':'dark'}catch(e){document.documentElement.dataset.mode='dark'}</script>
+  <meta name="theme-color" content="#292929">
+  <link rel="icon" href="/maqueta/favicon.svg" type="image/svg+xml">
+  <title>Trama · textos sobre la lluvia</title>
+  <link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="textos.css">
+  <script type="module" src="textos.js"></script>
+</head>
+<body>
+  <header class="vbar">
+    <span>Portada · textos sobre la lluvia · versión Cartel invertido</span>
+    <nav aria-label="Versiones"><a href="./">lluvias</a><a href="/maqueta/">← maqueta</a></nav>
+  </header>
+  <main>
+    <h1 class="vh">El nombre, el cargo y el lema sobre la lluvia: versión Cartel invertido</h1>
+
+    <section class="tx t6" id="t1" aria-labelledby="t1-name">
+      <canvas class="hero__field" aria-hidden="true"></canvas>
+      <p class="tx__tag"><b>01</b> Cartel invertido <span>· el título arriba; abajo, el bloque de créditos de un cartel; el nombre en Doto</span></p>
+      <div class="tx__copy">
+        <p class="t6__deck" data-slot="deck" data-ia style="--i:0"></p>
+        <div class="t6__billing" style="--i:1">
+          <p class="t6__pre" aria-hidden="true">una web de</p>
+          <h2 class="t6__name" id="t1-name" data-slot="name"></h2>
+          <p class="t6__kicker" data-slot="kicker"></p>
+        </div>
+      </div>
+      <p class="tx__hint" aria-hidden="true">clic para escanear</p>
+    </section>
+  </main>
+</body>
+</html>

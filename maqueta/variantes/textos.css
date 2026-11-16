@@ -1,0 +1,57 @@
+/* Trama · the hero's three texts over the rain, the Cartel invertido take (textos.html).
+   Same tokens, faces and motion as the site: Archivo for the words, Chakra Petch (--mono)
+   for labels, Doto (--dots) for dotted lettering, the green accent for «IA».
+   Mobile first; 48em tablet, 64em desktop, 90em wide. */
+
+/* ------------------------------------------------------------ the page */
+.vbar { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  padding: .9rem var(--gut); font: 500 .68rem/1.4 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--mute);
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(6px); border-bottom: 1px dotted var(--rule); }
+.vbar nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+.vbar a { color: var(--mute); text-decoration: none; }
+.vbar a:hover { color: var(--ink); }
+
+/* ------------------------------------------------------------ shared */
+.tx { position: relative; height: max(36rem, calc(100svh - 3rem)); overflow: clip; border-bottom: 1px dotted var(--rule); isolation: isolate; }
+.tx .hero__field { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; z-index: 0; }
+.tx__copy { position: absolute; inset: 0; z-index: 1; pointer-events: none; padding: 4.5rem var(--gut) 3rem; }
+.tx__copy > *, .tx__copy p, .tx__copy h2 { margin: 0; }
+.tx__tag { position: absolute; z-index: 3; left: var(--gut); top: 1.1rem; display: flex; gap: .9em; align-items: baseline; margin: 0;
+  font: 600 .72rem/1.4 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--ink); pointer-events: none; }
+.tx__tag b { font: 700 1.1rem/1 var(--dots); color: var(--blaze); letter-spacing: .05em; }
+.tx__tag span { color: var(--mute); font-weight: 500; letter-spacing: .14em; }
+.tx__hint { position: absolute; z-index: 3; right: var(--gut); top: 1.2rem; margin: 0; font: 500 .66rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--gloss); pointer-events: none; }
+.ia { font-weight: inherit; color: var(--blaze); }
+@media (max-width: 47.99em) { .tx__tag span { display: none; } }
+
+/* every piece rises in once its section is in view (after the rain's green entrance), one after the other */
+.moving .tx [style*="--i"] { opacity: 0; }
+.moving .tx.is-in [style*="--i"] { animation: rise-in .8s var(--ease) both; animation-delay: calc(.25s + var(--i) * .14s); opacity: 1; }
+.moving .tx .tx__hint { animation: fade 1s 1.2s both; }
+
+/* ============================================================ 01 · Cartel invertido
+   The poster upside down: the title hangs from the top, heavy scrim from above; the foot is
+   a billing block — a small «una web de», the name in dotted lettering (Doto, as in the other
+   takes), the role spaced out under a dotted rule. Left-aligned on a phone, the block runs
+   right on a wide screen. */
+.t6::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(to bottom, var(--bg) 0, color-mix(in srgb, var(--bg) 80%, transparent) 30%, transparent 62%),
+              linear-gradient(to top, color-mix(in srgb, var(--bg) 92%, transparent) 0, transparent 30%); }
+.t6 .tx__copy { display: grid; grid-template-rows: auto 1fr auto; padding-top: 3.8rem; }
+.t6__deck { font-family: Archivo; font-weight: 200; font-stretch: 72%; font-size: clamp(3rem, 14.5vw, 11rem); line-height: .86; letter-spacing: -.025em; color: var(--ink); max-width: 11ch; }
+.t6__billing { grid-row: 3; display: grid; gap: .5rem; justify-items: start; padding-top: 1rem; border-top: 1px dotted var(--rule); }
+.t6__pre { font: 500 .6rem/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--gloss); }
+.t6__name { font: 700 clamp(1.5rem, 7vw, 3.2rem)/1 var(--dots); letter-spacing: .05em; color: var(--ink); }
+.t6__kicker { font: 600 .64rem/1.6 var(--mono); letter-spacing: .26em; text-transform: uppercase; color: var(--mute); }
+.t6__deck .l { display: block; }
+.t6__deck em { font-style: italic; }                              /* Archivo has no italic: the browser slants it */
+@media (min-width: 64em) {
+  .t6 .tx__copy { padding-top: 6.5rem; padding-bottom: 3.5rem; }
+  .t6__deck { max-width: none; font-size: clamp(4rem, 7.2vw, 9rem); line-height: .98; letter-spacing: -.02em; }
+  .t6__deck .l { white-space: nowrap; }
+  .t6__billing { justify-self: end; justify-items: end; text-align: right; min-width: 26rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tx [style*="--i"], .tx .w { opacity: 1 !important; animation: none !important; }
+}

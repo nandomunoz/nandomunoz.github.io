@@ -31,6 +31,7 @@
   --on-blaze: #f4f2ee;                         /* text on a maroon fill (6.5:1) */
   --blaze-on-ink: #963641;                     /* maroon on an ink fill (the current chip) */
   --matrix: #22c55e; --on-matrix: #1a1a1a; --matrix-on-ink: #0b6b34;   /* the accent: the rain's green (rain.js), 6.9:1 on charcoal */
+  --trace: #3c6b4d;                            /* the typing beam's wake: a dim green a letter comes out in before it settles */
   --prose: #dedbd5;
   --scrim: color-mix(in srgb, #1a1a1a 80%, transparent);
   --shade: #000;
@@ -56,6 +57,7 @@
   --on-blaze: #e9eff5;
   --blaze-on-ink: #8fc2f2;                     /* ink is dark here: a pale blue, 8.6:1 */
   --matrix: #0b7a3b; --on-matrix: #e9eff5; --matrix-on-ink: #3dff7a;   /* a darker green on the paper, 4.9:1 */
+  --trace: #06361b;                            /* on the paper the wake is darker, not dimmer */
   --prose: #27323d;
   --scrim: color-mix(in srgb, #e9eff5 82%, transparent);
   --shade: #2f3d4b;
@@ -81,6 +83,7 @@
   --on-blaze: #000;                            /* 8.4:1 on the bright maroon */
   --blaze-on-ink: #8a1f2e;                     /* ink is white here: 9:1 */
   --matrix: #5dff8f; --on-matrix: #000; --matrix-on-ink: #0b6b34;
+  --trace: #2c9a58;
   --prose: #fff;
   --scrim: color-mix(in srgb, #000 88%, transparent);
   --shade: #000;
@@ -158,19 +161,40 @@ body[data-glide] .nav { --glide: .9s cubic-bezier(.45, 0, .2, 1); transition: le
 ::view-transition-old(nav), ::view-transition-new(nav) { height: 100%; width: auto; }
 ::view-transition-group(root) { animation-duration: 0s; }
 
-/* ------------------------------------------------------------ hero */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; padding-top: 5.5rem; }
-.hero__field { display: block; width: 100%; height: 58svh; min-height: 320px; touch-action: pan-y; cursor: pointer; }
-.hero__copy { padding: 2.5rem var(--gut) 0; display: grid; gap: 1.1rem; }
-.hero__name { margin: 0; font: 300 1.5rem/1.1 Archivo; letter-spacing: .01em; }
-.hero__kicker { font: 600 .72rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .22em; color: var(--mute); }
-.hero__deck { font-weight: 200; font-stretch: 78%; font-size: clamp(2.2rem, 10.5vw, 3rem); line-height: 1; letter-spacing: -.01em; max-width: 14ch; margin-top: 1.5rem; }
-.hero__hint { position: absolute; right: var(--gut); top: calc(5.5rem + 1rem); font: 500 .66rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); writing-mode: vertical-rl; }
+/* ------------------------------------------------------------ hero
+   A poster over the rain: the motto hangs from the top (heavy scrim above it), the credits sit at
+   the foot under a dotted rule — a small «una web de», the name in Doto, the role spaced out. The
+   motto is typed in under a dotted green beam (shared/poster.js); the key words take the accent, the
+   others lean. Left-aligned on a phone, the credits run right on a wide screen. */
+.hero { position: relative; height: max(36rem, 100svh); overflow: clip; isolation: isolate; }
+.hero__field { position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: pointer; }
+.hero::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(to bottom, var(--bg) 0, color-mix(in srgb, var(--bg) 80%, transparent) 30%, transparent 62%),
+              linear-gradient(to top, color-mix(in srgb, var(--bg) 92%, transparent) 0, transparent 30%); }
+.hero__copy { position: absolute; inset: 0; z-index: 1; pointer-events: none; display: grid; grid-template-rows: auto 1fr auto; padding: 7.8rem var(--gut) 3rem; }
+.hero__copy > * { margin: 0; }
+.hero__deck { font-family: Archivo; font-weight: 200; font-stretch: 72%; font-size: clamp(3rem, 14.5vw, 11rem); line-height: .86; letter-spacing: -.025em; color: var(--ink); max-width: 11ch; }
+.hero__deck .l { display: block; }
+.hero__deck em { font-style: italic; }                             /* Archivo has no italic: the browser slants it */
+.hero__deck .ia { font-weight: inherit; color: var(--blaze); }
+.hero__billing { grid-row: 3; display: grid; gap: .5rem; justify-items: start; padding-top: 1rem; border-top: 1px dotted var(--rule); transition: border-color .6s; }
+.hero__billing > * { margin: 0; }
+.hero__pre { font: 500 .6rem/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--gloss); transition: opacity .6s; }
+.hero__name { font: 700 clamp(1.5rem, 7vw, 3.2rem)/1 var(--dots); letter-spacing: .05em; color: var(--ink); }
+.hero__kicker { font: 600 .64rem/1.6 var(--mono); letter-spacing: .26em; text-transform: uppercase; color: var(--mute); }
+.hero__billing.off { border-top-color: transparent; }
+.hero__billing.off .hero__pre { opacity: 0; }
+.hero__hint { position: absolute; z-index: 2; right: var(--gut); top: calc(5.5rem + 1rem); font: 500 .66rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--gloss); writing-mode: vertical-rl; pointer-events: none; }
 
-.moving .hero__copy > * { animation: rise-in 1.1s var(--ease) both; }
-.moving .hero__name { animation-delay: 1.4s; }
-.moving .hero__kicker { animation-delay: 1.55s; }
-.moving .hero__deck { animation-delay: 1.75s; }
+/* the typing: every letter a block of its own, a thin terminal cursor (no width: the line never reflows) walks ahead of it */
+.hero .c { display: inline-block; }
+.hero .wd { display: inline-block; white-space: nowrap; }
+.hero .vis { display: inline; }
+.caret { display: inline-block; width: 0; height: 0; position: relative; }
+.caret::after { content: ''; position: absolute; left: .06em; bottom: -.1em; width: max(2px, .03em); height: .95em; background: var(--blaze); }   /* a thin 80s terminal cursor: a solid vertical bar, no glow */
+.moving .caret.blink::after { animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+
 .moving .hero__hint { animation: fade 1s 2.4s both; }
 @keyframes rise-in { from { opacity: 0; transform: translateY(1.4rem); filter: blur(6px); } }
 @keyframes fade { from { opacity: 0; } }
@@ -326,9 +350,6 @@ section { position: relative; }
 
 /* ============================================================ ≥ 48em */
 @media (min-width: 48em) {
-  .hero__field { height: 64svh; }
-  .hero__copy { grid-template-columns: 1fr 1fr; align-items: end; padding-top: 3rem; }
-  .hero__deck { grid-column: 2; grid-row: 1 / span 2; font-size: clamp(3rem, 6vw, 4.5rem); margin: 0; justify-self: end; text-align: right; }
   .nav { top: 1.05rem; left: auto; right: calc(var(--gut) + 7rem); }
   .top__lang { order: 2; }
   .hero__hint { top: 4.5rem; writing-mode: horizontal-tb; }
@@ -368,11 +389,10 @@ section { position: relative; }
 
 /* ============================================================ ≥ 64em */
 @media (min-width: 64em) {
-  .hero { padding-top: 4rem; }
-  .hero__field { height: 70svh; }
-  .hero__copy { grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; padding-top: 1rem; }
-  .hero__name, .hero__kicker { grid-column: 1 / 5; }
-  .hero__deck { grid-column: 6 / 13; grid-row: 1 / span 2; }
+  .hero__copy { padding-top: 6.5rem; padding-bottom: 3.5rem; }
+  .hero__deck { max-width: none; font-size: clamp(4rem, 7.2vw, 9rem); line-height: .98; letter-spacing: -.02em; }
+  .hero__deck .l { white-space: nowrap; }
+  .hero__billing { justify-self: end; justify-items: end; text-align: right; min-width: 26rem; }
 
   /* docked: the nav slides to a rail on the left edge */
   .docked .nav {
@@ -421,8 +441,6 @@ section { position: relative; }
 
 /* ============================================================ ≥ 90em */
 @media (min-width: 90em) {
-  .hero__field { height: 74svh; }
-  .hero__deck { font-size: 5.5rem; }
   .bio__lead { font-size: 2.4rem; }
   .works { gap: 18rem; }
   .item:nth-child(4n+1) .item__stage { grid-column: 2 / 8; }

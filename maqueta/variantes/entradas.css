@@ -1,0 +1,40 @@
+/* Trama · the Cartel invertido with five ways of coming in (entradas.html). The poster itself
+   (the .t6 rules) is textos.css; this adds the replay button and the pieces each animation needs
+   (letters, the typing beam, slices). */
+
+/* ------------------------------------------------------------ the billing block waits for the name */
+.en .t6__billing { transition: border-color .6s; }
+.en .t6__pre { transition: opacity .6s; }
+.en .t6__billing.off { border-top-color: transparent; }
+.en .t6__billing.off .t6__pre { opacity: 0; }
+
+/* ------------------------------------------------------------ replay */
+.en__replay { position: absolute; z-index: 4; right: var(--gut); top: 2.7rem; padding: .55rem .8rem; cursor: pointer;
+  font: 600 .62rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute);
+  background: color-mix(in srgb, var(--bg) 70%, transparent); border: 1px dotted var(--rule); }
+.en__replay:hover, .en__replay:focus-visible { color: var(--ink); border-color: var(--blaze); }
+.en__replay:focus-visible { outline: 2px solid var(--blaze); outline-offset: 2px; }
+
+/* ------------------------------------------------------------ letters (01, 02, 05) */
+.en .c { display: inline-block; }
+.en .wd { display: inline-block; white-space: nowrap; }
+.en .vis { display: inline; }
+
+/* 01 · the beam that types: a thin 80s terminal cursor, a thin solid green bar with no width (the line never reflows as it moves) */
+.caret { display: inline-block; width: 0; height: 0; position: relative; }
+.caret::after { content: ''; position: absolute; left: .06em; bottom: -.1em; width: max(2px, .03em); height: .95em; background: var(--blaze); }   /* a thin 80s terminal cursor: a solid vertical bar, no glow */
+.moving .caret.blink::after { animation: caret 1s steps(1) infinite; }
+
+/* 02 · a letter not yet resolved: one of the rain's symbols, in green, inside the letter's own width */
+.en .c.scr { font-family: "Noto Sans CJK JP", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif; font-weight: 500; font-style: normal;
+  font-size: .62em; line-height: 1; color: var(--blaze); text-align: center; white-space: nowrap; vertical-align: baseline; }
+.t6__deck .c.scr { font-size: .5em; }
+.en .c.flash { animation: decode-flash .55s ease-out; }
+@keyframes decode-flash { from { color: var(--ink); text-shadow: 0 0 .35em var(--blaze), 0 0 .8em var(--blaze); } }
+
+/* 03 · slices: the line's own box holds the slices, laid exactly over the (hidden) text */
+.en .sl-host { position: relative; width: fit-content; max-width: 100%; }
+.t6__name.sl-host, .t6__kicker.sl-host { max-width: none; }
+.en .sl-base { display: block; }
+.en .sl { position: absolute; inset: 0; display: block; pointer-events: none; will-change: transform, opacity; }
+

@@ -6,11 +6,14 @@ import { greenOnHover } from './shared/green.js';
 import { kanjiOf } from './shared/kanji-cells.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
+import { typePoster } from './shared/poster.js';
 
 const T = {
   es: {
     skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
     hintFine: 'haz clic para escanear', hintCoarse: 'toca para escanear',
+    heroPre: 'una web de', motto: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio',
+    mottoKey: /(Proyecto|Humano|IA|motivo|centro|medio)/, mottoGreen: ['Proyecto', 'Humano', 'IA'],
     legendTitle: 'Cómo leer los bloques',
     legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su kanji va dibujado en grande; la trama de fondo sale de su captura.',
     count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar', shot: (n) => `Captura de ${n}`,
@@ -21,6 +24,8 @@ const T = {
   en: {
     skip: 'Skip to content', bio: 'Bio', work: 'Projects',
     hintFine: 'click to scan', hintCoarse: 'tap to scan',
+    heroPre: 'a site by', motto: 'Project, the reason. Human, the core. TechnologAI, only the means',
+    mottoKey: /(Project|Human|AI|reason|core|means)/, mottoGreen: ['Project', 'Human', 'AI'],
     legendTitle: 'How to read the blocks',
     legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its kanji is drawn big; the field behind it comes from its screenshot.',
     count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close', shot: (n) => `Screenshot of ${n}`,
@@ -197,10 +202,14 @@ $('#socials').append(...c.socials.filter((s) => s.id !== 'blog').map((s) => el('
 
 // ------------------------------------------------------------- hero
 // Matrix rain with a mask cut out of it, in turn the name, the poster's cats and the desk
-// picture (rain.js); a click scans in a circle
+// picture (rain.js); a click scans in a circle. Over it the poster: the motto on top, the credits
+// at the foot, typed in under a dotted green beam (shared/poster.js) once the rain's green has fallen
 const hero = new RainField($('#hero-field'), { mask: 'cycle', name: c.name, dots: true });
 const heroEl = $('.hero');
 new IntersectionObserver(([e]) => (e.isIntersecting ? hero.start() : hero.stop())).observe(heroEl);
+// (the motto is the poster's own, not data/site.json's deck, which the Cassette reads aloud)
+typePoster({ deck: $('.hero__deck'), name: $('.hero__name'), kicker: $('.hero__kicker'), bill: $('.hero__billing') },
+  { motto: t.motto, key: t.mottoKey, green: new Set(t.mottoGreen), reduce }).play(900);
 hero.cv.addEventListener('pointerdown', (e) => {
   const r = hero.cv.getBoundingClientRect();
   hero.poke(e.clientX - r.left, e.clientY - r.top);

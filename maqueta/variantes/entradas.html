@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="dark light">
+  <script>try{var m=localStorage.getItem('luz-theme');document.documentElement.dataset.mode=m==='light'||m==='high-contrast'||m==='dark'?m:matchMedia('(prefers-contrast: more)').matches?'high-contrast':'dark'}catch(e){document.documentElement.dataset.mode='dark'}</script>
+  <meta name="theme-color" content="#292929">
+  <link rel="icon" href="/maqueta/favicon.svg" type="image/svg+xml">
+  <title>Trama · entradas del texto</title>
+  <link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="textos.css">
+  <link rel="stylesheet" href="entradas.css">
+  <script type="module" src="entradas.js"></script>
+</head>
+<body>
+  <header class="vbar">
+    <span>Portada · el Cartel invertido · 4 maneras de aparecer</span>
+    <nav aria-label="Versiones"><a href="#e1">01</a><a href="#e2">02</a><a href="#e3">03</a><a href="#e4">04</a><a href="textos.html">cartel</a><a href="./">lluvias</a><a href="/maqueta/">← maqueta</a></nav>
+  </header>
+  <main>
+    <h1 class="vh">El Cartel invertido con cuatro animaciones de entrada del texto</h1>
+
+    <!-- every section is the same poster (title on top between quotation marks, credits at the foot);
+         only the way it comes in changes. entradas.js builds each one. -->
+    <section class="tx t6 en" id="e1" data-anim="type" aria-labelledby="e1-name">
+      <canvas class="hero__field" aria-hidden="true"></canvas>
+      <p class="tx__tag"><b>01</b> Tecleo con barrido <span>· letra a letra tras un haz verde punteado que deja cada letra brillando un instante</span></p>
+      <div class="tx__copy">
+        <p class="t6__deck" data-slot="deck"></p>
+        <div class="t6__billing">
+          <p class="t6__pre" aria-hidden="true">una web de</p>
+          <h2 class="t6__name" id="e1-name" data-slot="name"></h2>
+          <p class="t6__kicker" data-slot="kicker"></p>
+        </div>
+      </div>
+      <button class="en__replay" type="button">↻ repetir</button>
+      <p class="tx__hint" aria-hidden="true">clic para escanear</p>
+    </section>
+
+    <section class="tx t6 en" id="e2" data-anim="decode" aria-labelledby="e2-name">
+      <canvas class="hero__field" aria-hidden="true"></canvas>
+      <p class="tx__tag"><b>02</b> Descodificar <span>· cada letra empieza siendo un símbolo de la lluvia y se resuelve con un destello</span></p>
+      <div class="tx__copy">
+        <p class="t6__deck" data-slot="deck"></p>
+        <div class="t6__billing">
+          <p class="t6__pre" aria-hidden="true">una web de</p>
+          <h2 class="t6__name" id="e2-name" data-slot="name"></h2>
+          <p class="t6__kicker" data-slot="kicker"></p>
+        </div>
+      </div>
+      <button class="en__replay" type="button">↻ repetir</button>
+      <p class="tx__hint" aria-hidden="true">clic para escanear</p>
+    </section>
+
+    <section class="tx t6 en" id="e3" data-anim="slices" aria-labelledby="e3-name">
+      <canvas class="hero__field" aria-hidden="true"></canvas>
+      <p class="tx__tag"><b>03</b> Rebanadas <span>· cada línea llega en tres tiras desde lados opuestos y encaja, como el título del cartel</span></p>
+      <div class="tx__copy">
+        <p class="t6__deck" data-slot="deck"></p>
+        <div class="t6__billing">
+          <p class="t6__pre" aria-hidden="true">una web de</p>
+          <h2 class="t6__name" id="e3-name" data-slot="name"></h2>
+          <p class="t6__kicker" data-slot="kicker"></p>
+        </div>
+      </div>
+      <button class="en__replay" type="button">↻ repetir</button>
+      <p class="tx__hint" aria-hidden="true">clic para escanear</p>
+    </section>
+
+    <section class="tx t6 en" id="e4" data-anim="rain" aria-labelledby="e4-name">
+      <canvas class="hero__field" aria-hidden="true"></canvas>
+      <p class="tx__tag"><b>04</b> Lluvia <span>· las letras caen como gotas, en verde, rebotan al asentarse y se apagan a su color</span></p>
+      <div class="tx__copy">
+        <p class="t6__deck" data-slot="deck"></p>
+        <div class="t6__billing">
+          <p class="t6__pre" aria-hidden="true">una web de</p>
+          <h2 class="t6__name" id="e4-name" data-slot="name"></h2>
+          <p class="t6__kicker" data-slot="kicker"></p>
+        </div>
+      </div>
+      <button class="en__replay" type="button">↻ repetir</button>
+      <p class="tx__hint" aria-hidden="true">clic para escanear</p>
+    </section>
+  </main>
+</body>
+</html>
