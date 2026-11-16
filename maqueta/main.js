@@ -1,5 +1,5 @@
 import { content, blog } from './shared/content.js';
-import { B, langSwitch, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
+import { B, langSwitch, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, homeUrl, footer, MOTTO } from './blog/parts.js';
 import { themeSwitch, onMode } from './shared/theme.js';
 import { RainField } from './rain.js';
 import { greenOnHover } from './shared/green.js';
@@ -11,25 +11,25 @@ import { typePoster } from './shared/poster.js';
 const T = {
   es: {
     skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
-    heroPre: 'una web de', motto: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio',
+    heroPre: 'una web de', motto: MOTTO,
     mottoKey: /(Proyecto|Humano|IA|motivo|centro|medio)/, mottoGreen: ['Proyecto', 'Humano', 'IA'],
     legendTitle: 'Cómo leer los bloques',
     legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su kanji va dibujado en grande; la trama de fondo sale de su captura.',
     count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar', shot: (n) => `Captura de ${n}`,
     demo: 'Ver demo', repo: 'Ver código', prev: 'Anterior', next: 'Siguiente',
     blog: 'Blog', allPosts: 'Todos los artículos',
-    of: 'de', sections: 'Secciones', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
+    of: 'de', sections: 'Principal', projects: 'Proyectos', other: 'Español', newTab: '(se abre en otra pestaña)'
   },
   en: {
     skip: 'Skip to content', bio: 'Bio', work: 'Projects',
-    heroPre: 'a site by', motto: 'Project, the reason. Human, the core. TechnologAI, only the means',
+    heroPre: 'a site by', motto: MOTTO,
     mottoKey: /(Project|Human|AI|reason|core|means)/, mottoGreen: ['Project', 'Human', 'AI'],
     legendTitle: 'How to read the blocks',
     legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its kanji is drawn big; the field behind it comes from its screenshot.',
     count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close', shot: (n) => `Screenshot of ${n}`,
     demo: 'See demo', repo: 'See code', prev: 'Previous', next: 'Next',
     blog: 'Blog', allPosts: 'All posts',
-    of: 'of', sections: 'Sections', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
+    of: 'of', sections: 'Main', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
   }
 };
 const FEATURED = ['luz', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem'];
@@ -74,7 +74,8 @@ themeSwitch();
 greenOnHover();                                                    // the projects' dotted fields turn green on hover
 // a new mode: the dots are redrawn in its colours (and, in light, read the pictures the other way round)
 onMode(() => { hero.repaint(); titles.forEach((x) => x.f && x.f.repaint()); build(); if (panel.open) restField(); });
-$('#lang').replaceWith(langSwitch('langs top__lang'));            // ES · EN (blog/parts.js)
+$('#lang').replaceWith(langSwitch('langs top__lang'));
+$('.top__mark').href = homeUrl();                                    // the logo leads home in the page's language (?lang=en stays)            // ES · EN (blog/parts.js)
 document.title = c.name;
 
 // the bio's last words point to the blog and the projects
@@ -315,9 +316,14 @@ function fill(i) {
 }
 const frontOf = (i) => blocks.find((q) => q.i === i && q.front);
 
-async function open(i) {
+// The open panel has an address (#proyecto=<id>) so it can be shared, and the Back button closes it:
+// opening pushes one history entry, closing by hand goes back through it, and popstate does the rest.
+const hashOf = (i) => `#proyecto=${c.projects[i].id}`;
+const fromHash = () => { const m = location.hash.match(/^#proyecto=(.+)$/); const i = m ? c.projects.findIndex((p) => p.id === decodeURIComponent(m[1])) : -1; return i; };
+async function open(i, { push = true } = {}) {
   if (busy) return;
   busy = true;
+  if (push) history.pushState({ panel: true }, '', hashOf(i));
   fill(i);
   const src = frontOf(i).block.points();
   document.documentElement.classList.add('locked');
@@ -330,7 +336,8 @@ async function open(i) {
   panel.classList.remove('is-forming');
   busy = false;
 }
-async function close() {
+const close = () => (panel.open && history.state?.panel ? history.back() : doClose());
+async function doClose() {
   if (busy || !panel.open) return;
   busy = true;
   const item = frontOf(cur);
@@ -356,6 +363,7 @@ async function go(i) {
   panel.classList.add('is-forming');
   await new Promise((r) => setTimeout(r, reduce ? 0 : 200));
   fill(i);
+  history.replaceState({ panel: true }, '', hashOf(i));
   field = fieldFor(i);
   if (!reduce) await fly(pf, from, field, { dur: 750 });
   restField();
@@ -370,6 +378,11 @@ works.addEventListener('click', (e) => {
 });
 $('#p-close').addEventListener('click', close);
 panel.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+addEventListener('popstate', () => {
+  if (panel.open) { doClose(); return; }
+  const i = fromHash();
+  if (i >= 0) open(i, { push: false });
+});
 panel.addEventListener('click', (e) => { if (e.target === panel || e.target === pf) close(); });
 $('#p-prev').addEventListener('click', (e) => go(+e.currentTarget.dataset.i));
 $('#p-next').addEventListener('click', (e) => go(+e.currentTarget.dataset.i));
@@ -431,3 +444,14 @@ $$('.item__stage, .bio__cols canvas, #contact-field, #legend-keys canvas, .brow_
 hero.layout();
 hero.start();
 titles.forEach((x) => titleIO.observe(x.cv));
+// a shared address opens its project: bring its block into view (it draws when seen), then open
+{
+  const i = fromHash();
+  if (i >= 0) {
+    const li = works.querySelector(`.item__open[data-i="${i}"]`)?.closest('li');
+    li?.scrollIntoView({ block: 'center', behavior: 'instant' });
+    const t0 = performance.now();
+    const wait = () => { if (frontOf(i)?.block) open(i, { push: false }); else if (performance.now() - t0 < 4000) requestAnimationFrame(wait); };
+    requestAnimationFrame(wait);
+  }
+}

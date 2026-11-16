@@ -5,25 +5,31 @@
 //
 // The site sets no cookies of its own and has no analytics: the one thing to
 // ask about is YouTube, whose player (youtube-nocookie.com) and thumbnails
-// only load in a post when "youtube" is granted. LUZ's behaviour is kept as
-// it is: fixed at the bottom without taking focus (here a small card in the
-// corner rather than a full band), Accept and Reject side by side, a
-// choice that closes it at once (no "Saved" step: a live region says it), the choice in localStorage ("luz-consent") for 180 days, and a
-// "Cookies" button in the footer that opens it again. The choices, which LUZ
-// keeps in a <details>, open here in a modal <dialog> (Settings). No JS → no banner
-// (nothing third-party loads either).
+// (i.ytimg.com) only load in a post when "youtube" is granted. LUZ's behaviour
+// is kept as it is: fixed at the bottom without taking focus (here a small
+// card in the corner rather than a full band), Accept and Reject side by side,
+// a choice that closes it at once (no "Saved" step: a live region says it), the
+// choice in localStorage ("luz-consent", LUZ's own format) for 180 days, and
+// an «Ajustes de cookies» button in the footer that opens it again. The
+// choices, which LUZ keeps in a <details>, open here in a modal <dialog>
+// (Settings). No JS → no banner (nothing third-party loads either). Besides the
+// banner, each post's video asks in its own gate (blog/blog.js).
 //
-//   import { consent, allowed, grant } from '../shared/consent.js';
+// LUZ stores the policy version with each choice but never compares it, so
+// nothing here promises that a changed policy asks again (plan, K2).
+//
+//   import { consent, allowed, grant, openConsent, CT, POLICY } from '../shared/consent.js';
 //   consent();               // after the footer is in the page
 //   allowed('youtube')       // → true / false
 //   grant('youtube')         // store it from a post's own "watch here" button
+//   openConsent()            // show the banner again (the footer's button), from any «change» button
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 import { lang } from './content.js';
 import { el, url } from '../blog/parts.js';
 
 const KEY = 'luz-consent';
-const POLICY = url('/cookies/'); // the policy page (shared/cookies-policy.js)
-const VERSION = 'soynando-2026-11'; // the policy shown, stored with each choice
+export const POLICY = url('/cookies/'); // the policy page (shared/cookies-policy.js)
+const VERSION = 'soynando-2026-11'; // the policy shown, stored with each choice (not compared: see above)
 
 export const CT = {
   es: {
@@ -31,14 +37,16 @@ export const CT = {
     text: 'Sin cookies propias. Solo los vídeos de YouTube las usan, si los cargas.',
     policy: 'Política de cookies', policyMore: 'Leer la política de cookies',
     all: 'Aceptar', none: 'Rechazar', choose: 'Ajustes',
-    dialog: 'Ajustes de cookies', dialogText: 'Esta web no usa cookies propias ni analítica. Elige qué puede cargarse desde fuera:',
+    dialog: 'Ajustes de cookies', dialogText: 'Esta web no usa cookies propias ni cuenta tus visitas. Elige si pueden cargarse vídeos de YouTube:',
     legend: 'Contenido externo',
-    youtube: 'Vídeos de YouTube', youtubeHint: 'El reproductor y las miniaturas (youtube-nocookie.com). YouTube guarda sus cookies al reproducir.',
+    youtube: 'Vídeos de YouTube', youtubeHint: 'El reproductor (youtube-nocookie.com) y las fotos pequeñas de los vídeos (i.ytimg.com), de Google. YouTube puede guardar cookies al reproducir. Tu elección vale 180 días.',
     save: 'Guardar', cancel: 'Cancelar',
     done: 'Guardado. Cámbialo desde «Ajustes de cookies», en el pie.', close: 'Cerrar',
-    saved: 'Preferencias de cookies guardadas. Puedes cambiarlas desde «Ajustes de cookies», en el pie.',
+    saved: 'Ajustes de cookies guardados. Puedes cambiarlos desde «Ajustes de cookies», en el pie.',
     open: 'Ajustes de cookies',
-    gate: 'Este vídeo está en YouTube. Para verlo aquí hay que aceptar sus cookies; si prefieres no hacerlo, puedes verlo en YouTube.',
+    video: 'Vídeo de YouTube',
+    gate: 'Este vídeo está en YouTube (Google). Para verlo aquí, tu navegador se conectará con Google, que verá tu dirección IP (la de tu conexión) y puede guardar cookies. Recordaré tu «sí» 180 días, para todos los vídeos.',
+    gateOr: 'Si prefieres no hacerlo, ábrelo en YouTube: allí valen las normas de YouTube.',
     gateYes: 'Aceptar y ver aquí', gateNo: 'Ver en YouTube', newTab: '(se abre en otra pestaña)'
   },
   en: {
@@ -46,14 +54,16 @@ export const CT = {
     text: 'No cookies of our own. Only YouTube videos use them, if you load them.',
     policy: 'Cookie policy', policyMore: 'Read the cookie policy',
     all: 'Accept', none: 'Reject', choose: 'Settings',
-    dialog: 'Cookie settings', dialogText: 'This site sets no cookies of its own and no analytics. Choose what may load from elsewhere:',
+    dialog: 'Cookie settings', dialogText: 'This site sets no cookies of its own and does not count your visits. Choose whether YouTube videos may load:',
     legend: 'Outside content',
-    youtube: 'YouTube videos', youtubeHint: 'The player and thumbnails (youtube-nocookie.com). YouTube stores its cookies when a video plays.',
+    youtube: 'YouTube videos', youtubeHint: 'The player (youtube-nocookie.com) and the small pictures of the videos (i.ytimg.com), from Google. YouTube may keep cookies when a video plays. Your choice lasts 180 days.',
     save: 'Save', cancel: 'Cancel',
     done: 'Saved. Change it from “Cookie settings” in the footer.', close: 'Close',
-    saved: 'Cookie preferences saved. You can change them from “Cookie settings” in the footer.',
+    saved: 'Cookie settings saved. You can change them from “Cookie settings” in the footer.',
     open: 'Cookie settings',
-    gate: 'This video is on YouTube. To watch it here, its cookies have to be accepted; if you would rather not, you can watch it on YouTube.',
+    video: 'YouTube video',
+    gate: 'This video is on YouTube (Google). To watch it here, your browser will connect to Google, which will see your IP address (your connection’s) and may keep cookies. I will remember your “yes” for 180 days, for all videos.',
+    gateOr: 'If you would rather not, open it on YouTube: YouTube’s own rules apply there.',
     gateYes: 'Accept and watch here', gateNo: 'Watch on YouTube', newTab: '(opens in a new tab)'
   }
 }[lang];
@@ -68,6 +78,10 @@ export function grant(name) {
   try { localStorage.setItem(KEY, JSON.stringify({ version: 1, ...record })); } catch { /* storage blocked: this page only */ }
   document.dispatchEvent(new CustomEvent('luz:consent', { detail: { ...record, withdrawn: [] } }));
 }
+
+// the way back in: the footer's button is LUZ's open button; any other «change my
+// choice» button of the page (the policy's) carries data-consent-open and presses it
+export const openConsent = () => document.querySelector('[data-luz-consent-open]')?.click();
 
 export function consent() {
   if (document.querySelector('luz-cookie-consent')) return;
@@ -93,11 +107,17 @@ export function consent() {
   // Save: the dialog closes first, then LUZ (listening on the section) stores
   // the choice and moves focus to its confirmation
   choices.addEventListener('submit', () => dialog.close());
-  dialog.addEventListener('click', (e) => e.target === dialog && dialog.close()); // a click on the backdrop
+  // a press that starts and ends on the backdrop closes it; a text selection that slips out
+  // of the card, or a stray tap on its padding (inside its box), does not lose the choice
+  let down = false;
+  const outside = (e) => { const r = dialog.getBoundingClientRect(); return e.target === dialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom); };
+  dialog.addEventListener('pointerdown', (e) => { down = outside(e); });
+  dialog.addEventListener('click', (e) => { if (down && outside(e)) dialog.close(); down = false; });
   const banner = el('luz-cookie-consent', {},
-    el('section', { class: 'luz-cookie-consent', 'data-luz-consent': '', 'data-luz-consent-key': KEY, 'data-luz-consent-policy': VERSION, 'aria-labelledby': 'consent-title', hidden: '' },
+    el('section', { class: 'luz-cookie-consent', 'data-luz-consent': '', 'data-luz-consent-key': KEY, 'data-luz-consent-policy': VERSION, 'aria-labelledby': 'consent-title', 'data-nosnippet': '', hidden: '' },
       el('div', { class: 'consent__ask', 'data-luz-consent-ask': '' },
-        el('h2', { class: 'luz-cookie-consent__title', id: 'consent-title', text: CT.title }),
+        // a <p>, not a heading: the card comes first in the page and an <h2> would precede the <h1>
+        el('p', { class: 'luz-cookie-consent__title', id: 'consent-title', text: CT.title }),
         el('p', { class: 'consent__text' }, CT.text, ' ', el('a', { href: POLICY, text: CT.policy }), '.'),
         el('div', { class: 'consent__row' },
           el('form', { class: 'consent__actions' }, btn('all', CT.all), btn('none', CT.none)),
@@ -106,10 +126,9 @@ export function consent() {
       el('div', { class: 'consent__done', 'data-luz-consent-done': '', tabindex: '-1', hidden: '' },
         el('p', { text: CT.done }),
         el('button', { class: 'consent__btn', type: 'button', 'data-luz-consent-close': '', text: CT.close }))));
-  // the way back in is the «cookie settings» button in the footer's small print (blog/parts.js: footer),
-  // which is there before the banner goes in, since LUZ wires the open buttons then
   // first in the page after the skip link: where LUZ wants it when the window
-  // is too short for a fixed card
+  // is too short for a fixed card. The footer's open button (parts.js) already
+  // exists: LUZ wires the open buttons when the banner goes in
   const skip = document.querySelector('.skip');
   if (skip) skip.after(banner); else document.body.prepend(banner);
   const box = banner.querySelector('[data-luz-consent]');
@@ -120,13 +139,18 @@ export function consent() {
 // Once a choice is made — Accept, Reject, Save in the settings, or a post's
 // "Accept and watch here" — the card goes away at once (LUZ would show a
 // "Saved" step first). The news goes to screen readers in a polite live
-// region; focus, if it was in the card, goes back to the footer's Cookies
-// button when that opened it, else to <main> without scrolling the page.
+// region; focus, if it was in the card, goes back to the button that opened
+// it (the footer's, or the policy page's) else to <main> without scrolling.
 function closeOnChoice(box) {
   const status = el('p', { class: 'vh', role: 'status' });
   document.body.append(status);
   let opener = null;
-  document.querySelector('[data-luz-consent-open]')?.addEventListener('click', (e) => { opener = e.currentTarget; });
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest?.('[data-consent-open], [data-luz-consent-open]');
+    if (!b) return;
+    if (b.hasAttribute('data-consent-open')) { opener = b; openConsent(); }       // the policy's button presses the footer's
+    else if (!opener?.isConnected) opener = b;
+  });
   document.addEventListener('luz:consent', () => {
     const hadFocus = box.contains(document.activeElement);
     box.hidden = true;

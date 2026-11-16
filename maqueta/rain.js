@@ -12,6 +12,8 @@
 // drop falls in green, writing it, before the mask fades in. A click (or a tap) scans
 // in a circle, as the colour-mode button reveals the page: a dotted green ring grows
 // from the point, decoding every cell it crosses, the green easing out behind it.
+// It moves for 5 s and then rests on a still frame (WCAG 2.2.2); a pointer moving
+// over it, a touch or a click wakes it for another 5 s. Reduced motion: no loop at all.
 //
 //   const f = new RainField(canvas, { mask: 'cycle' | 'name' | 'cats' | 'image', name, src, dots });
 //   (dots: the site's dots, small and on a fine grid, instead of the pen's glyphs)
@@ -131,6 +133,7 @@ function grid(f) {
 // ================================================================ Lluvia
 const gi = () => (Math.random() * 33) | 0, ch33 = (i) => String.fromCharCode(30000 + i);   // the pen's glyphs: 3e4 + random·33 (田 由 甲 申 电 男 …)
 const FAM = '"Noto Sans CJK JP", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "MS Gothic", sans-serif';
+const WINDOW = 5000, SWAP = [1400, 3400, 4800];                                                            // how long it moves before it rests; the mask swap's fade in, hold end and fade out end (ms)
 const TRAIL = 1600, L = 7, easeIn = (k) => k * k * (3 - 2 * k);                                           // how long a trail takes to fade, in how many steps
 const lluvia = {
   build(f) {
@@ -177,6 +180,15 @@ const lluvia = {
       const i = y * gc + c; r.c[i] = gi(); r.t[i] = t; r.drop[c] = y + 1;
       if (Math.random() < 0.3) { const j = Math.floor(Math.random() * y) * gc + c; if (t - r.t[j] < TRAIL) r.c[j] = gi(); }   // a glyph in the trail changes
     }
+  },
+  // The still frame the field rests on (WCAG 2.2.2: nothing moves for more than 5 s): the intro's drops have all
+  // landed (played without drawing, as reduced motion does), the sheet has had time to dim, and no green, scan or
+  // mask swap is left, so the name stands at its full 25 %.
+  settle(f) {
+    const r = f.rain, falling = () => f.intro && r.on.some((on, c) => on && f.intro[c]);
+    for (let i = 0; i < 400 && falling(); i++) { r.now += 45; this.rainTick(f); }
+    for (let i = 0; i < 40; i++) { r.now += 45; this.rainTick(f); }
+    f.intro = null; f.nameIn = 0; f.scans = []; f.glow.fill(-1e9); f.swap = null; f.still = true;
   },
   // a click scans in a circle, as the colour-mode button reveals the page: a ring grows from the point clicked, every
   // cell it crosses decodes (a new glyph) and turns green, and the green eases out behind it towards the centre
@@ -281,12 +293,13 @@ const lluvia = {
     ctx.globalAlpha = enter * (f.pic ? 1 : 0.25);                      // the name or the cats at 25 % opacity; a picture in full, or it would not read
     let line = f.pic ? 0 : 1;
     if (f.cycle) {
-      // which mask, and how far into the fade to the next: HOLD ms each, then FADE ms crossfading (summed in a canvas of
-      // its own, so the two shares add up instead of multiplying)
-      const HOLD = 5000, FADE = 1600, T = HOLD + FADE, n = f.cycle.length, t = reduce ? 0 : Math.max(0, now - f.cycleT0) % (T * n);   // (a frame's time can be a hair before the cycle began)
-      const i = Math.floor(t / T), k = easeIn(clamp((t - i * T - HOLD) / FADE)), A = f.cycle[i], B = f.cycle[(i + 1) % n];
-      // and every mask breathes, round and round, between 0.2 and 0.25 opacity
-      const op = reduce ? 0.25 : 0.2 + 0.05 * (0.5 - 0.5 * Math.cos(((now - f.cycleT0) / 3200) * Math.PI * 2));
+      // the name is the mask the field rests on; each time it wakes from rest it crossfades to the next one (the cats,
+      // then the picture, in turn), holds, and fades back to the name before it rests again, all inside its 5 s. The two
+      // shares are summed in a canvas of their own, so they add up instead of multiplying
+      const sw = f.swap, u = sw ? now - sw.t : 0, A = f.cycle[0], B = f.cycle[sw ? sw.i : 0];
+      const k = sw && u < SWAP[2] ? easeIn(u < SWAP[0] ? u / SWAP[0] : u < SWAP[1] ? 1 : clamp(1 - (u - SWAP[1]) / (SWAP[2] - SWAP[1]))) : 0;
+      // and every mask breathes while it moves, between 0.2 and 0.25 opacity (at rest it holds the top of that)
+      const op = reduce || f.still ? 0.25 : 0.2 + 0.05 * (0.5 - 0.5 * Math.cos(((now - f.cycleT0) / 3200) * Math.PI * 2));
       const g = f.mix.getContext('2d'); g.globalCompositeOperation = 'copy'; g.globalAlpha = 1; g.fillStyle = 'rgba(0,0,0,0)'; g.fillRect(0, 0, f.mix.width, f.mix.height);
       g.globalCompositeOperation = 'lighter';
       if (A.m) { g.globalAlpha = op * (1 - k); g.drawImage(A.m, 0, 0); }
@@ -327,6 +340,10 @@ const fontsReady = document.fonts.load(TITLE(100)).catch(() => null);
 export class RainField {
   constructor(cv, opt = {}) {
     this.cv = cv; this.ctx = cv.getContext('2d'); this.running = false; this.raf = 0; this.last = 0; this.ptr = null;
+    this.left = WINDOW; this.resting = false; this.swaps = 0;                    // ms of motion left before it rests; whether it rests; masks swapped in so far
+    // a pointer over the field (or a touch) wakes it again for another 5 s; a click scans, the rest of the pointer only stirs it
+    cv.addEventListener('pointermove', () => this.wake(true));
+    cv.addEventListener('pointerdown', () => this.wake(false));
     this.f = { cv, ctx: this.ctx, opt: { mask: 'cycle', name: 'Nando Muñoz', src: DESK, ...opt }, now: performance.now(), speed: 0 };
     this.f.resize = () => this.layout();
     if (!P.ink) readP();
@@ -337,16 +354,38 @@ export class RainField {
     if (!w || !h || !this.fonts) return;
     const dpr = Math.min(devicePixelRatio || 1, 2);
     cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    f.w = w; f.h = h; grid(f); lluvia.build(f); this.draw(performance.now(), 16);
+    f.w = w; f.h = h; grid(f); lluvia.build(f);
+    if (this.resting) lluvia.settle(f);                               // a new size, still at rest: the sheet is rebuilt, so settle it again
+    this.draw(performance.now(), this.resting ? 0 : 16);
   }
   draw(t, dt) { const f = this.f; if (!f.w) return; f.now = t; lluvia.frame(f, t, Math.min(dt, 50)); }
-  repaint() { readP(); this.draw(performance.now(), 16); }
-  poke(x, y) { if (this.f.w) { lluvia.click(this.f, x, y); if (reduce) this.draw(performance.now(), 16); } }
+  repaint() { readP(); this.draw(performance.now(), this.resting ? 0 : 16); }
+  poke(x, y) { if (this.f.w) { this.wake(false); lluvia.click(this.f, x, y); if (reduce) this.draw(performance.now(), 16); } }
+  // The rain moves for 5 s of screen time (the clock only runs while it is drawn on screen) and then rests on a still
+  // frame, so nothing moves on the page for good (WCAG 2.2.2). wake() gives it another 5 s; it does nothing while it is
+  // already moving, so a pointer that keeps moving does not extend the window.
+  loop = (t) => {
+    if (!this.running) return;
+    const dt = t - this.last; this.last = t;
+    this.left -= Math.min(dt, 250);                                      // (a tab asleep for minutes costs 250 ms, not minutes)
+    if (this.left <= 0) return this.rest();
+    this.draw(t, dt); this.raf = requestAnimationFrame(this.loop);
+  };
+  rest() {
+    this.resting = true; this.raf = 0;
+    if (this.f.w) { lluvia.settle(this.f); this.draw(performance.now(), 0); }
+  }
+  wake(swap) {
+    const f = this.f;
+    if (reduce || !f.w || !this.resting) return;
+    this.resting = false; this.left = WINDOW; f.still = false;
+    if (swap && f.cycle) f.swap = { i: 1 + (this.swaps++ % (f.cycle.length - 1)), t: performance.now() };
+    if (this.running) { this.last = performance.now(); this.raf = requestAnimationFrame(this.loop); }
+  }
   start() {
     if (this.running || reduce) return;
     this.running = true; this.last = performance.now();
-    const loop = (t) => { if (!this.running) return; this.draw(t, t - this.last); this.last = t; this.raf = requestAnimationFrame(loop); };
-    this.raf = requestAnimationFrame(loop);
+    if (!this.resting) this.raf = requestAnimationFrame(this.loop);
   }
-  stop() { this.running = false; cancelAnimationFrame(this.raf); }
+  stop() { this.running = false; cancelAnimationFrame(this.raf); this.raf = 0; }
 }

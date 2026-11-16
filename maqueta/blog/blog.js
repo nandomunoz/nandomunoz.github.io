@@ -9,11 +9,12 @@ import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
 import { codeBlock } from './code.js';
 import { B, langSwitch, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
-import { consent, allowed, grant, CT } from '../shared/consent.js';
+import { consent, allowed, grant, CT, POLICY } from '../shared/consent.js';
+import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
+import { PRIVACY as PV, UPDATED as PV_UPDATED } from '../shared/privacy.js';
 import { CREDITS as CR, UPDATED as CR_UPDATED } from '../shared/credits.js';
-import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 
 const PER_PAGE = 5;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -26,14 +27,14 @@ const isProj = page === 'projects' || page === 'project';
 
 const [c, b] = await Promise.all([content(), blog()]);
 const H = {
-  es: { skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Secciones' },
-  en: { skip: 'Skip to content', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Sections' }
+  es: { skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Principal' },
+  en: { skip: 'Skip to content', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Main' }
 }[lang];
 document.documentElement.lang = lang;
 document.documentElement.classList.add('js', 'docked', reduce ? 'still' : 'moving');
 
 // ------------------------------------------------------------- chrome
-const navItem = (n, href, label, current) => el('li', {}, el('a', { href, 'aria-current': current ? 'page' : null },
+const navItem = (n, href, label, current) => el('li', {}, el('a', { href, 'aria-current': current ? (current === true ? 'page' : current) : null },
   el('span', { class: 'nav__n', 'aria-hidden': 'true', text: n }), ' ', el('span', { text: label })));
 const main = el('main', { id: 'main', class: 'blog' });
 const put = (...kids) => main.append(...kids.filter(Boolean));
@@ -44,7 +45,7 @@ document.body.prepend(
     langSwitch('langs top__lang')),
   el('nav', { class: 'nav', id: 'nav', 'aria-label': H.sections }, el('ol', {},
     navItem('01', homeUrl('#bio'), H.bio), navItem('02', projectsUrl(), H.work, isProj),
-    navItem('03', blogUrl(), B.blog, page !== '404' && page !== 'cookies' && page !== 'creditos' && !isProj), navItem('04', homeUrl('#contacto'), c.contactTitle))),
+    navItem('03', blogUrl(), B.blog, page === 'list' || (page !== '404' && page !== 'cookies' && page !== 'creditos' && page !== 'privacidad' && !isProj ? 'true' : false)), navItem('04', homeUrl('#contacto'), c.contactTitle))),
   main,
   footer(c));
 consent();
@@ -90,7 +91,7 @@ function assemble(s) {
 // to copy it, and the usual places as plain links (nothing loads from them
 // until the reader picks one). Built once, refilled on each open.
 let shareDlg = null;
-function shareDialog({ title, url: link }) {
+function shareDialog({ title, url: link, lang: titleLang }) {
   const e = encodeURIComponent, t = e(title), u = e(link);
   const places = [
     ['WhatsApp', `https://wa.me/?text=${t}%20${u}`],
@@ -129,6 +130,7 @@ function shareDialog({ title, url: link }) {
     document.body.append(shareDlg);
   }
   $('.share__what', shareDlg).textContent = title;
+  if (titleLang) $('.share__what', shareDlg).lang = titleLang; else $('.share__what', shareDlg).removeAttribute('lang');
   $('.share__url', shareDlg).value = link;
   $('.share__status', shareDlg).textContent = '';
   $('.share__places', shareDlg).replaceChildren(...places.map(([name, href]) => el('li', {},
@@ -211,7 +213,7 @@ function rows(posts, { group = true } = {}) {
 function pager(cur, total, to) {
   if (total < 2) return null;
   const nums = el('ol', {}, ...Array.from({ length: total }, (_, i) => el('li', {},
-    el('a', { href: to(i + 1), 'aria-current': i + 1 === cur ? 'page' : null, 'aria-label': B.page(i + 1, total), text: pad(i + 1) }))));
+    el('a', { href: to(i + 1), 'aria-current': i + 1 === cur ? 'page' : null, 'aria-label': `${pad(i + 1)}, ${B.page(i + 1, total)}`, text: pad(i + 1) }))));
   return el('nav', { class: 'pager', 'aria-label': B.pages },
     cur > 1 ? el('a', { class: 'pager__dir', href: to(cur - 1), rel: 'prev', text: '← ' + B.newer }) : el('span', { class: 'pager__dir is-off', text: '← ' + B.newer }),
     nums,
@@ -230,8 +232,8 @@ function featured(p) {
     dots,
     el('div', { class: 'feat__text' },
       el('p', { class: 'feat__kicker' }, el('span', { text: B.latest }), ' · ', el('a', { href: catUrl(cat.id), text: cat.name })),
-      el('h2', { class: p.title.length > 48 ? 'feat__title feat__title--long' : 'feat__title' }, el('a', { href: postUrl(p), text: p.title })),
-      el('p', { class: 'feat__excerpt', text: p.excerpt }),
+      el('h2', { class: p.title.length > 48 ? 'feat__title feat__title--long' : 'feat__title', lang: ownLang(p) }, el('a', { href: postUrl(p), text: p.title })),
+      el('p', { class: 'feat__excerpt', lang: ownLang(p), text: p.excerpt }),
       el('p', { class: 'feat__meta' }, el('time', { datetime: p.date, text: date(p.date) }), ' · ', B.min(p.minutes))));
 }
 
@@ -244,7 +246,12 @@ const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,
 function notFound() {
   document.title = `404 · ${B.nf} · ${c.name}`;
   document.documentElement.classList.add('is-lost');
-  const shown = decodeURIComponent(location.pathname + location.search).replace(/[?&]lang=en/, '');
+  // a malformed % in the address must not blank the page: show it as it came
+  let shown = location.pathname + location.search;
+  try { shown = decodeURIComponent(shown); } catch { /* keep the raw text */ }
+  shown = shown.replace(/[?&]lang=en/, '');
+  // the search form is handled here, not by an inline attribute (a strict CSP would block that)
+  document.addEventListener('submit', (e) => { if (e.target.closest?.('.lost__search')) e.preventDefault(); });
 
   // the field
   const cv = el('canvas', { class: 'lost__field', 'aria-hidden': 'true' });
@@ -264,7 +271,7 @@ function notFound() {
 
   // search
   const index = [
-    ...b.posts.map((p) => ({ kind: B.post, title: p.title, sub: `${b.categories[p.category].name} · ${p.year}`, href: postUrl(p),
+    ...b.posts.map((p) => ({ kind: B.post, title: p.title, tl: ownLang(p), sub: `${b.categories[p.category].name} · ${p.year}`, href: postUrl(p),
       hay: norm([p.title, p.excerpt, p.tags.map((t) => b.tags[t].label).join(' '), b.categories[p.category].name].join(' ')) })),
     ...c.projects.map((p) => ({ kind: B.project, title: p.name, sub: `${p.tech.join(' · ')} · ${p.year}`, href: projectUrl(p),
       hay: norm([p.name, p.kicker, p.tech.join(' ')].join(' ')) }))
@@ -279,7 +286,7 @@ function notFound() {
       .filter((x) => (guess ? x.s > 0 : x.s === words.length))
       .sort((x, y) => y.s - x.s).slice(0, 6).map((x) => x.it);
     list.replaceChildren(...hits.map((it) => el('li', {}, el('a', { href: it.href },
-      el('span', { class: 'lost__kind', text: it.kind }), el('span', { class: 'lost__rtitle', text: it.title }), el('span', { class: 'lost__sub', text: it.sub })))));
+      el('span', { class: 'lost__kind', text: it.kind }), el('span', { class: 'lost__rtitle', lang: it.tl || null, text: it.title }), el('span', { class: 'lost__sub', text: it.sub })))));
     status.textContent = !words.length ? '' : hits.length ? (guess ? B.nfMaybe : B.nfResults(hits.length)) : guess ? '' : B.nfNone;
   };
   input.addEventListener('input', () => find(input.value));
@@ -296,7 +303,7 @@ function notFound() {
       el('p', { class: 'lost__kicker', text: B.nfKicker }),
       el('h1', { class: 'lost__title', id: 'lost-title', text: B.nfTitle }),
       el('p', { class: 'lost__lead' }, B.nfLead + ' ', el('code', { text: shown }), B.nfLead2)),
-    el('form', { class: 'lost__search', role: 'search', onsubmit: 'return false' },
+    el('form', { class: 'lost__search', role: 'search' },
       el('label', { for: 'lost-q', text: B.nfSearch }),
       el('div', { class: 'lost__field-row' }, input),
       status, list),
@@ -390,6 +397,8 @@ function dated(when) {
   return iso ? el('time', { class: 'luz-timeline__date', datetime: iso, text: when }) : el('span', { class: 'luz-timeline__date', text: when });
 }
 const html = (tag, attrs, s) => { const n = el(tag, attrs); n.innerHTML = s; return n; };
+// a post's own language when it is not the page's (a Spanish-only post in the English interface), for `lang`
+const ownLang = (p) => (p.postLang !== lang ? p.postLang : null);
 const caption = (s) => (s ? html('figcaption', {}, s) : null);
 const outLink = (href, label, sub) => el('a', { class: 'card', href, target: '_blank', rel: 'noopener' },
   el('span', { class: 'card__label', text: label }), el('span', { class: 'card__sub', text: sub }), el('span', { class: 'card__arrow', 'aria-hidden': 'true', text: '↗' }));
@@ -409,7 +418,7 @@ function renderBlock(x, k, toc, ids) {
         el('source', { srcset: x.img.replace(/\.jpe?g$/, '.avif'), type: 'image/avif' }),
         el('source', { srcset: x.img.replace(/\.jpe?g$/, '.webp'), type: 'image/webp' }),
         el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt }))
-      : el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt }),
+      : el('picture', {}, el('img', { src: x.img, alt: x.alt, loading: 'lazy', decoding: 'async', width: x.w, height: x.hgt })),   // always a <picture> (CLAUDE.md), so other formats can be added as <source>
     caption(x.cap));
   if (x.quote) return el('blockquote', {}, ...x.quote.map((s) => html('p', {}, s)), x.cite ? html('cite', {}, x.cite) : null);
   if (x.pull) return el('figure', { class: 'pull' }, el('blockquote', {}, ...x.pull.map((s) => html('p', {}, s))), x.cite ? html('figcaption', {}, x.cite) : null);
@@ -443,39 +452,49 @@ function renderBlock(x, k, toc, ids) {
 // YouTube behind a facade: nothing loads from youtube until you press play.
 // Without consent for YouTube (none given yet, or rejected) the frame says so
 // up front — so it never looks broken: the video's title, that it is on
-// YouTube and needs its cookies, "Accept and watch here" (grants "youtube"
-// and plays) and "Watch on YouTube ↗"; no thumbnail is fetched either. With
-// consent it is the usual facade with its thumbnail. A choice made in the
-// cookie banner while the page is open swaps one for the other.
+// YouTube (Google) and needs its cookies, what the «yes» means (the IP goes to
+// Google, it is remembered 180 days for every video), a link to the cookie
+// policy, "Accept and watch here" (grants "youtube" and plays) and "Watch on
+// YouTube ↗"; no thumbnail is fetched either. With consent it is the usual
+// facade with its thumbnail. The gate is the one place the question is asked
+// (there is no banner): a choice made anywhere, or taken back from the footer,
+// swaps the frame at once — even one with the player already open.
 function video(x) {
   const start = (x.params || '').match(/start=(\d+)/);
+  const name = x.title || CT.video;                    // a video without a title still has a name
   const fig = el('figure', { class: 'video' });
   const frame = el('div', { class: 'video__frame' });
   const play = () => {
-    const f = el('iframe', { src: `https://www.youtube-nocookie.com/embed/${x.yt}?autoplay=1${start ? '&start=' + start[1] : ''}`, title: x.title, allow: 'autoplay; encrypted-media; picture-in-picture', allowfullscreen: '' });
+    const f = el('iframe', { src: `https://www.youtube-nocookie.com/embed/${x.yt}?autoplay=1${start ? '&start=' + start[1] : ''}`, title: name, allow: 'autoplay; encrypted-media; picture-in-picture', allowfullscreen: '' });
     frame.replaceChildren(f); f.focus();
   };
   const facade = () => {
-    const btn = el('button', { type: 'button', class: 'video__play', 'aria-label': `${B.play}: ${x.title}` },
-      el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' }),
+    const btn = el('button', { type: 'button', class: 'video__play', 'aria-label': `${B.play}: ${name}` },
+      el('picture', {}, el('img', { src: `https://i.ytimg.com/vi/${x.yt}/hqdefault.jpg`, alt: '', loading: 'lazy' })),
       el('span', { class: 'video__btn', 'aria-hidden': 'true' }, el('span', { text: '▶' })),
-      el('span', { class: 'video__title', text: x.title }));
+      el('span', { class: 'video__title', text: name }));
     btn.addEventListener('click', play);
     return btn;
   };
   const gate = () => {
     const yes = el('button', { type: 'button', class: 'consent__btn', text: CT.gateYes });
     yes.addEventListener('click', () => { grant('youtube'); play(); });
-    return el('div', { class: 'video__gate', role: 'group', 'aria-label': x.title },
-      el('p', { class: 'video__gate-title' }, el('span', { class: 'video__gate-icon', 'aria-hidden': 'true', text: '▶' }), x.title),
-      el('p', { text: CT.gate }),
+    // the notice is in the page's interface language, whatever the post's own
+    return el('div', { class: 'video__gate', role: 'group', 'aria-label': name, lang, 'data-nosnippet': '' },
+      el('p', { class: 'video__gate-title' }, el('span', { class: 'video__gate-icon', 'aria-hidden': 'true', text: '▶' }), name),
+      el('p', {}, CT.gate, ' ', el('a', { href: POLICY, text: CT.policy }), '.'),
+      el('p', { text: CT.gateOr }),
       el('div', { class: 'consent__actions' }, yes,
         el('a', { class: 'consent__btn consent__btn--quiet', href: `https://www.youtube.com/watch?v=${x.yt}${start ? '&t=' + start[1] + 's' : ''}`, target: '_blank', rel: 'noopener' },
           CT.gateNo, '\u00a0↗', el('span', { class: 'vh', text: ' ' + CT.newTab }))));
   };
-  const show = () => { if (!frame.querySelector('iframe')) frame.replaceChildren(allowed('youtube') ? facade() : gate()); };
+  const show = () => {
+    const open = frame.querySelector('iframe');
+    if (!allowed('youtube')) frame.replaceChildren(gate());   // taken back: the player goes too
+    else if (!open) frame.replaceChildren(facade());
+  };
   show();
-  document.addEventListener('luz:consent', () => { if (frame.isConnected && !frame.contains(document.activeElement)) show(); });
+  document.addEventListener('luz:consent', () => { if (frame.isConnected) show(); });
   fig.append(...[frame, caption(x.cap)].filter(Boolean));
   return fig;
 }
@@ -500,7 +519,7 @@ function postPage() {
   const share = el('div', { class: 'share' });
   const shareBtn = el('button', { type: 'button', class: 'share__btn', 'aria-haspopup': 'dialog' }, el('span', { text: B.shareThis }));
   shareBtn.addEventListener('click', async () => {
-    const data = { title: p.title, text: p.excerpt, url: location.href.replace(/#.*$/, '') };
+    const data = { title: p.title, text: p.excerpt, url: location.href.replace(/#.*$/, ''), lang: ownLang(p) };
     if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
       try { await navigator.share(data); return; } catch (e) { if (e.name === 'AbortError') return; }
     }
@@ -511,7 +530,7 @@ function postPage() {
   const aside = el('aside', { class: 'post__side' },
     toc.length > 1 ? el('details', { class: 'toc', open: innerWidth >= 1024 ? '' : null },
       el('summary', { text: B.toc }),
-      el('ol', {}, ...toc.map(([id, text], k) => el('li', {}, el('a', { href: '#' + id }, el('span', { class: 'toc__n', 'aria-hidden': 'true', text: pad(k + 1) }), el('span', { text })))))) : null,
+      el('ol', {}, ...toc.map(([id, text], k) => el('li', {}, el('a', { href: '#' + id }, el('span', { class: 'toc__n', 'aria-hidden': 'true', text: pad(k + 1) }), el('span', { lang: ownLang(p), text })))))) : null,
     share);
 
   // cover
@@ -528,8 +547,8 @@ function postPage() {
   // prev/next (older = next in reading order down the list)
   const newer = b.posts[i - 1], older = b.posts[i + 1];
   const pn = el('nav', { class: 'post__nav', 'aria-label': B.blog },
-    newer ? el('a', { href: postUrl(newer), rel: 'prev' }, el('span', { class: 'post__dir', text: '← ' + B.prev }), el('span', { class: 'post__to', text: newer.title })) : el('span'),
-    older ? el('a', { href: postUrl(older), rel: 'next' }, el('span', { class: 'post__dir', text: B.next + ' →' }), el('span', { class: 'post__to', text: older.title })) : el('span'));
+    newer ? el('a', { href: postUrl(newer), rel: 'prev' }, el('span', { class: 'post__dir', text: '← ' + B.newerPost }), el('span', { class: 'post__to', lang: ownLang(newer), text: newer.title })) : el('span'),
+    older ? el('a', { href: postUrl(older), rel: 'next' }, el('span', { class: 'post__dir', text: B.olderPost + ' →' }), el('span', { class: 'post__to', lang: ownLang(older), text: older.title })) : el('span'));
 
   // related: same category first, then shared tags
   const score = (o) => (o.category === p.category ? 2 : 0) + o.tags.filter((tg) => p.tags.includes(tg)).length;
@@ -548,7 +567,7 @@ function postPage() {
       ? el('figure', { class: 'post__cover' },
         el('div', { class: 'cover-screen' }, coverPicture(p, { fetchpriority: 'high' })),
         // the credit is its own line (the alt describes the picture, it does not credit it)
-        p.cover.credit ? html('figcaption', { class: 'post__credit' }, p.cover.credit) : null)
+        p.cover.credit ? html('figcaption', { class: 'post__credit', lang: ownLang(p) }, p.cover.credit) : null)
       : el('div', { class: 'post__cover' }, cover),
     el('div', { class: 'post__grid' }, aside, el('div', { class: 'post__main' },
       body,
@@ -661,8 +680,24 @@ function projectPage() {
       el('h2', { id: 'rel-title', class: 'related__title', text: B.moreProjects }), projRows(related, { group: false })) : null));
 }
 
-// the cookie policy: its texts in shared/cookies-policy.js; a summary at a
-// glance, the visitor's current choice (kept up to date) and plain sections
+// the legal pages — cookie policy and privacy — share one set of blocks:
+// { h } { p } { ul } { glance } { now } { table: { head, rows } } (texts in
+// shared/cookies-policy.js and shared/privacy.js; {privacy} and {cookies}
+// in a paragraph are filled with the page's own links)
+const legalBlock = (x, now) => {
+  if (x.h) return el('h2', { text: x.h });
+  if (x.p) return html('p', {}, x.p.replace('{privacy}', url('/privacidad/')).replace('{cookies}', POLICY));
+  if (x.ul) return el('ul', {}, ...x.ul.map((li) => html('li', {}, li)));
+  if (x.glance) return el('dl', { class: 'glance' }, ...x.glance.map(([k, v]) => el('div', {}, el('dt', { text: k }), el('dd', { text: v }))));
+  if (x.table) return el('div', { class: 'legal__table', role: 'region', tabindex: '0', 'aria-label': x.table.label },
+    el('table', {}, el('thead', {}, el('tr', {}, ...x.table.head.map((h) => el('th', { scope: 'col', text: h })))),
+      el('tbody', {}, ...x.table.rows.map((r) => el('tr', {}, ...r.map((cell, i) => i ? html('td', {}, cell) : html('th', { scope: 'row' }, cell)))))));
+  if (x.now && now) return now();
+  return null;
+};
+
+// the cookie policy: a summary at a glance, the visitor's current choice (kept
+// up to date, with the button that opens the settings) and plain sections
 function cookiesPage() {
   document.title = `${P.title} · ${c.name}`;
   const now = () => {
@@ -674,22 +709,22 @@ function cookiesPage() {
     say();
     document.addEventListener('luz:consent', say);
     const change = el('button', { type: 'button', class: 'consent__btn', text: P.now.change });
-    change.addEventListener('click', () => document.querySelector('.foot__consent')?.click());
+    change.setAttribute('data-consent-open', '');    // shared/consent.js shows the banner again and gives the focus back here
     return el('section', { class: 'now', 'aria-labelledby': 'now-title' },
       el('h2', { class: 'now__title', id: 'now-title', text: P.now.title }),
       el('div', { 'aria-live': 'polite' }, status), change);
   };
-  const block = (x) => {
-    if (x.h) return el('h2', { text: x.h });
-    if (x.p) return html('p', {}, x.p.replace('{contact}', homeUrl('#contacto')));
-    if (x.ul) return el('ul', {}, ...x.ul.map((li) => html('li', {}, li)));
-    if (x.glance) return el('dl', { class: 'glance' }, ...x.glance.map(([k, v]) => el('div', {}, el('dt', { text: k }), el('dd', { text: v }))));
-    if (x.now) return now();
-    return null;
-  };
   put(
     head({ crumbs: [[B.nfHome, homeUrl()]], title: P.title, deck: P.deck, count: `${P.updated} ${date(UPDATED)} · ${P.read}` }),
-    el('div', { class: 'prose legal' }, ...P.blocks.map(block)));
+    el('div', { class: 'prose legal' }, ...P.blocks.map((x) => legalBlock(x, now))));
+}
+
+// the privacy page: who is responsible, what is (not) asked, YouTube, rights
+function privacyPage() {
+  document.title = `${PV.title} · ${c.name}`;
+  put(
+    head({ crumbs: [[B.nfHome, homeUrl()]], title: PV.title, deck: PV.deck, count: `${PV.updated} ${date(PV_UPDATED)} · ${PV.read}` }),
+    el('div', { class: 'prose legal' }, ...PV.blocks.map((x) => legalBlock(x))));
 }
 
 // the credits: its texts in shared/credits.js; the credited featured images
@@ -701,7 +736,7 @@ function creditsPage() {
     if (x.p) return html('p', {}, x.p);
     if (x.ul) return el('ul', {}, ...x.ul.map((li) => html('li', {}, li)));
     if (x.covers) return el('ul', {}, ...b.posts.filter((p) => p.cover && p.cover.credit).map((p) =>
-      el('li', {}, el('a', { href: postUrl(p), text: p.title, lang: p.postLang !== lang ? p.postLang : null }), ' · ', html('span', {}, p.cover.credit))));
+      el('li', {}, el('a', { href: postUrl(p), text: p.title, lang: p.postLang !== lang ? p.postLang : null }), ' · ', html('span', { lang: ownLang(p) }, p.cover.credit))));
     return null;
   };
   put(
@@ -709,7 +744,7 @@ function creditsPage() {
     el('div', { class: 'prose legal' }, ...CR.blocks.map(block)));
 }
 
-({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage, cookies: cookiesPage, creditos: creditsPage }[page] || notFound)();
+({ list: listPage, post: postPage, category: categoryPage, tag: tagPage, projects: projectsPage, project: projectPage, cookies: cookiesPage, privacidad: privacyPage, creditos: creditsPage }[page] || notFound)();
 
 // ------------------------------------------------------------- go
 await document.fonts.ready;

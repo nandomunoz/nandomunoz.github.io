@@ -1,0 +1,7 @@
+# local scratch that must not be published (security audit M5)
+.claude/worktrees/
+.claude/settings.local.json
+.claude/settings.local.json.tmp.*
+__pycache__/
+*.log
+.DS_Store

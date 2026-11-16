@@ -26,6 +26,7 @@
   --mute: #b9b6b0;
   --faint: #6f6c68;
   --gloss: #969189;                            /* the kanji's tiny caption: 4.6:1 on the charcoal (--faint is 2.8:1 there) */
+  --faint-text: #969189;                       /* grey TEXT (dates, counts, the footer): 4.6:1; --faint stays for dots and rules */
   --blaze: #963641;
   --blaze-lift: brightness(1.7);               /* maroon as small text is lifted on charcoal */
   --on-blaze: #f4f2ee;                         /* text on a maroon fill (6.5:1) */
@@ -53,11 +54,12 @@
   --mute: #434f5b;
   --faint: #56626e;
   --gloss: var(--faint);                       /* 5.4:1 on the paper, 4.8:1 on --bg-2 */
+  --faint-text: var(--faint);
   --blaze: #2a5f94;                            /* the accent in light is a blue: 5.7:1 on the paper */
   --blaze-lift: none;
   --on-blaze: #e9eff5;
   --blaze-on-ink: #8fc2f2;                     /* ink is dark here: a pale blue, 8.6:1 */
-  --matrix: #0b7a3b; --on-matrix: #e9eff5; --matrix-on-ink: #3dff7a;   /* a darker green on the paper, 4.9:1 */
+  --matrix: #0a6f35; --on-matrix: #e9eff5; --matrix-on-ink: #3dff7a;   /* a darker green on the paper: 5.4:1 on it, 4.8:1 on --bg-2 */
   --luz-code-comment: #434951; --luz-code-keyword: var(--ink); --luz-code-name: #004299; --luz-code-property: #853bca; --luz-code-string: #005733; --luz-code-literal: #7c4d00;   /* LUZ's light scheme; the comment a step darker (gray-70, 7:1) since --bg-2 is bluer than LUZ's surface */
   --trace: #06361b;                            /* on the paper the wake is darker, not dimmer */
   --prose: #27323d;
@@ -80,6 +82,7 @@
   --mute: #f0f0f0;
   --faint: #c9c9c9;
   --gloss: var(--faint);                       /* 12:1 on black */
+  --faint-text: var(--faint);
   --blaze: #ff7a8a;
   --blaze-lift: none;
   --on-blaze: #000;                            /* 8.4:1 on the bright maroon */
@@ -134,9 +137,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* the language switch ES · EN: the page's own language lit, the other a link */
 .langs { display: inline-flex; align-items: baseline; gap: .55em; }
 .langs__cur { color: var(--ink); padding: .5rem 0; text-decoration: underline dotted var(--blaze); text-underline-offset: .35em; text-decoration-thickness: 2px; }
-.langs__sep { color: var(--faint); }
+.langs__sep { color: var(--faint-text); }
 .langs a { color: var(--mute); }
-.foot__lang { margin-top: .4rem; }
+
 .top a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
 .top .top__mark:hover { text-decoration: none; }                      /* the logo that leads home takes no underline */
 
@@ -147,7 +150,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font: 600 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .16em;
   text-decoration: none; color: var(--mute);
 }
-.nav__n { font: 700 .85rem/1 var(--dots); letter-spacing: 0; color: var(--faint); }
+.nav__n { font: 700 .85rem/1 var(--dots); letter-spacing: 0; color: var(--faint-text); }
 .nav a:hover, .nav a[aria-current] { color: var(--ink); }
 .nav a[aria-current] .nav__n { color: var(--blaze); }
 
@@ -201,7 +204,7 @@ body[data-glide] .nav { --glide: .9s cubic-bezier(.45, 0, .2, 1); transition: le
 .hero .vis { display: inline; }
 .caret { display: inline-block; width: 0; height: 0; position: relative; }
 .caret::after { content: ''; position: absolute; left: .06em; bottom: -.1em; width: max(2px, .03em); height: .95em; background: var(--blaze); }   /* a thin 80s terminal cursor: a solid vertical bar, no glow */
-.moving .caret.blink::after { animation: caret 1s steps(1) infinite; }
+.moving .caret.blink::after { animation: caret 1s steps(1) 4; }   /* four blinks, then it stays on (WCAG 2.2.2: no blinking beyond 5 s) */
 @keyframes caret { 50% { opacity: 0; } }
 
 @keyframes rise-in { from { opacity: 0; transform: translateY(1.4rem); filter: blur(6px); } }
@@ -260,7 +263,7 @@ section { position: relative; }
 .item__kicker { font-weight: 300; font-size: 1.1rem; color: var(--mute); }
 .tech { list-style: none; margin: .35rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem .7rem; font: 500 .68rem/1.5 var(--mono); text-transform: uppercase; letter-spacing: .14em; color: var(--mute); }
 .item:nth-child(even) .tech { justify-content: flex-end; }
-.tech li + li::before { content: '·'; margin-right: .7rem; color: var(--faint); }
+.tech li + li::before { content: '·'; margin-right: .7rem; color: var(--faint-text); }
 .item__open {
   margin-top: 1rem; display: inline-flex; gap: .6rem; align-items: center; padding: .7rem 0;
   font: 600 .78rem/1 var(--mono); text-transform: uppercase; letter-spacing: .2em;
@@ -287,15 +290,30 @@ section { position: relative; }
 .socials a:hover .socials__lead, .socials a:focus-visible .socials__lead { background-image: radial-gradient(circle, var(--blaze) 1.6px, transparent 2.1px); background-position: 64px 50%; }
 .socials a:hover .socials__handle { color: var(--ink); }
 
-.foot { padding: 3rem var(--gut) 7rem; display: grid; gap: .6rem; font: 500 .7rem/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); border-top: 1px dotted var(--glow); }
+.foot { padding: 3rem var(--gut) 7rem; display: grid; gap: 2.2rem; font: 500 .7rem/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint-text); border-top: 1px dotted var(--glow); }
 .foot a { color: var(--mute); text-decoration: none; }
 .foot a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
-.foot__nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; }
-.foot__nav a { display: inline-block; padding: .35rem 0; }
-.foot__legal a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
-.foot__legal .foot__consent { padding: 0; color: var(--ink); cursor: pointer; text-decoration: underline dotted; text-underline-offset: .25em; }
-.foot__legal a:hover, .foot__legal .foot__consent:hover { color: var(--blaze); filter: var(--blaze-lift); }
-.foot__legal { grid-column: 1 / -1; margin-top: .8rem; max-width: 44rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
+/* four groups, a title each: one under another on a phone, two by two on a tablet, in a row on a desktop */
+.foot__groups { display: grid; gap: 2rem 1.5rem; }
+.foot__h { margin: 0 0 .5rem; font: 600 .62rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+.foot__group ul { list-style: none; margin: 0; padding: 0; }
+.foot__group li { margin: 0; }
+.foot__group li > a { display: inline-block; padding: .4rem 0; }
+.foot__n { color: var(--faint-text); }
+/* preferences read as controls, not links: what it is, how it stands, the button that changes it */
+.foot__pref { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .9rem; padding: .5rem 0 .3rem; border-bottom: 1px dotted var(--faint); }
+.foot__pref:last-child { border-bottom: 0; }
+.foot__k { flex: 0 0 100%; color: var(--mute); }                          /* the label on its own line, then how it stands and the button */
+.foot__pref .langs { gap: .9em; }
+.foot__pref .langs__cur, .foot__pref .langs a { padding: .5rem 0; }
+.foot__end { display: grid; gap: .9rem; padding-top: 1.4rem; border-top: 1px dotted var(--faint); }
+.foot__by { margin: 0; }
+.foot__by a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
+.foot__by a:hover { color: var(--blaze); filter: var(--blaze-lift); }
+.foot__motto { margin: 0; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
+@media (min-width: 48em) { .foot__groups { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64em) { .foot__groups { grid-template-columns: repeat(4, 1fr); } }
+@media (forced-colors: active) { .foot__consent { text-decoration: underline; } }
 .bio__text a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
 .bio__text a:hover { color: var(--blaze); }
 
@@ -391,10 +409,6 @@ section { position: relative; }
   .contact__field, .contact .sec-head { grid-column: 1 / -1; }
   .contact__text { grid-column: 1 / 6; }
   .socials { grid-column: 7 / 13; align-self: start; }
-  .foot { grid-template-columns: 1fr auto; align-items: baseline; }
-  .foot__lang { grid-column: 2; grid-row: 2; justify-self: end; }                  /* its own row, under the links, opposite the small print */
-  .foot__legal { grid-column: 1; grid-row: 2; max-width: 44rem; }
-
   .panel__nav button { padding-block: 2rem; }
 }
 
@@ -515,7 +529,7 @@ section { position: relative; }
 .consent__btn--quiet:hover { color: var(--ink); }
 .consent__done { display: flex; flex-wrap: wrap; gap: 0 1.2rem; align-items: center; justify-content: space-between; outline-offset: 6px; }
 .consent__done p { margin: .3rem 0; color: var(--mute); }
-.foot__consent { display: inline-block; padding: .35rem 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--mute); }
+.foot__consent { display: inline-block; padding: .4rem 0; border: 0; background: none; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--mute); }
 .foot__consent:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
 /* LUZ: the open button keeps its room until the script shows it */
 [data-luz-consent-open][hidden] { display: inline-block; visibility: hidden; }
@@ -580,8 +594,38 @@ section { position: relative; }
 }
 @media print { luz-cookie-consent { display: none; } }
 
+/* a focused element is never left under the pill or the card: the page keeps
+   room for them when it scrolls to a focus */
+@media (max-width: 63.99em) {
+  :root.docked { scroll-padding-bottom: 6rem; }
+}
+@media screen and (height > 30rem) and (max-width: 63.99em) {
+  :root.docked:has(luz-cookie-consent > :not([hidden])) { scroll-padding-bottom: calc(var(--luz-consent-h, 0px) + 6rem); }
+}
+@media screen and (height > 30rem) and (min-width: 64em) {
+  :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-bottom: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+}
+/* a short window (400 % zoom, a phone on its side): the card is in the flow, first
+   in the page, and the masthead (absolute) leaves room for it instead of painting over it */
+@media screen and (height <= 30rem) {
+  .luz-cookie-consent { padding-top: calc(var(--luz-masthead-h, 6rem) + .5rem); }
+}
+/* the current place is marked by more than colour */
+.nav a[aria-current] .nav__n, .pager ol a[aria-current] { text-decoration: underline 2px; text-underline-offset: .3em; }
+@media (forced-colors: active) {
+  .docked .nav, .luz-theme-mode__button { background: Canvas; backdrop-filter: none; border: 1px solid CanvasText; }
+  [aria-current]:not(.pager__dir) { text-decoration: underline 2px; text-underline-offset: .3em; }
+}
+
 /* ------------------------------------------------------------ cookie policy page */
 .legal { max-width: 40rem; }
+/* a table of what is kept: it scrolls inside its own box (a focusable region, named) and never widens the page */
+.legal__table { overflow-x: auto; margin: 0 0 1rem; border-top: 1px dotted var(--faint); }
+.legal__table:focus-visible { outline: 3px dotted var(--ink); outline-offset: 4px; }
+.legal__table table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: .9rem; }
+.legal__table th, .legal__table td { padding: .75rem .8rem .75rem 0; text-align: left; vertical-align: top; border-bottom: 1px dotted var(--faint); }
+.legal__table thead th { font: 600 .66rem/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.legal__table tbody th { font-weight: 500; }
 .glance { margin: 0 0 1rem; border-top: 1px dotted var(--faint); }
 .glance > div { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .2rem 1.5rem; padding: .85rem 0; border-bottom: 1px dotted var(--faint); }
 .glance dt { font: 600 .7rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
@@ -644,3 +688,8 @@ section { position: relative; }
 @media (forced-colors: active) {
   .luz-theme-mode__button { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText; }
 }
+
+/* the video gate's buttons are alike: «Watch on YouTube» is a link inside prose, so the prose link look must not reach it */
+.prose .consent__btn { color: var(--ink); text-decoration: none; }
+.prose .consent__btn--quiet { color: var(--mute); }
+.prose .consent__btn--quiet:hover { color: var(--ink); }

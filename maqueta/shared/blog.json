@@ -74,8 +74,8 @@
    ],
    "url": "https://soynando.com/margaret-hamilton/",
    "es": {
-    "title": "Margaret Hamilton, La persona que creó nuestro oficio e hizo posible mirar a las estrellas",
-    "excerpt": "La Mujer que supo mirar fuera de la caja e hizo posible el viaje a la luna. Ella es el espejo donde todos los que amamos el software debemos mirarnos, Margaret Hamilton.",
+    "title": "Margaret Hamilton, la persona que creó nuestro oficio e hizo posible mirar a las estrellas",
+    "excerpt": "La mujer que supo mirar fuera de la caja e hizo posible el viaje a la Luna. Ella es el espejo donde todos los que amamos el software debemos mirarnos, Margaret Hamilton.",
     "body": [
      {
       "p": "20 de julio de 1969. El módulo lunar <em>Eagle</em> baja hacia el mar de la Tranquilidad y le quedan unos siete minutos para posarse cuando Neil Armstrong avisa a Houston: «Program alarm». Cuatro segundos después especifica: «It’s a 1202». Los editores de la <a href=\"https://www.apollojournals.org/alsj/a11/a11.landing.html\">transcripción del Apollo Lunar Surface Journal</a> anotaron que lo dijo con un leve punto de urgencia, y se entiende: lo siguiente que hace es preguntarle a <a href=\"https://es.wikipedia.org/wiki/Buzz_Aldrin\">Buzz Aldrin</a> qué es eso y pedirle a tierra que se lo expliquen."
@@ -84,10 +84,10 @@
       "p": "Nadie en la cabina sabe qué es una 1202."
      },
      {
-      "p": "En Houston hay que decidir deprisa, si se aborta el alunizaje. Pero voy a dejar la nave ahí un momento, colgada sobre la Luna con la alarma encendida, porque lo que hizo posible la respuesta no se decidió en Houston ni esa tarde. Se escribió años antes, en un laboratorio de Cambridge (Massachusetts), por un equipo que programaba dando por hecho que algo iba a salir mal. Y para entender por qué pensaban así hay que conocer a una niña de cuatro años que se puso a jugar con lo que no debía."
+      "p": "En Houston hay que decidir deprisa si se aborta el alunizaje. Pero voy a dejar la nave ahí un momento, colgada sobre la Luna con la alarma encendida, porque lo que hizo posible la respuesta no se decidió en Houston ni esa tarde. Se escribió años antes, en un laboratorio de Cambridge (Massachusetts), por un equipo que programaba dando por hecho que algo iba a salir mal. Y para entender por qué pensaban así hay que conocer a una niña de cuatro años que se puso a jugar con lo que no debía."
      },
      {
-      "p": "La madre de esa niña se llamaba <strong>Margaret Hamilton</strong>, dirigía al equipo que escribió el software de a bordo y murió el pasado 30 de septiembre en Cambridge, a los 90 años, según <a href=\"https://news.mit.edu/2026/margaret-hamilton-computing-pioneer-dies-1007\">la nota de MIT News</a>."
+      "p": "La madre de esa niña se llamaba <strong>Margaret Hamilton</strong>, dirigía al equipo que escribió el software de a bordo y murió el pasado 30 de septiembre, a los 90 años, según <a href=\"https://news.mit.edu/2026/margaret-hamilton-computing-pioneer-dies-1007\">la nota de MIT News</a>."
      },
      {
       "h": "Un oficio que todavía no tenía nombre",
@@ -171,10 +171,10 @@
       "lv": 2
      },
      {
-      "p": "La admirable de Hamilton es que no programaba como si el error no fuera a llegar, programaba esperándolo. El de la niña, el del astronauta, el del interruptor que nadie previó. Preparse para el caos, para el error, crear una nueva disciplina, inventar una manera de hacer posible el hito histórico mas importate del siglo veinte."
+      "p": "Lo admirable de Hamilton es que no programaba como si el error no fuera a llegar, programaba esperándolo. El de la niña, el del astronauta, el del interruptor que nadie previó. Prepararse para el caos, para el error, crear una nueva disciplina, inventar una manera de hacer posible el hito histórico más importante del siglo XX."
      },
      {
-      "p": "Recibió el premio Exceptional Space Act de la NASA en 2003 y la Medalla Presidencial de la Libertad en 2016 (la de la foto de arriba). De aquellos años decía: «<a href=\"https://margarethamilton.dev/\">Mirando atrás, fuimos las personas con más suerte del mundo»</a>. Yo diría que la suerte, en buena parte, la tuvimos los demás."
+      "p": "Recibió el premio Exceptional Space Act de la NASA en 2003 y la Medalla Presidencial de la Libertad en 2016 (la de la foto de arriba). De aquellos años decía: «<a href=\"https://margarethamilton.dev/\">Mirando atrás, fuimos las personas con más suerte del mundo</a>». Yo diría que la suerte, en buena parte, la tuvimos los demás."
      },
      {
       "p": "La noticia de su muerte la confirmó su hija, Lauren. La misma niña que, con cuatro años, pulsó la tecla que nadie debía pulsar."
@@ -931,7 +931,7 @@
       "p": "Fíjate en que digo «trozo». El modelo no lee palabras: lee <a href=\"https://platform.openai.com/tokenizer\"><strong>tokens</strong></a>, pedazos de texto que a veces son una palabra entera, a veces media y a veces un signo de puntuación. «Hola» suele ser un token; «inteligencia» pueden ser dos o tres. En inglés, un token viene a ser unas tres cuartas partes de una palabra; en español, algo menos, porque estos sistemas se entrenaron sobre todo con textos en inglés y trocean peor los demás idiomas."
      },
      {
-      "p": "Parece una curiosidad de ingeniero, pero explica tres cosas que vas a notar. Que las empresas <strong>cobran por tokens</strong>, no por frases. Que cada modelo puede tener en la cabeza un número limitado de tokens a la vez, y por eso en las conversaciones muy largas se le olvida el principio. Y que a una máquina que escribe tan bien le cueste contar las letras de una palabra o escribirla al revés."
+      "p": "Parece una curiosidad de ingeniero, pero explica tres cosas que vas a notar. Que las empresas <strong>cobran por tokens</strong>, no por frases. Que cada modelo puede tener en la cabeza un número limitado de tokens a la vez, y por eso en las conversaciones muy largas se le olvida el principio. Y que a una máquina que escribe tan bien le cuesta contar las letras de una palabra o escribirla al revés."
      },
      {
       "p": "No ve las letras. Ve los trozos."
@@ -1245,7 +1245,7 @@
       "p": "Cuando no coinciden, el modelo no se calla ni dice «no lo sé»: escribe algo que suena perfecto y es falso. Se llama <strong>alucinación</strong>: un libro que no existe, con su autor y su año; una sentencia judicial inventada; una cita que nadie dijo. Y lo dice con la misma seguridad que lo cierto, porque para él no hay diferencia. Ambas cosas eran probables."
      },
      {
-      "p": "Pasa más donde menos texto había para aprender: con cifras y fechas exactas, con nombres propios, con lo muy reciente (el modelo aprendió hasta una fecha y no sabe lo que vino después, salvo que la aplicación busque en internet por él) y con lo muy local. Pregúntale, sin dejarle buscar en internet, por la final del Falla de un año concreto, y comprueba lo que te dice. [anécdota de Nando: alguna vez que una IA le inventó algo sobre el Carnaval de Cádiz, un repertorio o una letra, o sobre un tema que él conoce bien]"
+      "p": "Pasa más donde menos texto había para aprender: con cifras y fechas exactas, con nombres propios, con lo muy reciente (el modelo aprendió hasta una fecha y no sabe lo que vino después, salvo que la aplicación busque en internet por él) y con lo muy local. Pregúntale, sin dejarle buscar en internet, por la final del Falla de un año concreto, y comprueba lo que te dice."
      },
      {
       "p": "Y luego están los <strong>sesgos</strong>, que no son un fallo de la máquina, sino un espejo. ¿Recuerdas quién hay dentro? Todos nosotros. El modelo aprende lo que hemos escrito durante siglos y también lo que dábamos por supuesto sin darnos cuenta. Si en los textos las enfermeras son casi siempre «ellas» y los ingenieros «ellos», el modelo tenderá a repetirlo. No tiene prejuicios propios: tiene los nuestros, y a veces aumentados."
@@ -1463,7 +1463,7 @@
      {
       "ul": [
        "<strong>Definición:</strong><br>El Shadow DOM crea un árbol de DOM encapsulado asociado a un elemento, que no se ve afectado por el estilo o el script global de la página. Esto garantiza que el componente sea verdaderamente modular.",
-       "<strong>¿Para qué sirve?:</strong><br>Sirve para evitar conflictos de nombres de clases, estilos CSS globales que sobreescriban la apariencia interna del componente, o comportamientos no deseados. Esto hace que el componente sea más fácil de mantener y reutilizar.",
+       "<strong>¿Para qué sirve?:</strong><br>Sirve para evitar conflictos de nombres de clases, estilos CSS globales que sobrescriban la apariencia interna del componente, o comportamientos no deseados. Esto hace que el componente sea más fácil de mantener y reutilizar.",
        "<strong>¿Cómo implementarlo?:</strong><br>Dentro del constructor del Custom Element, podemos adjuntar un shadow root al elemento: <code>constructor() { super(); // Creamos un shadow root en modo 'open' this.attachShadow({ mode: 'open' }); this.shadowRoot.innerHTML = ` &lt;style&gt; .icon { color: #1da1f2; /* Ejemplo: color Twitter */ font-size: 24px; } &lt;/style&gt; &lt;span class=\"icon\"&gt;[icon]&lt;/span&gt; `; }</code>"
       ]
      },
@@ -1498,7 +1498,7 @@
       "code": "import { LitElement, html, css } from 'lit';\n\nclass MyIcon extends LitElement {\n  static properties = {\n    typeicon: { type: String },\n  };\n\n  static styles = css`\n    .icon {\n      font-size: 24px;\n      color: #1da1f2;\n    }\n  `;\n\n  constructor() {\n    super();\n    this.typeicon = 'default';\n  }\n\n  render() {\n    return html`\n      <span class=\"icon\">[Icono: ${this.typeicon}]</span>\n    `;\n  }\n}\n\ncustomElements.define('my-icon', MyIcon);"
      },
      {
-      "p": "Con LitElement, el código es más conciso y declarativo, lo que agiliza el desarrollo de componentes cada vez más complejos, el único incoveniente es que ultimamente google (la creadora de la libreria) la tiene un poco olvidada. Sin embargo es 100% recomendable su uso, aunque si vas a crear un proyecto grande, que mejor que crear tus propias herramientas basados en los standars con JS de toda la vida 😀"
+      "p": "Con LitElement, el código es más conciso y declarativo, lo que agiliza el desarrollo de componentes cada vez más complejos. El único inconveniente es que últimamente Google (la creadora de la librería) la tiene un poco olvidada. Sin embargo, es 100 % recomendable su uso, aunque si vas a crear un proyecto grande, qué mejor que crear tus propias herramientas basadas en los estándares con JS de toda la vida 😀"
      },
      {
       "h": "Conclusión",
@@ -1530,22 +1530,22 @@
    "url": "https://soynando.com/analisis-del-popurri-de-la-oveja-negra/",
    "es": {
     "title": "Análisis del popurrí de la Oveja Negra",
-    "excerpt": "Vuelvo un año más con un análisis literario con tintes filosófico (la música se la dejo a los músicos) y desde la subjetividad propia de alguien que trata de dar una visión…",
+    "excerpt": "Vuelvo un año más con un análisis literario con tintes filosóficos (la música se la dejo a los músicos) y desde la subjetividad propia de alguien que trata de dar una visión del texto y subtexto sin fanatismos ni academismos.",
     "body": [
      {
       "p": "<strong>Vuelvo un año más con un análisis literario con tintes filosófico (la música se la dejo a los músicos) y desde la subjetividad propia de alguien que trata de dar una visión del texto y subtexto sin fanatismos ni academicismos. </strong>"
      },
      {
-      "p": "​Las cuartetas podrían encuadrarse dentro del típico inicio, nudo y desenlace de cualquier narrativa, aunque a mí me gusta más encuadrarlas dentro de la clásica <em>estructura de cuatro actos del cine</em>."
+      "p": "Las cuartetas podrían encuadrarse dentro del típico inicio, nudo y desenlace de cualquier narrativa, aunque a mí me gusta más encuadrarlas dentro de la clásica <em>estructura de cuatro actos del cine</em>."
      },
      {
-      "p": "El <strong>primer acto</strong>, comienza con el nacimiento del personaje (EL NACIMIENTO DE LA OVEJA NEGRA) seguido de la descripción del contexto donde se desarrolla (EL REBAÑO DE LA OVEJA NEGRA)"
+      "p": "El <strong>primer acto</strong> comienza con el nacimiento del personaje (EL NACIMIENTO DE LA OVEJA NEGRA) seguido de la descripción del contexto donde se desarrolla (EL REBAÑO DE LA OVEJA NEGRA)."
      },
      {
       "p": "El <strong>segundo acto</strong> (LA BALADA DE LA OVEJA NEGRA) desarrolla la historia que se quiere contar y el conflicto (EL LOBO Y LA OVEJA NEGRA). Curiosamente la historia de amor sería una subtrama abierta, un anexo que no es clave, podría eliminarse, pero que sirve para ahondar aún más en el personaje."
      },
      {
-      "p": "Durante el <strong>tercero acto</strong> (LA MATANZA DE LAS OVEJAS) el personaje comprende su situación, reflexiona, es casi una revelación. Por último, el <strong>cuarto acto o desenlace</strong> (LA DESOBEDIENCIA DE LA OVEJA NEGRA) es un final épico, potente, directo, emocionante, pasional y dramático (no necesariamente triste)."
+      "p": "Durante el <strong>tercer acto</strong> (LA MATANZA DE LAS OVEJAS) el personaje comprende su situación, reflexiona, es casi una revelación. Por último, el <strong>cuarto acto o desenlace</strong> (LA DESOBEDIENCIA DE LA OVEJA NEGRA) es un final épico, potente, directo, emocionante, pasional y dramático (no necesariamente triste)."
      },
      {
       "yt": "23eSN-eBwW4",
@@ -1563,13 +1563,14 @@
      {
       "pull": [
        "Nací una noche plata de carnavales, <br>sonaba el grito de un pueblo por las calles <br>Mi madre me miró a los ojos y dijo: “Dios mío, <br>un rebelde a este mundo he traío” <br>Noté un latido acompasao, <br>un tres por cuatro desbocao, <br>con el paso lento de los primeros intentos <br>conseguí abrir la ventana <br>Entró el levante a saludarme: <br>“Esta es tu tierra, yo soy tu aire”, <br>cuando quise darme cuenta con la piel aún negra y fresca <br>me entregué a la madrugada <br>Me amamanté con el calostro de la mar, <br>mi lana olía a tribu vieja y libertad, <br>hipnotizado y poseído, proferí el primer balido <br>y me puse a llorar y a cantar y a cantar <br>Con vino dulce una mujer me bautizó, <br>con un tanguillo vi brillar mi primer sol <br>Mi vida había comenzao y ya estaba enamorao, <br>esa fue mi perdición <br>Nací una noche plata de carnavales, <br>un rebelde, un rebelde, un rebelde parió mi mare"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La oveja negra», COAC 2024"
      },
      {
       "p": "El personaje nace de una madre que instantáneamente identifica la rebeldía de su vástago, durante los carnavales y concretamente en Cádiz ‘<code>noche plata de carnavales</code>’. Un inicio terrenal y costumbrista ‘<code>...sonaba el grito de un pueblo por las calles // Mi madre me miró a los ojos y dijo: Dios mío, // un rebelde a este mundo he traío</code>’ que rápidamente desemboca en un desarrollo metafórico y poético muy gaditano. La referencia al Levante, amamantarse del mar, el tanguillo, el vino… aunque el verso que más me fascina es ‘<code>mi lana olía a tribu vieja y libertad</code>,’ alude en ella a los sabios antepasados gaditanos/carnavaleros que le precedieron y por supuesto al concepto clave del tipo en todas sus vertientes: la libertad. Por último, remata como empezó incluso en la música, ‘<code>Nací una noche plata de carnavales, // un rebelde, un rebelde, un rebelde parió mi mare</code>’"
      },
      {
-      "p": "Resulta muy curioso y paradójico como durante todo el popurrí, no aparece ni una sola vez la palabra Cádiz, aunque muy presente simbólicamente hablando en todo el texto."
+      "p": "Resulta muy curioso y paradójico cómo durante todo el popurrí no aparece ni una sola vez la palabra Cádiz, aunque muy presente simbólicamente hablando en todo el texto."
      },
      {
       "h": "EL REBAÑO DE LA OVEJA NEGRA",
@@ -1578,22 +1579,23 @@
      {
       "pull": [
        "Un pastor y dos leones <br>con un hierro incandescente <br>me marcó como a un esclavo <br>“Ahora a mí me perteneces <br>A partir de este momento, <br>como el resto del rebaño, <br>sentirás la piel quemada <br>por febrero cada año” <br>Me encerró con viejas glorias <br>con sus cuernos bien presentes <br>Mucho humilde disfrazao, <br>mucho coro y pocas nueces, <br>capitanes narcisistas, <br>vendepolvos del colmao, <br>hembras hartas de la ordeña, <br>subversivos callaos <br>Graciosillos por cojones, <br>fantasmones de la calle, <br>vitalicios presidentes, <br>aquí no se salva nadie <br>Carneritos que cantan y cantan y no cuentan nada <br>Jueces que un día perdieron torneos y no han olvidao <br>Todos pidiendo guerra y vacías las barricadas <br>Ese es mi ganao, ese es mi ganao <br>Amiguitos ladrones, la envidia llena el establo <br>ni los muertos se libran de su porción de castigo… <br>Desde entonces en el lomo clavao llevo sus cuchillos"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La oveja negra», COAC 2024"
      },
      {
       "p": "Una vez descrito su nacimiento en la primera cuarteta, pasa a la descripción de su vida dentro del rebaño, su relación con el mundo en conjunto y con quienes lo conforman."
      },
      {
-      "p": "<a href=\"https://es.wikipedia.org/wiki/Escudo_de_Andaluc%C3%ADa\">Hércules como símbolo de Andalucía</a> ‘<code>Un pastor y dos leones</code>’ le imponen el camino vital ‘<code>con un hierro incandescente // me marcó como a un esclavo</code>’. Luego afina más, centrándose en febrero (el carnaval) dónde ha de adoptar una actitud sumisa ‘<code>Ahora a mí me perteneces // A partir de este momento, // como el resto del rebaño, // sentirás la piel quemada // por febrero cada año</code>’ Al finalizar esta estrofa, sutilmente el coreao hace un ‘<code>shiiii</code>’, manda a callar."
+      "p": "<a href=\"https://es.wikipedia.org/wiki/Escudo_de_Andaluc%C3%ADa\">Hércules como símbolo de Andalucía</a> ‘<code>Un pastor y dos leones</code>’ le imponen el camino vital ‘<code>con un hierro incandescente // me marcó como a un esclavo</code>’. Luego afina más, centrándose en febrero (el carnaval) donde ha de adoptar una actitud sumisa ‘<code>Ahora a mí me perteneces // A partir de este momento, // como el resto del rebaño, // sentirás la piel quemada // por febrero cada año</code>’ Al finalizar esta estrofa, sutilmente el coreao hace un ‘<code>shiiii</code>’, manda a callar."
      },
      {
-      "p": "<br>El niño de santa maría se topa con los viejos garantes del carnaval puro y sus ganas de revolucionar, rebelarse, tan propias de la juventud. Se enfrenta con la falsedad, narcisismo y pullita a los coros. ‘<code>Me encerró con viejas glorias // con sus cuernos bien presentes // Mucho humilde disfrazao, // mucho coro y pocas nueces, // capitanes narcisistas, // vendepolvos del colmao,</code>’ Un contexto lleno de estómagos agradecidos que repudian y cortan en seco cualquier acto que suponga un cambio del estatus quo. ‘<code>hembras hartas de la ordeña, // subversivos callaos</code>’"
+      "p": "El niño de Santa María se topa con los viejos garantes del carnaval puro y sus ganas de revolucionar, rebelarse, tan propias de la juventud. Se enfrenta con la falsedad, narcisismo y pullita a los coros. ‘<code>Me encerró con viejas glorias // con sus cuernos bien presentes // Mucho humilde disfrazao, // mucho coro y pocas nueces, // capitanes narcisistas, // vendepolvos del colmao,</code>’ Un contexto lleno de estómagos agradecidos que repudian y cortan en seco cualquier acto que suponga un cambio del statu quo. ‘<code>hembras hartas de la ordeña, // subversivos callaos</code>’"
      },
      {
       "p": "Una vez descrito el contexto, empieza a dar cera a sus compañeros de modalidad por su falta de compromiso. ‘<code>Carneritos que cantan y cantan y no cuentan nada</code>’ Cera al jurado que sólo es jurado para vengarse de alguna rencilla del pasado ‘<code>Jueces que un día perdieron torneos y no han olvidao</code>’, como los carnavaleros piden compromiso, pero a la hora de mojarse, nadie aparece ‘<code>Todos pidiendo guerra y vacías las barricadas</code>’"
      },
      {
-      "p": "Ese el contexto de Ares ‘<code>ese es mi ganao</code>’ donde los amigos le han robado literal o no tan literalmente ‘<code>Amiguitos ladrones, la envidia llena el establo</code>’ Por todo ello, por rebelarse ante todo lo descrito ‘<code>Desde entonces en el lomo clavao llevo sus cuchillos</code>’ Curiosamente en el disfraz tienen literalmente clavados tres puñales. <em>¿será simbólico el tres? ¿jurado, amigos y compañeros de modalidad? ¿será como Pedro cuando negó tres veces a Jesús?…</em>"
+      "p": "Ese es el contexto de Ares ‘<code>ese es mi ganao</code>’ donde los amigos le han robado literal o no tan literalmente ‘<code>Amiguitos ladrones, la envidia llena el establo</code>’ Por todo ello, por rebelarse ante todo lo descrito ‘<code>Desde entonces en el lomo clavao llevo sus cuchillos</code>’ Curiosamente en el disfraz tienen literalmente clavados tres puñales. <em>¿Será simbólico el tres? ¿jurado, amigos y compañeros de modalidad? ¿será como Pedro cuando negó tres veces a Jesús?…</em>"
      },
      {
       "h": "LA BALADA DE LA OVEJA NEGRA",
@@ -1602,10 +1604,11 @@
      {
       "pull": [
        "Blanca, toda ella era blanca, <br>olía las flores de la plaza España <br>Me observó furtiva, <br>me hirvió enseguida el tuétano y el alma <br>Blanca, menudita y blanca, <br>Agaché la testa, no solté palabra, <br>acercó su hocico, <br>tenía los ojitos esmeralda <br>Blanca, me dio mi primer beso en una mañanita malva, <br>pintando de colores mi oscurita y fría estampa, <br>trotamos por el prado yo seguía sus huellas blancas, <br>blancas… <br>Blanca, un mar de lagrimitas y sin doblar la espalda <br>se perdió para siempre, cada día echo el ancla, <br>esperando que vuelva y esta pena disuelva… Blanca… <br>Yo conocí a una ovejita, <br>se llamaba Ana María, <br>era negra y era blanca <br>según le daba la luz del día"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La oveja negra», COAC 2024"
      },
      {
-      "p": "Una escena amorosa, donde se sigue jugando con el personaje de la oveja. Aquí se esconde un homenaje que todo el mundo reconoció, pero si eres despistado o acabas de entrar en el mundo del carnaval yo te aclaro:"
+      "p": "Una escena amorosa, donde se sigue jugando con el personaje de la oveja. Aquí se esconde un homenaje que todo el mundo reconoció, pero si eres despistado o acabas de entrar en el mundo del carnaval, yo te aclaro:"
      },
      {
       "p": "Referencia una cuarteta del popurrí de Los Piratas, su comparsa mítica de 1998 ‘<code>Yo conocí a una ovejita, // se llamaba Ana María, // era negra y era blanca // según le daba la luz del día</code>’ Aquí te dejo el momento original al que homenajea. <a href=\"https://youtu.be/ZA-JS4IPtn4?si=ZU0k_lL4-D3M5oug&amp;t=214\">https://youtu.be/ZA-JS4IPtn4?si=ZU0k_lL4-D3M5oug&amp;t=214</a>"
@@ -1614,16 +1617,14 @@
       "p": "Si sustituimos la historia de amor, por una historia de añoranza, quizás podríamos describir esta cuarteta como un canto nostálgico al mejor momento vital, carnavalescamente hablando, de Antonio Martínez Ares."
      },
      {
-      "p": "​"
-     },
-     {
       "h": "EL LOBO Y LA OVEJA NEGRA",
       "lv": 2
      },
      {
       "pull": [
        "Sobran borregos, faltan ovejas negras <br>Sobran borregos, faltan ovejas negras <br>cuando el lobo asoma sus colmillos y asalta la reja <br>El lobo está en las manos de los curas pederastas, <br>los labios asesinos de los hombres de la casa, <br>bajo la corbata verde, la soga de un fascista, <br>entre oriente y occidente y sus dioses terroristas <br>En las urnas que lloran por ti, Argentina, <br>en Ucrania, Yemen, Siria, Somalia, Palestina <br>En un rey que manda muertos como droga al estrecho, <br>en los puños de tres críos frente a uno en el colegio <br>Y rumiando y rumiando en un pasto de bobos <br>ni sentimos ni vemos que escondío en un recodo <br>ahí está el lobo, ya viene el lobo <br>Sobran borregos faltan ovejas negras… (¡Auuu¡) <br>Despertad animalitos, nos tienen acobardaos <br>Se acabó estar sometidos, dominaos, amaestraos, <br>anestesiaos, domesticaos <br>Faltan ovejas negras, sobran borregos <br>Faltan ovejas negras sobran borregos <br>cuando el lobo asoma sus colmillos afilando el miedo"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La oveja negra», COAC 2024"
      },
      {
       "p": "El ecuador del popurrí. Si la anterior cuarteta hacía referencia a temas más personales o localistas, en esta se centra en problemáticas nacionales, globales y actuales."
@@ -1635,13 +1636,13 @@
       "p": "Remata con una frase lapidaria <code>‘cuando el lobo asoma sus colmillos afilando el miedo</code>’. Esta frase resume perfectamente las consecuencias de la rebeldía, cuando te rebelas creas incomodidad y repulsa en el oponente sobre quien la ejerces ‘<code>el lobo</code>’. Este responde con una advertencia ‘<code>enseña sus colmillos</code>’ y ejecuta una acción ‘<code>afilando el miedo</code>‘ en este caso miedo hacia todos los que cuestionan su autoridad."
      },
      {
-      "p": "La denuncia durante el desarrollo de la cuarteta es muy variada: La pedofilia en la iglesia ‘<code>El lobo está en las manos de los curas pederastas</code>’, el maltrato psicológico como violencia machista ‘<code>los labios asesinos de los hombres de la casa</code>’, la incursión de la ultraderecha <code>‘bajo la corbata verde, la soga de un fascista</code>,’ conflictos entre oriente y occidente ‘<code>entre oriente y occidente y sus dioses terroristas //En las urnas que lloran por ti, Argentina, // en Ucrania, Yemen, Siria, Somalia, Palestina</code>’, las pateras provenientes de marruecos ‘<code>En un rey que manda muertos como droga al estrecho,</code>’ el bulling ‘<code>en los puños de tres críos frente a uno en el colegio</code>’."
+      "p": "La denuncia durante el desarrollo de la cuarteta es muy variada: la pedofilia en la iglesia ‘<code>El lobo está en las manos de los curas pederastas</code>’, el maltrato psicológico como violencia machista ‘<code>los labios asesinos de los hombres de la casa</code>’, la incursión de la ultraderecha <code>‘bajo la corbata verde, la soga de un fascista</code>,’ conflictos entre oriente y occidente ‘<code>entre oriente y occidente y sus dioses terroristas //En las urnas que lloran por ti, Argentina, // en Ucrania, Yemen, Siria, Somalia, Palestina</code>’, las pateras provenientes de Marruecos ‘<code>En un rey que manda muertos como droga al estrecho,</code>’ el bullying ‘<code>en los puños de tres críos frente a uno en el colegio</code>’."
      },
      {
       "p": "<strong>Los coreaos son lobos aullando, son sublimes las segundas y los coreaos de esta cuarteta. </strong>"
      },
      {
-      "p": "No solo denuncia, sino además conmina a todos a revelarse a convertirse en ovejas negras ‘<code>Y rumiando y rumiando en un pasto de bobos // ni sentimos ni vemos que escondío en un recodo // ahí está el lobo, ya viene el lobo</code>’ a dejar de ser corderos. Trata de despertar conciencias ante unos individuos pasivos ‘<code>Despertad animalitos, nos tienen acobardaos // Se acabó estar sometidos, dominaos, amaestraos, // anestesiaos, domesticaos</code>’."
+      "p": "No solo denuncia, sino además conmina a todos a rebelarse a convertirse en ovejas negras ‘<code>Y rumiando y rumiando en un pasto de bobos // ni sentimos ni vemos que escondío en un recodo // ahí está el lobo, ya viene el lobo</code>’ a dejar de ser corderos. Trata de despertar conciencias ante unos individuos pasivos ‘<code>Despertad animalitos, nos tienen acobardaos // Se acabó estar sometidos, dominaos, amaestraos, // anestesiaos, domesticaos</code>’."
      },
      {
       "h": "LA MATANZA DE LAS OVEJAS",
@@ -1650,7 +1651,8 @@
      {
       "pull": [
        "El adiós en los ojos de los viejos de la casa <br>De uno en uno caminan sin fe sin esperanza, <br>alguien comenta: “Un día nos tocará también la matanza” <br>Han echao el candao al camión de los suplicios, <br>una generación hoy servirá de sacrificio <br>y mi negrura quiebra las ataduras del cobertizo <br>El beso de mis padres en el barro se quedó <br>presente en la retina llantos, gritos de dolor <br>Corro como el viento, imposible de llegar <br>Juro con mi sangre que esta me las pagarán <br>Yo no soy un manso como el resto del corral <br>Corderito de dios ya no creo en tu cielo, tu mágico reino, <br>abomino de ti, un discípulo más del diablo me has vuelto, <br>echo al fuego tu libro mentiroso, tus palabras de amor <br>Corderito de dios, dónde está el paraíso que prometiste, <br>tu biblia es una cruz, el cuchillo cristiano de un matarife, <br>solo queda, solo queda mi rebelión"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La oveja negra», COAC 2024"
      },
      {
       "p": "Observa como todos a su alrededor se han rendido ‘<code>El adiós en los ojos de los viejos de la casa // De uno en uno caminan sin fe sin esperanza, // alguien comenta: “Un día nos tocará también la matanza” // Han echao el candao al camión de los suplicios, // una generación hoy servirá de sacrificio</code>’"
@@ -1662,10 +1664,7 @@
       "p": "Rememora su infancia, los valores que le dieron sus padres, los malos momentos y se niega a tomar una actitud pasiva como el resto ‘<code>El beso de mis padres en el barro se quedó // presente en la retina llantos, gritos de dolor // Corro como el viento, imposible de llegar // Juro con mi sangre que esta me las pagarán // Yo no soy un manso como el resto del corral</code>’"
      },
      {
-      "p": "El resto de la cuarteta es un dialogo del personaje con dios (el dios cristiano) donde ha perdido la fe ‘<code>Corderito de dios ya no creo en tu cielo, tu mágico reino,</code>’ El concepto <a href=\"https://es.wikipedia.org/wiki/Cordero_de_dios\">cordero de dios</a> está muy presente en los textos del nuevo testamento. No sólo ha perdido la fe, es un reproche ante quien se siente engañado ‘<code>abomino de ti, un discípulo más del diablo me has vuelto, // echo al fuego tu libro mentiroso, tus palabras de amor</code>’ Siente que es un lastre vital, siente que su única salida es rebelarse. ‘<code>Corderito de dios, dónde está el paraíso que prometiste, // tu biblia es una cruz, el cuchillo cristiano de un matarife, // solo queda, solo queda mi rebelión</code>’"
-     },
-     {
-      "p": "​"
+      "p": "El resto de la cuarteta es un diálogo del personaje con Dios (el dios cristiano) donde ha perdido la fe ‘<code>Corderito de dios ya no creo en tu cielo, tu mágico reino,</code>’ El concepto <a href=\"https://es.wikipedia.org/wiki/Cordero_de_dios\">cordero de dios</a> está muy presente en los textos del Nuevo Testamento. No sólo ha perdido la fe, es un reproche ante quien se siente engañado ‘<code>abomino de ti, un discípulo más del diablo me has vuelto, // echo al fuego tu libro mentiroso, tus palabras de amor</code>’ Siente que es un lastre vital, siente que su única salida es rebelarse. ‘<code>Corderito de dios, dónde está el paraíso que prometiste, // tu biblia es una cruz, el cuchillo cristiano de un matarife, // solo queda, solo queda mi rebelión</code>’"
      },
      {
       "h": "LA DESOBEDIENCIA DE LA OVEJA NEGRA",
@@ -1674,16 +1673,17 @@
      {
       "pull": [
        "Destrocé la maldita alambrada cautiva <br>Me escapé trasquilao de esta perra vida <br>El pastor ha soltao tras de mí a sus bestias <br>Se acabó, da comienzo mi desobediencia <br>Parto hacia la batalla no llevo bandera, <br>solo una guitarra y mi calavera, <br>me voy con mi gente a esparcir las simientes de la libertad <br>A cambiar el mundo con canciones, <br>llegando a los huesos, los tendones <br>A morir matando si hace falta <br>que si algo nos sobra es la rabia <br>La marca del hierro me quema <br>En el horizonte la mar <br>Acoge niña a esta ovejita negra, <br>ábreme la puertecita, ay mi Tacita, del carnaval <br>Carnaval canalla e insolente <br>Carnaval, cunita de rebeldes <br>Carnaval, milagro de febrero <br>Carnaval la madre del cordero <br>Carnaval, carnaval, carnaval…. <br>Carnaval"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La oveja negra», COAC 2024"
      },
      {
-      "p": "Toda buena historia ha de acabar y esta lo hace lo grande. El personaje escapa del pastor, de esta sociedad, del sistema ‘<code>Destrocé la maldita alambrada cautiva // Me escapé trasquilao de esta perra vida // El pastor ha soltao tras de mí a sus bestias // Se acabó, da comienzo mi desobediencia</code>’"
+      "p": "Toda buena historia ha de acabar y esta lo hace a lo grande. El personaje escapa del pastor, de esta sociedad, del sistema ‘<code>Destrocé la maldita alambrada cautiva // Me escapé trasquilao de esta perra vida // El pastor ha soltao tras de mí a sus bestias // Se acabó, da comienzo mi desobediencia</code>’"
      },
      {
       "p": "<strong>¿Cómo hace entonces?</strong> Pues con las herramientas de todo carnavalero, con la <strong>libertad </strong>de pensamiento ‘<code>Parto hacia la batalla no llevo bandera</code>’, con su voz y su <strong>música </strong>‘<code>solo una guitarra y mi calavera</code>’, creando <strong>conciencia </strong>‘<code>me voy con mi gente a esparcir las simientes de la libertad</code>’, con sus <strong>coplas </strong>‘<code>A cambiar el mundo con canciones, // llegando a los huesos, los tendones</code>’ <strong>¿Hasta qué punto?</strong> ‘<code>A morir matando si hace falta // que si algo nos sobra es la rabia</code>’"
      },
      {
-      "p": "Es plenamente consciente de su situación ‘<code>La marca del hierro me quema</code>’ pero tiene la convicción que Cádiz y el carnaval son la salida ‘<code>En el horizonte la mar, Acoge niña a esta ovejita negra, // ábreme la puertecita, ay mi Tacita, del carnaval</code>’."
+      "p": "Es plenamente consciente de su situación ‘<code>La marca del hierro me quema</code>’ pero tiene la convicción de que Cádiz y el carnaval son la salida ‘<code>En el horizonte la mar, Acoge niña a esta ovejita negra, // ábreme la puertecita, ay mi Tacita, del carnaval</code>’."
      },
      {
       "p": "A partir de aquí se explica solo. Un caudal de voces de Ramoni, Fali y especialmente Cateto coronan un final casi operístico. Medido, afinado y trabajado al milímetro por Antonio Martínez Ares y Geni Cheza."
@@ -1692,18 +1692,18 @@
       "p": "Muchos dicen que es la mejor comparsa de Antonio desde su vuelta, yo difiero un poco. La Eternidad, es para mí, su comparsa (pre-viento de trece años) más completa, no la mejor, sino la más redonda."
      },
      {
-      "p": "<strong>Este el tipo de oveja negra, el concepto es muy muy potente y Antonio ha sabido como nadie sacarle hasta la última gota de originalidad y calidad.</strong>"
+      "p": "<strong>Este es el tipo de oveja negra, el concepto es muy muy potente y Antonio ha sabido como nadie sacarle hasta la última gota de originalidad y calidad.</strong>"
      },
      {
-      "p": "<strong>Foto principal de <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\">https://www.facebook.com/LaComparsaDeMartinezAres</a> realizada por <a href=\"https://twitter.com/farre_diaz\">https://twitter.com/farre_diaz</a> </strong>"
+      "p": "<strong>Foto principal de <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\">https://www.facebook.com/LaComparsaDeMartinezAres</a> realizada por @farre_diaz </strong>"
      }
     ]
    },
    "cover": {
     "w": 1000,
     "h": 750,
-    "alt": "Martinez ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo",
-    "credit": "Imagen: <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."
+    "alt": "Martínez Ares disfrazado de oveja negra señalando con el dedo en primer plano hacia el objetivo",
+    "credit": "Foto de @farre_diaz (firma «@DIAZ FARRE» en la imagen), vía <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."
    }
   },
   {
@@ -1720,26 +1720,27 @@
    "url": "https://soynando.com/analisis-del-popurri-de-la-ciudad-invisible/",
    "es": {
     "title": "Análisis del popurrí de la ciudad invisible",
-    "excerpt": "Análisis del popurri de Antonio Martinez Ares este año 2023 con su comparsa «La ciudad Invisible». Donde se focaliza en la interpretación, musicalmente explendida y repleto de detalles noventeros comparsistas.",
+    "excerpt": "Análisis del popurrí de Antonio Martínez Ares este año 2023 con su comparsa «La ciudad invisible», donde se focaliza en la interpretación, musicalmente espléndida y repleta de detalles noventeros comparsistas.",
     "body": [
      {
       "yt": "K5C0Sgui8HI",
-      "title": "Popurri con Letra Comparsa \"La Ciudad Invisible\" (2023)"
+      "title": "Popurrí con letra. Comparsa «La ciudad invisible» (2023)"
      },
      {
-      "p": "Análisis del popurri de Antonio Martinez Ares este año 2023 con su comparsa «La ciudad Invisible». Donde se focaliza en la interpretación, musicalmente explendida y repleto de detalles noventeros comparsistas."
+      "p": "Análisis del popurrí de Antonio Martínez Ares este año 2023 con su comparsa «La ciudad invisible», donde se focaliza en la interpretación, musicalmente espléndida y repleta de detalles noventeros comparsistas."
      },
      {
-      "h": "Primera Cuarteta",
+      "h": "Primera cuarteta",
       "lv": 2
      },
      {
       "pull": [
        "Un día mas<br>Cavando túneles<br>Y rutas en la tierra<br>Pero soy libre<br>No habrá dios que me detenga<br>No hay nadie, nadie<br>Que silencie mi canción<br><br>¿Vamos bien señor director?<br>Es por aquí<br>No hay confusión"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La ciudad invisible», COAC 2023"
      },
      {
-      "p": "Presentación de los piratas del año 1998, Ángel Subiela (el director) dentro del tipo de jefe de estos filibusteros dice “es por aquí, no hay confusión”"
+      "p": "Presentación de los Piratas del año 1998, Ángel Subiela (el director), dentro del tipo de jefe de estos filibusteros dice “es por aquí, no hay confusión”"
      },
      {
       "yt": "1Vd6G5pvK4I",
@@ -1752,7 +1753,7 @@
       ]
      },
      {
-      "p": "Tanto Ramoni como Cateto no estuvieron en la comparsa anterior de los sumisos del año anterior. De ahí esa referencia metacarnavalera una vez más, sobre el supuesto olvido del estribillo del año 2022"
+      "p": "Tanto Ramoni como Cateto no estuvieron en la comparsa de los sumisos del año anterior. De ahí esa referencia metacarnavalera una vez más, sobre el supuesto olvido del estribillo del año 2022"
      },
      {
       "pull": [
@@ -1788,7 +1789,7 @@
       ]
      },
      {
-      "p": "Homenaje a la presentación de su comparsas el vapor"
+      "p": "Homenaje a la presentación de su comparsa El Vapor"
      },
      {
       "yt": "_5QiekLs8Fg",
@@ -1801,16 +1802,17 @@
       ]
      },
      {
-      "h": "Segunda Cuarteta",
+      "h": "Segunda cuarteta",
       "lv": 2
      },
      {
       "pull": [
        "Mira, mira, mira<br>El muro cayó<br>Cayó<br><br>Aquí abajo, aunque no lo creas<br>Estoy al día de lo que ocurre<br>En el exterior<br><br>Con mi radio yo busco el mundo<br>En mi micromundo<br>Solo hay que echarle imaginación"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La ciudad invisible», COAC 2023"
      },
      {
-      "p": "Estas dos estrofas musicablemente, me recuerdas a una reconstrucción de la primera parte del estribillo de la trinchera"
+      "p": "Estas dos estrofas, musicalmente, me recuerdan a una reconstrucción de la primera parte del estribillo de la trinchera"
      },
      {
       "quote": [
@@ -1818,17 +1820,12 @@
       ]
      },
      {
-      "yt": "gbBKqmExc_k",
-      "title": "",
-      "params": "start=631"
-     },
-     {
       "pull": [
        "Sigo las leyes de la resistencia<br>Interferencias<br>Aquí abajo la cobertura<br>Es una tortura<br>Pero eso a mi<br>No me va a parar<br>Niño saca la antena gorda<br>Y la papa vieja<br>Que en un ratito funcionara<br>Sigo las leyes de la vieja guardia<br>Si no hay candela<br>Pues a inventarla"
       ]
      },
      {
-      "p": "En tono narrativo nos describe cómo se las ingenian para enterase de las noticias del mundo exterior. Como se ve en la escenografía, intentando conectar una vieja radio."
+      "p": "En tono narrativo nos describe cómo se las ingenian para enterarse de las noticias del mundo exterior. Como se ve en la escenografía, intentando conectar una vieja radio."
      },
      {
       "pull": [
@@ -1844,7 +1841,7 @@
       ]
      },
      {
-      "p": "Por fin consiguen que esa olvidada radio tome señal y cuente cuales son las miserias del mundo al que ellos permanecen ajenos desde la oscuridad de la cueva."
+      "p": "Por fin consiguen que esa olvidada radio tome señal y cuente cuáles son las miserias del mundo al que ellos permanecen ajenos desde la oscuridad de la cueva."
      },
      {
       "pull": [
@@ -1852,28 +1849,30 @@
       ]
      },
      {
-      "p": "A continuación, enumera las calamidades que durante el 2023 hemos sufrido y sufrimos. Termina lamentándose, pues nos cuenta como después del COVID había quien creía que saldríamos mejor como sociedad."
+      "p": "A continuación, enumera las calamidades que durante 2023 hemos sufrido y sufrimos. Termina lamentándose, pues nos cuenta cómo después de la covid había quien creía que saldríamos mejor como sociedad."
      },
      {
-      "h": "Tercera Cuarteta",
+      "h": "Tercera cuarteta",
       "lv": 2
      },
      {
       "pull": [
        "Al bichito de la noche<br>Tu que entras<br>Tu que sales<br><br>Lleva el beso<br>de este preso<br>Hasta casa de mi madre<br><br>Ilumínale los sueños<br>A mi niño chiquitito<br>Y a mi amada dile pronto<br>Pronto volveré contigo<br><br>Baila para todos ellos<br>Con tu vientre<br>Floreciente<br><br>Que perdonen a un sumiso<br>Que se las dio de valiente<br><br>Lucecita piensa en mi<br>Como si fuera un emigrante<br>Esta empanao por verme loco<br>Al loquito del levante<br><br>Sal que cure mis heridas<br>La alegría de mi barrio<br>Mi coplilla pa los ratos<br>Cuando aparece el espanto<br><br>Un cuartito de esperanza<br>Dentro de una botellita<br><br>Un paseo por mis calles<br>El vaivén de mi playita<br><br>Ay bichito de la noche<br>Tu que sales y que entras<br>Tu que entras y que sales<br><br>Lleva el beso de este preso<br>De este preso<br><br>Hasta casa de mi madre<br><br>Lucecita, lucecita<br>Vuela libre<br>Vuela alto<br><br>Si te acuerdas a escondidas<br>Dame lumbre pa estos días<br>Y una libra de tabaco"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La ciudad invisible», COAC 2023"
      },
      {
       "p": "Esta cuarteta es una delicia musicalmente, donde en un momento de locura o extrema lucidez, el protagonista se abre y expresa sus sentimientos a una luciérnaga, el único animal que le da una luz entre tantas sombras."
      },
      {
-      "h": "Cuarta Cuarteta",
+      "h": "Cuarta cuarteta",
       "lv": 2
      },
      {
       "pull": [
        "Escucha el eco<br>Eco, eco<br><br>Eres invisible<br>De ti no se hacen eco<br>Solo playas, flamenquito<br>Y carnaval a palo seco<br>Un pozo de promesas<br>Tan viejo como hueco<br>Cementerio de pateras<br>Con los muertos de marruecos"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La ciudad invisible», COAC 2023"
      },
      {
       "p": "Habla de Cádiz. Se lamenta de los problemas que se remiten una y otra vez, pero caen en saco roto. Como un “eco” reverbera, amplifica, retumba, pero al final no sale de la cueva ese grito. Como mucho, revota y desaparece."
@@ -1909,7 +1908,7 @@
       ]
      },
      {
-      "p": "No conmina al espectador a meterse en una cueva como el personaje, o quizás como el propio autor 😀 , sino que le invita a formar parte de su copla."
+      "p": "No conmina al espectador a meterse en una cueva como el personaje, o quizás como el propio autor 😀, sino que le invita a formar parte de su copla."
      },
      {
       "pull": [
@@ -1920,19 +1919,20 @@
       "p": "Curioso y acertado el recurso de la enumeración de conceptos. La magnífica y sencilla música, más la respuesta acompasada de la segunda (como si fueran un ‘eco’ que le responde) se crea un final muy dinámico y potente, alentando finalmente a subvertir el orden establecido."
      },
      {
-      "h": "Quinta Cuarteta",
+      "h": "Quinta cuarteta",
       "lv": 2
      },
      {
       "pull": [
        "Que raro me falta el aire<br>El aire me está quitando<br>El aire dice me dice<br>Tu aventura está acabando<br><br>El aire provoca sueño<br>El aire y sus cuchillitos<br>En tu pico está el milagro<br>Pajarito, pajarito"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La ciudad invisible», COAC 2023"
      },
      {
-      "p": "Una de las premisas de este popurrí, es que cada cuarteta se ciñe al tipo y hace un viaje por las distintas etapas por las que pasa el personaje. En esta cuarteta previa a la final, el conjunto canta ‘como si les faltara el aire’ realmente. Bajan el tono, la interpretación más intimista y describen incluso su sensación física."
+      "p": "Una de las premisas de este popurrí es que cada cuarteta se ciñe al tipo y hace un viaje por las distintas etapas por las que pasa el personaje. En esta cuarteta previa a la final, el conjunto canta ‘como si les faltara el aire’ realmente. Bajan el tono, la interpretación más intimista y describen incluso su sensación física."
      },
      {
-      "p": "Lo del pájaro, intuyo que hace referencia a su uso en las minas. Servían como detector de gases tóxicos, como prevención a intoxicación o más bien indicador <a href=\"http://(https://alpoma.net/tecob/?p=14632\">rudimentario del nivel de esos aires perjudiciales</a>"
+      "p": "Lo del pájaro, intuyo que hace referencia a su uso en las minas. Servían como detector de gases tóxicos, como prevención de intoxicación o más bien indicador <a href=\"https://alpoma.net/tecob/?p=14632\">rudimentario del nivel de esos aires perjudiciales</a>"
      },
      {
       "pull": [
@@ -1943,13 +1943,14 @@
       "p": "El fugitivo implora a la cueva un poco de aire, se pregunta si sirvió de algo todo ese tiempo invertido en la clandestinidad y por último implora al pájaro que le guía hacia la luz del exterior."
      },
      {
-      "h": "Cuarteta Final",
+      "h": "Cuarteta final",
       "lv": 2
      },
      {
       "pull": [
        "Fin<br>Acabo la oscuridad<br>La salida ahí esta<br>Ole lo hemos conseguido<br><br>Se nota en la brisita del mar<br>Que pena me da dejar<br>Este escondite prohibido<br><br>A ver<br>Vamos a hacer un comité<br>Regresamos si o que<br>Estamos todos tarumbas<br><br>Ya votar<br>Pues por unanimidad<br>Nos quedamos dios dirá<br>En las catacumbas por rumbas<br><br>Adiós, adiós, adiós<br>No voy a la prevención<br>Me quedo aquí en lo oscuro<br>Porque en lo oscuro se está mejo<br><br>Adiós, adiós, adiós<br>No voy a la prevención<br>Me quedo aquí en lo oscuro<br>Esperando, esperando<br>Llegue el perdón<br><br>El perdón para verte<br>Cádiz del alma mía<br>El perdón pa mis noches<br>El perdón pa mi día<br>El perdón pa las coplas<br>Hechas en libertad<br>El perdón que concede<br>El bendito carnaval<br><br>Adiós, adiós, adiós<br>No voy a la prevención<br>Me quedo aquí en lo oscuro<br>Porque en lo oscuro se está mejo<br><br>Adiós, adiós, adiós<br>No voy a la prevención<br>Me quedo aquí en lo oscuro<br>Esperando, esperando<br><br>Llegue el perdón<br>Viva España<br>Que rima con<br>Illo<br><br>Adiós, adiós, adiós<br>No voy a la prevención<br>Me quedo aquí en lo oscuro<br>Esperando, esperando<br>Llegue el perdón"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «La ciudad invisible», COAC 2023"
      },
      {
       "p": "Llega el final. Han encontrado una salida y han de decidir quedarse definitivamente en el exterior. Pero parece que prefieren esperar un posible perdón dentro de la cueva o como ellos dicen “las catacumbas por rumbas”."
@@ -1965,7 +1966,7 @@
    "cover": {
     "w": 1600,
     "h": 930,
-    "alt": "Imagen de la comparsa la ciudad invisble interpretando en el escenario",
+    "alt": "Imagen de la comparsa La ciudad invisible interpretando en el escenario",
     "credit": "Imagen: <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."
    }
   },
@@ -1981,8 +1982,8 @@
    ],
    "url": "https://soynando.com/tu-empresa-necesita-un-sistema-de-diseno-y-no-lo-sabes/",
    "es": {
-    "title": "Tu empresa necesita un Sistema de diseño y no lo sabes",
-    "excerpt": "Guía rápida para empezar a crear un “Design System” desde cero a nivel de concepto, diseño UX y desarrollo web. Qué es un “Sistema de diseño” o “Design System” Un «Sistema de…",
+    "title": "Tu empresa necesita un sistema de diseño y no lo sabes",
+    "excerpt": "Guía rápida para empezar a crear un “Design System” desde cero a nivel de concepto, diseño UX y desarrollo web.",
     "body": [
      {
       "p": "Guía rápida para empezar a crear un “Design System” desde cero a nivel de concepto, diseño UX y desarrollo web."
@@ -2038,7 +2039,7 @@
      },
      {
       "ul": [
-       "Asegúrese que la agencia o equipo de diseño que contrate trabaje o trabajase con sistemas de diseño con anterioridad, del contrario es posible que la entrega sea más parecida a una simple guía de estilos, en lugar de una estructura sólida, dinámica y escalable."
+       "Asegúrese de que la agencia o equipo de diseño que contrate trabaje o haya trabajado con sistemas de diseño con anterioridad, del contrario es posible que la entrega sea más parecida a una simple guía de estilos, en lugar de una estructura sólida, dinámica y escalable."
       ]
      },
      {
@@ -2057,7 +2058,7 @@
       ]
      },
      {
-      "h": "Figma es la herramienta estándar en el 2023",
+      "h": "Figma es la herramienta estándar en 2023",
       "lv": 3
      },
      {
@@ -2085,7 +2086,7 @@
       "p": "Un “Design System” funciona como una palanca transversal, requiere una estrategia, objetivos y metas alineadas entre los distintos departamentos de una organización."
      },
      {
-      "p": "Por todo ello, una comunicación fluida entre estos departamentos es claves para garantizar un impacto significativo. Es recomendable establecer un equipo interdisciplinario para trabajar en el sistema de diseño, y establecer un plan de trabajo y un calendario de entregas. Es importante asegurar que el sistema de diseño sea revisado y actualizado regularmente para adaptarse a los cambios en la estrategia de negocio y a las necesidades del usuario."
+      "p": "Por todo ello, una comunicación fluida entre estos departamentos es clave para garantizar un impacto significativo. Es recomendable establecer un equipo interdisciplinario para trabajar en el sistema de diseño, y establecer un plan de trabajo y un calendario de entregas. Es importante asegurar que el sistema de diseño sea revisado y actualizado regularmente para adaptarse a los cambios en la estrategia de negocio y a las necesidades del usuario."
      },
      {
       "h": "Estrategias de comunicación eficaces para ello",
@@ -2141,7 +2142,7 @@
       "p": "<strong>Utilizar herramientas colaborativas</strong>"
      },
      {
-      "p": "Utilizar herramientas colaborativas como Figma, Slack, Trello y Jira permiten una mayor comunicación en tiempo real, lo que ayudará a garantizar que los miembros del equipo estén siempre al día en cuanto a los avances del proyecto y puedan colaborar de manera efectiva."
+      "p": "Utilizar herramientas colaborativas como Figma, Slack, Trello y Jira permite una mayor comunicación en tiempo real, lo que ayudará a garantizar que los miembros del equipo estén siempre al día en cuanto a los avances del proyecto y puedan colaborar de manera efectiva."
      },
      {
       "h": "Claves para un buen diseño web",
@@ -2168,7 +2169,7 @@
       "lv": 3
      },
      {
-      "p": "La identidad corporativa se refiere a la personalidad, el carácter y los valores de una empresa, y se refleja en su diseño y comunicación. Al desarrollar un nuevo sistema de diseño, es importante considerar cómo se relaciona con la identidad corporativa de la empresa la Consistencia visual, Tono de voz, Accesibilidad y la Flexibilidad."
+      "p": "La identidad corporativa se refiere a la personalidad, el carácter y los valores de una empresa, y se refleja en su diseño y comunicación. Al desarrollar un nuevo sistema de diseño, es importante considerar cómo se relaciona con la identidad corporativa de la empresa: la consistencia visual, el tono de voz, la accesibilidad y la flexibilidad."
      },
      {
       "p": "<strong>Consistencia visual</strong>"
@@ -2370,13 +2371,13 @@
       "lv": 3
      },
      {
-      "p": "La capa de Frontend no debería depender del framework de Backend. Esto es importante porque permite a la empresa tener flexibilidad en su elección del Backend y cambiarlo si es necesario sin afectar a la capa de Frontend. Esto permite a los desarrolladores de Frontend trabajar de manera independiente a los desarrolladores de Backend, lo que mejora la eficiencia del desarrollo y reduce los conflictos de código. (y viceversa)"
+      "p": "La capa de Frontend no debería depender del framework de Backend. Esto es importante porque permite a la empresa tener flexibilidad en su elección del Backend y cambiarlo si es necesario sin afectar a la capa de Frontend. Esto permite a los desarrolladores de Frontend trabajar de manera independiente a los desarrolladores de Backend, lo que mejora la eficiencia del desarrollo y reduce los conflictos de código (y viceversa)."
      },
      {
       "p": "<strong>Siendo muy sintéticos, podríamos decir que las tres patas que sostienen al Frontend son el HTML generado, el CSS aplicado y el JavaScript que interactúa y solicita datos al backend.</strong>"
      },
      {
-      "p": "Toda arquitectura de un sitio o aplicación web suele tener lo que llamamos un ‘sistema de plantillas’ Este está formado por archivos que contienen el diseño y la estructura básica de una página, como el encabezado, el pie de página y la navegación."
+      "p": "Toda arquitectura de un sitio o aplicación web suele tener lo que llamamos un «sistema de plantillas». Este está formado por archivos que contienen el diseño y la estructura básica de una página, como el encabezado, el pie de página y la navegación."
      },
      {
       "p": "Los desarrolladores web pueden utilizar estas plantillas para crear nuevas páginas rápidamente y de manera consistente, sin tener que crear el diseño y la estructura desde cero cada vez. Un sistema de plantillas también puede incluir variables y componentes reutilizables."
@@ -2443,7 +2444,7 @@
    "cover": {
     "w": 1600,
     "h": 2000,
-    "alt": "un monitor muestra un ejemplo de sistema de diseño",
+    "alt": "Un monitor muestra un ejemplo de sistema de diseño",
     "credit": "Foto de Balázs Kétyi en <a href=\"https://unsplash.com\" rel=\"noopener\">Unsplash</a>."
    }
   },
@@ -2459,11 +2460,11 @@
    "url": "https://soynando.com/carnaval-analisis-del-popurri-de-los-sumisos/",
    "es": {
     "title": "Carnaval: Análisis del popurrí de los sumisos",
-    "excerpt": "Primera cuarteta: Mayo, mucho más que un cambio de fecha El bombo cede a la caja los platillos en forma de tintineo, las guitarras preparan la llegada del punteao, una…",
+    "excerpt": "El bombo cede a la caja los platillos en forma de tintineo, las guitarras preparan la llegada del punteao, una sonoridad más cercana a la Alameda cubana que a la gaditana nos introduce en la primera cuarteta.",
     "body": [
      {
       "yt": "gyGeLPDGoS8",
-      "title": "Popurri con Letra Comparsa \"Los Sumisos\" (2022) de Antonio Martínez Ares"
+      "title": "Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares"
      },
      {
       "h": "Primera cuarteta: Mayo, mucho más que un cambio de fecha",
@@ -2478,7 +2479,8 @@
      {
       "pull": [
        "Mayo <br>Hemos vuelto al mes de mayo <br>El de las romerías <br>De las cruces, los caballos <br>La custodia de Cristo <br>El pasado bajo palio <br>De Feria, vino, bailes <br>Y en el aire <br>Aquel dos <br>De mayo"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «Los sumisos», COAC 2022"
      },
      {
       "p": "Se siguen enumerando, más momentos que acontecimientos para terminar con la irónica referencia al calor (<em>La calle del infierno</em>) y a la operación bikini ¿Quizás? ;D (<em>Esos ojos/Esos cuerpos/De las pavas/Y los gallos</em>)"
@@ -2489,7 +2491,7 @@
       ]
      },
      {
-      "p": "A partir de aquí comienza la crítica, empezando con el mundo del coro y la asociación de autores. ¿Cómo? Pues investigando un poco, resulta que bajo el nombre Guacamayos y Lechuguinos aparece un famoso coro de 1984 con música de <a href=\"https://www.diariodecadiz.es/diario_del_carnaval/coro-Julio-Pardo-COAC-2022_0_1654934651.html\">Julio Pardo</a> (Referente en el mundo del coro) y letra de <a href=\"https://www.lavozdigital.es/cadiz-provincia/lvci-entrevista-kiko-zamora-presidente-4667054992001-20151218080000_video.html\">Quico Zamora</a> (presidente de la Asociación de Autores del Carnaval de Cádiz – <a href=\"http://aaccadiz.com/\">aaccadiz.com</a>). También cabe la posibilidad que hagan referencia <a href=\"http://curiosidadesdecadiz.blogspot.com/2014/06/guacamayos-y-lechuginos.html\">a los personajes históricos a los que representaba ese coro</a>, donde se les insta a no callar, a no ser un sumiso."
+      "p": "A partir de aquí comienza la crítica, empezando con el mundo del coro y la asociación de autores. ¿Cómo? Pues investigando un poco, resulta que bajo el nombre Guacamayos y Lechuguinos aparece un famoso coro de 1984 con música de <a href=\"https://www.diariodecadiz.es/diario_del_carnaval/coro-Julio-Pardo-COAC-2022_0_1654934651.html\">Julio Pardo</a> (Referente en el mundo del coro) y letra de <a href=\"https://www.lavozdigital.es/cadiz-provincia/lvci-entrevista-kiko-zamora-presidente-4667054992001-20151218080000_video.html\">Quico Zamora</a> (presidente de la Asociación de Autores del Carnaval de Cádiz – <a href=\"http://aaccadiz.com/\">aaccadiz.com</a>). También cabe la posibilidad de que hagan referencia <a href=\"http://curiosidadesdecadiz.blogspot.com/2014/06/guacamayos-y-lechuginos.html\">a los personajes históricos a los que representaba ese coro</a>, donde se les insta a no callar, a no ser un sumiso."
      },
      {
       "yt": "d_Yzdhk5Aqk",
@@ -2518,7 +2520,7 @@
       ]
      },
      {
-      "p": "El porqué de esa rebeldía se justifica con elementos no identitarios (<em>Qué yo no soy de caseta y ol</em>é) e identitarios gaditanos como la caleta, la noche de invernal del mentidero, la playa (<em>Que yo soy niño de arena y cantil</em>). Vuelve a rematar con la idea de no ser sumiso ante el cambio de fecha. Para el autor no es una cuestión estética, durante todo el repertorio se lamenta sobre como ese <a href=\"https://www.diariodecadiz.es/carnaval/Fiestas-Tipicas-Cadiz-dieron-hablar_0_235176523.html\">desplazamiento del carnaval a primavera subyace una desvirtuación del carnaval por los poderes, tal como se hizo a principios y mediados del siglo XX</a> (<em>Mayo/ Hemos vuelto al mes de mayo / Que no</em>)"
+      "p": "El porqué de esa rebeldía se justifica con elementos no identitarios (<em>Qué yo no soy de caseta y ol</em>é) e identitarios gaditanos como la caleta, la noche invernal del mentidero, la playa (<em>Que yo soy niño de arena y cantil</em>). Vuelve a rematar con la idea de no ser sumiso ante el cambio de fecha. Para el autor no es una cuestión estética, durante todo el repertorio se lamenta sobre cómo ese <a href=\"https://www.diariodecadiz.es/carnaval/Fiestas-Tipicas-Cadiz-dieron-hablar_0_235176523.html\">desplazamiento del carnaval a primavera subyace una desvirtuación del carnaval por los poderes, tal como se hizo a principios y mediados del siglo XX</a> (<em>Mayo/ Hemos vuelto al mes de mayo / Que no</em>)"
      },
      {
       "pull": [
@@ -2526,16 +2528,17 @@
       ]
      },
      {
-      "h": "Segunda Cuarteta: Tiempos difíciles",
+      "h": "Segunda cuarteta: tiempos difíciles",
       "lv": 2
      },
      {
-      "p": "Al clásico estilo Yuyu (estilísticamente hablando claro) se recurre a un nombre propio para formar el mensaje. Esto tiene dos interpretaciones, ambas complementarías: La primera es pura y simplemente porque hace que encaje bien la rima y la segunda porque a través de la personificación (<em>Mariví, Sebastián, José Luis y Maribel</em> no existen, son recursos literarios) el espectador empatiza más y llega mejor el mensaje sobre la problemática actual de agua, luz, energía, guerra de Ucrania, la vivienda…)"
+      "p": "Al clásico estilo Yuyu (estilísticamente hablando claro) se recurre a un nombre propio para formar el mensaje. Esto tiene dos interpretaciones, ambas complementarias: la primera es pura y simplemente porque hace que encaje bien la rima y la segunda porque a través de la personificación (<em>Mariví, Sebastián, José Luis y Maribel</em> no existen, son recursos literarios) el espectador empatiza más y llega mejor el mensaje sobre la problemática actual (de agua, luz, energía, guerra de Ucrania, la vivienda…)"
      },
      {
       "pull": [
        "Mariví <br>Que la hambre la vamos a sentir <br>Sebastián <br>Sube el agua, la luz sube el gas <br>José Luis <br>Catastrófic cuidao con Putin <br>Maribel <br>Alquiler, el autónomo, impuestos <br>Imposible el ingreso <br>Y estamos a día tres"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «Los sumisos», COAC 2022"
      },
      {
       "p": "Palito al rey emérito, por esquilmar los impuestos de nuestras futuras pensiones y todo su opaco patrimonio. Para los de fuera de España, existe una expresión llamada “tener o ser una cara dura”, es decir, ser un sinvergüenza, por ello dice el autor (<em>De titanio la tiene en verdad</em>) tiene la cara más dura que el titanio."
@@ -2554,7 +2557,7 @@
       ]
      },
      {
-      "p": "Seguido de remate de humor muy bien traído. Para los que no entendáis lo de (<em>A la calle cofrades</em>) Hace referencia a este audio <a href=\"https://www.youtube.com/watch?v=fMo-1kIEhDo\">Cofrades a la Calle!! – YouTube</a> Se hizo viral en WhatsApp durante la pandemia, donde ‘aparentemente’ un <a href=\"https://dle.rae.es/capillita\">capillita</a> insta a la gente a saltarse las normas de confinamiento y aislamiento ante la COVID. Nunca sabremos si la persona que difundió este audio era en tono irónico o real, lo cierto es que nadie se lo tomó en serio y se hizo tan viral, que este COAC ha sido referenciado mucho."
+      "p": "Seguido de remate de humor muy bien traído. Para los que no entendáis lo de (<em>A la calle cofrades</em>) Hace referencia a este audio <a href=\"https://www.youtube.com/watch?v=fMo-1kIEhDo\">Cofrades a la Calle!! – YouTube</a> Se hizo viral en WhatsApp durante la pandemia, donde ‘aparentemente’ un <a href=\"https://dle.rae.es/capillita\">capillita</a> insta a la gente a saltarse las normas de confinamiento y aislamiento ante la covid. Nunca sabremos si la persona que difundió este audio era en tono irónico o real, lo cierto es que nadie se lo tomó en serio y se hizo tan viral que este COAC ha sido referenciado mucho."
      },
      {
       "pull": [
@@ -2562,10 +2565,10 @@
       ]
      },
      {
-      "p": "Tras un instante de respiro con los cofrades vuelve a poner el foco en el gobierno y en general en los políticos como foco del problema. Recalca como no tiene sentido que discutamos entre nosotros. La responsabilidad, la solución según la cuarteta ha de venir de ellos."
+      "p": "Tras un instante de respiro con los cofrades vuelve a poner el foco en el gobierno y en general en los políticos como foco del problema. Recalca que no tiene sentido que discutamos entre nosotros. La responsabilidad, la solución según la cuarteta ha de venir de ellos."
      },
      {
-      "p": "Un detalle de mucha actualidad (<em>El problema de ahora es la carne / No las macro granjas que llena el congreso</em>) Hace poco en España hubo una polémica, c<a href=\"https://elpais.com/clima-y-medio-ambiente/2022-01-12/claves-de-la-polemica-de-las-macrogranjas-en-espana-cuales-son-sus-efectos-negativos-que-dijo-exactamente-garzon.html\">uando un ministro que insinuó regular la industria de las macro granjas</a>."
+      "p": "Un detalle de mucha actualidad (<em>El problema de ahora es la carne / No las macro granjas que llena el congreso</em>) Hace poco en España hubo una polémica, c<a href=\"https://elpais.com/clima-y-medio-ambiente/2022-01-12/claves-de-la-polemica-de-las-macrogranjas-en-espana-cuales-son-sus-efectos-negativos-que-dijo-exactamente-garzon.html\">uando un ministro insinuó regular la industria de las macro granjas</a>."
      },
      {
       "pull": [
@@ -2581,7 +2584,7 @@
       ]
      },
      {
-      "h": "Tercera Cuarteta: Máscara",
+      "h": "Tercera cuarteta: máscara",
       "lv": 2
      },
      {
@@ -2591,12 +2594,13 @@
       "p": "La primera estrofa cantada, casi recitada, con la voz desnuda, sin artificios. La guitarra solo asoma una tímida nota al final de cada verso. Importa el mensaje poético, deliberadamente ambiguo."
      },
      {
-      "p": "(<em>Máscara / te vas como viniste /</em> <em>A este mundo con tu máscara</em>) no sabes a quién o a qué se dirige, pero está claro que ya no está, aunque siempre estuvo envuelto en una máscara. ¿Qué significa la máscara? Tranquila, poco a poco lo iremos desgranando. Se marcho de entre nosotros, pero con el recuerdo primero (Con tu primer recuerdo) Quizás alguien concreto, quizás la España del siglo XX con la guerra civil (De un soldado y una máscara) y sus dos periodos (República y corona) como cuestionadas democracias (Años grises con sus máscaras)."
+      "p": "(<em>Máscara / te vas como viniste /</em> <em>A este mundo con tu máscara</em>) no sabes a quién o a qué se dirige, pero está claro que ya no está, aunque siempre estuvo envuelto en una máscara. ¿Qué significa la máscara? Tranquila, poco a poco lo iremos desgranando. Se marchó de entre nosotros, pero con el recuerdo primero (Con tu primer recuerdo) Quizás alguien concreto, quizás la España del siglo XX con la guerra civil (De un soldado y una máscara) y sus dos periodos (República y corona) como cuestionadas democracias (Años grises con sus máscaras)."
      },
      {
       "pull": [
        "Máscara <br>te vas como viniste <br>A este mundo con tu máscara <br>Con tu primer recuerdo <br>De un soldado y una máscara <br>República y corona <br>Años grises con sus máscaras"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «Los sumisos», COAC 2022"
      },
      {
       "p": "Durante la segunda estrofa, la guitarra empieza a armonizar y vestir la escena, con un tímido in crescendo. Mientras <a href=\"https://twitter.com/figui_8\">Fali Figuier</a> afila el último verso con su baile de máscara."
@@ -2624,7 +2628,7 @@
       "p": "El grupo se ha hecho uno, la fuerza del conjunto te atrapa y si tan siguiera recordar cómo fue, tu cuerpo se mece inconscientemente bamboleando de un lado a otro al ritmo de cada verso."
      },
      {
-      "p": "Aquí ya todo se vuelve más críptico. (<em>Máscara / Tu hijo y tu mujer / Y cada uno con su máscara</em>) ¿está hablando a un hombre con una familia? Cuando parece que tu vida es estable, la esposa se va ¿muerte? ¿divorcio? y la máscara con la que llevas toda la vida viviendo cae (Por fin el bienestar / Adiós mama / Cayó tu máscara) ¿Cuándo? A principios del siglo XXI todo se revela tal y como era en realidad (E<em>l nuevo siglo abrió la negra caja de las máscaras</em>)"
+      "p": "Aquí ya todo se vuelve más críptico. (<em>Máscara / Tu hijo y tu mujer / Y cada uno con su máscara</em>) ¿Está hablando a un hombre con una familia? Cuando parece que tu vida es estable, la esposa se va ¿muerte? ¿divorcio? y la máscara con la que llevas toda la vida viviendo cae (Por fin el bienestar / Adiós mama / Cayó tu máscara) ¿Cuándo? A principios del siglo XXI todo se revela tal y como era en realidad (E<em>l nuevo siglo abrió la negra caja de las máscaras</em>)"
      },
      {
       "pull": [
@@ -2635,10 +2639,10 @@
       "p": "Volvemos a la nota simple de la primera estrofa al final de cada verso. El grupo canta para dentro, con un tono de tristeza y resignación en su interpretación."
      },
      {
-      "p": "EL interlocutor protagonista se despide de ese hombre (<em>Máscara / Cuando te despedí) alguien, que incluso durante sus </em>últimos momentos seguía llevando esa máscara <em>(Llevabas puesta una máscara</em>). Tras escuchar múltiples veces, a mí me sigue pareciendo que dice (<em>Y a mí me conocías</em>) en lugar de “<em>ya no me conocías</em>” (<em>Enredao en muchas máscaras</em>) juzguen ustedes."
+      "p": "El interlocutor protagonista se despide de ese hombre (<em>Máscara / Cuando te despedí) alguien, que incluso durante sus </em>últimos momentos seguía llevando esa máscara <em>(Llevabas puesta una máscara</em>). Tras escuchar múltiples veces, a mí me sigue pareciendo que dice (<em>Y a mí me conocías</em>) en lugar de “<em>ya no me conocías</em>” (<em>Enredao en muchas máscaras</em>) juzguen ustedes."
      },
      {
-      "p": "La conclusión es más clara en su concepto: Los que mueren, los que van al cielo (N<em>o hay nubes en el cielo</em>) son los que realmente purgan esas máscaras, son libres tras toda una vida bajo ellas (<em>Simplemente son ellos al fin libres / De sus máscaras</em>)"
+      "p": "La conclusión es más clara en su concepto: los que mueren, los que van al cielo (N<em>o hay nubes en el cielo</em>) son los que realmente purgan esas máscaras, son libres tras toda una vida bajo ellas (<em>Simplemente son ellos al fin libres / De sus máscaras</em>)"
      },
      {
       "pull": [
@@ -2654,7 +2658,7 @@
       ]
      },
      {
-      "h": "Todo esto está muy bien, pero ¿Qué significan las máscaras?",
+      "h": "Todo esto está muy bien, pero ¿qué significan las máscaras?",
       "lv": 3
      },
      {
@@ -2664,28 +2668,29 @@
       "p": "A menudo, desde el postmodernismo liberal actual, parece que lo único que existe es el individuo, la máscara como un bálsamo para el otro, para los otros, para quien amamos incluso (<em>Llego el amor / Baile de máscara</em>) sólo existe la libertad si solventa mis necesidades individuales."
      },
      {
-      "p": "Antonio no ahonda en la otra cara de la moneda: ¿sólo se puede ser libre sin máscara? Yo pienso que hemos de conocernos muy bien a nosotros mismos, para saber discernir el momento en que llevamos y no llevamos la máscara. Voy más allá, <strong>la máscara puede ser</strong> <strong>adaptativa</strong>, al igual que las emociones. ¿Os Imagináis a alguien siempre, siempre manifestando una alegría forzada? ¿Os imagináis a una persona que nunca nunca ha experimentado la tristeza o el miedo? ¿Una persona siempre enfadada? Esa persona en realidad no es sana."
+      "p": "Antonio no ahonda en la otra cara de la moneda: ¿sólo se puede ser libre sin máscara? Yo pienso que hemos de conocernos muy bien a nosotros mismos, para saber discernir el momento en que llevamos y no llevamos la máscara. Voy más allá, <strong>la máscara puede ser</strong> <strong>adaptativa</strong>, al igual que las emociones. ¿Os imagináis a alguien siempre, siempre manifestando una alegría forzada? ¿Os imagináis a una persona que nunca nunca ha experimentado la tristeza o el miedo? ¿Una persona siempre enfadada? Esa persona en realidad no es sana."
      },
      {
       "p": "<strong>La máscara entendida como traición a tu identidad</strong> <strong>no es adaptativa ni sana</strong>. <strong>Pero la máscara como herramienta para lidiar con el mundo, es inevitable y necesaria</strong>. Como dijo Jorge Drexler: “La vida es más compleja de lo que parece”"
      },
      {
-      "h": "Cuarta Cuarteta: El carnaval de ahora y antes",
+      "h": "Cuarta cuarteta: el carnaval de ahora y antes",
       "lv": 2
      },
      {
       "p": "Cambiamos de registro completamente. La música vuelve a recordar al continente hermano; la cuarteta se adentra en la crítica trufada de humor, poniendo en oposición las dos maneras de entender el carnaval antes y ahora."
      },
      {
-      "p": "Nada más empezar, los segundas pregonan la diferencia entre el carnaval actual y el pretérito: Presos por cantar (<em>Cautivos de las coplas) </em>versus amalgama de coplas<em> (Rebaño de los cantes</em>) e introduce lo que será la explicación de dicha dualidad (<em>Es el mismo estribillo / Ahora que antes</em>) sólo le faltan los dos puntos gramaticales, sustituidos por un “ye yuré yureeee!, yu yu ya yaaá!” (o algo así ;D )."
+      "p": "Nada más empezar, las segundas pregonan la diferencia entre el carnaval actual y el pretérito: presos por cantar (<em>Cautivos de las coplas) </em>versus amalgama de coplas<em> (Rebaño de los cantes</em>) e introduce lo que será la explicación de dicha dualidad (<em>Es el mismo estribillo / Ahora que antes</em>) sólo le faltan los dos puntos gramaticales, sustituidos por un “ye yuré yureeee!, yu yu ya yaaá!” (o algo así ;D )."
      },
      {
       "pull": [
        "Cautivos de las coplas <br>Rebaño de los cantes <br>Es el mismo estribillo <br>Ahora que antes"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «Los sumisos», COAC 2022"
      },
      {
-      "p": "De fondo sigue los coros con su “ye yuré…” animado y alegre. Pequeña píldora de historia (<em>El concurso se creó / Para someter al pueblo) </em>el origen del COAC se remonta a principios del XX como respuesta del poder a la inevitable pulsión del pueblo por el carnaval. No lo hace por amor a la fiesta, sino para tenerlo controlado (¿<em>Tenemos libertad? / Nadie saca el pie del tiesto</em>) Incide sobre como la dictadura uso a la gente llana para propagar su propaganda (<em>Analfabeto animando / Los años dictadores</em>) y casi sin pestañear palo a la semana santa actual (<em>Con el COAC pagamos a los cofrades subvenciones</em>)"
+      "p": "De fondo sigue los coros con su “ye yuré…” animado y alegre. Pequeña píldora de historia (<em>El concurso se creó / Para someter al pueblo) </em>el origen del COAC se remonta a principios del XX como respuesta del poder a la inevitable pulsión del pueblo por el carnaval. No lo hace por amor a la fiesta, sino para tenerlo controlado (¿<em>Tenemos libertad? / Nadie saca el pie del tiesto</em>) Incide sobre cómo la dictadura usó a la gente llana para propagar su propaganda (<em>Analfabeto animando / Los años dictadores</em>) y casi sin pestañear palo a la Semana Santa actual (<em>Con el COAC pagamos a los cofrades subvenciones</em>)"
      },
      {
       "pull": [
@@ -2693,7 +2698,7 @@
       ]
      },
      {
-      "p": "Antes, lo grave era cómo censuraban las coplas, solo solventada con la pericio de usar siempre el doble sentido en las coplas (<em>Censura / y el monstruo de doble sentido</em>). Ahora (<em>La tele, YouTube, /un solo camino</em>) los medios son la gran cesura."
+      "p": "Antes, lo grave era cómo censuraban las coplas, solo solventada con la pericia de usar siempre el doble sentido en las coplas (<em>Censura / y el monstruo de doble sentido</em>). Ahora (<em>La tele, YouTube, /un solo camino</em>) los medios son la gran censura."
      },
      {
       "pull": [
@@ -2701,7 +2706,7 @@
       ]
      },
      {
-      "p": "<br>Antes, las penurias en los rostros de los copleros y un trozo de carbón como maquillaje improvisado (<em>Fatiguitas en la cara / Carboncillo y mucho es</em>). Ahora crítica directa a los chanchullos con la reventa de entradas del COAC incluso por parte del jurado (<em>El jurado vende entradas / Que no llega a fin de mes</em>) Pero mejor callar y seguir cantando mirando a otro lado (<em>Tu canta payaso / Mande quien mande</em>)"
+      "p": "Antes, las penurias en los rostros de los copleros y un trozo de carbón como maquillaje improvisado (<em>Fatiguitas en la cara / Carboncillo y mucho es</em>). Ahora crítica directa a los chanchullos con la reventa de entradas del COAC incluso por parte del jurado (<em>El jurado vende entradas / Que no llega a fin de mes</em>) Pero mejor callar y seguir cantando mirando a otro lado (<em>Tu canta payaso / Mande quien mande</em>)"
      },
      {
       "pull": [
@@ -2709,7 +2714,7 @@
       ]
      },
      {
-      "p": "Antes, las crtíticas quedaban en lo local (<em>Antes /Cuatro fantasmas reventando las finales</em>) ahora las redes sociales han canibalizado el COAC y se han convertido en todólogos al puro estilo tertulia política de TV (<em>Ahora el odio concentrado en redes sociales / Un público filósofo y tirano / Que sabe hasta italiano / De música ni hablamos</em>)"
+      "p": "Antes, las críticas quedaban en lo local (<em>Antes /Cuatro fantasmas reventando las finales</em>) ahora las redes sociales han canibalizado el COAC y se han convertido en todólogos al puro estilo tertulia política de TV (<em>Ahora el odio concentrado en redes sociales / Un público filósofo y tirano / Que sabe hasta italiano / De música ni hablamos</em>)"
      },
      {
       "pull": [
@@ -2736,22 +2741,23 @@
       ]
      },
      {
-      "h": "Quinta cuarteta: Cha cha cha Sensual",
+      "h": "Quinta cuarteta: cha cha cha sensual",
       "lv": 2
      },
      {
       "p": "El cha cha cha sensual, así es como me gusta denominar a la primera cuarteta de pelos de la historia dedicada a las calles de Cádiz. Otra genialidad el Don Antonio."
      },
      {
-      "p": "No diseccionaré la letra esta vez paso a paso, pues toda ello funciona como un conjunto armónico que consigue con matrícula ser <strong>sensual </strong>y <strong>carnal</strong>. Tan sólo la proeza de meter en una cuarteta palabras como (<em>cuarto oscuro</em>, <em>flujo, humedad, empalmar, penetrarte, galopar, soy tu perrito, tu fiel esclavo…) </em>y no resulte soez o chabacano, es brutal."
+      "p": "No diseccionaré la letra esta vez paso a paso, pues todo ello funciona como un conjunto armónico que consigue con matrícula ser <strong>sensual </strong>y <strong>carnal</strong>. Tan sólo la proeza de meter en una cuarteta palabras como (<em>cuarto oscuro</em>, <em>flujo, humedad, empalmar, penetrarte, galopar, soy tu perrito, tu fiel esclavo…) </em>y no resulte soez o chabacano, es brutal."
      },
      {
       "pull": [
        "Carnal <br>Sexual <br>Cha, cha, cha <br>Como me gusta ir al cuarto oscuro <br>De la Caleta en la bajamar <br>Acuclillado desalar tu flujo <br>Y palpar la humedad <br> <br>Semidesnuda empalmar tus barrios <br>Si, penetrarte al norte o bien al sur <br> <br>Y recorrerme calles <br>Plazas, patios <br>Explotando de luz <br> <br>Ella es la dama inmortal <br>La pagana hija de dios <br>Tú, mirar, puedes mirar <br>Pero solo toco yo <br> <br>Átame en corto <br>Te sigo a oscuras <br>Como galopa mi sangre <br>Noto muy cerca tus dunas <br>Soy tu perrito <br>Tu fiel esclavo <br>Soy lo que quieras <br>Lo que quieras <br>Calla, calla, callo"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «Los sumisos», COAC 2022"
      },
      {
-      "p": "Otra vez usa a modo de engarce, siguiente la narrativa del personaje, otros tres versos que nos preparan para la última cuarteta."
+      "p": "Otra vez usa a modo de engarce, siguiendo la narrativa del personaje, otros tres versos que nos preparan para la última cuarteta."
      },
      {
       "pull": [
@@ -2759,7 +2765,7 @@
       ]
      },
      {
-      "h": "Última Cuarteta: El adiós",
+      "h": "Última cuarteta: el adiós",
       "lv": 2
      },
      {
@@ -2771,10 +2777,11 @@
      {
       "pull": [
        "Adiós <br>Me imagino que volveré a la prevención <br>Con esposas y cardenales <br>Por favor <br>Pero gracias por esta noche <br>Padre, alcalde <br>A sus pies gobernador"
-      ]
+      ],
+      "cite": "Letra: Antonio Martínez Ares, «Los sumisos», COAC 2022"
      },
      {
-      "p": "Aquí el meta carnaval está muy presente, pues la “ciudad invisible” es el nombre de la comparsa que tenía pensado para el carnaval de febrero 2022. A todos aquellos que no os habíais dado cuenta, os hace Don Antonio un spoiler como una casa sobre su futuro en los próximos carnavales de febrero 2023."
+      "p": "Aquí el metacarnaval está muy presente, pues la “ciudad invisible” es el nombre de la comparsa que tenía pensado para el carnaval de febrero de 2022. A todos aquellos que no os habíais dado cuenta, os hace Don Antonio un spoiler como una casa sobre su futuro en los próximos carnavales de febrero de 2023."
      },
      {
       "pull": [
@@ -2790,7 +2797,7 @@
       ]
      },
      {
-      "p": "Que quede claro: Todo en este artículo, es pura y simple interpretación o <em>exegesis de patinillo (</em>término acuñado por el profe nacido en La línea, amantado por las playas de Chiclana e hijo carnavalero callejero-ilegal de nuestro amado Cádiz)"
+      "p": "Que quede claro: todo en este artículo, es pura y simple interpretación o <em>exégesis de patinillo (</em>término acuñado por el profe nacido en La Línea, amamantado por las playas de Chiclana e hijo carnavalero callejero-ilegal de nuestro amado Cádiz)"
      },
      {
       "h": "Extras",
@@ -2813,7 +2820,8 @@
    "cover": {
     "w": 1000,
     "h": 668,
-    "alt": ""
+    "alt": "",
+    "credit": "Foto firmada «@DIAZ FARRE»."
    }
   },
   {
@@ -2826,15 +2834,15 @@
    ],
    "url": "https://soynando.com/carnaval-de-cadiz-analisis-del-popuri-de-los-renacidos/",
    "es": {
-    "title": "Carnaval de cadiz: Analisis del popurí de los renacidos",
-    "excerpt": "Primera Cuarteta: Descubrimos quiénes son los renacidos Interpela directamente al que escucha, poniendo el foco en la naturaleza de la vida, donde lo único permanente es el cambio es un ciclo perpetuo…",
+    "title": "Carnaval de Cádiz: análisis del popurrí de Los Renacidos",
+    "excerpt": "Interpela directamente al que escucha, poniendo el foco en la naturaleza de la vida, donde lo único permanente es el cambio, un ciclo perpetuo.",
     "body": [
      {
       "yt": "mZ8Y6Ov4e2Y",
-      "title": "Popurrí con Letra Comparsa \"Los Renacidos\" (2022). El Chapa escribe al grupo de Juan Carlos Aragón"
+      "title": "Popurrí con letra. Comparsa «Los Renacidos» (2022). El Chapa escribe al grupo de Juan Carlos Aragón"
      },
      {
-      "h": "Primera Cuarteta: Descubrimos quiénes son los renacidos",
+      "h": "Primera cuarteta: descubrimos quiénes son Los Renacidos",
       "lv": 2
      },
      {
@@ -2849,10 +2857,11 @@
        "<em>Nace y muere</em>",
        "<em>Y hoy es la semilla</em>",
        "<em>Que mañana será un árbol.</em>"
-      ]
+      ],
+      "cite": "Letra: Miguel Ángel García Argüez, «Los renacidos», COAC 2022"
      },
      {
-      "p": "Y ese cambio no sólo se percibe en nuestro interior, sino en todos los aspectos cotidianos, materiales e inmateriales como el sol, el mar, “<em>Ni las olas paran nunca su canción</em>”, la hierba, las arrugas de la pie, la medición del tiempo “<em>Ni las horas paran</em><em> / Ni los siglos ni los días</em>”. Más aún si cabe, en la época convulsa post-COVID donde las sensibilidades están a flor de piel “<em>Nunca se detiene</em><em> /El tren furioso de estos tiempos</em>”"
+      "p": "Y ese cambio no sólo se percibe en nuestro interior, sino en todos los aspectos cotidianos, materiales e inmateriales como el sol, el mar, “<em>Ni las olas paran nunca su canción</em>”, la hierba, las arrugas de la piel, la medición del tiempo “<em>Ni las horas paran</em><em> / Ni los siglos ni los días</em>”. Más aún si cabe, en la época convulsa poscovid donde las sensibilidades están a flor de piel “<em>Nunca se detiene</em><em> /El tren furioso de estos tiempos</em>”"
      },
      {
       "pull": [
@@ -2876,7 +2885,7 @@
       ]
      },
      {
-      "p": "El circulo sin fin, imparable como las coplas de los gaditanos presentes en primavera. Referencia al cambio de la fecha del carnaval “<em>Que por mayo el milagro / De febrero y las aceras /Y que llego la vida nueva </em>/ El dios Momo está en la hoguera”"
+      "p": "El círculo sin fin, imparable como las coplas de los gaditanos presentes en primavera. Referencia al cambio de la fecha del carnaval “<em>Que por mayo el milagro / De febrero y las aceras /Y que llego la vida nueva </em>/ El dios Momo está en la hoguera”"
      },
      {
       "pull": [
@@ -2899,10 +2908,10 @@
       ]
      },
      {
-      "p": "La música durante esta cuarteta rebosa optimismo y vitalidad. Funciona como reforzador positivo al concepto de transformación permanente, a la imposibilidad de parar o pausar el tiempo, la vida. Te insta a asumirlo como una ventaja, con alegría. Te invita a respirar el cambio, vivirlo, disfrutarlo. ¿Y cómo lo hace? Haciendo que los segundas, los coreaos, acompañen al grupo que vocaliza exquisitamente cada verso, sin estridencias, muchas veces como tenues susurros de fondo y la guitarra guiando al conjunto. La fila de atrás es una delicia para el oído, si prestas atención, la cantidad de matices es casi infinita y no repetitiva."
+      "p": "La música durante esta cuarteta rebosa optimismo y vitalidad. Funciona como reforzador positivo al concepto de transformación permanente, a la imposibilidad de parar o pausar el tiempo, la vida. Te insta a asumirlo como una ventaja, con alegría. Te invita a respirar el cambio, vivirlo, disfrutarlo. ¿Y cómo lo hace? Haciendo que las segundas, los coreaos, acompañen al grupo que vocaliza exquisitamente cada verso, sin estridencias, muchas veces como tenues susurros de fondo y la guitarra guiando al conjunto. La fila de atrás es una delicia para el oído, si prestas atención, la cantidad de matices es casi infinita y no repetitiva."
      },
      {
-      "h": "Segunda Cuarteta: Cuando Cádiz es fuego",
+      "h": "Segunda cuarteta: cuando Cádiz es fuego",
       "lv": 2
      },
      {
@@ -2923,10 +2932,11 @@
        "<em>Viene a enjuagarse en el mar</em>",
        "<em>Fuego y roce en las campanas</em>",
        "<em>Fuego en cada gaditana</em>"
-      ]
+      ],
+      "cite": "Letra: Miguel Ángel García Argüez, «Los renacidos», COAC 2022"
      },
      {
-      "p": "Seguidamente ese fuego no sólo colorea los elementos más representativos de Cádiz, son fuego en sí, forman parte metafóricamente de él los balcones, el verano, la pasión, el colchón, la voz…"
+      "p": "Seguidamente ese fuego no sólo colorea los elementos más representativos de Cádiz, sino que son fuego en sí, forman parte metafóricamente de él los balcones, el verano, la pasión, el colchón, la voz…"
      },
      {
       "pull": [
@@ -2943,7 +2953,7 @@
       ]
      },
      {
-      "p": "Remata con tres versos que sirven de muleta para llegar al cuarto “<em>Cádiz…. …</em><em>Es una canción en llamas</em>” Pocas veces se puede decir tanto con tan poco. Prácticamente resumen el sentido y el sentir de los renacidos. Cádiz es una canción en llamas: <strong>canción</strong> porque es la manera que tenemos los gaditanos de vivir y experimentar el mundo. La canción como símbolo de la alegría, de expresión, deshago… pero en <strong>llamas</strong>. Es decir, siempre alerta, pasional, transformadora, al límite de arder, más aún si cabe durante el carnaval."
+      "p": "Remata con tres versos que sirven de muleta para llegar al cuarto “<em>Cádiz…. …</em><em>Es una canción en llamas</em>” Pocas veces se puede decir tanto con tan poco. Prácticamente resumen el sentido y el sentir de los renacidos. Cádiz es una canción en llamas: <strong>canción</strong> porque es la manera que tenemos los gaditanos de vivir y experimentar el mundo. La canción como símbolo de la alegría, de expresión, desahogo… pero en <strong>llamas</strong>. Es decir, siempre alerta, pasional, transformadora, al límite de arder, más aún si cabe durante el carnaval."
      },
      {
       "pull": [
@@ -2954,11 +2964,11 @@
       ]
      },
      {
-      "h": "Tercera Cuarteta: Crítica social y compromiso",
+      "h": "Tercera cuarteta: crítica social y compromiso",
       "lv": 2
      },
      {
-      "p": "La guitarra cambia el ritmo y nos adentramos en la cuarteta más reivindicativa del popurrí. Reflexiona sobre la incertidumbre de estos tiempos, unos tiempos en los que se tambalean las verdades, se cuestiona todo y a todo se le da la vuelta. Vuelve <a href=\"https://www.microfilosofia.com/2020/11/heraclito-volumen-ii-los-contrarios-el.html\">heraclito con la lucha de los opuestos</a> (el fuego como la representación del cambio constante de lo sensible, representación de un cambio que nunca cesa)."
+      "p": "La guitarra cambia el ritmo y nos adentramos en la cuarteta más reivindicativa del popurrí. Reflexiona sobre la incertidumbre de estos tiempos, unos tiempos en los que se tambalean las verdades, se cuestiona todo y a todo se le da la vuelta. Vuelve <a href=\"https://www.microfilosofia.com/2020/11/heraclito-volumen-ii-los-contrarios-el.html\">Heráclito con la lucha de los opuestos</a> (el fuego como la representación del cambio constante de lo sensible, representación de un cambio que nunca cesa)."
      },
      {
       "pull": [
@@ -2974,7 +2984,8 @@
        "<em>Hoy por lo visto es veneno</em>",
        "<em>Lo lleno ya está vacío</em>",
        "<em>Y es el vacío el relleno</em>"
-      ]
+      ],
+      "cite": "Letra: Miguel Ángel García Argüez, «Los renacidos», COAC 2022"
      },
      {
       "p": "Los políticos en el carnaval han sido, son y serán foco de la crítica, así como todos los que ostentan el poder o aspiran a ello. Argüez en una sola palabra “<em>telepredicadores</em>” ha definido a los congresistas, como heraldos de la verdad ideológico-religiosa, como representantes del bien y del mal, como custodios de la justicia de lo correcto e inmaculado."
@@ -2989,10 +3000,10 @@
       ]
      },
      {
-      "p": "Luego afina aún más, preocupado como la ultraderecha está ocupando los espacios tradicionales de la clase obrera “<em>Los fascistas hoy recorren</em><em> / Los barrios de los obreros</em>” Describe como la lucha de clases se ve desdibujada conscientemente por estos grupos."
+      "p": "Luego afina aún más, preocupado por cómo la ultraderecha está ocupando los espacios tradicionales de la clase obrera “<em>Los fascistas hoy recorren</em><em> / Los barrios de los obreros</em>” Describe cómo la lucha de clases se ve desdibujada conscientemente por estos grupos."
      },
      {
-      "p": "Como la izquierda está más preocupadas por definir qué es y lo que no la izquierda, entienden el debate ideológico interno como deslealtad y el externo como enemigo. “<em>Y la izquierda con nuevas biblias</em><em>/Impone sus evangelios</em>”. Tanta crispación hace que nos volvamos unos contra otros."
+      "p": "Como la izquierda está más preocupada por definir qué es y qué no es la izquierda, entienden el debate ideológico interno como deslealtad y el externo como enemigo. “<em>Y la izquierda con nuevas biblias</em><em>/Impone sus evangelios</em>”. Tanta crispación hace que nos volvamos unos contra otros."
      },
      {
       "pull": [
@@ -3031,7 +3042,7 @@
       ]
      },
      {
-      "h": "Cuarta Cuarteta: Cádiz como un fenix",
+      "h": "Cuarta cuarteta: Cádiz como un fénix",
       "lv": 2
      },
      {
@@ -3051,7 +3062,8 @@
        "<em>Sus calles</em>",
        "<em>Sus hijos</em>",
        "<em>Su suerte</em>"
-      ]
+      ],
+      "cite": "Letra: Miguel Ángel García Argüez, «Los renacidos», COAC 2022"
      },
      {
       "p": "Necesaria reivindicación de la industria y especialmente la naval gaditana, tan castigada siempre, pero que se levanta."
@@ -3069,7 +3081,7 @@
       ]
      },
      {
-      "p": "Las estrofas siguientes recuerdan las calamidades por las que ha pasado historicamente el gaditano/a y como han sabido reponerse ante ellas. Advierte sobre un tipo de turismo destructivo, la rebeldía de las voces en sus coplas y guitarras, el peligro del fascismo tintando su negrura y la pobreza como una realidad palpable."
+      "p": "Las estrofas siguientes recuerdan las calamidades por las que ha pasado históricamente el gaditano/a y cómo han sabido reponerse ante ellas. Advierte sobre un tipo de turismo destructivo, la rebeldía de las voces en sus coplas y guitarras, el peligro del fascismo tintando su negrura y la pobreza como una realidad palpable."
      },
      {
       "pull": [
@@ -3105,7 +3117,7 @@
       ]
      },
      {
-      "h": "Quinta Cuarteta: Canto a la vida",
+      "h": "Quinta cuarteta: canto a la vida",
       "lv": 2
      },
      {
@@ -3121,13 +3133,14 @@
        "<em>Celebra cada trago y cada herida</em>",
        "<em>Pa que hiervan en tu corazón</em>",
        "<em>Las llamas que te llaman a la vida</em>"
-      ]
+      ],
+      "cite": "Letra: Miguel Ángel García Argüez, «Los renacidos», COAC 2022"
      },
      {
       "p": "No mucho más que añadir, pues cada verso a partir de aquí es una alegría, un fervor vitalista, casi bailable por momentos, una invitación al optimismo constante, la personificación de Cádiz como ente inextinguible, purificador y motivador: “<em>Vida nueva</em>”, “<em>Primavera</em>”, “baila en la fuego”, “duerme con el corazón”, “<em>Haz el loco y el amor</em><em>”</em>"
      },
      {
-      "p": "También el recordar a los que se fueron “<em>Y si de lo que queda atrás / Yo guardo algo / Compañero de mi alma /Es recordar la vida eterna / Que a tu lado /Codo a codo yo viví</em>” Si of fijais, los coreados añaden sólo durante esta estrofa el famoso verso «<em>Creo en el espíritu libre y santo</em>» del Credo de Juan Carlos Aragón."
+      "p": "También el recordar a los que se fueron “<em>Y si de lo que queda atrás / Yo guardo algo / Compañero de mi alma /Es recordar la vida eterna / Que a tu lado /Codo a codo yo viví</em>” Si os fijáis, los coreados añaden sólo durante esta estrofa el famoso verso «<em>Creo en el espíritu libre y santo</em>» del Credo de Juan Carlos Aragón."
      },
      {
       "tweet": "Los Renacidos, en Oratorio San Felipe <a href=\"https://x.com/ComparsaArguez?ref_src=twsrc%5Etfw\">@ComparsaArguez</a> <a href=\"https://t.co/54oJcZShC0\">pic.twitter.com/54oJcZShC0</a>",
@@ -3188,7 +3201,7 @@
       "p": "<strong>En resumen, una obra maestra de popurrí que estará para siempre en el pódium de los grandes clásicos del carnaval de Cádiz. El tándem <a href=\"https://twitter.com/eme_raul\">Raúl</a> + <a href=\"https://twitter.com/cronopiomiguel\">Miguel</a> + <a href=\"https://twitter.com/ComparsaArguez\">Grupo</a> es simplemente sublime o como decimos en Cádiz: “De pellizco y bellito de punta”.</strong>"
      },
      {
-      "p": "<strong>Detalles extras de la Calle durante el carnaval 2022</strong>"
+      "p": "<strong>Detalles extra de la calle durante el carnaval 2022</strong>"
      },
      {
       "yt": "bJVfCVO9yc0",
@@ -3214,7 +3227,8 @@
    "cover": {
     "w": 1500,
     "h": 500,
-    "alt": "Comparsa - Los Renacidos"
+    "alt": "Comparsa - Los Renacidos",
+    "credit": "Cartel de la comparsa Los Renacidos."
    }
   },
   {
@@ -3224,34 +3238,34 @@
    "tags": [],
    "url": "https://soynando.com/como-detectar-el-soporte-de-las-pseudo-classes-css-con-vanilla-javascript-en-tu-navegador/",
    "es": {
-    "title": "Cómo detectar el Soporte de las pseudo classes css con vanilla javascript en tu navegador",
-    "excerpt": "Quizás alguna vez tengas la necesidad de saber si una pseudo clase de css es soportado por el navegador. Yo en su día la tuve con la propiedad :autofill versus :–webkit-autofill ,…",
+    "title": "Cómo detectar el soporte de las pseudoclases CSS con vanilla JavaScript en tu navegador",
+    "excerpt": "Quizás alguna vez tengas la necesidad de saber si una pseudoclase de CSS está soportada por el navegador. Yo en su día la tuve con :autofill frente a :-webkit-autofill.",
     "body": [
      {
-      "p": "<strong>Quizás alguna vez tengas la necesidad de saber si una pseudo clase de css es soportado por el navegador. Yo en su día la tuve con la propiedad </strong><code>:autofill</code> <strong> versus </strong><code>:--webkit-autofill</code><strong> , ahora te cuento como lo solucioné.</strong>"
+      "p": "<strong>Quizás alguna vez tengas la necesidad de saber si una pseudoclase de CSS está soportada por el navegador. Yo en su día la tuve con la propiedad </strong><code>:autofill</code> <strong> versus </strong><code>:-webkit-autofill</code><strong>, ahora te cuento cómo lo solucioné.</strong>"
      },
      {
       "p": "Gracias a la propiedad <code>:autofill</code> puedes aplicar un estilo distinto siempre a un elemento como un <code>&lt;input type=\"email\"&gt;</code> o <code>&lt;input type=\"password\"&gt;</code> cuando se ha autocompletado, como por ejemplo en el típico formulario de login."
      },
      {
-      "p": "Durante mi trabajo necesitaba detectar vía javascript, sólo cuando el input es autocompletado, pero no existe un evento en js del tipo «autofill». Existe una manera, una manera un poco más safisticada de abordar el problema <a href=\"https://medium.com/@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7\">ideada por Tommy Brunn con el evento animationstart </a> pero a mi no me terminaba de encajar."
+      "p": "Durante mi trabajo necesitaba detectar vía javascript, sólo cuando el input es autocompletado, pero no existe un evento en js del tipo «autofill». Existe una manera, una manera un poco más sofisticada de abordar el problema <a href=\"https://medium.com/@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7\">ideada por Tommy Brunn con el evento animationstart </a> pero a mí no me terminaba de encajar."
      },
      {
       "h": "Módulo supportPseudoClass",
       "lv": 2
      },
      {
-      "p": "Ojeando <a href=\"https://stackoverflow.com/questions/8531940/how-to-detect-if-browser-support-specified-css-pseudo-class/61597966#61597966\">stackoverflow un usuario compartió una funcion muy sencilla </a> para detectar cuando una pseudoclase es sorportada."
+      "p": "Ojeando <a href=\"https://stackoverflow.com/questions/8531940/how-to-detect-if-browser-support-specified-css-pseudo-class/61597966#61597966\">Stack Overflow un usuario compartió una función muy sencilla </a> para detectar cuando una pseudoclase es soportada."
      },
      {
-      "gist": "https://gist.github.com/Silencespainter/a6096b7b63593afaa588bf45eabec947"
+      "gist": "https://gist.github.com/nandovejer/a6096b7b63593afaa588bf45eabec947"
      }
     ]
    },
    "cover": {
     "w": 1600,
     "h": 1066,
-    "alt": "Libro de css sobre la mesa",
+    "alt": "Libro de CSS sobre la mesa",
     "credit": "Foto de KOBU Agency en <a href=\"https://unsplash.com\" rel=\"noopener\">Unsplash</a>."
    }
   },
@@ -3263,7 +3277,7 @@
    "url": "https://soynando.com/tu-navegador-sabe-sobre-ti-mas-de-lo-que-crees/",
    "es": {
     "title": "Huella digital, regalas diariamente datos de tu vida sin tu consentimiento",
-    "excerpt": "La huella digital es la recopilación de todos los datos que vas dejando por la red, la mayoría de las veces sin tu consentimiento y otras con ¿tu consentimiento? Al finalizar el…",
+    "excerpt": "La huella digital es la recopilación de todos los datos que vas dejando por la red, la mayoría de las veces sin tu consentimiento y otras con ¿tu consentimiento?",
     "body": [
      {
       "p": "La huella digital es la recopilación de todos los datos que vas dejando por la red, la mayoría de las veces sin tu consentimiento y otras con ¿tu consentimiento? Al finalizar el artículo te aseguro que tomarás conciencia sobre tus datos en internet y te sugeriremos algunas soluciones para mitigar un poco esa cesión de datos."
@@ -3273,13 +3287,13 @@
       "lv": 2
      },
      {
-      "p": "Imagínate a una persona normal en su uso de internet, mejor aún, pongámosle un nombre ficticio, por ejemplo, podrías llamarle María Segura. María Segura es una persona despreocupada, joven, de unos 31 años, amante del futbol y las películas americanas de estreno."
+      "p": "Imagínate a una persona normal en su uso de internet, mejor aún, pongámosle un nombre ficticio, por ejemplo, podrías llamarle María Segura. María Segura es una persona despreocupada, joven, de unos 31 años, amante del fútbol y las películas americanas de estreno."
      },
      {
-      "p": "Visita todos los días una página de noticias y rumores especializada en su equipo de futbol favorito. Hace clic frecuentemente a enlaces a artículos de actualidad y humor que sus amigos le mandan a uno de sus 20 grupos de WhatsApp. María está encantada, porque algunas tardes se echa en el sofá a ver pelis de estreno; un compañero de trabajo le recomendó una web para ver las películas de estreno en streaming gratis y sin tener que descargar nada. Le gusta la comodidad de comprar por internet desde el móvil, es tan apasionada de las tiendas online de ropa de buena calidad y precios bajos, que incluso a veces le llegan paquetes que no recuerda haber comprado :D."
+      "p": "Visita todos los días una página de noticias y rumores especializada en su equipo de fútbol favorito. Hace clic frecuentemente en enlaces a artículos de actualidad y humor que sus amigos le mandan a uno de sus 20 grupos de WhatsApp. María está encantada, porque algunas tardes se echa en el sofá a ver pelis de estreno; un compañero de trabajo le recomendó una web para ver las películas de estreno en streaming gratis y sin tener que descargar nada. Le gusta la comodidad de comprar por internet desde el móvil, es tan apasionada de las tiendas online de ropa de buena calidad y precios bajos, que incluso a veces le llegan paquetes que no recuerda haber comprado :D."
      },
      {
-      "p": "Cada vez que alguien le habla de datos y privacidad en internet, ella rehúye, prefiere no saber, dice frecuentemente: “Además, si yo no tengo nada de ocultar, que tomen los datos que quieran” aunque en el fondo está un poco preocupada por su desconocimiento, sin embargo, siente una falsa seguridad al saber que todos sus conocidos tienen el mismo poco conocimiento que ella sobre este tema."
+      "p": "Cada vez que alguien le habla de datos y privacidad en internet, ella rehúye, prefiere no saber, dice frecuentemente: “Además, si yo no tengo nada que ocultar, que tomen los datos que quieran” aunque en el fondo está un poco preocupada por su desconocimiento, sin embargo, siente una falsa seguridad al saber que todos sus conocidos tienen el mismo poco conocimiento que ella sobre este tema."
      },
      {
       "h": "¿Qué es eso de la huella digital? 🕵️‍♂️",
@@ -3289,7 +3303,7 @@
       "p": "El tipo y marca de dispositivo desde el que navegas, fecha/hora de cada visita, idioma, el nivel de batería, saber si estás cargándola y por tanto el tiempo que te queda para que se te apague. Son sólo algunos datos básicos que sin ningún tipo de restricción cualquier web puede saber de ti."
      },
      {
-      "p": "En la siguiente tabla he creado una clasificación, sobre algunos tipos de datos que tu navegador puede recoger de ti cada vez que navegas por la red. Y los cuales, la web de turno puede almacenar y hacer tu perfil sobre ti, es lo que llamamos “huella Digital”."
+      "p": "En la siguiente tabla he creado una clasificación, sobre algunos tipos de datos que tu navegador puede recoger de ti cada vez que navegas por la red. La web de turno puede almacenarlos y hacer tu perfil con ellos: es lo que llamamos “huella digital”."
      },
      {
       "h": "Navegador sin ceder permisos especiales (WebAPI)",
@@ -3324,7 +3338,7 @@
         ],
         [
          "Sistema Operativo",
-         "Windows, Mac, Android, IOs…"
+         "Windows, Mac, Android, iOS…"
         ],
         [
          "Idioma",
@@ -3332,7 +3346,7 @@
         ],
         [
          "Fecha y hora",
-         "Dia, mes, años, hora, minuto y segundo"
+         "Día, mes, años, hora, minuto y segundo"
         ],
         [
          "Velocidad que descargas",
@@ -3340,7 +3354,7 @@
         ],
         [
          "Vibración",
-         "Hacer vibrar tu movil/tablet"
+         "Hacer vibrar tu móvil/tablet"
         ],
         [
          "Memoria RAM",
@@ -3356,15 +3370,15 @@
         ],
         [
          "Batería",
-         "Nivel, dectector si está Cargando o no y Tiempo restante de batería"
+         "Nivel, detector si está cargando o no y tiempo restante de batería"
         ],
         [
          "Giroscopio",
-         "«Un acelerómetro es capaz de detectar que tu móvil se está moviendo en cierta dirección y con cuanta intensidad, pero dista mucho de hacerlo con la precisión necesaria hoy en día en aplicaciones como realidad virtual. Ahí es donde entra el <strong>giroscopio</strong>, que añade el registro de la <strong>rotación del dispositivo en todos sus ejes</strong>.» vía <a href=\"https://www.xatakandroid.com/aplicaciones-android/giroscopio-en-el-movil-estos-son-todos-los-usos-menos-conocidos\">xatakandroid.com</a>"
+         "«Un acelerómetro es capaz de detectar que tu móvil se está moviendo en cierta dirección y con cuánta intensidad, pero dista mucho de hacerlo con la precisión necesaria hoy en día en aplicaciones como realidad virtual. Ahí es donde entra el <strong>giroscopio</strong>, que añade el registro de la <strong>rotación del dispositivo en todos sus ejes</strong>.» vía <a href=\"https://www.xatakandroid.com/aplicaciones-android/giroscopio-en-el-movil-estos-son-todos-los-usos-menos-conocidos\">xatakandroid.com</a>"
         ],
         [
          "Posición del puntero del ratón",
-         "Saber en todo momento hacia donde apunta el puntero de tu ratón y por supuesto donde haces clic."
+         "Saber en todo momento hacia dónde apunta el puntero de tu ratón y por supuesto dónde haces clic."
         ],
         [
          "Combinación de varios datos anteriores",
@@ -3387,7 +3401,7 @@
        "rows": [
         [
          "Ubicación",
-         "Acceso al GPS de tu dispositivo, es muy preciso, puede determinar el país, ciudad, barrio, calle y numero de calle en la que te encuentras"
+         "Acceso al GPS de tu dispositivo, es muy preciso, puede determinar el país, ciudad, barrio, calle y número de calle en la que te encuentras"
         ],
         [
          "Cámara",
@@ -3424,23 +3438,23 @@
       "cite": "Fuente: <a href=\"https://www.cookiebot.com/es/seguimiento-online/\">Cookiebot.com</a>"
      },
      {
-      "h": "¿Cómo me afecta la recopilación esos datos en mi día a día?",
+      "h": "¿Cómo me afecta la recopilación de esos datos en mi día a día?",
       "lv": 2
      },
      {
-      "p": "Quizás el apartado anterior habrás reaccionado con indiferencia y en el mejor de los casos con incomodidad. De lo que estoy convencido es que su lectura no cambiará para nada tus hábitos al navegar por internet, por ello vuelvo a recurrir al ejemplo de nuestra ficticia María Segura para concienciaros."
+      "p": "En el apartado anterior quizás habrás reaccionado con indiferencia y en el mejor de los casos con incomodidad. De lo que estoy convencido es que su lectura no cambiará para nada tus hábitos al navegar por internet, por ello vuelvo a recurrir al ejemplo de nuestra ficticia María Segura para concienciaros."
      },
      {
-      "p": "…hace clic frecuentemente a enlaces a artículos de actualidad y humor que sus amigos le mandan a uno de sus 20 grupos de WhatsApp."
+      "p": "…hace clic frecuentemente en enlaces a artículos de actualidad y humor que sus amigos le mandan a uno de sus 20 grupos de WhatsApp."
      },
      {
-      "p": "Ejemplo real de cómo te pueden <a href=\"https://maldita.es/malditobulo/2020/11/02/whatsapp-codigo-6-digitos-sms-por-error-campana-suplantacion-de-identidad-no-hackean-telefono/\">intentar engañar para quedarse con tu cuenta de whatsapp, así como tu lista de contactos y archivos de whatsapp</a>."
+      "p": "Ejemplo real de cómo te pueden <a href=\"https://maldita.es/malditobulo/20210202/whatsapp-codigo-6-digitos-sms-por-error-campana-suplantacion-de-identidad-no-hackean-telefono/\">intentar engañar para quedarse con tu cuenta de WhatsApp, así como tu lista de contactos y archivos de WhatsApp</a>."
      },
      {
       "quote": [
        "La Guardia Civil de Navarra alertó en febrero a través de una nota de prensa «de una posible campaña de suplantación de identidad a través de la aplicación de mensajería móvil WhatsApp»… …según las denuncias que han recibido, los usuarios han recibido un mensaje a través de WhatsApp que les decía “Hola, lo siento, te envíe un código de 6 dígitos por SMS por error, puedes pasar a mí por favor? es urgente”."
       ],
-      "cite": "Fuente: <a href=\"https://maldita.es/malditobulo/2020/11/02/whatsapp-codigo-6-digitos-sms-por-error-campana-suplantacion-de-identidad-no-hackean-telefono/\">Maldita.es</a>"
+      "cite": "Fuente: <a href=\"https://maldita.es/malditobulo/20210202/whatsapp-codigo-6-digitos-sms-por-error-campana-suplantacion-de-identidad-no-hackean-telefono/\">Maldita.es</a>"
      },
      {
       "p": "…un compañero de trabajo le recomendó una web para ver las películas de estreno en streaming gratis."
@@ -3458,7 +3472,7 @@
       "p": "…es tan apasionada de las tiendas online de ropa de buena calidad y precios bajos, que incluso a veces le llegan paquetes que no recuerda haber comprado."
      },
      {
-      "p": "El <strong>brushing </strong>es una estrategia usada por las empresas fraudulentas para generar <strong>votos positivos falsos en las reseñas de sus productos</strong>. Se aprovechan webs como amazon o ebay <a href=\"https://www.lavanguardia.com/economia/20200829/483143672791/el-gobierno-alerta-de-un-nuevo-fraude-global-en-el-comercio-online.html\">enviándote paquetes que no has pedido</a>."
+      "p": "El <strong>brushing </strong>es una estrategia usada por las empresas fraudulentas para generar <strong>votos positivos falsos en las reseñas de sus productos</strong>. Se aprovechan webs como Amazon o eBay <a href=\"https://www.lavanguardia.com/economia/20200829/483143672791/el-gobierno-alerta-de-un-nuevo-fraude-global-en-el-comercio-online.html\">enviándote paquetes que no has pedido</a>."
      },
      {
       "quote": [
@@ -3479,7 +3493,7 @@
       "cite": "Fuente: <a href=\"https://www.elconfidencial.com/tecnologia/2019-12-08/uber-cabify-taxi-apps-aplicaciones_2361571/#doc_13210\">El Confidencial</a>"
      },
      {
-      "p": "Ella cuenta su vida en facebook, y nunca se ha parado a mirar como ven los demás su perfil o el tipo de datos que ponen publicos en su muro."
+      "p": "Ella cuenta su vida en Facebook, y nunca se ha parado a mirar cómo ven los demás su perfil o el tipo de datos que ponen públicos en su muro."
      },
      {
       "p": "Ejemplo real, el caso de <a href=\"https://www.adslzone.net/noticias/redes-sociales/facebook-filtracion-datos-desarrolladores-90-dias/\">Facebook suma y sigue: volvió a compartir tus datos personales</a>."
@@ -3502,7 +3516,7 @@
       "lv": 3
      },
      {
-      "p": "Cómo programador con muchos años a mis espaldas trabajando en el mundo de internet, <a href=\"https://nandovejer.github.io/ikay\">me fue sencillo desarrollar el proyecto IKAY (I know about you</a>). IKAY es una web dónde te muestro de forma sencilla los <em><a href=\"#webapi\">datos más básicos</a></em> que cualquier web puede saber de ti, unido a recomendaciones para evitar su filtración en la medida de lo posible."
+      "p": "Como programador con muchos años a mis espaldas trabajando en el mundo de internet, <a href=\"https://nandovejer.github.io/ikay\">me fue sencillo desarrollar el proyecto IKAY (I know about you</a>). IKAY es una web donde te muestro de forma sencilla los <em><a href=\"#webapi\">datos más básicos</a></em> que cualquier web puede saber de ti, unido a recomendaciones para evitar su filtración en la medida de lo posible."
      },
      {
       "img": "/maqueta/img/blog/posts/tu-navegador-sabe-sobre-ti-mas-de-lo-que-crees-36.jpg",
@@ -3511,17 +3525,17 @@
       "hgt": 500
      },
      {
-      "p": "Todos los datos que aparecen en IKAY únicamente se almacenan en tu dispositivo, en ningún momento son envidos a ningún servicio externo, ¿por qué? porque no me interesan tus datos, me interesa tu concienciación."
+      "p": "Todos los datos que aparecen en IKAY únicamente se almacenan en tu dispositivo, en ningún momento son enviados a ningún servicio externo, ¿Por qué? Porque no me interesan tus datos, me interesa tu concienciación."
      },
      {
-      "h": "Consejos sobre el uso de whatsapp",
+      "h": "Consejos sobre el uso de WhatsApp",
       "lv": 3
      },
      {
-      "p": "Whatsapp es una red social introducida en nuestras vidas de manera muy natural. Por todo ello hemos de ser más precavidos sobre cómo la utilizamos y sobre todo no hacer clic a cualquier enlace que nos envien."
+      "p": "WhatsApp es una red social introducida en nuestras vidas de manera muy natural. Por todo ello hemos de ser más precavidos sobre cómo la utilizamos y sobre todo no hacer clic en cualquier enlace que nos envíen."
      },
      {
-      "p": "El periódico <a href=\"https://www.abc.es/tecnologia/consultorio/abci-cinco-consejos-para-mejorar-seguridad-cuenta-whatsapp-202002130207_noticia.html\">ABC nos proporciona cinco consejos para mejorar la seguridad</a> de nuestro whatsapp:"
+      "p": "El periódico <a href=\"https://www.abc.es/tecnologia/consultorio/abci-cinco-consejos-para-mejorar-seguridad-cuenta-whatsapp-202002130207_noticia.html\">ABC nos proporciona cinco consejos para mejorar la seguridad</a> de nuestro WhatsApp:"
      },
      {
       "ul": [
@@ -3537,7 +3551,7 @@
       "lv": 3
      },
      {
-      "p": "Cuando un servicio en internet es gratuito, tu eres el producto. El modelo de negocio más usado en la red es la publicidad, pero no siempre se caracterizan por la ética. <a href=\"https://www.pcworld.es/tutoriales/internet/evitar-rastreo-online-3788194/\">PCWorld</a> nos aconseja seguir estos puntos evitar el rastreo de nuestro perfil usado para mostrarnos publicidad:"
+      "p": "Cuando un servicio en internet es gratuito, tú eres el producto. El modelo de negocio más usado en la red es la publicidad, pero no siempre se caracterizan por la ética. <a href=\"https://www.pcworld.es/tutoriales/internet/evitar-rastreo-online-3788194/\">PCWorld</a> nos aconseja seguir estos puntos para evitar el rastreo de nuestro perfil usado para mostrarnos publicidad:"
      },
      {
       "ul": [
@@ -3554,7 +3568,7 @@
       "lv": 3
      },
      {
-      "p": "El dato más jugoso para los amantes de lo ajeno en internet es nuestra tarjeta de crédito, por ello yo siempre recomiendo poner un intermediario seguro. Bajo mi punto de vista <a href=\"https://www.paypal.com/es/webapps/mpp/personal\">crear un cuenta de paypal</a> es lo mejor, <a href=\"https://www.adslzone.net/2017/02/12/mas-seguro-pagar-paypal/\">sobre todo cuando compras por primera vez</a> en una web nueva."
+      "p": "El dato más jugoso para los amantes de lo ajeno en internet es nuestra tarjeta de crédito, por ello yo siempre recomiendo poner un intermediario seguro. Bajo mi punto de vista <a href=\"https://www.paypal.com/es/webapps/mpp/personal\">crear una cuenta de PayPal</a> es lo mejor, <a href=\"https://web.archive.org/web/2025/https://www.adslzone.net/2017/02/12/mas-seguro-pagar-paypal/\">sobre todo cuando compras por primera vez</a> en una web nueva."
      },
      {
       "quote": [
@@ -3566,7 +3580,7 @@
       "ul": [
        "Tener instalado un antivirus actualizado.",
        "Si usas móvil/tablet compra desde su app oficial",
-       "Compra con el wifi de casa, evita conectarte a redes publicas",
+       "Compra con el wifi de casa, evita conectarte a redes públicas",
        "Revisa la información clave de la tienda online: quiénes son, domicilio fiscal, formas de pago, políticas de envío y políticas de devolución",
        "Si tienes dudas, nunca compres ahí",
        "Si es demasiado bueno para ser verdad, seguro que es un fraude"
@@ -3577,25 +3591,25 @@
       "lv": 3
      },
      {
-      "p": "<strong>Nunca digas en las redes sociales, nada que no dijeras en la vida real en público.</strong>"
+      "p": "<strong>Nunca digas en las redes sociales nada que no dijeras en la vida real en público.</strong>"
      },
      {
-      "p": "<em>¿Gritarías en medio de la plaza del pueblo que te vas de vacaciones o que vas a estar tres horas fuera de casa porque estás en un restaurante? </em>Entonces por qué te sorprende que los delicentes digitales esten atentos y lean tus redes sociales para recabar información sobre ti."
+      "p": "<em>¿Gritarías en medio de la plaza del pueblo que te vas de vacaciones o que vas a estar tres horas fuera de casa porque estás en un restaurante? </em>Entonces ¿por qué te sorprende que los delincuentes digitales estén atentos y lean tus redes sociales para recabar información sobre ti?"
      },
      {
-      "p": "¿Le dirias a un desconocido por la calle: tu ideologia política, cómo te sientes hoy, cuando conociste a tu novio, que estás embarazada, día, mes año y hora de nacimiento, nombre con apellidos completo…? Entonces por qué le das esa información a facebook."
+      "p": "¿Le dirías a un desconocido por la calle: tu ideología política, cómo te sientes hoy, cuando conociste a tu novio, que estás embarazada, día, mes año y hora de nacimiento, nombre con apellidos completo…? Entonces ¿por qué le das esa información a Facebook?"
      },
      {
       "p": "Otro hábito saludable es revisar las <strong>configuraciones de privacidad de las redes sociales</strong>:"
      },
      {
       "ul": [
-       "Cómo configurar tu privacidad en facebook",
+       "Cómo configurar tu privacidad en Facebook",
        "<a href=\"https://www.osi.es/es/actualidad/blog/2014/04/21/seguridad-y-privacidad-en-redes-sociales-ii-twitter-todo-lo-que-debes-sab\">Cómo configurar tu privacidad en Twitter</a>",
-       "<a href=\"https://elandroidelibre.elespanol.com/2019/04/opciones-privacidad-whatsapp.html\">Cómo configurar tu privacidad en Whatsapp</a>",
+       "<a href=\"https://elandroidelibre.elespanol.com/2019/04/opciones-privacidad-whatsapp.html\">Cómo configurar tu privacidad en WhatsApp</a>",
        "<a href=\"https://elandroidelibre.elespanol.com/2020/02/los-mejores-ajustes-para-privacidad-en-instagram.html\">Cómo configurar tu privacidad en Instagram</a>",
-       "<a href=\"https://dataseg.es/proteccion-de-datos/configura-tu-privacidad-en-linkedin/\">Cómo configurar tu privacidad en Linkedin</a>",
-       "<a href=\"https://www.xataka.com/basics/como-mejorar-privacidad-youtube\">Cómo configurar tu privacidad en Youtube</a>"
+       "<a href=\"https://dataseg.es/proteccion-de-datos/configura-tu-privacidad-en-linkedin/\">Cómo configurar tu privacidad en LinkedIn</a>",
+       "<a href=\"https://www.xataka.com/basics/como-mejorar-privacidad-youtube\">Cómo configurar tu privacidad en YouTube</a>"
       ]
      },
      {

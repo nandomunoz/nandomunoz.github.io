@@ -13,7 +13,7 @@ export const B = {
     min: (m) => `${m} min de lectura`, minShort: (m) => `${m} min`, latest: 'Lo último',
     newer: 'Más recientes', older: 'Anteriores', page: (a, b) => `Página ${a} de ${b}`, pages: 'Páginas',
     toc: 'En este artículo', timeline: 'Línea de tiempo', shareThis: 'Compartir artículo', copy: 'Copiar enlace', copied: 'Enlace copiado', codeCopy: 'Copiar', codeCopyLabel: 'Copiar el ejemplo de código', copyFail: 'Selecciona el enlace y cópialo', shareLink: 'Enlace del artículo', shareOn: 'Compartir en', email: 'Correo', close: 'Cerrar', newTab: '(se abre en otra pestaña)',
-    prev: 'Anterior', next: 'Siguiente', related: 'Sigue leyendo', back: 'Volver al blog',
+    prev: 'Anterior', next: 'Siguiente', newerPost: 'Más reciente', olderPost: 'Más antiguo', related: 'Sigue leyendo', back: 'Volver al blog',
     by: 'Escrito por', authorMore: 'Más sobre mí', write: 'Escríbeme',
     published: 'Publicado', reading: 'Lectura', in: 'en', tagged: 'Etiquetados con',
     nf: 'No encontrado', nfText: 'Esta página no existe o ha cambiado de sitio.',
@@ -26,7 +26,7 @@ export const B = {
     nfWays: 'O empieza por aquí', nfHome: 'Inicio', nfLatest: 'Lo último del blog', project: 'Proyecto', post: 'Artículo',
     onlyEs: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo',
     projects: 'Proyectos', allProjects: 'Todos los proyectos', projPage: 'Ficha completa',
-    projDeck: 'Todo lo que he publicado en GitHub: sistemas de diseño, herramientas, experimentos con IA y el Carnaval de Cádiz.',
+    projDeck: 'Una selección de lo que he publicado en GitHub: sistemas de diseño, herramientas, experimentos con IA y el Carnaval de Cádiz.',
     projCount: (n, a, b) => `${n} proyectos · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 proyecto' : `${n} proyectos`),
     allTech: 'Todas', techLabel: 'Tecnología', year: 'Año', demo: 'Ver demo', repo: 'Ver código', shot: (n) => `Captura de ${n}`, moreProjects: 'Más proyectos',
     newTab: '(se abre en otra pestaña)', projLegendTitle: 'Cómo leer los bloques',
@@ -39,7 +39,7 @@ export const B = {
     min: (m) => `${m} min read`, minShort: (m) => `${m} min`, latest: 'Latest',
     newer: 'Newer', older: 'Older', page: (a, b) => `Page ${a} of ${b}`, pages: 'Pages',
     toc: 'In this post', timeline: 'Timeline', shareThis: 'Share this post', copy: 'Copy link', copied: 'Link copied', codeCopy: 'Copy', codeCopyLabel: 'Copy code example', copyFail: 'Select the link and copy it', shareLink: 'Link to this post', shareOn: 'Share on', email: 'Email', close: 'Close', newTab: '(opens in a new tab)',
-    prev: 'Previous', next: 'Next', related: 'Keep reading', back: 'Back to the blog',
+    prev: 'Previous', next: 'Next', newerPost: 'Newer', olderPost: 'Older', related: 'Keep reading', back: 'Back to the blog',
     by: 'Written by', authorMore: 'More about me', write: 'Write to me',
     published: 'Published', reading: 'Reading', in: 'in', tagged: 'Tagged',
     nf: 'Not found', nfText: 'This page doesn’t exist or has moved.',
@@ -52,7 +52,7 @@ export const B = {
     nfWays: 'Or start here', nfHome: 'Home', nfLatest: 'Latest on the blog', project: 'Project', post: 'Post',
     onlyEs: 'This post is only available in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video',
     projects: 'Projects', allProjects: 'All projects', projPage: 'Full page',
-    projDeck: 'Everything I’ve published on GitHub: design systems, tools, AI experiments and the Cádiz Carnival.',
+    projDeck: 'A selection of what I’ve published on GitHub: design systems, tools, AI experiments and the Cádiz Carnival.',
     projCount: (n, a, b) => `${n} projects · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 project' : `${n} projects`),
     allTech: 'All', techLabel: 'Technology', year: 'Year', demo: 'See demo', repo: 'See code', shot: (n) => `Screenshot of ${n}`, moreProjects: 'More projects',
     newTab: '(opens in a new tab)', projLegendTitle: 'How to read the blocks',
@@ -75,15 +75,19 @@ export const homeUrl = (hash = '') => url('/') + hash;
 export const projectsUrl = (tech) => url('/proyectos/', tech ? { tech } : {});
 export const projectUrl = (p) => url('/proyectos/proyecto/', { p: p.id });
 
-// the footer of every page: © name · year, the site's ways and the small print (credits, the
-// licence of what it is made with, the cookie policy and the way back into the cookie settings) (who owns what,
-// what it is made with and under which licence, where the code is; it claims no licence for the
-// site's own text and code: that is still open, see shared/credits.js)
+// the footer of every page, in four labelled groups and a last line (plan-maqueta.md §5):
+// Sections (the pill's names and numbers), Follow me (the socials), About this site (the
+// small print: privacy, cookie policy, credits and licence) and Preferences (what changes
+// something here: the language; the colour mode is the round button, not a row here). The cookie
+// settings button sits in the small print: shared/consent.js (LUZ) wires it.
+export const MOTTO = { es: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio', en: 'Project, the reason. Human, the core. TechnologAI, only the means' }[lang];
 const FOOT = {
-  es: { label: 'Pie', bio: 'Bio', work: 'Proyectos', blog: 'Blog', contact: 'Contacto', credits: 'Créditos', other: 'English', otherLang: 'en',
-    legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.'] },
-  en: { label: 'Footer', bio: 'Bio', work: 'Projects', blog: 'Blog', contact: 'Contact', credits: 'Credits', other: 'Español', otherLang: 'es',
-    legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.'] }
+  es: { sections: 'Secciones', follow: 'Sígueme', about: 'Sobre esta web', prefs: 'Preferencias', bio: 'Bio', work: 'Proyectos', blog: 'Blog',
+    privacy: 'Privacidad', cookies: 'Cookies', credits: 'Créditos y licencia', language: 'Idioma', cookieSettings: 'Ajustes de cookies',
+    rights: 'Todos los derechos reservados, salvo lo que se acredite aparte.', madeWith: 'Hecho con ' },
+  en: { sections: 'Sections', follow: 'Follow me', about: 'About this site', prefs: 'Preferences', bio: 'Bio', work: 'Projects', blog: 'Blog',
+    privacy: 'Privacy', cookies: 'Cookies', credits: 'Credits and licence', language: 'Language', cookieSettings: 'Cookie settings',
+    rights: 'All rights reserved, except what is credited separately.', madeWith: 'Made with ' }
 }[lang];
 // this same page in a language (Spanish is the page without ?lang)
 function langHref(l) {
@@ -99,21 +103,30 @@ export const langSwitch = (cls = 'langs') => el('span', { class: cls, role: 'gro
   ...LANGS.flatMap(([l, code, name], i) => [
     i ? el('span', { class: 'langs__sep', 'aria-hidden': 'true', text: '·' }) : null,
     l === lang
-      ? el('span', { class: 'langs__cur', lang: l, 'aria-current': 'true', 'aria-label': name, text: code })
+      ? el('span', { class: 'langs__cur', lang: l, 'aria-current': 'true' }, code, el('span', { class: 'vh', text: ` · ${name}, ${lang === 'en' ? 'current language' : 'idioma actual'}` }))
       : el('a', { href: langHref(l), hreflang: l, lang: l, 'aria-label': name, title: name, text: code })].filter(Boolean)));
 const ext = (href, text) => el('a', { href, target: '_blank', rel: 'noopener' }, el('span', { text }), el('span', { class: 'vh', text: ' ' + B.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' }));
-const legal = (c) => { const [a, b, cr, d, e, f, g, h, i] = FOOT.legal; return [
-  a + c.name, b, el('a', { href: url('/creditos/'), text: cr }), d, ext('https://luzds.com/', 'LUZ'), e,
-  el('a', { href: url('/cookies/'), text: f }), g,
-  el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: h }), i]; };   // consent.js wires it (hidden, its room kept, until the script runs)
+const group = (id, title, tag, props, ...kids) => el(tag, { class: 'foot__group', 'aria-labelledby': id, ...props }, el('h2', { class: 'foot__h', id, text: title }), ...kids);
+const list = (...items) => el('ul', {}, ...items.map((i) => el('li', {}, i)));
+const page = (href, text) => el('a', { href, text });
+const pref = (label, value, button) => el('li', { class: 'foot__pref' }, el('span', { class: 'foot__k', text: label }), value, button);
 export const footer = (c) => el('footer', { class: 'foot' },
-  el('p', { class: 'foot__by', text: `© ${c.name} · ${new Date().getFullYear()}` }),
-  el('nav', { class: 'foot__nav', 'aria-label': FOOT.label }, el('ul', {},
-    ...[[FOOT.bio, homeUrl('#bio')], [FOOT.work, projectsUrl()], [FOOT.blog, blogUrl()], [FOOT.contact, homeUrl('#contacto')]]
-      .map(([text, href]) => el('li', {}, el('a', { href, text }))),
-    )),
-  langSwitch('langs foot__lang'),
-  el('p', { class: 'foot__legal' }, ...legal(c)));
+  el('div', { class: 'foot__groups' },
+    group('foot-sections', FOOT.sections, 'nav', {},
+      list(...[['01', FOOT.bio, homeUrl('#bio')], ['02', FOOT.work, projectsUrl()], ['03', FOOT.blog, blogUrl()], ['04', c.contactTitle, homeUrl('#contacto')]]
+        .map(([n, text, href]) => el('a', { href }, el('span', { class: 'foot__n', 'aria-hidden': 'true', text: n }), ' ', el('span', { text }))))),
+    group('foot-follow', FOOT.follow, 'section', {},
+      list(...['github', 'linkedin', 'x', 'rss'].map((id) => c.socials.find((x) => x.id === id)).filter(Boolean).map((x) => ext(x.url, x.label)))),   // the footer's four (the home's «Escríbeme» has them all)
+    group('foot-about', FOOT.about, 'nav', {},
+      // the cookie settings button is the way back into the banner (shared/consent.js: LUZ wires it, hidden until then)
+      list(page(url('/privacidad/'), FOOT.privacy), page(url('/cookies/'), FOOT.cookies),
+        el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: FOOT.cookieSettings }), page(url('/creditos/'), FOOT.credits))),
+    group('foot-prefs', FOOT.prefs, 'section', {},
+      el('ul', {},
+        pref(FOOT.language, langSwitch('langs foot__lang'))))),
+  el('div', { class: 'foot__end' },
+    el('p', { class: 'foot__by' }, `© ${c.name} · ${new Date().getFullYear()} · `, FOOT.rights, ' ', FOOT.madeWith, ext('https://luzds.com/', 'LUZ'), '.'),
+    el('p', { class: 'foot__motto', text: MOTTO })));
 
 // the screen of a project, as on the home: denser the newer, its kanji drawn in
 const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };
@@ -136,8 +149,9 @@ export function projectRow(p) {
   return { li, cv, dots: projectDots(p) };
 }
 
-const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric' });
-const fmtShort = new Intl.DateTimeFormat(lang, { day: '2-digit', month: 'short' });
+const locale = lang === 'en' ? 'en-GB' : lang;                   // the English is British (16 November 2026)
+const fmt = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' });
+const fmtShort = new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'short' });
 export const date = (d) => fmt.format(new Date(d + 'T12:00:00'));
 export const dateShort = (d) => fmtShort.format(new Date(d + 'T12:00:00')).replace('.', '');
 export const pad = (n) => String(n).padStart(2, '0');
@@ -182,34 +196,40 @@ export function coverPicture(p, img = {}) {
     el('img', { src: f + '.jpg', alt: p.cover.alt, width: p.cover.w, height: p.cover.h, decoding: 'async', ...img }));
 }
 
-// A featured image cycles on its own while it is on screen (the article's
-// cover, the blog's featured post, every post row):
-// dots → black and white → colour → black and white → dots, and again.
+// A featured image (the blog's featured post, every post row) plays ONE cycle
+// when it first comes into view and then rests (WCAG 2.2.2: nothing may move
+// for good): dots → black and white → colour → black and white, ending on the
+// black and white it rests in (the last step of the loop, the dots gathering
+// again, is left out, or it would sink to dots only to rise again). Hovering
+// the picture or its title, or keyboard focus on the title, plays it once more
+// (it sinks back to dots first, from the rest, so there is no jump).
 // One clock drives everything (no chained CSS transitions), so each step
-// flows into the next and the loop has no seam. The dots don't fade: they
-// come apart and gather with the engine itself (draw(p), 1 → 0 → 1).
+// flows into the next. The dots don't fade: they come apart and gather with
+// the engine itself (draw(p), 1 → 0 → 1).
 // `fig` holds the <picture> and the canvas (.cover-loop); `block()` returns
 // its current DotBlock (it is rebuilt on resize); `offset` (s) staggers a
-// list so its rows don't breathe together. Paused off screen; with reduced
-// motion it rests in black and white (.is-shown) and hover gives the colour.
+// list so its rows don't start together. Paused off screen; with reduced
+// motion it rests in black and white at once (.is-shown) and hover gives the
+// colour, with no cycle at all.
 // `colour: false` (the thumbnails of post rows) skips the colour: dots ↔
 // black and white only, on a shorter table, and no colour on hover either.
 // The caller marks its block as looping, so nothing else draws it.
+// The whole cycle is under 5 s (WCAG 2.2.2: moving for longer than that needs a way to stop it).
 const LOOP_COLOUR = [     // [seconds, dots, light, colour] at the end of each step
-  [1.6, 1, 0, 0],         // hold: dots
-  [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
-  [0.9, 0, 1, 0],         // hold: black and white
-  [1.6, 0, 1, 1],         // colour comes in
-  [2.0, 0, 1, 1],         // hold: colour
-  [1.6, 0, 1, 0],         // colour goes
-  [0.9, 0, 1, 0],         // hold: black and white
-  [1.8, 1, 0, 0]          // the photo sinks, the dots gather
+  [0.25, 1, 0, 0],        // hold: dots
+  [1.0, 0, 1, 0],         // dots come apart, the photo rises in black and white
+  [0.3, 0, 1, 0],         // hold: black and white
+  [1.0, 0, 1, 1],         // colour comes in
+  [0.8, 0, 1, 1],         // hold: colour
+  [1.0, 0, 1, 0],         // colour goes
+  [0.3, 0, 1, 0],         // hold: black and white (it rests here)
+  [1.0, 1, 0, 0]          // the photo sinks, the dots gather (only in the loop's own order, not played)
 ];
 const LOOP_BW = [         // the same, without the colour
-  [1.6, 1, 0, 0],         // hold: dots
-  [1.8, 0, 1, 0],         // dots come apart, the photo rises in black and white
-  [2.4, 0, 1, 0],         // hold: black and white
-  [1.8, 1, 0, 0]          // the photo sinks, the dots gather
+  [0.25, 1, 0, 0],        // hold: dots
+  [1.0, 0, 1, 0],         // dots come apart, the photo rises in black and white
+  [0.5, 0, 1, 0],         // hold: black and white (it rests here)
+  [1.0, 1, 0, 0]          // the photo sinks, the dots gather (not played)
 ];
 // how far a picture sinks under its dots depends on the mode (--sink-b, --sink-c)
 let sink = { b: 0.32, c: 1.1 };
@@ -222,27 +242,47 @@ document.addEventListener('luz-theme-mode:change', readSink);
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 export function coverLoop(fig, block, { offset = 0, colour: withColour = true } = {}) {
   const pic = fig.querySelector('picture'), img = fig.querySelector('img');
-  const LOOP = withColour ? LOOP_COLOUR : LOOP_BW, LOOP_T = LOOP.reduce((s, x) => s + x[0], 0);
+  const full = withColour ? LOOP_COLOUR : LOOP_BW, cycle = full.slice(0, -1);
+  const again = [[0.6, 1, 0, 0], ...cycle];                        // from the rest: sink to dots, then the cycle
   if (!withColour) fig.classList.add('cover-loop--bw');
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return fig.classList.add('is-shown');
-  let on = false, t0 = performance.now() - offset * 1000, paused = t0 + offset * 1000;
+  let on = false, seen = false, playing = false, seq = cycle, from = [0, 1, 0, 0], clock = 0, last = 0, raf = 0;
+  // the rest: black and white, no dots (.is-rest, blog.css), the inline filters back to the stylesheet's
+  const rest = () => { playing = false; pic.style.filter = img.style.filter = ''; fig.classList.add('is-rest'); };
+  // `clock` runs in ms from the start of `seq`; a negative start is the stagger (the first state, held longer)
+  const play = (s, f, delay = 0) => {
+    if (playing) return;
+    playing = true; seq = s; from = f; clock = -delay * 1000; last = performance.now();
+    fig.classList.remove('is-rest');
+    if (on) { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); }
+  };
   new IntersectionObserver(([e]) => {
     if (e.isIntersecting === on) return;
     on = e.isIntersecting;
-    if (on) { t0 += performance.now() - paused; requestAnimationFrame(frame); } else paused = performance.now();
-  }).observe(fig);
-  function frame(now) {
     if (!on) return;
-    let t = ((now - t0) / 1000) % LOOP_T, prev = LOOP[LOOP.length - 1], v = prev.slice(1);
-    for (const step of LOOP) {
+    if (!seen) { seen = true; play(cycle, from, offset % 5); }       // the first time it is seen: its one cycle
+    else if (playing) { last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); }
+  }).observe(fig);
+  // hover on the picture or its title (not a touch, which would run it on every tap), or keyboard focus on the title
+  const host = fig.closest('.brow, .feat'), links = host ? [...host.querySelectorAll('h2 a, h3 a')] : [];
+  const replay = (e) => { if (seen && e.pointerType !== 'touch') play(again, [0, 0, 1, 0]); };
+  for (const n of [fig, ...links]) n.addEventListener('pointerenter', replay);
+  for (const a of links) a.addEventListener('focus', () => { if (seen && a.matches(':focus-visible')) play(again, [0, 0, 1, 0]); });
+  function frame(now) {
+    if (!on || !playing) return;
+    clock += Math.min(now - last, 100); last = now;                 // (a stalled frame must not skip the cycle)
+    let t = Math.max(0, clock) / 1000, prev = from, v = null;
+    for (const step of seq) {
       if (t <= step[0]) { const k = ease(t / step[0]); v = [1, 2, 3].map((j) => prev[j] + (step[j] - prev[j]) * k); break; }
       t -= step[0]; prev = step;
     }
+    const done = !v;
+    if (done) v = prev.slice(1);                                    // past the last step: the state it ends in
     const [dots, light, colour] = v, b = block();
     if (b) b.draw(dots, true);
     pic.style.filter = `brightness(${sink.b + (1 - sink.b) * light}) contrast(${sink.c + (1 - sink.c) * light})`;
     img.style.filter = `grayscale(${1 - colour})`;
-    requestAnimationFrame(frame);
+    if (done) rest(); else raf = requestAnimationFrame(frame);
   }
 }
 

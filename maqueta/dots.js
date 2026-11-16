@@ -337,9 +337,12 @@ export class HeroField {
   // field (more towards the right); mend() puts them back for a moment.
   constructor(canvas, text, { reduce = false, plain = 0, lost = 0 } = {}) {
     this.cv = canvas; this.text = text; this.reduce = reduce; this.plain = plain; this.lost = lost; this.mendT = 0;
-    this.ptr = null; this.t0 = 0; this.running = false; this.wave = null;
+    this._ptr = null; this.t0 = 0; this.running = false; this.looping = false; this.wave = null;
     this.layout();
   }
+  // the pointer is set from outside (main.js, blog.js): a hand over the field wakes it
+  get ptr() { return this._ptr; }
+  set ptr(v) { this._ptr = v; if (v) this.wake(); }
   layout() {
     const w = this.cv.clientWidth, h = this.cv.clientHeight;
     if (!w || !h) return;
@@ -415,17 +418,34 @@ export class HeroField {
     this.t0 = performance.now();
     this.frame(performance.now());
   }
+  // The field draws only while something moves: once every dot is home and nothing is
+  // touching it, the loop ends on a still frame (no idle redraws: the titles are many and
+  // WCAG 2.2.2 asks that nothing keeps moving by itself). A hand, a poke or a mend wakes it.
   start() {
     if (this.running || this.reduce) return;
     this.running = true;
-    const loop = (t) => { if (!this.running) return; this.frame(t); requestAnimationFrame(loop); };
-    requestAnimationFrame(loop);
+    this.wake();
   }
   stop() { this.running = false; }
-  // draw once now, as it stands, in the colours of the current mode (a running field does it every frame anyway)
-  repaint() { if (this.ctx && !this.running) this.frame(performance.now()); }
-  poke(x, y) { if (!this.reduce) this.wave = { x, y, t: performance.now() }; }
-  mend() { this.mendT = performance.now(); if (this.reduce) { this.parts.forEach((p) => { if (p.lost) { p.x = p.ox; p.y = p.oy; } }); this.frame(this.mendT); } }
+  wake() {
+    if (!this.running || this.looping) return;
+    this.looping = true;
+    const loop = (t) => {
+      if (!this.running) { this.looping = false; return; }
+      this.frame(t);
+      if (this.calm(t)) { this.looping = false; return; }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
+  calm(now) {
+    if (this.intro || this._ptr || (this.wave && now - this.wave.t < 1400) || (this.lost && this.mendT && now - this.mendT < 2600)) return false;
+    return this.parts.every((p) => p.kind === 4 || (Math.abs(p.x - p.hx) < 0.05 && Math.abs(p.y - p.hy) < 0.05 && Math.abs(p.vx) < 0.02 && Math.abs(p.vy) < 0.02));
+  }
+  // draw once now, as it stands, in the colours of the current mode (a looping field does it every frame anyway)
+  repaint() { if (this.ctx && !this.looping) this.frame(performance.now()); }
+  poke(x, y) { if (!this.reduce) { this.wave = { x, y, t: performance.now() }; this.wake(); } }
+  mend() { this.mendT = performance.now(); this.wake(); if (this.reduce) { this.parts.forEach((p) => { if (p.lost) { p.x = p.ox; p.y = p.oy; } }); this.frame(this.mendT); } }
   frame(now) {
     const ctx = this.ctx;
     if (!ctx) return;
