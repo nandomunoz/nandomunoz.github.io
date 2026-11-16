@@ -8,7 +8,7 @@
 //         per article (built from blog.json, so a new credit shows up by itself)
 import { lang } from './content.js';
 
-export const UPDATED = '2026-11-15';
+export const UPDATED = '2026-11-16';
 
 export const CREDITS = {
   es: {
@@ -17,8 +17,8 @@ export const CREDITS = {
     updated: 'Actualizado el',
     blocks: [
       { h: 'Tipografías' },
-      { p: 'Las tres son de código abierto, con la licencia SIL Open Font License 1.1.' },
-      { ul: ['<strong>Archivo</strong>, para los textos y los titulares.', '<strong>Chakra Petch</strong>, para las etiquetas y los botones.', '<strong>Doto</strong>, la tipografía hecha de puntos.'] },
+      { p: 'Todas son de código abierto, con la licencia SIL Open Font License 1.1.' },
+      { ul: ['<strong>Archivo</strong>, para los textos y los titulares.', '<strong>Chakra Petch</strong>, para las etiquetas y los botones.', '<strong>Doto</strong>, la tipografía hecha de puntos.', '<strong>Noto Sans CJK JP</strong>, de Google y Adobe: de ella salen los trazos de los kanji dibujados con puntos en cada proyecto.'] },
       { h: 'Código' },
       { p: 'El aviso de cookies es de <a href="https://luzds.com/" rel="noopener">LUZ</a>, un sistema de diseño de la misma persona que hizo esta web. Se usa con su licencia MIT.' },
       { h: 'Imágenes de los artículos' },
@@ -34,8 +34,8 @@ export const CREDITS = {
     updated: 'Updated on',
     blocks: [
       { h: 'Typefaces' },
-      { p: 'All three are open source, under the SIL Open Font License 1.1.' },
-      { ul: ['<strong>Archivo</strong>, for text and headlines.', '<strong>Chakra Petch</strong>, for labels and buttons.', '<strong>Doto</strong>, the typeface made of dots.'] },
+      { p: 'All are open source, under the SIL Open Font License 1.1.' },
+      { ul: ['<strong>Archivo</strong>, for text and headlines.', '<strong>Chakra Petch</strong>, for labels and buttons.', '<strong>Doto</strong>, the typeface made of dots.', '<strong>Noto Sans CJK JP</strong>, by Google and Adobe: the strokes of the kanji drawn in dots for each project come from it.'] },
       { h: 'Code' },
       { p: 'The cookie notice is from <a href="https://luzds.com/" rel="noopener">LUZ</a>, a design system by the person who made this site. It is used under its MIT licence.' },
       { h: 'Images of the posts' },

@@ -25,6 +25,7 @@
   --ink: #f4f2ee;
   --mute: #b9b6b0;
   --faint: #6f6c68;
+  --gloss: #969189;                            /* the kanji's tiny caption: 4.6:1 on the charcoal (--faint is 2.8:1 there) */
   --blaze: #963641;
   --blaze-lift: brightness(1.7);               /* maroon as small text is lifted on charcoal */
   --on-blaze: #f4f2ee;                         /* text on a maroon fill (6.5:1) */
@@ -49,6 +50,7 @@
   --ink: #18222c;
   --mute: #434f5b;
   --faint: #56626e;
+  --gloss: var(--faint);                       /* 5.4:1 on the paper, 4.8:1 on --bg-2 */
   --blaze: #2a5f94;                            /* the accent in light is a blue: 5.7:1 on the paper */
   --blaze-lift: none;
   --on-blaze: #e9eff5;
@@ -73,6 +75,7 @@
   --ink: #fff;
   --mute: #f0f0f0;
   --faint: #c9c9c9;
+  --gloss: var(--faint);                       /* 12:1 on black */
   --blaze: #ff7a8a;
   --blaze-lift: none;
   --on-blaze: #000;                            /* 8.4:1 on the bright maroon */
@@ -204,10 +207,19 @@ section { position: relative; }
 .item__block { position: relative; display: block; transform-style: preserve-3d; transition: transform .6s var(--ease); cursor: pointer;
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
 .item__block canvas { display: block; width: 100%; }
-.item__block .front { position: relative; transform: translateZ(20px); filter: drop-shadow(0 0 14px var(--glow)); }
-.item__block .back { position: absolute; inset: 0; opacity: .28; transform: translate3d(14px, 16px, -40px); transition: transform .6s var(--ease), opacity .6s; }
+/* the card is a plain rectangle (a ring of dots, a dot in every cell): the back layer sits inside it and
+   only sinks in depth, no offset, no shadow, so the edges stay straight and the corners square */
+.item__block .front { position: relative; transform: translateZ(20px); }
+.item__block .back { position: absolute; inset: 0; opacity: .28; transform: translateZ(-8px); transition: transform .6s var(--ease), opacity .6s; }
+/* the tiny caption with the kanji's meaning, laid over the bottom-right corner of a picture
+   (the canvas keeps that corner free of dots); real text, no pointer, beside the kanji not on it */
+.gloss { position: absolute; right: 12px; bottom: 10px; font: 500 .6rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gloss); white-space: nowrap; pointer-events: none; }
+.item__block .gloss { transform: translateZ(21px); }
+/* in the open panel: the corner of the field, not of the screen (below 64em the field is the band on top);
+   the sheet's shadow falls on it, so it takes --mute (5.2:1 on the shaded paper) instead of --gloss */
+.gloss--panel { color: var(--mute); right: 14px; bottom: auto; top: calc(34dvh - 12px); transform: translateY(-100%); }
 .item__block.is-hot { transition-duration: .15s; }
-.item__block.is-hot .back { transform: translate3d(26px, 30px, -90px); opacity: .4; }
+.item__block.is-hot .back { transform: translateZ(-70px); opacity: .4; }
 
 .item__text { display: grid; gap: .55rem; justify-items: start; max-width: 26rem; }
 .item:nth-child(even) .item__text { margin-left: auto; text-align: right; justify-items: end; }
@@ -400,6 +412,7 @@ section { position: relative; }
   .contact__field { margin-bottom: -4rem; }
 
   .panel__field { inset: 0; }
+  .gloss--panel { right: auto; left: calc(42vw - 14px); top: auto; bottom: 12px; transform: translateX(-100%); }
   .panel__sheet { inset: 0 0 0 42vw; box-shadow: -40px 0 80px -30px color-mix(in srgb, var(--shade) 80%, transparent), -1px 0 0 var(--edge); }
   .panel.is-forming .panel__sheet { transform: translateX(4rem); }
   .panel__body { padding: 3rem clamp(2rem, 5vw, 6rem) 4rem; }

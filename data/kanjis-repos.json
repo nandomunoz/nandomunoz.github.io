@@ -1,0 +1,1380 @@
+{
+  "source": "gh repo list nandovejer (nombre, descripción, lenguaje y topics; no se ha leído el código)",
+  "note": "inferred: true = el repo no tiene descripción y el kanji se ha elegido por el nombre y el lenguaje",
+  "count": 60,
+  "repos": [
+    {
+      "repo": "nandovejer.github.io",
+      "url": "https://github.com/nandovejer/nandovejer.github.io",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "筆",
+        "on": [
+          "hitsu"
+        ],
+        "kun": [
+          "fude"
+        ],
+        "meaning": "pincel, escribir",
+        "reason": "«coder and writer»: la mano que escribe, en código y en texto"
+      },
+      "alternative": {
+        "text": "筆者",
+        "romaji": "hissha",
+        "meaning": "el autor"
+      }
+    },
+    {
+      "repo": "luz",
+      "url": "https://github.com/nandovejer/luz",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "光",
+        "on": [
+          "kō"
+        ],
+        "kun": [
+          "hikari"
+        ],
+        "meaning": "luz",
+        "meaning_en": "light",
+        "reason": "Es literalmente LUZ: Light, Usable, Zero-dependency"
+      },
+      "alternative": {
+        "text": "光明",
+        "romaji": "kōmyō",
+        "meaning": "claridad, esperanza"
+      }
+    },
+    {
+      "repo": "streetcai",
+      "url": "https://github.com/nandovejer/streetcai",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "遊",
+        "on": [
+          "yū",
+          "yu"
+        ],
+        "kun": [
+          "aso(bu)"
+        ],
+        "meaning": "jugar",
+        "meaning_en": "to play",
+        "reason": "Un juego de calle: diversión y calle a la vez"
+      },
+      "alternative": {
+        "text": "街角",
+        "romaji": "machikado",
+        "meaning": "la esquina de la calle"
+      }
+    },
+    {
+      "repo": "cole",
+      "url": "https://github.com/nandovejer/cole",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "学",
+        "on": [
+          "gaku"
+        ],
+        "kun": [
+          "mana(bu)"
+        ],
+        "meaning": "aprender",
+        "reason": "«Cole» es colegio"
+      },
+      "alternative": {
+        "text": "学校",
+        "romaji": "gakkō",
+        "meaning": "escuela"
+      }
+    },
+    {
+      "repo": "coac",
+      "url": "https://github.com/nandovejer/coac",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "歌",
+        "on": [
+          "ka"
+        ],
+        "kun": [
+          "uta"
+        ],
+        "meaning": "canción, cantar",
+        "meaning_en": "song, to sing",
+        "reason": "Quién canta y cuándo en el Carnaval de Cádiz"
+      },
+      "alternative": {
+        "text": "謳歌",
+        "romaji": "ōka",
+        "meaning": "cantar alabanzas, celebrar"
+      }
+    },
+    {
+      "repo": "ai-md",
+      "url": "https://github.com/nandovejer/ai-md",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "知",
+        "on": [
+          "chi"
+        ],
+        "kun": [
+          "shi(ru)"
+        ],
+        "meaning": "saber",
+        "reason": "IA más Markdown: conocimiento escrito para máquinas"
+      },
+      "alternative": {
+        "text": "知能",
+        "romaji": "chinō",
+        "meaning": "inteligencia"
+      }
+    },
+    {
+      "repo": "apiChrome",
+      "url": "https://github.com/nandovejer/apiChrome",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "内",
+        "on": [
+          "nai"
+        ],
+        "kun": [
+          "uchi"
+        ],
+        "meaning": "dentro",
+        "meaning_en": "inside",
+        "reason": "«100 % en local»: todo ocurre dentro del navegador"
+      },
+      "alternative": {
+        "text": "内蔵",
+        "romaji": "naizō",
+        "meaning": "integrado"
+      }
+    },
+    {
+      "repo": "ikay-vanilla",
+      "url": "https://github.com/nandovejer/ikay-vanilla",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "紋",
+        "on": [
+          "mon"
+        ],
+        "kun": [],
+        "meaning": "dibujo, huella, emblema",
+        "meaning_en": "design, print, emblem",
+        "reason": "Visualiza tu huella de navegador"
+      },
+      "alternative": {
+        "text": "素朴",
+        "romaji": "soboku",
+        "meaning": "sencillo (por «vanilla»)"
+      }
+    },
+    {
+      "repo": "toolbar-aem",
+      "url": "https://github.com/nandovejer/toolbar-aem",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "替",
+        "on": [
+          "tai"
+        ],
+        "kun": [
+          "ka(eru)"
+        ],
+        "meaning": "cambiar, sustituir",
+        "meaning_en": "to swap, to replace",
+        "reason": "Cambia rápido entre vistas de AEM"
+      },
+      "alternative": {
+        "text": "切替",
+        "romaji": "kirikae",
+        "meaning": "el interruptor"
+      }
+    },
+    {
+      "repo": "ikay",
+      "url": "https://github.com/nandovejer/ikay",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "紋",
+        "on": [
+          "mon"
+        ],
+        "kun": [],
+        "meaning": "huella",
+        "reason": "Mismo proyecto, otra versión"
+      },
+      "alternative": {
+        "text": "指紋",
+        "romaji": "shimon",
+        "meaning": "huella dactilar"
+      }
+    },
+    {
+      "repo": "string-transformer",
+      "url": "https://github.com/nandovejer/string-transformer",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "変",
+        "on": [
+          "hen"
+        ],
+        "kun": [
+          "ka(waru)"
+        ],
+        "meaning": "cambiar",
+        "meaning_en": "to change",
+        "reason": "Transforma cadenas de texto"
+      },
+      "alternative": {
+        "text": "変換",
+        "romaji": "henkan",
+        "meaning": "conversión"
+      }
+    },
+    {
+      "repo": "api-coac",
+      "url": "https://github.com/nandovejer/api-coac",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "譜",
+        "on": [
+          "fu"
+        ],
+        "kun": [],
+        "meaning": "partitura",
+        "meaning_en": "sheet music",
+        "reason": "Obra completa de un compositor, en una API de datos"
+      },
+      "alternative": {
+        "text": "全集",
+        "romaji": "zenshū",
+        "meaning": "obras completas"
+      }
+    },
+    {
+      "repo": "libreria-ia-2026",
+      "url": "https://github.com/nandovejer/libreria-ia-2026",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "書",
+        "on": [
+          "sho"
+        ],
+        "kun": [
+          "ka(ku)"
+        ],
+        "meaning": "escribir, libro",
+        "reason": "Una biblioteca sobre IA"
+      },
+      "alternative": {
+        "text": "蔵書",
+        "romaji": "zōsho",
+        "meaning": "colección de libros"
+      }
+    },
+    {
+      "repo": "open-apk-tv",
+      "url": "https://github.com/nandovejer/open-apk-tv",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "開",
+        "on": [
+          "kai"
+        ],
+        "kun": [
+          "hira(ku)"
+        ],
+        "meaning": "abrir",
+        "reason": "Abierto y para la tele"
+      },
+      "alternative": {
+        "text": "開映",
+        "romaji": "kaiei",
+        "meaning": "comienzo de la proyección"
+      }
+    },
+    {
+      "repo": "coac-analisis",
+      "url": "https://github.com/nandovejer/coac-analisis",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "析",
+        "on": [
+          "seki"
+        ],
+        "kun": [],
+        "meaning": "analizar",
+        "meaning_en": "to analyse",
+        "reason": "Análisis de los datos del coac"
+      },
+      "alternative": {
+        "text": "分析",
+        "romaji": "bunseki",
+        "meaning": "análisis"
+      }
+    },
+    {
+      "repo": "accessibility",
+      "url": "https://github.com/nandovejer/accessibility",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "皆",
+        "on": [
+          "kai"
+        ],
+        "kun": [
+          "mina"
+        ],
+        "meaning": "todos",
+        "meaning_en": "everyone",
+        "reason": "Accesible para todo el mundo"
+      },
+      "alternative": {
+        "text": "万人",
+        "romaji": "bannin",
+        "meaning": "toda la gente"
+      }
+    },
+    {
+      "repo": "landingtest",
+      "url": "https://github.com/nandovejer/landingtest",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "試",
+        "on": [
+          "shi"
+        ],
+        "kun": [
+          "kokoro(miru)"
+        ],
+        "meaning": "probar",
+        "reason": "Una página de prueba"
+      },
+      "alternative": {
+        "text": "試験",
+        "romaji": "shiken",
+        "meaning": "examen, test"
+      }
+    },
+    {
+      "repo": "illo-loader",
+      "url": "https://github.com/nandovejer/illo-loader",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "巡",
+        "on": [
+          "jun"
+        ],
+        "kun": [
+          "megu(ru)"
+        ],
+        "meaning": "dar vueltas",
+        "meaning_en": "to go around",
+        "reason": "Un indicador de carga que gira"
+      },
+      "alternative": {
+        "text": "巡回",
+        "romaji": "junkai",
+        "meaning": "ronda, circuito"
+      }
+    },
+    {
+      "repo": "js-subtype",
+      "url": "https://github.com/nandovejer/js-subtype",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "型",
+        "on": [
+          "kei"
+        ],
+        "kun": [
+          "katachi",
+          "kata"
+        ],
+        "meaning": "molde, tipo",
+        "meaning_en": "mould, type",
+        "reason": "Detecta el tipo exacto de un objeto"
+      },
+      "alternative": {
+        "text": "型式",
+        "romaji": "keishiki",
+        "meaning": "modelo, tipo"
+      }
+    },
+    {
+      "repo": "libros-del-mundo",
+      "url": "https://github.com/nandovejer/libros-del-mundo",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "旅",
+        "on": [
+          "ryo"
+        ],
+        "kun": [
+          "tabi"
+        ],
+        "meaning": "viaje",
+        "meaning_en": "journey",
+        "reason": "«Un viaje literario» por los continentes"
+      },
+      "alternative": {
+        "text": "世界",
+        "romaji": "sekai",
+        "meaning": "el mundo"
+      }
+    },
+    {
+      "repo": "github-corner",
+      "url": "https://github.com/nandovejer/github-corner",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "隅",
+        "on": [
+          "gū"
+        ],
+        "kun": [
+          "sumi"
+        ],
+        "meaning": "rincón",
+        "reason": "La esquina decorativa de una página"
+      },
+      "alternative": {
+        "text": "片隅",
+        "romaji": "katasumi",
+        "meaning": "un rincón"
+      }
+    },
+    {
+      "repo": "console.cool",
+      "url": "https://github.com/nandovejer/console.cool",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "彩",
+        "on": [
+          "sai"
+        ],
+        "kun": [
+          "irodo(ru)"
+        ],
+        "meaning": "color, dar color",
+        "reason": "console.log con estilos"
+      },
+      "alternative": {
+        "text": "粋",
+        "romaji": "sui, iki",
+        "meaning": "elegante, con estilo (un solo kanji)"
+      }
+    },
+    {
+      "repo": "binary-to-assci",
+      "url": "https://github.com/nandovejer/binary-to-assci",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "符",
+        "on": [
+          "fu"
+        ],
+        "kun": [],
+        "meaning": "signo, código",
+        "reason": "Convierte binario en caracteres"
+      },
+      "alternative": {
+        "text": "二進",
+        "romaji": "nishin",
+        "meaning": "binario"
+      }
+    },
+    {
+      "repo": "react-para-torpes",
+      "url": "https://github.com/nandovejer/react-para-torpes",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "初",
+        "on": [
+          "sho"
+        ],
+        "kun": [
+          "hajime"
+        ],
+        "meaning": "primero, inicial",
+        "reason": "React para quien empieza"
+      },
+      "alternative": {
+        "text": "入門",
+        "romaji": "nyūmon",
+        "meaning": "introducción"
+      }
+    },
+    {
+      "repo": "handle-url",
+      "url": "https://github.com/nandovejer/handle-url",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "道",
+        "on": [
+          "dō"
+        ],
+        "kun": [
+          "michi"
+        ],
+        "meaning": "camino",
+        "reason": "Gestiona rutas y URLs"
+      },
+      "alternative": {
+        "text": "経路",
+        "romaji": "keiro",
+        "meaning": "ruta"
+      }
+    },
+    {
+      "repo": "ia-hora-que",
+      "url": "https://github.com/nandovejer/ia-hora-que",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "刻",
+        "on": [
+          "koku"
+        ],
+        "kun": [
+          "kiza(mu)"
+        ],
+        "meaning": "tallar, momento",
+        "reason": "El nombre habla de tiempo, sin más información"
+      },
+      "alternative": {
+        "text": "時刻",
+        "romaji": "jikoku",
+        "meaning": "hora, instante"
+      }
+    },
+    {
+      "repo": "html5-boilerplate-pro",
+      "url": "https://github.com/nandovejer/html5-boilerplate-pro",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "基",
+        "on": [
+          "ki"
+        ],
+        "kun": [
+          "moto"
+        ],
+        "meaning": "base",
+        "reason": "Plantilla base de un proyecto"
+      },
+      "alternative": {
+        "text": "基礎",
+        "romaji": "kiso",
+        "meaning": "cimientos"
+      }
+    },
+    {
+      "repo": "html5-tags-classless",
+      "url": "https://github.com/nandovejer/html5-tags-classless",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "札",
+        "on": [
+          "satsu"
+        ],
+        "kun": [
+          "fuda"
+        ],
+        "meaning": "etiqueta",
+        "reason": "Prueba todas las etiquetas HTML5"
+      },
+      "alternative": {
+        "text": "無印",
+        "romaji": "mujirushi",
+        "meaning": "sin marca (sin clases)"
+      }
+    },
+    {
+      "repo": "ares-json",
+      "url": "https://github.com/nandovejer/ares-json",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "録",
+        "on": [
+          "roku"
+        ],
+        "kun": [
+          "to(ru)"
+        ],
+        "meaning": "registrar",
+        "reason": "Datos en JSON, un registro"
+      },
+      "alternative": {
+        "text": "記録",
+        "romaji": "kiroku",
+        "meaning": "registro"
+      }
+    },
+    {
+      "repo": "static-html-webpack-boilerplate",
+      "url": "https://github.com/nandovejer/static-html-webpack-boilerplate",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "静",
+        "on": [
+          "sei"
+        ],
+        "kun": [
+          "shizu(ka)"
+        ],
+        "meaning": "quieto",
+        "reason": "HTML estático con Webpack"
+      },
+      "alternative": {
+        "text": "静的",
+        "romaji": "seiteki",
+        "meaning": "estático"
+      }
+    },
+    {
+      "repo": "boilerplateWebpack4",
+      "url": "https://github.com/nandovejer/boilerplateWebpack4",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "束",
+        "on": [
+          "soku"
+        ],
+        "kun": [
+          "taba"
+        ],
+        "meaning": "haz, atado",
+        "reason": "Webpack empaqueta en un haz"
+      },
+      "alternative": {
+        "text": "梱包",
+        "romaji": "konpō",
+        "meaning": "embalaje"
+      }
+    },
+    {
+      "repo": "handle_Markdown_files_to_json",
+      "url": "https://github.com/nandovejer/handle_Markdown_files_to_json",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "訳",
+        "on": [
+          "yaku"
+        ],
+        "kun": [
+          "wake"
+        ],
+        "meaning": "traducir",
+        "reason": "Traduce Markdown a JSON"
+      },
+      "alternative": {
+        "text": "翻訳",
+        "romaji": "honyaku",
+        "meaning": "traducción"
+      }
+    },
+    {
+      "repo": "handle_Markdown_files_to_html",
+      "url": "https://github.com/nandovejer/handle_Markdown_files_to_html",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "化",
+        "on": [
+          "ka"
+        ],
+        "kun": [
+          "ba(keru)"
+        ],
+        "meaning": "transformarse",
+        "reason": "Markdown que se convierte en HTML"
+      },
+      "alternative": {
+        "text": "変化",
+        "romaji": "henka",
+        "meaning": "cambio"
+      }
+    },
+    {
+      "repo": "JavaScript-Object-Functions",
+      "url": "https://github.com/nandovejer/JavaScript-Object-Functions",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "物",
+        "on": [
+          "butsu"
+        ],
+        "kun": [
+          "mono"
+        ],
+        "meaning": "objeto, cosa",
+        "reason": "Funciones de los objetos de JS"
+      },
+      "alternative": {
+        "text": "関数",
+        "romaji": "kansū",
+        "meaning": "función"
+      }
+    },
+    {
+      "repo": "converter-online-github",
+      "url": "https://github.com/nandovejer/converter-online-github",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "転",
+        "on": [
+          "ten"
+        ],
+        "kun": [
+          "koro(bu)"
+        ],
+        "meaning": "girar, convertir",
+        "reason": "Conversores online"
+      },
+      "alternative": {
+        "text": "転換",
+        "romaji": "tenkan",
+        "meaning": "conversión"
+      }
+    },
+    {
+      "repo": "sfcc-docs",
+      "url": "https://github.com/nandovejer/sfcc-docs",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "商",
+        "on": [
+          "shō"
+        ],
+        "kun": [
+          "akina(u)"
+        ],
+        "meaning": "comercio",
+        "reason": "Materiales sobre Salesforce Commerce Cloud"
+      },
+      "alternative": {
+        "text": "商学",
+        "romaji": "shōgaku",
+        "meaning": "estudios de comercio"
+      }
+    },
+    {
+      "repo": "post-webcomponent",
+      "url": "https://github.com/nandovejer/post-webcomponent",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "部",
+        "on": [
+          "bu"
+        ],
+        "kun": [],
+        "meaning": "parte",
+        "reason": "Un componente web"
+      },
+      "alternative": {
+        "text": "部品",
+        "romaji": "buhin",
+        "meaning": "pieza"
+      }
+    },
+    {
+      "repo": "pwa-html5",
+      "url": "https://github.com/nandovejer/pwa-html5",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "携",
+        "on": [
+          "kei"
+        ],
+        "kun": [
+          "tazusa(eru)"
+        ],
+        "meaning": "llevar encima",
+        "reason": "Una PWA es una web portátil"
+      },
+      "alternative": {
+        "text": "携帯",
+        "romaji": "keitai",
+        "meaning": "móvil"
+      }
+    },
+    {
+      "repo": "transition-with-mask-image",
+      "url": "https://github.com/nandovejer/transition-with-mask-image",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "幕",
+        "on": [
+          "maku"
+        ],
+        "kun": [],
+        "meaning": "telón",
+        "reason": "Transiciones con una máscara de imagen"
+      },
+      "alternative": {
+        "text": "暗転",
+        "romaji": "anten",
+        "meaning": "cambio de escena a oscuras"
+      }
+    },
+    {
+      "repo": "caitube.api",
+      "url": "https://github.com/nandovejer/caitube.api",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "港",
+        "on": [
+          "kō"
+        ],
+        "kun": [
+          "minato"
+        ],
+        "meaning": "puerto",
+        "reason": "«Cai», Cádiz, ciudad de puerto, más una API"
+      },
+      "alternative": {
+        "text": "港町",
+        "romaji": "minatomachi",
+        "meaning": "ciudad portuaria"
+      }
+    },
+    {
+      "repo": "vsc-minimal",
+      "url": "https://github.com/nandovejer/vsc-minimal",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "簡",
+        "on": [
+          "kan"
+        ],
+        "kun": [],
+        "meaning": "simple",
+        "reason": "Plantilla frontend mínima"
+      },
+      "alternative": {
+        "text": "簡素",
+        "romaji": "kanso",
+        "meaning": "sobrio"
+      }
+    },
+    {
+      "repo": "boilerplate-lint",
+      "url": "https://github.com/nandovejer/boilerplate-lint",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "整",
+        "on": [
+          "sei"
+        ],
+        "kun": [
+          "totono(eru)"
+        ],
+        "meaning": "poner en orden",
+        "reason": "Un linter ordena el código"
+      },
+      "alternative": {
+        "text": "整頓",
+        "romaji": "seiton",
+        "meaning": "orden"
+      }
+    },
+    {
+      "repo": "json-template-properties",
+      "url": "https://github.com/nandovejer/json-template-properties",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "雛",
+        "on": [
+          "sū"
+        ],
+        "kun": [
+          "hina"
+        ],
+        "meaning": "pollito, modelo",
+        "reason": "Plantillas de propiedades JSON"
+      },
+      "alternative": {
+        "text": "雛形",
+        "romaji": "hinagata",
+        "meaning": "plantilla"
+      }
+    },
+    {
+      "repo": "webpack-4-boilerplate",
+      "url": "https://github.com/nandovejer/webpack-4-boilerplate",
+      "fork": true,
+      "archived": true,
+      "inferred": false,
+      "kanji": {
+        "char": "包",
+        "on": [
+          "hō"
+        ],
+        "kun": [
+          "tsutsu(mu)"
+        ],
+        "meaning": "envolver",
+        "reason": "Empaqueta y optimiza para producción"
+      },
+      "alternative": {
+        "text": "包装",
+        "romaji": "hōsō",
+        "meaning": "embalaje"
+      }
+    },
+    {
+      "repo": "multilingual-lists",
+      "url": "https://github.com/nandovejer/multilingual-lists",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "言",
+        "on": [
+          "gen",
+          "gon"
+        ],
+        "kun": [
+          "i(u)"
+        ],
+        "meaning": "decir, lengua",
+        "reason": "Listas en varios idiomas"
+      },
+      "alternative": {
+        "text": "言語",
+        "romaji": "gengo",
+        "meaning": "idioma"
+      }
+    },
+    {
+      "repo": "countries-json",
+      "url": "https://github.com/nandovejer/countries-json",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "国",
+        "on": [
+          "koku"
+        ],
+        "kun": [
+          "kuni"
+        ],
+        "meaning": "país",
+        "reason": "Datos de países"
+      },
+      "alternative": {
+        "text": "国別",
+        "romaji": "kokubetsu",
+        "meaning": "por países"
+      }
+    },
+    {
+      "repo": "simple_boilerplate",
+      "url": "https://github.com/nandovejer/simple_boilerplate",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "軽",
+        "on": [
+          "kei"
+        ],
+        "kun": [
+          "karu(i)"
+        ],
+        "meaning": "ligero",
+        "reason": "«A lightweight foundation»"
+      },
+      "alternative": {
+        "text": "軽量",
+        "romaji": "keiryō",
+        "meaning": "peso ligero"
+      }
+    },
+    {
+      "repo": "JS_best_practices",
+      "url": "https://github.com/nandovejer/JS_best_practices",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "律",
+        "on": [
+          "ritsu"
+        ],
+        "kun": [],
+        "meaning": "norma, disciplina",
+        "reason": "Buenas prácticas de JS"
+      },
+      "alternative": {
+        "text": "規範",
+        "romaji": "kihan",
+        "meaning": "norma"
+      }
+    },
+    {
+      "repo": "basic_js",
+      "url": "https://github.com/nandovejer/basic_js",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "礎",
+        "on": [
+          "so"
+        ],
+        "kun": [
+          "ishizue"
+        ],
+        "meaning": "piedra base",
+        "reason": "Fundamentos de JavaScript"
+      },
+      "alternative": {
+        "text": "初歩",
+        "romaji": "shoho",
+        "meaning": "primeros pasos"
+      }
+    },
+    {
+      "repo": "gulp-boilerplate",
+      "url": "https://github.com/nandovejer/gulp-boilerplate",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "流",
+        "on": [
+          "ryū"
+        ],
+        "kun": [
+          "naga(reru)"
+        ],
+        "meaning": "fluir",
+        "reason": "Gulp trabaja con flujos"
+      },
+      "alternative": {
+        "text": "流水",
+        "romaji": "ryūsui",
+        "meaning": "agua corriente"
+      }
+    },
+    {
+      "repo": "squeezebox-vanilla",
+      "url": "https://github.com/nandovejer/squeezebox-vanilla",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "縮",
+        "on": [
+          "shuku"
+        ],
+        "kun": [
+          "chiji(mu)"
+        ],
+        "meaning": "encogerse",
+        "reason": "Un acordeón que se pliega y despliega"
+      },
+      "alternative": {
+        "text": "蛇腹",
+        "romaji": "jabara",
+        "meaning": "fuelle de acordeón"
+      }
+    },
+    {
+      "repo": "svg-snippet-vsc",
+      "url": "https://github.com/nandovejer/svg-snippet-vsc",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "線",
+        "on": [
+          "sen"
+        ],
+        "kun": [],
+        "meaning": "línea",
+        "reason": "Fragmentos de SVG, que es dibujo de líneas"
+      },
+      "alternative": {
+        "text": "線画",
+        "romaji": "senga",
+        "meaning": "dibujo a línea"
+      }
+    },
+    {
+      "repo": "basicjs",
+      "url": "https://github.com/nandovejer/basicjs",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "本",
+        "on": [
+          "hon"
+        ],
+        "kun": [
+          "moto"
+        ],
+        "meaning": "origen, base",
+        "reason": "Lo básico, como basic_js"
+      },
+      "alternative": {
+        "text": "基本",
+        "romaji": "kihon",
+        "meaning": "lo básico"
+      }
+    },
+    {
+      "repo": "frontool",
+      "url": "https://github.com/nandovejer/frontool",
+      "fork": false,
+      "archived": false,
+      "inferred": true,
+      "kanji": {
+        "char": "具",
+        "on": [
+          "gu"
+        ],
+        "kun": [],
+        "meaning": "herramienta",
+        "reason": "Herramientas de frontend"
+      },
+      "alternative": {
+        "text": "道具",
+        "romaji": "dōgu",
+        "meaning": "utensilio"
+      }
+    },
+    {
+      "repo": "gulp-combine-media-queries",
+      "url": "https://github.com/nandovejer/gulp-combine-media-queries",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "結",
+        "on": [
+          "ketsu"
+        ],
+        "kun": [
+          "musu(bu)"
+        ],
+        "meaning": "atar",
+        "reason": "Une media queries dispersadas"
+      },
+      "alternative": {
+        "text": "結合",
+        "romaji": "ketsugō",
+        "meaning": "unir"
+      }
+    },
+    {
+      "repo": "resetcss",
+      "url": "https://github.com/nandovejer/resetcss",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "戻",
+        "on": [
+          "rei"
+        ],
+        "kun": [
+          "modo(ru)"
+        ],
+        "meaning": "volver",
+        "reason": "Un reset vuelve el CSS al principio"
+      },
+      "alternative": {
+        "text": "復元",
+        "romaji": "fukugen",
+        "meaning": "restaurar"
+      }
+    },
+    {
+      "repo": "SVG-Snippets",
+      "url": "https://github.com/nandovejer/SVG-Snippets",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "図",
+        "on": [
+          "zu"
+        ],
+        "kun": [],
+        "meaning": "dibujo",
+        "reason": "Fragmentos de SVG"
+      },
+      "alternative": {
+        "text": "図形",
+        "romaji": "zukei",
+        "meaning": "figura"
+      }
+    },
+    {
+      "repo": "SVG-SMIL-Snippets",
+      "url": "https://github.com/nandovejer/SVG-SMIL-Snippets",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "動",
+        "on": [
+          "dō"
+        ],
+        "kun": [
+          "ugo(ku)"
+        ],
+        "meaning": "moverse",
+        "reason": "SMIL es SVG animado"
+      },
+      "alternative": {
+        "text": "動画",
+        "romaji": "dōga",
+        "meaning": "imagen en movimiento"
+      }
+    },
+    {
+      "repo": "MixinColor",
+      "url": "https://github.com/nandovejer/MixinColor",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "色",
+        "on": [
+          "shoku",
+          "shiki"
+        ],
+        "kun": [
+          "iro"
+        ],
+        "meaning": "color",
+        "reason": "Un mixin para manejar color"
+      },
+      "alternative": {
+        "text": "色調",
+        "romaji": "shikichō",
+        "meaning": "tono"
+      }
+    },
+    {
+      "repo": "codrops-medium-style-page-transitions",
+      "url": "https://github.com/nandovejer/codrops-medium-style-page-transitions",
+      "fork": true,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "移",
+        "on": [
+          "i"
+        ],
+        "kun": [
+          "utsu(ru)"
+        ],
+        "meaning": "trasladarse",
+        "reason": "Transiciones entre páginas"
+      },
+      "alternative": {
+        "text": "移行",
+        "romaji": "ikō",
+        "meaning": "transición"
+      }
+    }
+  ]
+}

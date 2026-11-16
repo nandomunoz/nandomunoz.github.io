@@ -108,7 +108,7 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--blaze) 1.3p
 .post__meta dt { font: 500 .62rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); margin-bottom: .4rem; }
 .post__meta dd { margin: 0; font: 500 .8rem/1.2 var(--mono); letter-spacing: .08em; }
 .post__meta .post__n { font: 700 1.1rem/1 var(--dots); letter-spacing: 0; }
-.post__cover { margin: 0 0 3rem; }
+.post__cover { position: relative; margin: 0 0 3rem; }
 .post__cover canvas { display: block; width: 100%; filter: drop-shadow(0 0 14px var(--glow)); }
 .post__credit { margin: .7rem 0 0; font: 500 .62rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
 .post__credit a { color: var(--mute); text-decoration: underline dotted; text-underline-offset: .3em; }

@@ -1,8 +1,9 @@
 import { content, blog } from './shared/content.js';
-import { B, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
+import { B, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { themeSwitch, onMode } from './shared/theme.js';
 import { RainField } from './rain.js';
 import { greenOnHover } from './shared/green.js';
+import { kanjiOf } from './shared/kanji-cells.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
 
@@ -11,7 +12,7 @@ const T = {
     skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
     hintFine: 'haz clic para escanear', hintCoarse: 'toca para escanear',
     legendTitle: 'Cómo leer los bloques',
-    legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama, y sus puntos dibujan el proyecto.',
+    legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su kanji va dibujado en grande; la trama de fondo sale de su captura.',
     count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar', shot: (n) => `Captura de ${n}`,
     demo: 'Ver demo', repo: 'Ver código', prev: 'Anterior', next: 'Siguiente',
     blog: 'Blog', allPosts: 'Todos los artículos',
@@ -21,7 +22,7 @@ const T = {
     skip: 'Skip to content', bio: 'Bio', work: 'Projects',
     hintFine: 'click to scan', hintCoarse: 'tap to scan',
     legendTitle: 'How to read the blocks',
-    legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots, and its dots draw the project.',
+    legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its kanji is drawn big; the field behind it comes from its screenshot.',
     count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close', shot: (n) => `Screenshot of ${n}`,
     demo: 'See demo', repo: 'See code', prev: 'Previous', next: 'Next',
     blog: 'Blog', allPosts: 'All posts',
@@ -118,7 +119,7 @@ c.projects.forEach((p, i) => {
   const h = hash(p.id);
   const front = el('canvas', { class: 'front', 'aria-hidden': 'true' });
   const back = el('canvas', { class: 'back', 'aria-hidden': 'true' });
-  const block = el('div', { class: 'item__block', 'data-i': i }, back, front);
+  const block = el('div', { class: 'item__block', 'data-i': i }, back, front, glossEl(p));
   const stage = el('div', { class: 'item__stage' }, block);
   const openBtn = el('button', { class: 'item__open', type: 'button', 'aria-haspopup': 'dialog', 'data-i': i },
     el('span', { text: t.open }), el('span', { class: 'vh', text: ' ' + p.name }), el('span', { class: 'item__arrow', 'aria-hidden': 'true', text: '→' }));
@@ -131,10 +132,12 @@ c.projects.forEach((p, i) => {
   const li = el('li', { class: 'item', style: `--k:${i};--w:${58 + (h % 43)}%;--depth:${(h >> 4) % 3}` }, stage, text);
   works.append(li);
   const len = (lens[i] - minL) / (maxL - minL || 1);
-  const opts = (cell) => ({ cell, rows: Math.round((innerWidth < 1024 ? 9 : 11) + len * (innerWidth < 1024 ? 20 : 26)), density: densityOf(p.year), kind: h % 6, seed: h, label: pad(p.n), corner: i % 2 });
+  // the kanji is the card: its size (dots high) follows the text's length, the card's height follows the kanji
+  const lab = kanjiOf(p.id) || pad(p.n), size = (innerWidth < 1024 ? 24 : 32) + (len > 0.5 ? 8 : 0);
+  const opts = (cell) => ({ cell, size, rows: Math.round((innerWidth < 1024 ? 9 : 11) + len * (innerWidth < 1024 ? 20 : 26)), density: densityOf(p.year), kind: h % 6, seed: h, label: lab, gloss: glossOf(p).length, corner: i % 2, frame: true });
   const fb = { make: (cell) => new DotBlock(front, { ...opts(cell), tone: tones[p.id] }), stage, front, li, i };
   blocks.push(fb);
-  blocks.push({ make: (cell) => new DotBlock(back, { ...opts(cell), density: densityOf(p.year) * 0.5, kind: (h >> 3) % 6, seed: h ^ 0xabc, label: '' }), stage, back: true });
+  blocks.push({ make: (cell) => new DotBlock(back, { ...opts(cell), density: densityOf(p.year) * 0.5, kind: (h >> 3) % 6, seed: h ^ 0xabc, ghost: true, frame: false }), stage, back: true });
   loadTone(new URL(`${p.id}.tone.webp`, SHOTS)).then((tn) => {
     if (!tn) return;
     tones[p.id] = tn;
@@ -252,8 +255,8 @@ if (fine && !reduce) {
     const i = +blk.dataset.i, r = blk.getBoundingClientRect();
     const x = e.clientX - r.left, y = e.clientY - r.top;
     blk.classList.add('is-hot');
-    blk.style.setProperty('--ry', `${((x / r.width) - 0.5) * 14}deg`);
-    blk.style.setProperty('--rx', `${(0.5 - (y / r.height)) * 12}deg`);
+    blk.style.setProperty('--ry', `${((x / r.width) - 0.5) * 8}deg`);
+    blk.style.setProperty('--rx', `${(0.5 - (y / r.height)) * 7}deg`);
     const b = blocks.find((q) => q.i === i && q.front);
     const fr = b.front.getBoundingClientRect();
     b.block.ptr = { x: (e.clientX - fr.left) * (b.block.w / fr.width), y: (e.clientY - fr.top) * (b.block.w / fr.width) };
@@ -275,8 +278,8 @@ const regionOf = () => (innerWidth >= 1024
   ? { x: 0, y: 0, w: innerWidth * 0.42, h: innerHeight }
   : { x: 0, y: 0, w: innerWidth, h: Math.round(innerHeight * 0.34) });
 const fieldFor = (i) => fieldPoints(innerWidth, innerHeight, {
-  region: regionOf(), label: pad(c.projects[i].n), density: densityOf(c.projects[i].year) + 0.1,
-  seed: hash(c.projects[i].id), cell: innerWidth >= 1024 ? 11 : 8, tone: tones[c.projects[i].id]
+  region: regionOf(), label: kanjiOf(c.projects[i].id) || pad(c.projects[i].n), density: densityOf(c.projects[i].year) + 0.1,
+  seed: hash(c.projects[i].id), cell: innerWidth >= 1024 ? 11 : 8, tone: tones[c.projects[i].id], gloss: glossOf(c.projects[i]).length
 });
 function restField() {
   field = fieldFor(cur);
@@ -289,6 +292,7 @@ function fill(i) {
   const p = c.projects[i];
   cur = i;
   $('#p-meta').textContent = `${pad(p.n)} · ${p.year}`;
+  $('#p-gloss').textContent = glossOf(p);
   $('#p-kicker').textContent = p.kicker;
   $('#p-title').textContent = p.name;
   $('#p-tech').replaceChildren(...p.tech.map((x) => el('li', { text: x })));

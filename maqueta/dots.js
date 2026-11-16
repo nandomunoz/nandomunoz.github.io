@@ -4,6 +4,8 @@
 // a project block (a dithered rectangle that assembles with scroll) and the
 // flight of dots between two sets of points (opening a project).
 
+import { KANJI } from './shared/kanji-cells.js';
+
 // The dots' three colours come from the tokens of the current colour mode
 // (--dot-ink, --dot-mid, --dot-blaze in style.css) and are read again whenever
 // the mode changes (shared/theme.js calls readPalette). LIGHT: the dots are
@@ -87,6 +89,28 @@ export function digitCells(str, scale = 1) {
   });
   return { cells: out, w: (str.length * 4 - 1) * scale, h: 5 * scale };
 }
+
+// cells of a project's kanji (shared/kanji-cells.js, made once by tools/kanji-cells.py:
+// no CJK font at runtime): the bitmap whose height is the largest stored size that is
+// still ≤ `size` dots (the smallest one if none is). Same contract as digitCells.
+export function kanjiCells(ch, size = 32) {
+  const t = KANJI[[...(ch || '')][0]];
+  if (!t) return null;
+  const sizes = Object.keys(t).map(Number).sort((a, b) => a - b);
+  const g = t[sizes.filter((n) => n <= size).pop() ?? sizes[0]];
+  const out = [];
+  for (let y = 0; y < g.h; y++) for (let x = 0; x < g.w; x++) if (g.rows[y][x] === '#') out.push([x, y]);
+  return { cells: out, w: g.w, h: g.h };
+}
+// the glyph cells' own neighbourhood: one blank dot around every stroke, so the
+// abstract field never runs into the kanji's lines
+const halo = (cells, at) => {
+  const out = new Set();
+  for (const [x, y] of cells) for (let j = -1; j <= 1; j++) for (let i = -1; i <= 1; i++) out.add(at(x + i, y + j));
+  return out;
+};
+const GLOSS_PX = 8.2;   // width of one character of the tiny caption (.6rem, tracked), px
+const BG = 0.65;    // a field behind a kanji: its dots smaller than the kanji's, and fainter (drawn at half alpha)
 
 // Coverage (0–1) of `text` set in Archivo, sampled on a cols×rows grid
 export function sampleText(text, cols, rows, { weight = 900, stretch = 'normal', fill = 0.94, align = 'center' } = {}) {
@@ -192,50 +216,73 @@ export function toneAt(t, x, y, cols, rows, cw, ch, fy = 0.15) {
 // ---------------------------------------------------------------- blocks
 // A project block: a dithered rectangle. `density` (the year) sets how many
 // cells are lit, `rows` (the length of its text) sets its height, `label`
-// (its number) is cut into it in the 3×5 font. With `tone` (loadTone) the
-// dots draw the project's picture instead of a pattern.
+// (its kanji, or a number in the 3×5 font) is cut into it. A kanji is the
+// block's protagonist: as tall as the block (`size` dots, or what `rows` leaves
+// room for), off to one side (`corner`), the rest an abstract, fainter field with
+// a blank dot around every stroke. With `tone`
+// (loadTone) the dots draw the project's picture instead of a pattern. With
+// `gloss` (the length of the tiny caption laid over the bottom-right corner, in
+// characters) keeps that corner free of dots. With
+// `frame` the block is a plain rectangle: a ring of dots on its edge and a
+// faint dot on every cell inside, so the grid fills it from side to side and
+// nothing fades out towards the edge. `ghost` keeps the label's cleared margin
+// but leaves the glyph unlit (the card's back layer, so the front's glyph sits in a clean hole).
 export class DotBlock {
   constructor(canvas, o) {
     this.cv = canvas;
-    this.o = { cell: 8, rows: 14, density: 0.6, kind: 0, seed: 1, label: '', corner: 0, ...o };
+    this.o = { cell: 8, rows: 14, density: 0.6, kind: 0, seed: 1, label: '', ghost: false, gloss: 0, corner: 0, frame: false, ...o };
     this.p = 0; this.ptr = null; this.cells = [];
     this.resize();
   }
   resize() {
     const o = this.o, w = this.cv.clientWidth || this.cv.parentElement.clientWidth;
     if (!w) return;
-    const cols = Math.max(8, Math.floor(w / o.cell));
-    const rows = o.rows, cw = w / cols, h = rows * o.cell;
+    const cols = Math.max(8, Math.floor(w / o.cell)), cw = w / cols;
+    const lg = o.label ? kanjiCells(o.label, Math.min(o.size ?? o.rows - 8, cols - 8)) : null;
+    const rows = lg ? lg.h + 8 : o.rows, h = rows * o.cell;
     this.cv.style.height = h + 'px';
     this.w = w; this.h = h; this.cw = cw; this.ch = o.cell;
     this.ctx = sizeCanvas(this.cv, w, h);
     const rand = rng(o.seed), cells = [];
-    // the label, its margin cleared
-    const glyph = new Set(), clear = new Set();
+    // the label: a kanji sits at a third of the width (or the other third, `corner`), centred
+    // in height; a number keeps its corner. Its margin cleared.
+    const glyph = new Set();
+    let clear = new Set();
     if (o.label) {
-      const scale = rows >= 16 && cols >= 30 ? 2 : 1;
-      const g = digitCells(o.label, scale);
-      const gx = o.corner ? cols - g.w - 2 : 2, gy = o.corner ? rows - g.h - 2 : 2;
-      for (let y = -1; y <= g.h; y++) for (let x = -1; x <= g.w; x++) clear.add((gy + y) * cols + gx + x);
+      const g = lg || digitCells(o.label, rows >= 16 && cols >= 30 ? 2 : 1);
+      let gx, gy;
+      if (lg) { gx = clamp(Math.round((o.corner ? 0.7 : 0.3) * cols - g.w / 2), 4, Math.max(4, cols - g.w - 4)); gy = Math.round((rows - g.h) / 2); }
+      else { gx = o.corner ? cols - g.w - 2 : 2; gy = o.corner ? rows - g.h - 2 : 2; }
       g.cells.forEach(([x, y]) => glyph.add((gy + y) * cols + gx + x));
+      if (lg) clear = halo(g.cells, (x, y) => (gy + y) * cols + gx + x);
+      else for (let y = -1; y <= g.h; y++) for (let x = -1; x <= g.w; x++) clear.add((gy + y) * cols + gx + x);
     }
+    // the caption's corner, kept clear (inside the ring, if there is one)
+    if (o.gloss) {
+      const e = o.frame ? 1 : 0, gw = Math.ceil((o.gloss * GLOSS_PX + 16) / cw);
+      for (let y = rows - 3 - e; y < rows - e; y++) for (let x = cols - e - gw; x < cols - e; x++) clear.add(y * cols + x);
+    }
+    const bg = lg ? BG : 1;
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
       const id = y * cols + x, r1 = rand(), r2 = rand();
       let on, size;
-      if (glyph.has(id)) { on = true; size = 0.46; }
+      if (glyph.has(id)) { on = !o.ghost; size = 0.46; }
       else if (clear.has(id)) on = false;
+      else if (o.frame && (x === 0 || y === 0 || x === cols - 1 || y === rows - 1)) { on = true; size = 0.3; }
       else {
         const th = bayer(x, y) * 0.62 + r1 * 0.38;
         if (o.tone) {
-          size = halftone(o.tone, toneAt(o.tone, x, y, cols, rows, cw, o.cell), o.density, th);
+          size = halftone(o.tone, toneAt(o.tone, x, y, cols, rows, cw, o.cell), o.density * (lg ? 0.85 : 1), th) * bg;
           on = size > 0;
         } else {
-          const d = o.density * pattern(o.kind, x, y, cols, rows, o.seed);
+          const d = o.density * (lg ? 0.7 : 1) * pattern(o.kind, x, y, cols, rows, o.seed);
           on = th < d;
-          size = 0.26 + 0.14 * clamp(d);
+          size = (0.26 + 0.14 * clamp(d)) * bg;
         }
+        // a framed block keeps a faint dot where nothing lights
+        if (o.frame && !on) { on = true; size = 0.12; }
       }
-      if (on) cells.push({ x: (x + 0.5) * cw, y: (y + 0.5) * o.cell, r: size * Math.min(cw, o.cell), rank: glyph.has(id) ? r2 * 0.25 : r2, g: glyph.has(id) });
+      if (on) cells.push({ x: (x + 0.5) * cw, y: (y + 0.5) * o.cell, r: size * Math.min(cw, o.cell), rank: glyph.has(id) ? r2 * 0.25 : r2, g: glyph.has(id), dim: !!lg && !glyph.has(id) && size < 0.4 });
     }
     this.cells = cells;
     this.draw(this.p, true);
@@ -247,7 +294,7 @@ export class DotBlock {
     this.p = p; this.hadPtr = !!this.ptr;
     const ctx = this.ctx, R = 70, ptr = this.ptr;
     ctx.clearRect(0, 0, this.w, this.h);
-    const paths = [new Path2D(), new Path2D(), new Path2D()];
+    const paths = [new Path2D(), new Path2D(), new Path2D()], dim = new Path2D();
     for (const c of this.cells) {
       const k = clamp((p * 1.2 - c.rank) / 0.2);
       if (k <= 0) continue;
@@ -262,9 +309,12 @@ export class DotBlock {
           r *= 1 + f * 0.6; b = f > 0.35 ? 2 : f > 0.08 ? 1 : 0;
         }
       }
-      paths[b].moveTo(x + r, y);
-      paths[b].arc(x, y, r, 0, Math.PI * 2);
+      const pa = c.dim && !b ? dim : paths[b];
+      pa.moveTo(x + r, y);
+      pa.arc(x, y, r, 0, Math.PI * 2);
     }
+    // the field behind a kanji is fainter than the kanji
+    ctx.fillStyle = PAL.ink; ctx.globalAlpha = 0.5; ctx.fill(dim); ctx.globalAlpha = 1;
     ctx.fillStyle = PAL.ink; ctx.fill(paths[0]);
     ctx.fillStyle = PAL.mid; ctx.fill(paths[1]);
     ctx.fillStyle = PAL.blaze; ctx.fill(paths[2]);
@@ -438,42 +488,47 @@ export class HeroField {
 // ---------------------------------------------------------------- field
 // The open project's field, on a full-screen canvas: a dithered region with
 // the project's number set big in it.
-export function fieldPoints(w, h, { region, label, density = 0.7, seed = 1, cell = 9, tone = null }) {
+export function fieldPoints(w, h, { region, label, density = 0.7, seed = 1, cell = 9, tone = null, gloss = 0 }) {
   const { x: rx, y: ry, w: rw, h: rh } = region;
   const cols = Math.floor(rw / cell), rows = Math.floor(rh / cell);
   const rand = rng(seed), out = [];
-  // with a picture the number gives it room: a quarter of the height, not half
-  const scale = Math.max(2, Math.floor(Math.min((cols - 4) / (label.length * 4 - 1), (rows * (tone ? 0.22 : 0.55)) / 5)));
-  const g = digitCells(label, scale);
-  const gx = 2, gy = rows - g.h - 2;
+  // a kanji is the field's protagonist: as big as the field has room for (width, then
+  // height), at the foot; a number gives a picture room, a quarter of the height, not half
+  const k = kanjiCells(label, Math.min(cols - 6, Math.floor(rows * 0.8)));
+  const g = k || digitCells(label, Math.max(2, Math.floor(Math.min((cols - 4) / (label.length * 4 - 1), (rows * (tone ? 0.22 : 0.55)) / 5))));
+  const gx = 3, gy = rows - g.h - 3;
   const glyph = new Set(g.cells.map(([x, y]) => (gy + y) * cols + gx + x));
+  // a blank dot around every stroke of a kanji, the whole box of a number
+  const hollow = k ? halo(g.cells, (x, y) => (gy + y) * cols + gx + x) : null, bg = k ? BG : 1;
   for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
     const id = y * cols + x;
-    const inBox = x >= gx - 1 && x <= gx + g.w && y >= gy - 1 && y <= gy + g.h;
+    // the caption's corner (bottom right of the region) stays clear
+    const inBox = (hollow ? hollow.has(id) : x >= gx - 1 && x <= gx + g.w && y >= gy - 1 && y <= gy + g.h)
+      || (gloss && y >= rows - 3 && x >= cols - Math.ceil((gloss * GLOSS_PX + 16) / (rw / cols)));
     let r = 0;
-    if (glyph.has(id)) r = 0.45;
+    if (glyph.has(id)) r = 0.46;
     else if (!inBox) {
       const v = y / rows, u = x / cols;
       const th = bayer(x, y) * 0.6 + rand() * 0.4;
       if (tone) {
-        r = halftone(tone, toneAt(tone, x, y, cols, rows, rw / cols, rh / rows), density, th);
+        r = halftone(tone, toneAt(tone, x, y, cols, rows, rw / cols, rh / rows), density, th) * bg;
         if (!r) continue;
       } else {
         const d = density * (0.25 + 0.95 * Math.pow(noise(x / 7, y / 6, seed), 1.3)) * (1 - 0.55 * v) * (0.6 + 0.4 * (1 - u));
-        if (th < d) r = 0.2 + 0.16 * clamp(d);
+        if (th < d) r = (0.2 + 0.16 * clamp(d)) * bg;
         else continue;
       }
     } else continue;
-    out.push({ x: rx + (x + 0.5) * (rw / cols), y: ry + (y + 0.5) * (rh / rows), r: r * cell * 1.0, g: glyph.has(id) });
+    out.push({ x: rx + (x + 0.5) * (rw / cols), y: ry + (y + 0.5) * (rh / rows), r: r * cell * 1.0, g: glyph.has(id), dim: !!k && !glyph.has(id) });
   }
   return out;
 }
 
 export function drawPoints(ctx, w, h, pts) {
   ctx.clearRect(0, 0, w, h);
-  const a = new Path2D();
-  for (const p of pts) { a.moveTo(p.x + p.r, p.y); a.arc(p.x, p.y, p.r, 0, 6.283); }
-  ctx.fillStyle = PAL.ink; ctx.fill(a);
+  const a = new Path2D(), d = new Path2D();
+  for (const p of pts) { const q = p.dim ? d : a; q.moveTo(p.x + p.r, p.y); q.arc(p.x, p.y, p.r, 0, 6.283); }
+  ctx.fillStyle = PAL.ink; ctx.globalAlpha = 0.5; ctx.fill(d); ctx.globalAlpha = 1; ctx.fill(a);
 }
 
 // Flight: every target dot leaves from one of the source dots and curves

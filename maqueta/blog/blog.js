@@ -7,7 +7,7 @@
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
-import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
+import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
 import { POLICY as P, UPDATED } from '../shared/cookies-policy.js';
@@ -590,7 +590,7 @@ function projRows(list, { group = true } = {}) {
     }
     const r = projectRow(p);
     ol.append(r.li);
-    screen(r.cv, { rows: 9, ...r.dots, label: '' }, projectTone(p));
+    screen(r.cv, { rows: 9, ...r.dots, label: '', gloss: 0 }, projectTone(p));
   }
   return wrap;
 }
@@ -634,7 +634,7 @@ function projectPage() {
   const lens = all.map((x) => x.body.join(' ').length), lo = Math.min(...lens), hi = Math.max(...lens);
   const len = (p.body.join(' ').length - lo) / (hi - lo || 1);
   const cover = el('canvas', { 'aria-hidden': 'true' });
-  screen(cover, () => ({ rows: Math.round((innerWidth < 1024 ? 14 : 18) + len * 12), ...projectDots(p), corner: 1 }), projectTone(p));
+  screen(cover, () => ({ rows: Math.round((innerWidth < 1024 ? 14 : 18) + len * 12), size: innerWidth < 1024 ? 24 : 32, ...projectDots(p), corner: 1 }), projectTone(p));
 
   const prev = all[i - 1], next = all[i + 1];
   const pn = el('nav', { class: 'post__nav', 'aria-label': B.projects },
@@ -653,7 +653,7 @@ function projectPage() {
         el('div', {}, el('dt', { text: B.year }), el('dd', { text: p.year })),
         el('div', {}, el('dt', { text: B.techLabel }), el('dd', { class: 'ptech' }, ...p.tech.flatMap((x, k) => [k ? ' · ' : null, el('a', { href: projectsUrl(x), text: x })]).filter(Boolean)))),
       links),
-    el('div', { class: 'post__cover' }, cover),
+    el('div', { class: 'post__cover' }, cover, glossEl(p)),
     el('div', { class: 'post__grid' }, el('aside', { class: 'post__side' }),
       el('div', { class: 'post__main' }, el('div', { class: 'prose' }, ...p.body.map((x, k) => el('p', { class: k === 0 ? 'prose__lead' : null, text: x }))))),
     pn,
