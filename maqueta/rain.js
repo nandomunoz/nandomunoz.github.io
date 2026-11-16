@@ -25,7 +25,7 @@ let P = {};
 export function readP() {
   const s = getComputedStyle(document.documentElement), g = (n) => s.getPropertyValue(n).trim();
   P = { ink: g('--dot-ink'), mid: g('--dot-mid'), blaze: g('--dot-blaze'), faint: g('--faint'), mute: g('--mute'), bg: g('--bg') };
-  P.green = document.documentElement.dataset.mode === 'light' ? '#0b7a3b' : '#3dff7a';   // the scan's Matrix green (a darker one on the light page)
+  P.green = g('--matrix') || '#3dff7a';                             // the scan's Matrix green (style.css, per colour mode)   // the scan's Matrix green (a darker one on the light page)
 }
 
 // ---------------------------------------------------------------- the name's mask

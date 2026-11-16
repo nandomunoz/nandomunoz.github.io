@@ -29,6 +29,7 @@
   --blaze-lift: brightness(1.7);               /* maroon as small text is lifted on charcoal */
   --on-blaze: #f4f2ee;                         /* text on a maroon fill (6.5:1) */
   --blaze-on-ink: #963641;                     /* maroon on an ink fill (the current chip) */
+  --matrix: #3dff7a; --on-matrix: #292929; --matrix-on-ink: #0b6b34;   /* the hero's green (rain.js), 11:1 on charcoal */
   --prose: #dedbd5;
   --scrim: color-mix(in srgb, #1a1a1a 80%, transparent);
   --shade: #000;
@@ -52,6 +53,7 @@
   --blaze-lift: none;
   --on-blaze: #e9eff5;
   --blaze-on-ink: #8fc2f2;                     /* ink is dark here: a pale blue, 8.6:1 */
+  --matrix: #0b7a3b; --on-matrix: #e9eff5; --matrix-on-ink: #3dff7a;   /* a darker green on the paper, 4.9:1 */
   --prose: #27323d;
   --scrim: color-mix(in srgb, #e9eff5 82%, transparent);
   --shade: #2f3d4b;
@@ -75,6 +77,7 @@
   --blaze-lift: none;
   --on-blaze: #000;                            /* 8.4:1 on the bright maroon */
   --blaze-on-ink: #8a1f2e;                     /* ink is white here: 9:1 */
+  --matrix: #5dff8f; --on-matrix: #000; --matrix-on-ink: #0b6b34;
   --prose: #fff;
   --scrim: color-mix(in srgb, #000 88%, transparent);
   --shade: #000;
@@ -151,6 +154,8 @@ body[data-glide] .nav { --glide: .9s cubic-bezier(.45, 0, .2, 1); transition: le
 ::view-transition-group(root) { animation-duration: 0s; }
 
 /* ------------------------------------------------------------ hero */
+/* while the hero is in view the accent is the rain's green; it turns back to the maroon past it */
+:root.at-hero { --blaze: var(--matrix); --blaze-lift: none; --on-blaze: var(--on-matrix); --blaze-on-ink: var(--matrix-on-ink); }
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; padding-top: 5.5rem; }
 .hero__field { display: block; width: 100%; height: 58svh; min-height: 320px; touch-action: pan-y; cursor: crosshair; }
 .hero__copy { padding: 2.5rem var(--gut) 0; display: grid; gap: 1.1rem; }

@@ -371,12 +371,13 @@ panel.addEventListener('keydown', (e) => {
 
 // ------------------------------------------------------------- nav docks (View Transition)
 const nav = $('#nav');
+document.documentElement.classList.add('at-hero');                 // the page opens on the hero: the green accent
 let docked = false;
 new IntersectionObserver(([e]) => {
   const d = !e.isIntersecting;
   if (d === docked) return;
   docked = d;
-  const flip = () => document.documentElement.classList.toggle('docked', d);
+  const flip = () => { document.documentElement.classList.toggle('docked', d); document.documentElement.classList.toggle('at-hero', !d); };
   if (document.startViewTransition && !reduce && !panel.open) document.startViewTransition(flip);
   else flip();
 }, { rootMargin: '-35% 0px 0px 0px' }).observe($('.hero__copy'));
