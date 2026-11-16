@@ -5,6 +5,8 @@
 @font-face { font-family: Doto; src: url(/assets/fonts/doto-latin-700-normal.woff2) format('woff2'); font-weight: 700; font-display: swap; }
 @font-face { font-family: 'Chakra Petch'; src: url(/assets/fonts/chakra-petch-latin-500-normal.woff2) format('woff2'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Chakra Petch'; src: url(/assets/fonts/chakra-petch-latin-600-normal.woff2) format('woff2'); font-weight: 600; font-display: swap; }
+/* the hero's mask: the name after the Matrix title (rain.js) */
+@font-face { font-family: 'Playfair Display'; src: url(/assets/fonts/playfair-display-latin-wght-normal.woff2) format('woff2'); font-weight: 400 900; font-display: swap; }
 
 /* Colour modes. Dark is Trama's own and the default (charcoal, off-white ink, one maroon).
    LUZ's <luz-theme-mode> (shared/theme.js) writes data-mode on <html> — light, dark or

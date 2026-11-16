@@ -1,13 +1,14 @@
 import { content, blog } from './shared/content.js';
 import { B, row, coverLoop, blogUrl, projectsUrl, projectUrl, footer } from './blog/parts.js';
 import { themeSwitch, onMode } from './shared/theme.js';
+import { RainField } from './rain.js';
 import { DotBlock, HeroField, fieldPoints, drawPoints, fly, hash, clamp, loadTone } from './dots.js';
 import { consent } from './shared/consent.js';
 
 const T = {
   es: {
     skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos',
-    hintFine: 'mueve el puntero sobre la trama · haz clic', hintCoarse: 'toca la trama',
+    hintFine: 'haz clic para escanear', hintCoarse: 'toca para escanear',
     legendTitle: 'Cómo leer los bloques',
     legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su número va calado en la trama, y sus puntos dibujan el proyecto.',
     count: (n, a, b) => `${n} proyectos · ${a}–${b}`, open: 'Abrir', close: 'Cerrar', shot: (n) => `Captura de ${n}`,
@@ -17,7 +18,7 @@ const T = {
   },
   en: {
     skip: 'Skip to content', bio: 'Bio', work: 'Projects',
-    hintFine: 'move the pointer over the dots · click', hintCoarse: 'tap the dots',
+    hintFine: 'click to scan', hintCoarse: 'tap to scan',
     legendTitle: 'How to read the blocks',
     legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its number is cut into the dots, and its dots draw the project.',
     count: (n, a, b) => `${n} projects · ${a}–${b}`, open: 'Open', close: 'Close', shot: (n) => `Screenshot of ${n}`,
@@ -190,19 +191,14 @@ $('#socials').append(...c.socials.filter((s) => s.id !== 'blog').map((s) => el('
     el('span', { class: 'vh', text: ' ' + t.newTab })))));
 
 // ------------------------------------------------------------- hero
-const hero = new HeroField($('#hero-field'), c.name, { reduce });
+// Matrix rain with a mask cut out of it, in turn the name, the poster's cats and the desk
+// picture (rain.js); a click scans in a circle
+const hero = new RainField($('#hero-field'), { mask: 'cycle', name: c.name });
 const heroEl = $('.hero');
 new IntersectionObserver(([e]) => (e.isIntersecting ? hero.start() : hero.stop())).observe(heroEl);
-const heroPtr = (e) => {
-  const r = hero.cv.getBoundingClientRect();
-  hero.ptr = { x: e.clientX - r.left, y: e.clientY - r.top };
-};
-hero.cv.parentElement.addEventListener('pointermove', heroPtr);
-hero.cv.parentElement.addEventListener('pointerleave', () => { hero.ptr = null; });
-hero.cv.parentElement.addEventListener('pointerdown', (e) => {
+hero.cv.addEventListener('pointerdown', (e) => {
   const r = hero.cv.getBoundingClientRect();
   hero.poke(e.clientX - r.left, e.clientY - r.top);
-  if (e.pointerType !== 'mouse') setTimeout(() => { hero.ptr = null; }, 250);
 });
 
 // ------------------------------------------------------------- scroll

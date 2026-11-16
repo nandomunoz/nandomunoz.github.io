@@ -6,6 +6,7 @@
 // Unknown ids render a "not found" page (the 404 of the sandbox).
 import { content, blog, lang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
+import { RainField } from '../rain.js';
 import { B, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, footer } from './parts.js';
 import { consent, allowed, grant, CT } from '../shared/consent.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
@@ -236,7 +237,7 @@ function featured(p) {
 }
 
 // ------------------------------------------------------------- 404
-// The number in dots, with some of them fallen to the floor (tap to mend it);
+// Matrix rain with the desk picture drawn in it (a click scans);
 // the address that failed; a search over posts and projects, prefilled from
 // that address; the four sections; the latest posts.
 const later = [];
@@ -251,18 +252,15 @@ function notFound() {
   const hint = el('p', { class: 'lost__hint', 'aria-hidden': 'true', text: fine ? B.nfHintFine : B.nfHint });
   const stage = el('div', { class: 'lost__stage' }, cv, hint);
   later.push(() => {
-    const f = new HeroField(cv, '404', { reduce, lost: 0.16 });
+    const f = new RainField(cv, { mask: 'image' });                  // the rain, with the desk picture drawn in it (rain.js)
     f.start();
-    const at = (e) => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
-    cv.addEventListener('pointermove', (e) => { f.ptr = at(e); });
-    cv.addEventListener('pointerleave', () => { f.ptr = null; });
     cv.addEventListener('pointerdown', (e) => {
-      const p = at(e); f.poke(p.x, p.y); f.mend();
+      const r = cv.getBoundingClientRect(); f.poke(e.clientX - r.left, e.clientY - r.top);
       hint.classList.add('is-done');
-      if (e.pointerType !== 'mouse') setTimeout(() => { f.ptr = null; }, 250);
     });
     new IntersectionObserver(([e]) => (e.isIntersecting ? f.start() : f.stop())).observe(cv);
     addEventListener('resize', () => { clearTimeout(f.tm); f.tm = setTimeout(() => f.layout(), 200); });
+    onMode(() => f.repaint());
   });
 
   // search
