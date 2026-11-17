@@ -95,16 +95,49 @@ function langHref(l) {
   if (l === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang');
   return u.pathname + u.search;
 }
-// the language switch, ES · EN: the page's own language is plain text (aria-current), the other a link
-// to this same page in it; each carries its language and its full name for a screen reader.
-// In the masthead and, the same, in the footer. No choice is stored: the ?lang in every link carries it.
-const LANGS = [['es', 'ES', 'Español'], ['en', 'EN', 'English']];
-export const langSwitch = (cls = 'langs') => el('span', { class: `${cls} langs--switch`, role: 'group', 'aria-label': lang === 'en' ? 'Language' : 'Idioma' },
-  ...LANGS.flatMap(([l, code, name], i) => [
-    i ? el('span', { class: 'langs__sep', 'aria-hidden': 'true', text: '·' }) : null,
-    l === lang
-      ? el('span', { class: 'langs__cur', lang: l, 'aria-current': 'true' }, code, el('span', { class: 'vh', text: ` · ${name}, ${lang === 'en' ? 'current language' : 'idioma actual'}` }))
-      : el('a', { href: langHref(l), hreflang: l, lang: l, 'aria-label': name, title: name, text: code })].filter(Boolean)));
+// the language switch: a button with the name of the page's language and, when pressed, the list of
+// languages (a popover of links, in the top layer so nothing clips it). A disclosure, not an ARIA menu:
+// the button says expanded or not, Esc and a press outside close it (the platform), the arrows move
+// through the list. The page's own language is plain text (aria-current), the others links to this same
+// page in them, each with its language. In the masthead and, the same, in the footer. No choice is stored:
+// the ?lang in every link carries it.
+const LANGS = [['es', 'Español'], ['en', 'English']];
+const SVGNS = 'http://www.w3.org/2000/svg';
+const chevron = () => { // five dots in a V
+  const s = document.createElementNS(SVGNS, 'svg');
+  s.setAttribute('class', 'lang-dd__chev'); s.setAttribute('viewBox', '0 0 5 3'); s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false');
+  for (const [cx, cy] of [[.5, .5], [4.5, .5], [1.5, 1.5], [3.5, 1.5], [2.5, 2.5]]) {
+    const c = document.createElementNS(SVGNS, 'circle'); c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', .5); s.append(c);
+  }
+  return s;
+};
+const dot = () => el('span', { class: 'lang-dd__dot', 'aria-hidden': 'true' });
+let ddCount = 0;
+export function langSwitch(cls = 'langs') {
+  const id = `lang-dd-${++ddCount}`, label = lang === 'en' ? 'Language' : 'Idioma', now = lang === 'en' ? 'current language' : 'idioma actual';
+  const here = LANGS.find(([l]) => l === lang);
+  const btn = el('button', { type: 'button', class: 'lang-dd__btn', 'aria-expanded': 'false', 'aria-controls': id, popovertarget: id },
+    el('span', { class: 'vh', text: `${label}: ` }), el('span', { lang, text: here[1] }), chevron());
+  const menu = el('ul', { class: 'lang-dd__list', id, popover: 'auto', dir: 'ltr', 'aria-label': label },
+    ...LANGS.map(([l, name]) => el('li', {}, l === lang
+      ? el('span', { class: 'lang-dd__cur', lang: l, 'aria-current': 'true' }, dot(), el('span', { text: name }), el('span', { class: 'vh', text: `, ${now}` }))
+      : el('a', { href: langHref(l), hreflang: l, lang: l }, dot(), el('span', { text: name })))));
+  // under the button, or over it when there is no room below; at its edge, never out of the window
+  const place = () => {
+    const b = btn.getBoundingClientRect(), h = menu.offsetHeight, w = menu.offsetWidth, below = innerHeight - b.bottom;
+    const up = below < h + 12 && b.top > below, end = b.left + b.width / 2 > innerWidth / 2;
+    menu.style.top = `${up ? Math.max(8, b.top - h - 6) : b.bottom + 6}px`;
+    menu.style.left = `${Math.min(Math.max(8, end ? b.right - w : b.left), innerWidth - w - 8)}px`;
+  };
+  menu.addEventListener('toggle', (e) => { btn.setAttribute('aria-expanded', e.newState === 'open'); if (e.newState === 'open') place(); });
+  menu.addEventListener('keydown', (e) => {
+    const items = [...menu.querySelectorAll('a')], i = items.indexOf(document.activeElement), to = { ArrowDown: (i + 1) % items.length, ArrowUp: (i - 1 + items.length) % items.length, Home: 0, End: items.length - 1 }[e.key];
+    if (to != null && items.length) { e.preventDefault(); items[to].focus(); }
+  });
+  btn.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); if (!menu.matches(':popover-open')) menu.showPopover(); menu.querySelector('a')?.focus(); } });
+  addEventListener('resize', () => { if (menu.matches(':popover-open')) menu.hidePopover(); });
+  return el('span', { class: `${cls} lang-dd` }, btn, menu);
+}
 const ext = (href, text) => el('a', { href, target: '_blank', rel: 'noopener' }, el('span', { text }), el('span', { class: 'vh', text: ' ' + B.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' }));
 const group = (id, title, tag, props, ...kids) => el(tag, { class: 'foot__group', 'aria-labelledby': id, ...props }, el('h2', { class: 'foot__h', id, text: title }), ...kids);
 const list = (...items) => el('ul', {}, ...items.map((i) => el('li', {}, i)));
@@ -121,7 +154,7 @@ export const footer = (c) => el('footer', { class: 'foot' },
       // the cookie settings button is the way back into the banner (shared/consent.js: LUZ wires it, hidden until then)
       list(page(url('/privacidad/'), FOOT.privacy), page(url('/cookies/'), FOOT.cookies),
         el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: FOOT.cookieSettings }), page(url('/creditos/'), FOOT.credits))),
-    group('foot-prefs', FOOT.prefs, 'section', {},
+    group('foot-prefs', FOOT.prefs, 'section', { class: 'foot__group foot__group--bare' },
       el('ul', {},
         pref(FOOT.language, langSwitch('langs foot__lang'))))),
   el('div', { class: 'foot__end' },

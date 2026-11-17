@@ -1,0 +1,70 @@
+/* Trama · the lever with three stops, six takes (sandbox only). */
+@property --pos { syntax: '<number>'; inherits: true; initial-value: 0; }
+.langs--p { display: inline-grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 0; direction: ltr; unicode-bidi: isolate; }
+.langs--p .langs__sep { display: none; }
+.langs--p > .langs__cur, .langs--p > a { text-align: center; padding: .5rem .7rem .2rem; text-decoration: none; }
+.langs--p > .langs__cur { color: var(--ink); font-weight: 800; }
+.langs.langs--p > a:hover { color: var(--ink); text-decoration: none; }
+.langs--p > [data-i="0"] { grid-column: 1; } .langs--p > [data-i="1"] { grid-column: 2; } .langs--p > [data-i="2"] { grid-column: 3; }
+.langs--p > .langs__cur, .langs--p > a { grid-row: 1; }
+/* the track: a line of dots under the codes, with a little room at each end */
+.langs--p > .langs__track { grid-row: 2; grid-column: 1 / -1; align-self: center; height: 6px; margin: 0 .7rem;
+  background: radial-gradient(circle, var(--faint-text) 1px, transparent 1.5px) 0 50% / 6px 6px repeat-x; }
+/* the mark: in the column of the language you are in; it slides one column per step */
+.langs--p > .langs__thumb { grid-row: 2; grid-column: 1; display: grid; place-items: center; height: .9em; translate: calc(var(--pos, 0) * 100%) 0; pointer-events: none; }
+.langs--p > .langs__thumb::before { content: ''; width: .64em; height: .64em; border-radius: 50%; background: var(--blaze); position: relative;
+  box-shadow: 0 0 0 .2em color-mix(in srgb, var(--blaze) 26%, transparent), 0 0 0 .34em var(--bg); }
+@media (prefers-reduced-motion: no-preference) { .langs--p > .langs__thumb { transition: translate .3s var(--ease, ease); } }
+
+/* ---------------------------------------------------------------- 01 one dot under (the one you like) */
+.langs--p1 > .langs__cur, .langs--p1 > a { padding-bottom: .45rem; }
+
+/* ---------------------------------------------------------------- 02 the lit stretch */
+/* not a dot but a run of lit dots, the grammar of the pager and the menu: the current place is a line of green dots */
+.langs--p2 > .langs__cur, .langs--p2 > a { padding-bottom: .45rem; }
+.langs--p2 > .langs__thumb { align-self: center; height: 6px; margin: 0; display: block; background: radial-gradient(circle, var(--blaze) 1.4px, transparent 1.9px) 0 50% / 6px 6px repeat-x; }
+.langs--p2 > .langs__thumb::before { content: none; }
+
+/* ---------------------------------------------------------------- 03 stops with nodes */
+/* a ring at each stop, joined by the dotted line, and the lit one filled — a stepper: three places, you are at one */
+.langs--p3 > .langs__track { margin: 0 calc(100% / 6); }
+.langs--p3 > .langs__cur, .langs--p3 > a { padding-bottom: .45rem; }
+.langs--p3 > .langs__node { grid-row: 2; align-self: center; justify-self: center; width: .64em; height: .64em; border-radius: 50%; box-sizing: border-box; border: 1.5px solid var(--faint-text); background: var(--bg); }
+.langs--p3 > [data-n="0"] { grid-column: 1; } .langs--p3 > [data-n="1"] { grid-column: 2; } .langs--p3 > [data-n="2"] { grid-column: 3; }
+.langs--p3 > .langs__thumb { z-index: 1; }
+.langs--p3 > .langs__thumb::before { box-shadow: 0 0 0 .2em color-mix(in srgb, var(--blaze) 26%, transparent); }
+
+/* ---------------------------------------------------------------- 04 the track above */
+/* the mark over the codes, like the dots that hang from a title: the codes sit on the baseline of the line they share with the links */
+.langs--p4 > .langs__cur, .langs--p4 > a { grid-row: 2; padding: .45rem .7rem .5rem; }
+.langs--p4 > .langs__track, .langs--p4 > .langs__thumb { grid-row: 1; }
+
+
+/* ---------------------------------------------------------------- 05 the glow */
+/* no single mark: the dots of the track light up in green around the language you are in and fade with the distance */
+.langs--p5 > .langs__cur, .langs--p5 > a { padding-bottom: .45rem; }
+.langs--p5 > .langs__thumb { grid-column: 1 / -1; width: 100%; height: 6px; margin: 0; display: block; translate: 0 0; transition: none;
+  background: radial-gradient(circle, var(--blaze) 1.5px, transparent 2px) 0 50% / 6px 6px repeat-x;
+  --c: calc((var(--pos) + .5) / 3 * 100%);
+  -webkit-mask-image: radial-gradient(ellipse 24% 120% at var(--c) 50%, #000 20%, transparent 100%); mask-image: radial-gradient(ellipse 24% 120% at var(--c) 50%, #000 20%, transparent 100%); }
+.langs--p5 > .langs__thumb::before { content: none; }
+@media (prefers-reduced-motion: no-preference) { .langs--p5 > .langs__thumb { transition: --pos .4s var(--ease, ease); } }
+
+/* ---------------------------------------------------------------- 06 with the name */
+/* the dot, and under it the name of the language you are in, in its own language: it says it in full what the code abbreviates */
+.langs--p6 > .langs__cur, .langs--p6 > a { padding-bottom: .45rem; }
+.langs--p6 > .langs__name { grid-row: 3; justify-self: center; white-space: nowrap; padding-top: .1rem; font: 400 .72rem/1.2 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
+
+/* the page's direction: Arabic runs right to left (the samples show it) */
+.ctx[dir="rtl"], .vfoot[dir="rtl"] { text-transform: none; letter-spacing: 0; font-family: system-ui, "Noto Naskh Arabic", sans-serif; }
+.ctx[dir="rtl"] .langs { margin-left: 0; margin-right: auto; }
+.ctx[dir="rtl"] .ctx__mark span { margin-right: 0; margin-left: .6em; }
+.vfoot[dir="rtl"] .foot__h { letter-spacing: 0; }
+.langs__name[lang="ar"] { font-family: system-ui, "Noto Naskh Arabic", sans-serif; font-size: .8rem; }
+
+@media (forced-colors: active) {
+  .langs--p > .langs__track { background: radial-gradient(circle, CanvasText 1px, transparent 1.5px) 0 50% / 6px 6px repeat-x; }
+  .langs--p > .langs__thumb::before { background: Highlight; forced-color-adjust: none; box-shadow: none; }
+  .langs--p2 > .langs__thumb, .langs--p5 > .langs__thumb { background: radial-gradient(circle, Highlight 1.5px, transparent 2px) 0 50% / 6px 6px repeat-x; forced-color-adjust: none; }
+  .langs--p3 > .langs__node { border-color: CanvasText; background: Canvas; }
+}

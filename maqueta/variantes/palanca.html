@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="dark light">
+  <script>try{var m=localStorage.getItem('luz-theme');document.documentElement.dataset.mode=m==='light'||m==='high-contrast'||m==='dark'?m:matchMedia('(prefers-contrast: more)').matches?'high-contrast':'dark'}catch(e){document.documentElement.dataset.mode='dark'}</script>
+  <meta name="theme-color" content="#292929">
+  <link rel="icon" href="/maqueta/favicon.svg" type="image/svg+xml">
+  <title>Trama · palanca con tres paradas</title>
+  <link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="idioma.css">
+  <link rel="stylesheet" href="palanca.css">
+  <script type="module" src="palanca.js"></script>
+</head>
+<body>
+  <header class="vbar">
+    <span>Palanca · 6 versiones</span>
+    <nav aria-label="Variantes"><a href="#p1">01</a><a href="#p2">02</a><a href="#p3">03</a><a href="#p4">04</a><a href="#p5">05</a><a href="#p6">06</a><a href="tres.html">← tres idiomas</a><a href="/maqueta/">maqueta</a></nav>
+  </header>
+  <main>
+    <h1>La palanca con tres paradas, de seis maneras</h1>
+    <p class="vlead">Siempre ES · EN · AR en fila y una pista de puntos con una marca que descansa en el idioma activo, que se desliza al elegir otro. Cambia la marca, el sitio de la pista o lo que dice. Pulsa un idioma inactivo: aquí cambia la muestra, no la página. Elige AR para ver cómo se espeja la página sin que se mueva el selector.</p>
+    <div id="slots"></div>
+  </main>
+</body>
+</html>

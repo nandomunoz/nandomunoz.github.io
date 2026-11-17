@@ -1,0 +1,43 @@
+/* Trama · the lever between the codes, with three languages (sandbox only). */
+.langs--t1, .langs--t2 { direction: ltr; unicode-bidi: isolate; }           /* the order of the switch never flips with the page */
+.langs--t1 .langs__sep, .langs--t2 .langs__sep { display: none; }
+.langs--t1 .langs__cur, .langs--t2 .langs__cur { text-decoration: none; }
+
+/* ---------------------------------------------------------------- 01 the lever with three stops */
+/* the codes in a row and under them a dotted track with one lit dot that rests under the one you are in */
+.langs--t1 { display: inline-grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 0; }
+.langs--t1 > .langs__cur, .langs--t1 > a { grid-row: 1; text-align: center; padding: .5rem .7rem .2rem; }
+.langs--t1 > .langs__cur { color: var(--ink); font-weight: 800; }
+.langs.langs--t1 > a:hover { color: var(--ink); text-decoration: none; }
+.langs--t1 > [data-i="0"] { grid-column: 1; } .langs--t1 > [data-i="1"] { grid-column: 2; } .langs--t1 > [data-i="2"] { grid-column: 3; }
+.langs--t1 > .langs__track { grid-row: 2; grid-column: 1 / -1; align-self: center; height: 6px; margin: 0 .7rem;
+  background: radial-gradient(circle, var(--faint-text) 1px, transparent 1.5px) 0 50% / 6px 6px repeat-x; }
+.langs--t1 > .langs__thumb { grid-row: 2; grid-column: 1; display: grid; place-items: center; height: .9em; margin-bottom: .45rem; translate: calc(var(--pos, 0) * 100%) 0; pointer-events: none; }
+.langs--t1 > .langs__thumb::before { content: ''; width: .64em; height: .64em; border-radius: 50%; background: var(--blaze);
+  box-shadow: 0 0 0 .2em color-mix(in srgb, var(--blaze) 26%, transparent), 0 0 0 .5em var(--bg); }
+@media (prefers-reduced-motion: no-preference) { .langs--t1 > .langs__thumb { transition: translate .3s var(--ease, ease); } }
+
+/* ---------------------------------------------------------------- 02 the pill with three places */
+.langs--t2 { display: inline-grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; gap: 0; padding: .2rem; border-radius: 999px; box-shadow: 0 0 0 1px var(--faint-text); }
+.langs--t2 > .langs__thumb { grid-area: 1 / 1; align-self: stretch; justify-self: stretch; border-radius: 999px; background: var(--ink); translate: calc(var(--pos, 0) * 100%) 0; }
+.langs--t2 > .langs__cur, .langs--t2 > a { grid-row: 1; position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: .55em; padding: .4rem .85rem .4rem .7rem; line-height: 1; border-radius: 999px; text-decoration: none; }
+.langs--t2 > [data-i="0"] { grid-column: 1; } .langs--t2 > [data-i="1"] { grid-column: 2; } .langs--t2 > [data-i="2"] { grid-column: 3; }
+.langs--t2 > .langs__cur { color: var(--bg); }
+.langs--t2 > .langs__cur::before, .langs--t2 > a::before { content: ''; width: .55em; height: .55em; border-radius: 50%; flex: none; box-sizing: border-box; }
+.langs--t2 > .langs__cur::before { background: var(--blaze-on-ink, var(--blaze)); box-shadow: 0 0 0 .18em color-mix(in srgb, var(--blaze-on-ink, var(--blaze)) 30%, transparent); }
+.langs--t2 > a::before { border: 1.5px solid var(--faint-text); }
+.langs.langs--t2 > a:hover { color: var(--ink); text-decoration: none; }
+@media (prefers-reduced-motion: no-preference) { .langs--t2 > .langs__thumb { transition: translate .32s var(--ease, ease); } }
+
+/* the page's direction: Arabic runs right to left (the samples show it) */
+.ctx[dir="rtl"], .vfoot[dir="rtl"] { text-transform: none; letter-spacing: 0; font-family: system-ui, "Noto Naskh Arabic", sans-serif; }
+.ctx[dir="rtl"] .langs { margin-left: 0; margin-right: auto; }
+.ctx[dir="rtl"] .ctx__mark span { margin-right: 0; margin-left: .6em; }
+.vfoot[dir="rtl"] .foot__h { letter-spacing: 0; }
+
+@media (forced-colors: active) {
+  .langs--t1 > .langs__track { background: radial-gradient(circle, CanvasText 1px, transparent 1.5px) 0 50% / 6px 6px repeat-x; }
+  .langs--t1 > .langs__thumb::before { background: Highlight; forced-color-adjust: none; box-shadow: none; }
+  .langs--t2 > .langs__thumb { background: Highlight; forced-color-adjust: none; }
+  .langs--t2 > .langs__cur { color: HighlightText; }
+}

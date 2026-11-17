@@ -1,5 +1,5 @@
 // Trama · the hero's poster (the motto on top, the credits at the foot) typed in letter by letter
-// with a thin terminal cursor; each letter comes out in a wake (a dim green, a dark one on the paper: --trace) and settles (style.css: .caret).
+// with a thin terminal cursor (style.css: .caret). A letter appears in its own colour: no wake, no fade.
 //
 //   import { typePoster } from './shared/poster.js';
 //   typePoster({ deck, name, kicker, bill }, { motto, key, green, reduce });
@@ -58,14 +58,13 @@ export function typePoster({ deck, name, kicker, bill }, { motto, key, green, re
   const all = [...L.flat(), ...N, ...Kk];
   all.forEach((x) => { x.style.visibility = 'hidden'; });
   bill.classList.add('off');
-  let tok = 0, caret = null; const anims = [];
-  const stop = () => { tok++; anims.splice(0).forEach((a) => a.cancel()); caret?.remove(); caret = null; };
+  let tok = 0, caret = null;
+  const stop = () => { tok++; caret?.remove(); caret = null; };
 
   // the letters come out on a timeline (not one sleep after another), so a busy main thread
   // drops frames but never stretches the typing: each letter has its own moment
   function play(delay = 420) {
     stop(); const t = tok;
-    const G = getComputedStyle(document.documentElement).getPropertyValue('--trace').trim();
     caret = document.createElement('span'); caret.className = 'caret blink'; caret.setAttribute('aria-hidden', 'true');
     all[0].before(caret);
     const plan = []; let at = delay, billAt = 0;
@@ -81,7 +80,6 @@ export function typePoster({ deck, name, kicker, bill }, { motto, key, green, re
       const e = now - t0;
       while (i < plan.length && plan[i].at <= e) {
         const { x } = plan[i++]; x.style.visibility = ''; x.after(caret); last = e;
-        anims.push(x.animate([{ color: G }], { duration: 900, easing: 'ease-out' }));   // the beam's wake: it comes out in a dim (dark, on the paper) green and settles
       }
       if (!billOn && e >= billAt) { billOn = true; bill.classList.remove('off'); }
       caret.classList.toggle('blink', e - last > 90);

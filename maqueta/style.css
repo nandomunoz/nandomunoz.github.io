@@ -33,7 +33,6 @@
   --blaze-on-ink: #963641;                     /* maroon on an ink fill (the current chip) */
   --matrix: #22c55e; --on-matrix: #1a1a1a; --matrix-on-ink: #0b6b34;   /* the accent: the rain's green (rain.js), 6.9:1 on charcoal */
   --luz-code-comment: #adb5bd; --luz-code-keyword: var(--ink); --luz-code-name: #b3d9ff; --luz-code-property: #ca9aff; --luz-code-string: #52cf92; --luz-code-literal: #e2a928;   /* LUZ's code scheme (@luz-ds/tokens --luz-code-*): 7:1 or more on --bg-2 */
-  --trace: #3c6b4d;                            /* the typing beam's wake: a dim green a letter comes out in before it settles */
   --prose: #dedbd5;
   --scrim: color-mix(in srgb, #1a1a1a 80%, transparent);
   --shade: #000;
@@ -61,7 +60,6 @@
   --blaze-on-ink: #8fc2f2;                     /* ink is dark here: a pale blue, 8.6:1 */
   --matrix: #0a6f35; --on-matrix: #e9eff5; --matrix-on-ink: #3dff7a;   /* a darker green on the paper: 5.4:1 on it, 4.8:1 on --bg-2 */
   --luz-code-comment: #434951; --luz-code-keyword: var(--ink); --luz-code-name: #004299; --luz-code-property: #853bca; --luz-code-string: #005733; --luz-code-literal: #7c4d00;   /* LUZ's light scheme; the comment a step darker (gray-70, 7:1) since --bg-2 is bluer than LUZ's surface */
-  --trace: #06361b;                            /* on the paper the wake is darker, not dimmer */
   --prose: #27323d;
   --scrim: color-mix(in srgb, #e9eff5 82%, transparent);
   --shade: #2f3d4b;
@@ -89,7 +87,6 @@
   --blaze-on-ink: #8a1f2e;                     /* ink is white here: 9:1 */
   --matrix: #5dff8f; --on-matrix: #000; --matrix-on-ink: #0b6b34;
   --luz-code-comment: #adb5bd; --luz-code-keyword: var(--ink); --luz-code-name: #b3d9ff; --luz-code-property: #ca9aff; --luz-code-string: #52cf92; --luz-code-literal: #e2a928;   /* black ground: LUZ's dark scheme (7:1 or more) */
-  --trace: #2c9a58;
   --prose: #fff;
   --scrim: color-mix(in srgb, #000 88%, transparent);
   --shade: #000;
@@ -139,23 +136,39 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .langs__cur { color: var(--ink); padding: .5rem 0; text-decoration: underline dotted var(--blaze); text-underline-offset: .35em; text-decoration-thickness: 2px; }
 .langs__sep { color: var(--faint-text); }
 .langs a { color: var(--mute); }
-/* the switch with a state dot: a dotted track, the page's language filled in ink with a lit green dot,
-   the other with a hollow ring. A control, not a link: it is the one thing in the page that changes
-   the page itself rather than going somewhere */
-.langs.langs--switch { gap: 0; padding: .2rem; border: 1px dotted var(--faint-text); border-radius: 999px; }
-.langs--switch .langs__sep { display: none; }
-.langs.langs--switch .langs__cur, .langs.langs--switch a { display: inline-flex; align-items: center; gap: .55em; padding: .4rem .85rem .4rem .7rem; border-radius: 999px; line-height: 1; text-decoration: none; }
-.langs--switch .langs__cur::before, .langs--switch a::before { content: ''; width: .55em; height: .55em; border-radius: 50%; flex: none; box-sizing: border-box; }
-.langs.langs--switch .langs__cur { background: var(--ink); color: var(--bg); }
-.langs--switch .langs__cur::before { background: var(--blaze-on-ink, var(--blaze)); box-shadow: 0 0 0 .18em color-mix(in srgb, var(--blaze-on-ink, var(--blaze)) 30%, transparent); }
-.langs--switch a::before { border: 1.5px solid var(--faint-text); }
-.langs.langs--switch a:hover { color: var(--ink); text-decoration: none; background: color-mix(in srgb, var(--ink) 14%, transparent); }
-.langs--switch a:hover::before { border-color: var(--blaze); }
+/* the language switch: a button with the name of the page's language and a chevron of five dots; the list
+   (shared/parts.js langSwitch) is a popover of links in the top layer, placed by the script */
+.lang-dd { display: inline-block; direction: ltr; unicode-bidi: isolate; }
+.lang-dd__btn { display: inline-flex; align-items: center; gap: .6em; padding: .5rem 0; border: 0; background: none; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); }
+.lang-dd__btn:hover { text-decoration: underline dotted; text-underline-offset: .35em; }
+.lang-dd__btn:focus-visible { outline: 3px dotted var(--ink); outline-offset: 4px; }
+.lang-dd__chev { width: .95em; height: .6em; color: var(--mute); flex: none; }
+.lang-dd__chev circle { fill: currentColor; }
+.lang-dd__btn[aria-expanded="true"] .lang-dd__chev { rotate: 180deg; color: var(--blaze); }
+@media (prefers-reduced-motion: no-preference) { .lang-dd__chev { transition: rotate .2s var(--ease, ease); } }
+.lang-dd__list { position: fixed; inset: auto; margin: 0; padding: .35rem; min-width: 11rem; list-style: none; border: 1px dotted var(--faint-text); background: var(--bg-2); color: var(--ink);
+  box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 80%, transparent);
+  font: 500 .9rem/1.2 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.lang-dd__list:not(:popover-open) { display: none; }
+.lang-dd__list li { margin: 0; }
+.lang-dd .lang-dd__list li > a, .lang-dd .lang-dd__cur { display: flex; letter-spacing: 0; font-size: .9rem; align-items: center; gap: .8em; padding: .75rem .8rem; text-decoration: none; color: var(--mute); }
+.lang-dd .lang-dd__list li > a:hover, .lang-dd .lang-dd__list li > a:focus-visible { color: var(--ink); text-decoration: none; background: color-mix(in srgb, var(--ink) 10%, transparent); outline: none; }
+.lang-dd .lang-dd__list li > a:focus-visible { box-shadow: inset 0 0 0 2px var(--ink); }
+.lang-dd__cur { color: var(--ink); }
+.lang-dd__dot { width: .55em; height: .55em; border-radius: 50%; flex: none; box-sizing: border-box; border: 1.5px solid var(--faint-text); }
+.lang-dd__cur .lang-dd__dot { border: 0; background: var(--blaze); box-shadow: 0 0 0 .2em color-mix(in srgb, var(--blaze) 28%, transparent); }
+.lang-dd .lang-dd__list li > a:hover .lang-dd__dot { border-color: var(--blaze); }
+@media (prefers-reduced-motion: no-preference) {
+  .lang-dd__list:popover-open { animation: dd-in .16s var(--ease, ease); }
+  @keyframes dd-in { from { opacity: 0; translate: 0 -4px; } }
+}
+/* in the footer the button reads like the other links of the page: sentence case */
+.foot .lang-dd__btn { text-transform: none; letter-spacing: .03em; font-size: .82rem; color: var(--mute); }
+.foot .lang-dd__btn:hover { color: var(--ink); }
 @media (forced-colors: active) {
-  .langs.langs--switch { border-color: CanvasText; }
-  .langs.langs--switch .langs__cur { background: Highlight; color: HighlightText; forced-color-adjust: none; }
-  .langs--switch .langs__cur::before { background: HighlightText; box-shadow: none; }
-  .langs--switch a::before { border-color: CanvasText; }
+  .lang-dd__list { border-color: CanvasText; background: Canvas; }
+  .lang-dd__cur .lang-dd__dot { background: Highlight; forced-color-adjust: none; box-shadow: none; }
+  .lang-dd .lang-dd__list li > a:hover { background: Highlight; color: HighlightText; }
 }
 
 .top a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
@@ -320,6 +333,10 @@ section { position: relative; }
 /* the links of the three lists read as words, in sentence case (the group titles above keep their capitals) */
 .foot__group li > a, .foot__group li > .foot__consent { text-transform: none; letter-spacing: .03em; font-size: .82rem; }
 .foot__n { color: var(--faint-text); }
+/* a group without a visible title (preferences): the title stays for screen readers and its one row, «Idioma», is the title of the others' size and on their row */
+.foot__group--bare > .foot__h { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.foot__group--bare .foot__pref { padding: 0; border-bottom: 0; }
+.foot__group--bare .foot__k { margin: 0 0 .5rem; font: 600 .62rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }   /* «Idioma» takes the place of the title: same size, same row as the others */
 /* preferences read as controls, not links: what it is, how it stands, the button that changes it */
 .foot__pref { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .9rem; padding: .5rem 0 .3rem; border-bottom: 1px dotted var(--faint); }
 .foot__pref:last-child { border-bottom: 0; }
@@ -397,7 +414,7 @@ section { position: relative; }
 
 /* ============================================================ ≥ 48em */
 @media (min-width: 48em) {
-  .nav { top: 1.05rem; left: auto; right: calc(var(--gut) + 9.6rem); }
+  .nav { top: 1.38rem; left: 50%; right: auto; translate: -50% 0; }          /* centred in the masthead, on the line of the logo and the language */
   .top__lang { order: 2; }
 
   .bio { grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; padding-block: 14rem 10rem; }
