@@ -1,0 +1,56 @@
+[
+  {
+    "id": "iahoraque",
+    "es": "iahoraque",
+    "en": "iahoraque",
+    "ar": "iahoraque"
+  },
+  {
+    "id": "inteligencia-artificial",
+    "es": "Inteligencia artificial",
+    "en": "Artificial intelligence",
+    "ar": "الذكاء الاصطناعي"
+  },
+  {
+    "id": "privacidad",
+    "es": "Privacidad",
+    "en": "Privacy",
+    "ar": "الخصوصية"
+  },
+  {
+    "id": "carnaval-de-cadiz",
+    "es": "Carnaval de Cádiz",
+    "en": "Cádiz Carnival",
+    "ar": "كرنفال قادس"
+  },
+  {
+    "id": "css",
+    "es": "CSS",
+    "en": "CSS",
+    "ar": "CSS"
+  },
+  {
+    "id": "gestion-de-equipos",
+    "es": "Gestión de equipos",
+    "en": "Team management",
+    "ar": "إدارة الفرق"
+  },
+  {
+    "id": "javascript",
+    "es": "JavaScript",
+    "en": "JavaScript",
+    "ar": "JavaScript"
+  },
+  {
+    "id": "poesia-contemporanea",
+    "es": "Poesía contemporánea",
+    "en": "Contemporary poetry",
+    "ar": "الشعر المعاصر"
+  },
+  {
+    "id": "web-components",
+    "es": "Web Components",
+    "en": "Web Components",
+    "ar": "Web Components"
+  }
+]
