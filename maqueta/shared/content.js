@@ -20,6 +20,13 @@ document.documentElement.dir = dir;
 // Projects of data/projects.json (the Cassette's file, which stays as it is) that the maqueta does not show
 const HIDDEN = new Set(['coac-analisis', 'illo-loader']);
 
+// The maqueta is the site as nandomunoz.com. data/site.json (the Cassette's file, which stays as it
+// is and points at today's soynando.com) names the domain in the blog and RSS entries: here they read
+// and link to the new one.
+const OLD_DOMAIN = 'soynando.com', DOMAIN = 'nandomunoz.com';
+const ownDomain = (s) => (s.handle.includes(OLD_DOMAIN) || s.url.includes(OLD_DOMAIN)
+  ? { ...s, handle: s.handle.replace(OLD_DOMAIN, DOMAIN), url: s.url.replace(OLD_DOMAIN, DOMAIN) } : s);
+
 // The Arabic texts of the home, the projects and the blog's categories and tags live in their own file
 // (maqueta/shared/content-ar.json), so the Cassette's data files stay as they are.
 const arabic = () => fetch('/maqueta/shared/content-ar.json').then((r) => r.json());
@@ -40,7 +47,7 @@ export async function content() {
     contactTitle: t.contactTitle,
     contactText: t.contactText,
     motto: t.motto,
-    socials: [...site.socials, ...site.extraSocials],
+    socials: [...site.socials, ...site.extraSocials].map(ownDomain),
     projects: projects.filter((p) => !HIDDEN.has(p.id)).map((p, i) => ({
       id: p.id, n: i + 1, name: p.name, year: p.year, tech: p.tech, demo: p.demo, repo: p.repo,
       kicker: lang === 'ar' ? ar.projects[p.id].kicker : p[lang].kicker, body: lang === 'ar' ? ar.projects[p.id].body : p[lang].body
