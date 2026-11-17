@@ -136,10 +136,8 @@ Las piezas de `dots.js`:
 ## 8. Navegación
 
 - **Secciones numeradas**: 01 Bio · 02 Proyectos · 03 Blog · 04 Escríbeme. Los números se repiten en el menú, en los encabezados y en las páginas interiores.
-- **Arriba**, sobre el hero, va el menú en línea. En el móvil salta a dos líneas si no cabe.
-- **Al hacer scroll, el menú se ancla** con una View Transition, que lo lleva volando de un sitio a otro:
-  - en el **móvil**, a una píldora flotante abajo, bajo el pulgar (con fondo desenfocado); por debajo de 30em quita los números para que quepan las cuatro secciones;
-  - en el **escritorio**, a un raíl vertical en el borde izquierdo, con el texto girado.
+- **En el móvil (hasta 47.99em) el menú es la píldora desde el primer pintado**: flotante abajo, bajo el pulgar (con fondo desenfocado), y no cambia de sitio al hacer scroll. La tira de arriba queda solo con el logo y el idioma, con aire (se probaron seis maneras en `variantes/cabecera.html`; las filas de enlaces apiladas quedaban pegadas al titular). Por debajo de 30em quita los números para que quepan las cuatro secciones.
+- **Desde 48em**, sobre el hero, va el menú en línea. **Al hacer scroll se ancla** con una View Transition, que lo lleva volando de un sitio a otro: en la tableta, a la píldora; en el **escritorio**, a un raíl vertical en el borde izquierdo, con el texto girado.
 - **La sección visible se marca** con `aria-current` y el número en verde.
 - **Raíl de progreso** (escritorio): una columna de puntos a la derecha que se rellena con el scroll.
 - **Progreso de lectura** en los artículos: una fila de puntos verdes arriba que se rellena.

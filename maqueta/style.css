@@ -447,6 +447,13 @@ section { position: relative; }
   .panel__nav button { padding-block: 2rem; }
 }
 
+/* ============================================================ phone
+   The nav is the docked pill from the first paint (main.js), so the strip at the top is only the
+   logo and the language: the hero's copy starts higher and leaves room at the foot for the pill. */
+@media (max-width: 47.99em) {
+  .hero__copy { padding-top: 6rem; padding-bottom: 6.4rem; }
+}
+
 /* ============================================================ ≥ 64em */
 @media (min-width: 64em) {
   .hero__copy { padding-top: 6.5rem; padding-bottom: 3.5rem; }

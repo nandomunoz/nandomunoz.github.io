@@ -405,15 +405,22 @@ panel.addEventListener('keydown', (e) => {
 
 // ------------------------------------------------------------- nav docks (View Transition)
 const nav = $('#nav');
-let docked = false;
-new IntersectionObserver(([e]) => {
-  const d = !e.isIntersecting;
+// On a phone the nav is the pill from the first paint (it sits under the thumb, so it does not
+// change place when you scroll); on a wider screen it docks once the hero's copy has scrolled away.
+const phone = matchMedia('(max-width: 47.99em)');
+let away = false;
+let docked = phone.matches;
+document.documentElement.classList.toggle('docked', docked);
+const syncDock = () => {
+  const d = phone.matches || away;
   if (d === docked) return;
   docked = d;
   const flip = () => document.documentElement.classList.toggle('docked', d);
   if (document.startViewTransition && !reduce && !panel.open) document.startViewTransition(flip);
   else flip();
-}, { rootMargin: '-35% 0px 0px 0px' }).observe($('.hero__copy'));
+};
+phone.addEventListener('change', syncDock);
+new IntersectionObserver(([e]) => { away = !e.isIntersecting; syncDock(); }, { rootMargin: '-35% 0px 0px 0px' }).observe($('.hero__copy'));
 // mark the section in view
 const secs = ['bio', 'trabajo', 'blog', 'contacto'].map((id) => document.getElementById(id));
 const sectionIO = new IntersectionObserver((es) => es.forEach((e) => {
