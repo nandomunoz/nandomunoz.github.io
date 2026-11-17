@@ -1,0 +1,57 @@
+---
+// The footer of every page (plan Phase 4; DESIGN.md §8): four labelled groups and a last line — the
+// small print — in plain HTML. The cookie settings buttons stay `hidden` until the consent script runs.
+import { getEntry } from 'astro:content';
+import { ui, pathFor, htmlLang, hreflang, languageName, locales, type Locale, type Route } from '../i18n/ui';
+import { luzUrl } from '../lib/site';
+interface Props { lang: Locale; route: Route; rest?: string }
+const { lang, route, rest = '' } = Astro.props;
+const t = ui[lang], f = t.foot;
+const site = (await getEntry('site', 'site'))!.data;
+const L = site[lang];
+const socials = ['github', 'linkedin', 'x', 'rss'].map((id) => site.socials.find((s) => s.id === id)).filter((s) => s !== undefined);
+const sections = [
+  ['01', t.bio, pathFor(lang, 'home') + '#bio'],
+  ['02', t.work, pathFor(lang, 'projects')],
+  ['03', t.blog, pathFor(lang, 'blog')],
+  ['04', L.contactTitle, pathFor(lang, 'home') + '#contacto']
+];
+---
+<footer class="foot">
+  <div class="foot__groups">
+    <nav class="foot__group" aria-labelledby="foot-sections">
+      <h2 class="foot__h" id="foot-sections">{f.sections}</h2>
+      <ul>{sections.map(([n, text, href]) => <li><a href={href}><span class="foot__n" aria-hidden="true">{n}</span> <span>{text}</span></a></li>)}</ul>
+    </nav>
+    <section class="foot__group" aria-labelledby="foot-follow">
+      <h2 class="foot__h" id="foot-follow">{f.follow}</h2>
+      <ul>{socials.map((s) => <li><a href={s.url} target="_blank" rel="noopener"><span>{s.label}</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a></li>)}</ul>
+    </section>
+    <nav class="foot__group" aria-labelledby="foot-about">
+      <h2 class="foot__h" id="foot-about">{f.about}</h2>
+      <ul>
+        <li><a href={pathFor(lang, 'privacy')}>{f.privacy}</a></li>
+        <li><a href={pathFor(lang, 'cookies')}>{f.cookies}</a></li>
+        <li><button type="button" class="foot__consent" data-luz-consent-open hidden>{f.cookieSettings}</button></li>
+        <li><a href={pathFor(lang, 'credits')}>{f.credits}</a></li>
+      </ul>
+    </nav>
+    <section class="foot__group" aria-labelledby="foot-lang">
+      <h2 class="foot__h" id="foot-lang">{t.language}</h2>
+      <ul>
+        {locales.map((l) => (
+          <li>
+            {l === lang ? (
+              <span class="foot__cur" lang={htmlLang[l]} aria-current="true"><span>{languageName[l]}</span><span class="lang-dd__dot" aria-hidden="true"></span><span class="vh" lang={htmlLang[lang]}>, {t.currentLanguage}</span></span>
+            ) : (
+              <a href={pathFor(l, route, rest)} hreflang={hreflang[l]} lang={htmlLang[l]}>{languageName[l]}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+  <div class="foot__end">
+    <p class="foot__by">{f.legal[0]}{site.name}{f.legal[1]}<a href={pathFor(lang, 'credits')}>{f.legal[2]}</a>{f.legal[3]}<a href={luzUrl} target="_blank" rel="noopener"><span>LUZ</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>{f.legal[4]}<a href={pathFor(lang, 'cookies')}>{f.legal[5]}</a>{f.legal[6]}<button type="button" class="foot__consent" data-luz-consent-open hidden>{f.legal[7]}</button>{f.legal[8]}</p>
+  </div>
+</footer>

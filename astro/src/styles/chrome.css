@@ -1,0 +1,175 @@
+/* The page's chrome (plan Phase 4; DESIGN.md §8): masthead, language switch, the numbered menu
+   (inline → docked pill → vertical rail), progress rail, footer and the colour button. Ported from the
+   maqueta's style.css with the green accent (--matrix) and logical properties, so /ar/ is the same sheet. */
+@layer trama {
+  /* ---------------------------------------------------------------- masthead */
+  .top {
+    position: absolute; inset: 0 0 auto; z-index: 5;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 1.25rem var(--gut);
+    font: 600 .75rem/1 var(--mono); text-transform: uppercase; letter-spacing: .2em;
+  }
+  .top a { text-decoration: none; padding: .5rem 0; }
+  .top a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+  .top .top__mark:hover { text-decoration: none; }
+  .top__mark span:first-child { font: 700 1rem/1 var(--dots); letter-spacing: 0; margin-inline-end: .6em; }
+
+  /* ---------------------------------------------------------------- language dropdown */
+  .lang-dd { display: inline-block; direction: ltr; unicode-bidi: isolate; }
+  .lang-dd__btn { display: inline-flex; align-items: center; gap: .6em; padding: .5rem 0; border: 0; background: none; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); }
+  .lang-dd__btn:hover { text-decoration: underline dotted; text-underline-offset: .35em; }
+  .lang-dd__btn:focus-visible { outline: 3px dotted var(--ink); outline-offset: 4px; }
+  .lang-dd__chev { inline-size: .95em; block-size: .6em; color: var(--mute); flex: none; }
+  .lang-dd__chev circle { fill: currentColor; }
+  .lang-dd__btn[aria-expanded='true'] .lang-dd__chev { rotate: 180deg; color: var(--matrix); }
+  .lang-dd__list { position: fixed; inset: auto; margin: 0; padding: .35rem; min-inline-size: 11rem; list-style: none; border: 1px dotted var(--faint-text); background: var(--bg-2); color: var(--ink);
+    box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 80%, transparent);
+    font: 500 .9rem/1.2 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+  .lang-dd__list:not(:popover-open) { display: none; }
+  .lang-dd__list li { margin: 0; }
+  .lang-dd__list li::before { content: none; }
+  .lang-dd .lang-dd__list li > a, .lang-dd .lang-dd__cur { display: flex; letter-spacing: 0; font-size: .9rem; align-items: center; gap: .8em; padding: .75rem .8rem; text-decoration: none; color: var(--mute); }
+  .lang-dd .lang-dd__list li > a:hover, .lang-dd .lang-dd__list li > a:focus-visible { color: var(--ink); text-decoration: none; background: color-mix(in srgb, var(--ink) 10%, transparent); outline: none; }
+  .lang-dd .lang-dd__list li > a:focus-visible { box-shadow: inset 0 0 0 2px var(--ink); }
+  .lang-dd__cur { color: var(--ink); }
+  .lang-dd__dot { inline-size: .55em; block-size: .55em; border-radius: 50%; flex: none; border: 1.5px solid var(--faint-text); }
+  .lang-dd__cur .lang-dd__dot, .foot__cur .lang-dd__dot { border: 0; background: var(--matrix); box-shadow: 0 0 0 .2em color-mix(in srgb, var(--matrix) 28%, transparent); }
+  .lang-dd .lang-dd__list li > a:hover .lang-dd__dot { border-color: var(--matrix); }
+  @media (prefers-reduced-motion: no-preference) {
+    .lang-dd__chev { transition: rotate .2s var(--ease); }
+    .lang-dd__list:popover-open { animation: dd-in .16s var(--ease); }
+    @keyframes dd-in { from { opacity: 0; translate: 0 -4px; } }
+  }
+
+  /* ---------------------------------------------------------------- the menu */
+  .nav { view-transition-name: nav; position: absolute; z-index: 6; inset-block-start: 3.4rem; inset-inline-start: var(--gut); }
+  .nav ol { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.25rem; }
+  .nav li { margin: 0; }
+  .nav li::before { content: none; }
+  .nav a {
+    display: inline-flex; gap: .45em; align-items: baseline; padding: .35rem 0;
+    font: 600 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .16em;
+    text-decoration: none; color: var(--mute);
+  }
+  .nav__n { font: 700 .85rem/1 var(--dots); letter-spacing: 0; color: var(--faint-text); }
+  .nav a:hover, .nav a[aria-current] { color: var(--ink); }
+  .nav a[aria-current] .nav__n { color: var(--matrix); text-decoration: underline 2px; text-underline-offset: .3em; }
+
+  /* the pill: under the thumb. On a phone from the first paint (CSS only); from 48em when docked */
+  @media (max-width: 47.99em) {
+    .nav {
+      position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); inset-inline: 50% auto; translate: -50% 0; width: max-content;
+      padding: .55rem 1.1rem; border-radius: 999px;
+      background: color-mix(in srgb, var(--bg-2) 82%, transparent); backdrop-filter: blur(10px) saturate(.6);
+      box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 40px -10px var(--rule);
+    }
+    .nav ol { gap: 1rem; }
+    /* the logo and the language only, with air; room at the foot for the pill */
+    .top { padding-block: 1.6rem; }
+    :root { scroll-padding-block-end: 6rem; }
+  }
+  @media (max-width: 30em) {
+    .nav .nav__n { display: none; }
+    .nav ol { gap: .9rem; }
+    .nav a { letter-spacing: .1em; white-space: nowrap; }
+  }
+  @media (min-width: 48em) {
+    .docked .nav {
+      position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); inset-inline: 50% auto; translate: -50% 0; width: max-content;
+      padding: .55rem 1.1rem; border-radius: 999px;
+      background: color-mix(in srgb, var(--bg-2) 82%, transparent); backdrop-filter: blur(10px) saturate(.6);
+      box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 40px -10px var(--rule);
+    }
+    .docked .nav ol { gap: 1rem; }
+    :root.docked { scroll-padding-block-end: 6rem; }
+  }
+  .rail { display: none; }
+  /* a desktop: the nav slides to a rail on the edge, the text turned */
+  @media (min-width: 64em) {
+    .docked .nav {
+      inset-block: 50% auto; inset-inline: 1.25rem auto; translate: 0 -50%; padding: 1rem .7rem; border-radius: 2px;
+      background: none; backdrop-filter: none; box-shadow: none;
+    }
+    .docked .nav ol { flex-direction: column; gap: 1.6rem; }
+    .docked .nav a { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .66rem; }
+    .docked .nav__n { font-size: .8rem; }
+    :root.docked { scroll-padding-block-end: 1.5rem; }
+    .rail { display: block; position: fixed; inset-inline-end: 1.4rem; inset-block-start: 25vh; block-size: 50vh; inline-size: 8px; z-index: 4;
+      background: radial-gradient(circle, var(--rule) 1.3px, transparent 1.8px) 50% 0 / 8px 9px repeat-y; }
+    .rail i { position: absolute; inset: 0; background: radial-gradient(circle, var(--ink) 1.6px, transparent 2.1px) 50% 0 / 8px 9px repeat-y;
+      clip-path: inset(0 0 100% 0); }
+  }
+  @supports (animation-timeline: scroll()) {
+    .rail i { animation: fill-rail linear both; animation-timeline: scroll(root); }
+  }
+  @keyframes fill-rail { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+  /* between documents too: the masthead and the menu do not blink when you move between pages */
+  @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+  ::view-transition-group(nav) { animation-duration: .7s; animation-timing-function: var(--ease); }
+  ::view-transition-old(nav), ::view-transition-new(nav) { block-size: 100%; inline-size: auto; }
+  ::view-transition-group(root) { animation-duration: 0s; }
+
+  /* ---------------------------------------------------------------- footer */
+  .foot { padding: 3rem var(--gut) 7rem; display: grid; gap: 2.2rem; font: 500 .7rem/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint-text); border-block-start: 1px dotted var(--glow); }
+  .foot a { color: var(--mute); text-decoration: none; }
+  .foot a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+  .foot__groups { display: grid; gap: 2rem 1.5rem; }
+  .foot__h { margin: 0 0 .5rem; font: 600 .62rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .foot__group ul { list-style: none; margin: 0; padding: 0; }
+  .foot__group li { margin: 0; }
+  .foot__group li::before { content: none; }
+  .foot__group li > a { display: inline-block; padding: .4rem 0; }
+  .foot__group li > a, .foot__group li > .foot__consent, .foot__cur { text-transform: none; letter-spacing: .03em; font-size: .82rem; }
+  .foot__n { color: var(--faint-text); }
+  .foot__cur { display: inline-flex; align-items: center; gap: .6em; padding: .4rem 0; color: var(--ink); }
+  .foot__end { display: grid; gap: .9rem; padding-block-start: 1.4rem; border-block-start: 1px dotted var(--faint); }
+  .foot__by { margin: 0; }
+  .foot__by a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
+  .foot__by a:hover { color: var(--matrix); }
+  .foot__consent { display: inline-block; padding: .4rem 0; border: 0; background: none; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--mute); }
+  .foot__consent:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+  .foot__by .foot__consent { display: inline; padding: 0; color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
+  [data-luz-consent-open][hidden] { display: inline-block; visibility: hidden; }
+  @media (min-width: 40em) { .foot__groups { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 64em) { .foot__groups { grid-template-columns: repeat(4, 1fr); } }
+
+  /* ---------------------------------------------------------------- colour mode button (luz-theme-mode) */
+  .luz-theme-mode__group { display: none; }
+  .luz-theme-mode__status { position: absolute; inline-size: 1px; block-size: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .luz-theme-mode__button {
+    display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; padding: 0; border: 0; border-radius: 50%;
+    color: var(--ink); background: color-mix(in srgb, var(--bg-2) 82%, transparent); cursor: pointer; backdrop-filter: blur(10px) saturate(.6);
+    box-shadow: 0 0 0 1px var(--edge), 0 12px 28px -10px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 30px -10px var(--rule);
+    transition: box-shadow .3s var(--ease), color .3s var(--ease);
+  }
+  .luz-theme-mode__button--fixed { position: fixed; z-index: 30; inset-inline-end: max(1rem, env(safe-area-inset-right)); inset-block-end: calc(max(1rem, env(safe-area-inset-bottom)) + 3.9rem); }
+  .luz-theme-mode__button:hover { box-shadow: 0 0 0 1px var(--matrix), 0 12px 28px -10px color-mix(in srgb, var(--shade) 67%, transparent); }
+  .luz-theme-mode__button:focus-visible { outline: 3px dotted var(--ink); outline-offset: 5px; }
+  .luz-theme-mode__icon { inline-size: 1.3rem; block-size: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  @media (min-width: 64em) { .luz-theme-mode__button--fixed { inset-block-end: max(1.25rem, env(safe-area-inset-bottom)); inset-inline-end: max(1.25rem, env(safe-area-inset-right)); } }
+  /* the change is a circle of the new mode growing out of the button (src/scripts/theme.js sets --vt-*) */
+  :root[data-vt='theme'] .nav { view-transition-name: none; }
+  :root[data-vt='theme'] *, :root[data-vt='theme'] *::before, :root[data-vt='theme'] *::after { transition: none !important; }
+  :root[data-vt='theme']::view-transition-old(root), :root[data-vt='theme']::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  @media (prefers-reduced-motion: no-preference) { :root[data-vt='theme']::view-transition-new(root) { animation: theme-reveal .65s cubic-bezier(.65, 0, .35, 1) both; } }
+  @keyframes theme-reveal { from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 100%)); } to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 100%)); } }
+  @media (prefers-reduced-motion: reduce) { .luz-theme-mode__button { transition: none; } }
+
+  /* ---------------------------------------------------------------- Arabic: the Latin names keep their look, the rest has no tracking or capitals */
+  html[dir='rtl'] *, html[dir='rtl'] *::before, html[dir='rtl'] *::after { letter-spacing: 0 !important; text-transform: none !important; }
+  html[dir='rtl'] em, html[dir='rtl'] i { font-style: normal; }
+  html[dir='rtl'] .top__mark, html[dir='rtl'] .top__mark *, html[dir='rtl'] .nav__n, html[dir='rtl'] .foot__n { letter-spacing: revert-layer !important; }
+  html[dir='rtl'] [lang='es'], html[dir='rtl'] [lang='en'] { direction: ltr; text-align: start; unicode-bidi: isolate; }
+
+  /* ---------------------------------------------------------------- forced colours: the pill and the button get a border */
+  @media (forced-colors: active) {
+    .nav, .luz-theme-mode__button { background: Canvas; backdrop-filter: none; }
+    .docked .nav, .luz-theme-mode__button { border: 1px solid CanvasText; }
+    @media (max-width: 47.99em) { .nav { border: 1px solid CanvasText; } }
+    [aria-current]:not(.pager__dir) { text-decoration: underline 2px; text-underline-offset: .3em; }
+    .lang-dd__list { border-color: CanvasText; background: Canvas; }
+    .lang-dd__cur .lang-dd__dot, .foot__cur .lang-dd__dot { background: Highlight; forced-color-adjust: none; box-shadow: none; }
+    .lang-dd .lang-dd__list li > a:hover { background: Highlight; color: HighlightText; }
+    .foot__consent { text-decoration: underline; }
+  }
+}

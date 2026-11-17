@@ -4,14 +4,30 @@ import '@luz-ds/tokens/tokens.css';
 import '@luz-ds/core/base.css';
 import '../styles/luz-theme-trama.css';
 import '../styles/base.css';
-import { htmlLang, dir, ui, locales, prefix, type Locale } from '../i18n/ui';
+import '../styles/chrome.css';
+import { htmlLang, dir, hreflang, ui, locales, pathFor, type Locale, type Route } from '../i18n/ui';
+import Masthead from '../components/Masthead.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
-interface Props { lang: Locale; title: string; description?: string; path?: string; noindex?: boolean }
-const { lang, title, description = '', path = '/', noindex = false } = Astro.props;
+interface Props {
+  lang: Locale;
+  title: string;
+  description?: string;
+  /** which route this page is, so every language's address (and the language switch) is built from it */
+  route: Route;
+  /** what comes after the route's segment, e.g. a project's id */
+  rest?: string;
+  /** the section the page belongs to, for the menu's aria-current */
+  current?: 'projects' | 'blog';
+  noindex?: boolean;
+}
+const { lang, title, description = '', route, rest = '', current, noindex = false } = Astro.props;
 const site = Astro.site!.origin;
+const home = route === 'home';
 ---
 <!doctype html>
-<html lang={htmlLang[lang]} dir={dir[lang]} data-theme="trama">
+<html lang={htmlLang[lang]} dir={dir[lang]} data-theme="trama" class={home ? undefined : 'docked'}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,14 +40,22 @@ const site = Astro.site!.origin;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="canonical" href={site + prefix(lang) + path}>
-    {locales.map((l) => <link rel="alternate" hreflang={l} href={site + prefix(l) + path}>)}
-    <link rel="alternate" hreflang="x-default" href={site + path}>
+    <link rel="canonical" href={site + pathFor(lang, route, rest)}>
+    {locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={site + pathFor(l, route, rest)}>)}
+    <link rel="alternate" hreflang="x-default" href={site + pathFor('es', route, rest)}>
     <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   </head>
   <body>
     <a class="skip" href="#main">{ui[lang].skip}</a>
+    <Masthead lang={lang} route={route} rest={rest} />
+    <Nav lang={lang} current={current} home={home} />
     <main id="main"><slot /></main>
+    <div class="rail" aria-hidden="true"><i></i></div>
+    <Footer lang={lang} route={route} rest={rest} />
+    <script>
+      import '../scripts/chrome.js';
+      import '../scripts/theme.js';
+    </script>
   </body>
 </html>

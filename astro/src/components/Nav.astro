@@ -1,0 +1,25 @@
+---
+// The four numbered sections, in HTML (plan Phase 4). On a phone it is the docked pill from the first
+// paint (CSS only); from 48em it sits inline and src/scripts/chrome.js docks it on scroll (a pill on a
+// tablet, a vertical rail on a desktop). On inner pages `docked` is set on <html> by the layout.
+import { ui, pathFor, type Locale } from '../i18n/ui';
+import { getEntry } from 'astro:content';
+interface Props { lang: Locale; /** the section this page belongs to, for aria-current: 'projects' | 'blog' | undefined (home) */ current?: 'projects' | 'blog'; /** inner pages: links to the home's sections go to the home; home: '#bio' */ home?: boolean }
+const { lang, current, home = false } = Astro.props;
+const t = ui[lang];
+const site = (await getEntry('site', 'site'))!.data;
+const h = (hash: string) => (home ? hash : pathFor(lang, 'home') + hash);
+const items = [
+  { n: '01', href: h('#bio'), text: t.bio, current: false },
+  { n: '02', href: pathFor(lang, 'projects'), text: t.work, current: current === 'projects' },
+  { n: '03', href: pathFor(lang, 'blog'), text: t.blog, current: current === 'blog' },
+  { n: '04', href: h('#contacto'), text: site[lang].contactTitle, current: false }
+];
+---
+<nav class="nav" id="nav" aria-label={t.sections}>
+  <ol>
+    {items.map((i) => (
+      <li><a href={i.href} aria-current={i.current ? 'page' : undefined}><span class="nav__n" aria-hidden="true">{i.n}</span> <span>{i.text}</span></a></li>
+    ))}
+  </ol>
+</nav>
