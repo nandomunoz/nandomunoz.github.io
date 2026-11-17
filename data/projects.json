@@ -419,5 +419,38 @@
       ],
       "quote": "More precise than typeof."
     }
+  },
+  {
+    "id": "kong-sole",
+    "name": "kong.sole",
+    "year": 2019,
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "LUZ"
+    ],
+    "demo": "https://nandovejer.github.io/kong.sole/",
+    "repo": "https://github.com/nandovejer/kong.sole",
+    "es": {
+      "kicker": "Estilos para la consola",
+      "body": [
+        "kong.sole hace que la consola del navegador se vea bien. Son ayudantes de una línea, como kong.success() o kong.error(), cada uno con su insignia y su icono, para estados, títulos, tarjetas, tablas, gráficos, banners e imágenes.",
+        "Además de pintar, ayuda a depurar: registros con etiqueta y color propio, objetos y diferencias entre dos estados, temporizadores, contadores y trazas de pila sin el ruido de las librerías. Los colores salen de una paleta oscura y otra clara, así que se leen igual en las dos consolas.",
+        "Es un módulo ES sin dependencias, de 14,4 KB comprimido y con licencia MIT, que se instala desde npm o se carga desde un CDN. Con kong.enabled = false cada llamada no hace nada, y no recoge datos, ni hace peticiones, ni usa cookies. Las imágenes y los banners se ven completos en Chrome y Edge.",
+        "La portada es un banco de pruebas: eliges una receta, pulsas Run y el resultado sale en un panel de la página y en tus DevTools."
+      ],
+      "quote": "Haz que la consola de tu navegador se vea bien."
+    },
+    "en": {
+      "kicker": "Styles for the console",
+      "body": [
+        "kong.sole makes the browser console look good. It is a set of one-line helpers, like kong.success() or kong.error(), each with its own badge and icon, for statuses, headings, cards, tables, charts, banners and images.",
+        "Besides drawing, it helps you debug: tagged loggers with a colour of their own, objects and the differences between two states, timers, counters and stack traces without the noise of libraries. The colours come from a dark and a light palette, so they read the same in both consoles.",
+        "It is an ES module with no dependencies, 14.4 KB gzipped and MIT-licensed, installed from npm or loaded from a CDN. With kong.enabled = false every call does nothing, and it collects no data, makes no requests and uses no cookies. Images and banners show in full in Chrome and Edge.",
+        "The home page is a playground: you pick a recipe, press Run and the result shows in a panel on the page and in your DevTools."
+      ],
+      "quote": "Make your browser console look good."
+    }
   }
 ]

@@ -1,7 +1,7 @@
 {
   "source": "gh repo list nandovejer (nombre, descripción, lenguaje y topics; no se ha leído el código)",
   "note": "inferred: true = el repo no tiene descripción y el kanji se ha elegido por el nombre y el lenguaje",
-  "count": 60,
+  "count": 61,
   "repos": [
     {
       "repo": "nandovejer.github.io",
@@ -1379,6 +1379,30 @@
         "text": "移行",
         "romaji": "ikō",
         "meaning": "transición"
+      }
+    },
+    {
+      "repo": "kong.sole",
+      "url": "https://github.com/nandovejer/kong.sole",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "獣",
+        "on": [
+          "jū"
+        ],
+        "kun": [
+          "kemono"
+        ],
+        "meaning": "bestia, animal salvaje",
+        "meaning_en": "beast, wild animal",
+        "reason": "Kong, el gorila del cartel de la portada, que hace rugir la consola: «Kong() a console log of Javascript with styles»"
+      },
+      "alternative": {
+        "text": "野獣",
+        "romaji": "yajū",
+        "meaning": "bestia salvaje"
       }
     }
   ]
