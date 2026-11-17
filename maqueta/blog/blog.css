@@ -386,6 +386,7 @@ luz-timeline[data-luz-ready] { container-type: inline-size; }
 /* reading progress: a line of dots that fills across the top */
 .progress { position: fixed; inset: 0 0 auto; z-index: 20; height: 6px; pointer-events: none;
   background: radial-gradient(circle, var(--rule) 1.2px, transparent 1.7px) 0 50% / 8px 6px repeat-x; }
+html[dir="rtl"] .progress i { transform-origin: right center; }
 .progress i { position: absolute; inset: 0; background: radial-gradient(circle, var(--blaze) 1.6px, transparent 2.1px) 0 50% / 8px 6px repeat-x; filter: brightness(1.5);
   clip-path: inset(0 calc((1 - var(--p, 0)) * 100%) 0 0); }
 /* a fade of the page's colour under the line, so the dots read over the text that scrolls beneath */

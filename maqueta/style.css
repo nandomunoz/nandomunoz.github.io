@@ -740,3 +740,16 @@ html[dir="rtl"] em, html[dir="rtl"] i { font-style: normal; }
 html[dir="rtl"] .top__mark, html[dir="rtl"] .top__mark *, html[dir="rtl"] .hero__name, html[dir="rtl"] .nav__n, html[dir="rtl"] .foot__n, html[dir="rtl"] .toc__n, html[dir="rtl"] .sec-head__n { letter-spacing: revert-layer !important; }
 /* the Spanish of a post inside an Arabic page keeps its own direction */
 html[dir="rtl"] [lang="es"], html[dir="rtl"] [lang="en"] { direction: ltr; text-align: left; unicode-bidi: isolate; }
+/* what is fixed to an edge goes to the other one: the colour button, the cookie card, the section rail and the progress rail */
+html[dir="rtl"] .luz-theme-mode__button--fixed { right: auto; left: max(1rem, env(safe-area-inset-left)); }
+@media (min-width: 48em) and (height > 30rem) {
+  html[dir="rtl"] .luz-cookie-consent { inset: auto auto 1.25rem var(--gut); }
+  html[dir="rtl"] .luz-theme-mode__button--fixed { right: auto; left: max(1.25rem, env(safe-area-inset-left)); }
+}
+@media (min-width: 64em) {
+  html[dir="rtl"] .docked .nav { left: auto; right: 1.25rem; }
+  html[dir="rtl"] .rail { right: auto; left: 1.4rem; }
+}
+/* the poster in Arabic: the long words need a smaller size to fit a phone */
+html[dir="rtl"] .hero__deck { font-size: clamp(2.3rem, 7.6vw, 6.4rem); max-width: none; line-height: 1.05; }
+@media (max-width: 47.99em) { html[dir="rtl"] .hero__deck { font-size: clamp(2.3rem, 10.5vw, 4rem); } }

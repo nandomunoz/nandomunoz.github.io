@@ -511,12 +511,11 @@ function postPage() {
   const toc = [], ids = new Set();
   const body = el('div', { class: 'prose', lang: p.postLang !== lang ? p.postLang : null });
   // in a translated post, what is somebody else's words stays in its Spanish (lyrics, tweets) and says so with its lang
-  const lyricsPost = /popur/.test(p.id);
   p.body.forEach((x, k) => {
     const n = renderBlock(x, k, toc, ids); if (!n) return;
     if (p.translated) {
-      if (x.quote && lyricsPost && /^(Lyrics|كلمات)/.test(x.cite || '')) $$('p', n).forEach((q) => q.setAttribute('lang', 'es'));
-      else if (x.pull || x.tweet != null) $$('blockquote', n).forEach((q) => q.setAttribute('lang', 'es'));
+      if (x.quote && x.lang === 'es') $$('p', n).forEach((q) => q.setAttribute('lang', 'es'));
+      else if ((x.pull && x.lang === 'es') || x.tweet != null) $$('blockquote', n).forEach((q) => q.setAttribute('lang', 'es'));
     }
     body.append(n);
   });
