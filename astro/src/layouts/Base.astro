@@ -1,0 +1,37 @@
+---
+import '../styles/layers.css';
+import '@luz-ds/tokens/tokens.css';
+import '@luz-ds/core/base.css';
+import '../styles/luz-theme-trama.css';
+import '../styles/base.css';
+import { htmlLang, dir, ui, locales, prefix, type Locale } from '../i18n/ui';
+
+interface Props { lang: Locale; title: string; description?: string; path?: string; noindex?: boolean }
+const { lang, title, description = '', path = '/', noindex = false } = Astro.props;
+const site = Astro.site!.origin;
+---
+<!doctype html>
+<html lang={htmlLang[lang]} dir={dir[lang]} data-theme="trama">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <script is:inline>try{var m=localStorage.getItem('luz-theme');document.documentElement.dataset.mode=m==='light'||m==='high-contrast'||m==='dark'?m:matchMedia('(prefers-contrast: more)').matches?'high-contrast':'dark'}catch(e){document.documentElement.dataset.mode='dark'}</script>
+    <meta name="theme-color" content="#292929">
+    {noindex && <meta name="robots" content="noindex">}
+    <title>{title}</title>
+    {description && <meta name="description" content={description}>}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href={site + prefix(lang) + path}>
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={site + prefix(l) + path}>)}
+    <link rel="alternate" hreflang="x-default" href={site + path}>
+    <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  </head>
+  <body>
+    <a class="skip" href="#main">{ui[lang].skip}</a>
+    <main id="main"><slot /></main>
+  </body>
+</html>

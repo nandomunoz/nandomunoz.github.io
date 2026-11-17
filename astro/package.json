@@ -1,0 +1,25 @@
+{
+  "name": "nandomunoz-com",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@luz-ds/catalog": "0.4.1",
+    "@luz-ds/core": "0.4.1",
+    "@luz-ds/tokens": "0.4.1",
+    "astro": "7.4.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "6.0.3"
+  }
+}

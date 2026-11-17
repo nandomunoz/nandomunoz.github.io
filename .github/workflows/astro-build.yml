@@ -1,0 +1,18 @@
+# nandomunoz.com (Astro): build and check only, no deploy yet (plan, Phase 1).
+name: astro-build
+on:
+  push:
+    branches: [feature/astro]
+    paths: ['astro/**', '.github/workflows/astro-build.yml']
+  pull_request:
+    paths: ['astro/**']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: astro } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: astro/package-lock.json }
+      - run: npm ci
+      - run: npm run build
