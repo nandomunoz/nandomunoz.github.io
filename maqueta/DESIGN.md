@@ -122,7 +122,7 @@ Las piezas de `dots.js`:
 ## 7. Composición y espacio
 
 - **Márgenes laterales**: `--gut: clamp(1.25rem, 5.5vw, 7rem)`. En escritorio, el contenido de las páginas interiores deja al menos 6rem a la izquierda para el raíl del menú.
-- **Cortes de anchura**: `48em` (tableta), `64em` (escritorio) y `90em` (pantalla grande). Se diseña para el móvil y se añade complejidad hacia arriba. Hay tres cortes menores con motivo propio: `30em` (la píldora del menú en móvil quita los números para que quepan las cuatro secciones, y la rejilla «O empieza por aquí» de la 404 pasa a una columna), `34rem` de **contenedor** (la línea de tiempo cambia de composición según el ancho de su propia caja, no el de la pantalla) y `40em` (el paginador del blog pasa a dos columnas; este sí es una rareza fuera del sistema, a llevar a 48em). Los `47.99em` y `63.99em` son el complemento de 48 y 64.
+- **Cortes de anchura**: `48em` (tableta), `64em` (escritorio) y `90em` (pantalla grande). Se diseña para el móvil y se añade complejidad hacia arriba. Hay tres cortes menores con motivo propio: `30em` (la píldora del menú en móvil quita los números para que quepan las cuatro secciones, y la rejilla «O empieza por aquí» de la 404 pasa a una columna), `34rem` de **contenedor** (la línea de tiempo cambia de composición según el ancho de su propia caja, no el de la pantalla) y `40em` (el paginador del blog y los grupos del pie pasan a dos columnas; es una rareza fuera del sistema, a llevar a 48em). Los `47.99em` y `63.99em` son el complemento de 48 y 64.
 - **Rejilla de 12 columnas** a partir de 48em, con 1,5rem de separación.
 - **Proyectos en la home**: el bloque y el texto se alternan en un ciclo de cuatro posiciones, sin repetirse:
   - el primero: bloque a la izquierda;
@@ -158,7 +158,7 @@ Una pieza, `footer()` en `blog/parts.js`, que pintan igual la home y todas las p
 | **Preferencias** | Lo que cambia algo aquí, con aspecto de control y no de enlace: dos filas con «qué, cómo está, botón». **Idioma** (el mismo ES · EN); **Cookies** («YouTube: sí / no / sin elegir» y «Cambiar», que abre el diálogo de ajustes). | `<section>` |
 | **Línea final** | «© nombre · año · Todos los derechos reservados, salvo lo que se acredite aparte. Hecho con LUZ ↗» y, debajo, el lema, el mismo que escribe el cartel de la portada. | `<div>` bajo un separador punteado |
 
-- **Disposición**: un grupo debajo de otro en el móvil, dos por dos desde 48em y los cuatro en fila desde 64em. Las filas de Preferencias llevan el rótulo en su propia línea, el estado en tinta y el botón a la derecha (`.foot__btn`: texto sobre la fila de puntos de siempre, que se vuelve verde en hover), separadas por una línea punteada.
+- **Disposición**: un grupo debajo de otro en el móvil, dos por dos desde 40em y los cuatro en fila desde 64em. Las filas de Preferencias llevan el rótulo en su propia línea, el estado en tinta y el botón a la derecha (`.foot__btn`: texto sobre la fila de puntos de siempre, que se vuelve verde en hover), separadas por una línea punteada.
 - **Nombres**: los de la píldora y la home, sin inventar otros. El 04 usa el título de la sección en el idioma de la página.
 - **Sin nada encima**: el pie no lo tapa la tarjeta de cookies (suma su altura mientras se ve). Deja `7rem` de margen inferior para que la píldora y el botón de color no lo cubran, y la tarjeta de cookies, mientras está visible, suma su altura (`--luz-consent-h`).
 - Con `forced-colors`, los botones se subrayan (pierden la fila de puntos).

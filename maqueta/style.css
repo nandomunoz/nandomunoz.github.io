@@ -346,7 +346,7 @@ section { position: relative; }
 .foot__by a:hover { color: var(--blaze); filter: var(--blaze-lift); }
 .foot__by .foot__consent { display: inline; padding: 0; color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
 .foot__by .foot__consent:hover { color: var(--blaze); filter: var(--blaze-lift); }
-@media (min-width: 48em) { .foot__groups { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 40em) { .foot__groups { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 64em) { .foot__groups { grid-template-columns: repeat(4, 1fr); } }
 @media (forced-colors: active) { .foot__consent { text-decoration: underline; } }
 .bio__text a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
