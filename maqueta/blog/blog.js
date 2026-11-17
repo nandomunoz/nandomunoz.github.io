@@ -8,7 +8,7 @@ import { content, blog, lang, htmlLang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
 import { codeBlock } from './code.js';
-import { B, ARROW, langSwitch, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
+import { B, ARROW, langSwitch, url, blogUrl, postUrl, postUrlEs, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
 import { consent, allowed, grant, CT, POLICY } from '../shared/consent.js';
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
@@ -510,7 +510,16 @@ function postPage() {
   // body (inline HTML in the blocks was whitelisted by the converter)
   const toc = [], ids = new Set();
   const body = el('div', { class: 'prose', lang: p.postLang !== lang ? p.postLang : null });
-  p.body.forEach((x, k) => { const n = renderBlock(x, k, toc, ids); if (n) body.append(n); });
+  // in a translated post, what is somebody else's words stays in its Spanish (lyrics, tweets) and says so with its lang
+  const lyricsPost = /popur/.test(p.id);
+  p.body.forEach((x, k) => {
+    const n = renderBlock(x, k, toc, ids); if (!n) return;
+    if (p.translated) {
+      if (x.quote && lyricsPost && /^(Lyrics|كلمات)/.test(x.cite || '')) $$('p', n).forEach((q) => q.setAttribute('lang', 'es'));
+      else if (x.pull || x.tweet != null) $$('blockquote', n).forEach((q) => q.setAttribute('lang', 'es'));
+    }
+    body.append(n);
+  });
   $$('a[href^="http"]', body).forEach((a) => { a.target = '_blank'; a.rel = 'noopener'; });
 
   // share: one button. The system's own share sheet where the browser has
@@ -560,7 +569,9 @@ function postPage() {
       el('p', { class: 'crumbs' }, el('a', { href: blogUrl(), text: B.blog }), el('span', { 'aria-hidden': 'true', text: ' / ' }), el('a', { href: catUrl(cat.id), text: cat.name })),
       el('h1', { class: 'post__title', text: p.title, lang: p.postLang !== lang ? p.postLang : null }),
       el('p', { class: 'post__deck', text: p.excerpt, lang: p.postLang !== lang ? p.postLang : null }),
-      p.postLang !== lang ? el('p', { class: 'post__note', text: B.onlyEs }) : null,
+      p.translated
+        ? el('p', { class: 'post__banner', role: 'note' }, el('span', { text: B.autoNote }), ' ', el('a', { href: postUrlEs(p), hreflang: 'es', text: B.autoLink }))
+        : p.postLang !== lang ? el('p', { class: 'post__note', text: B.onlyEs }) : null,
       el('dl', { class: 'post__meta' },
         el('div', {}, el('dt', { text: B.published }), el('dd', {}, el('time', { datetime: p.date, text: date(p.date) }))),
         el('div', {}, el('dt', { text: B.reading }), el('dd', { text: B.min(p.minutes) })))),

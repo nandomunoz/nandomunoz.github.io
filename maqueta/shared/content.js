@@ -51,6 +51,8 @@ export async function content() {
 //   const b = await blog();
 //   b.posts[{ id, n, date, year, category, tags[], url, postLang, cover{ w, h, alt, src }, title, excerpt, body[], words, minutes }]
 //   b.categories{ id: { id, name, desc, kind, count } }, b.tags{ id: { id, label, count } }
+// A post translated by machine (en, ar) has its own title, excerpt and body under p.en / p.ar, and `translated: true`;
+// the cover's alt text in that language is cover.alt_en / cover.alt_ar. Lyrics and tweets stay in their Spanish.
 // body blocks: { p } (inline HTML) | { h, lv } | { img, alt, cap } | { quote[], cite } | { pull[], cite }
 //   | { ul[], ol } | { code } | { yt, title, cap } | { tweet, by, url, date } | { embed, host }
 //   | { gist } | { table: { head[], rows[][] }, cap } | { timeline: [{ when, title, text }] } | { hr }
@@ -66,7 +68,8 @@ export async function blog() {
       const postLang = p[lang] ? lang : 'es', t = p[postLang];
       const words = t.body.map(text).join(' ').split(/\s+/).filter(Boolean).length;
       return {
-        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags, url: p.url, postLang, cover: p.cover || null,
+        id: p.id, n: all.length - i, date: p.date, year: +p.date.slice(0, 4), category: p.category, tags: p.tags, url: p.url, postLang, translated: postLang !== 'es',
+        cover: p.cover ? { ...p.cover, alt: p.cover[`alt_${lang}`] ?? p.cover.alt } : null,
         title: t.title, excerpt: t.excerpt, body: t.body, words, minutes: Math.max(1, Math.round(words / 220))
       };
     });

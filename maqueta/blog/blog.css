@@ -355,6 +355,11 @@ luz-timeline[data-luz-ready] { container-type: inline-size; }
 }
 
 .post__note { font: 500 .75rem/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--blaze); filter: var(--blaze-lift); }
+.post__banner { display: flex; gap: .7em; align-items: baseline; max-width: 38rem; margin: 1.1rem 0 0; padding: .85rem 1.1rem; border: 1px dotted var(--faint-text); background: var(--bg-2); font: 400 .92rem/1.5 Archivo, system-ui, sans-serif; color: var(--mute); }
+.post__banner::before { content: ''; flex: none; width: .55em; height: .55em; border-radius: 50%; background: var(--blaze); translate: 0 -.05em; }
+.post__banner a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; white-space: nowrap; }
+.post__banner a:hover { color: var(--blaze); }
+@media (forced-colors: active) { .post__banner { border-color: CanvasText; } .post__banner::before { background: CanvasText; } }
 .post__meta dd a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
 
 .post__main > .tags { margin: 3rem 0 0; }

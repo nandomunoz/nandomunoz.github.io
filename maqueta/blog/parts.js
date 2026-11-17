@@ -33,7 +33,7 @@ export const B = {
     nfSearch: 'Buscar en el blog y los proyectos', nfPlaceholder: 'Margaret Hamilton, carnaval, IA…',
     nfMaybe: '¿Buscabas esto?', nfResults: (n) => (n === 1 ? '1 resultado' : `${n} resultados`), nfNone: 'Nada por aquí. Prueba con otra palabra.',
     nfWays: 'O empieza por aquí', nfHome: 'Inicio', nfLatest: 'Lo último del blog', project: 'Proyecto', post: 'Artículo',
-    onlyEs: '', listNote: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo',
+    onlyEs: '', listNote: '', autoNote: '', autoLink: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo',
     projects: 'Proyectos', allProjects: 'Todos los proyectos', projPage: 'Ficha completa',
     projDeck: 'Una selección de lo que he publicado en GitHub: sistemas de diseño, herramientas, experimentos con IA y el Carnaval de Cádiz.',
     projCount: (n, a, b) => `${n} proyectos · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 proyecto' : `${n} proyectos`),
@@ -59,7 +59,8 @@ export const B = {
     nfSearch: 'Search the blog and the projects', nfPlaceholder: 'Margaret Hamilton, carnival, AI…',
     nfMaybe: 'Were you looking for this?', nfResults: (n) => (n === 1 ? '1 result' : `${n} results`), nfNone: 'Nothing here. Try another word.',
     nfWays: 'Or start here', nfHome: 'Home', nfLatest: 'Latest on the blog', project: 'Project', post: 'Post',
-    onlyEs: 'This post is temporarily only available in Spanish.', listNote: 'The posts are temporarily only in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video',
+    onlyEs: 'This post is only available in Spanish.', listNote: 'The posts are translated automatically from the Spanish originals.',
+    autoNote: 'Originally written in Spanish. This translation is automatic and may contain mistakes.', autoLink: 'Read the original in Spanish', watch: 'Watch the video', code: 'See the code', play: 'Play video',
     projects: 'Projects', allProjects: 'All projects', projPage: 'Full page',
     projDeck: 'A selection of what I’ve published on GitHub: design systems, tools, AI experiments and the Cádiz Carnival.',
     projCount: (n, a, b) => `${n} projects · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 project' : `${n} projects`),
@@ -85,7 +86,8 @@ export const B = {
     nfSearch: 'ابحث في المدونة والمشاريع', nfPlaceholder: 'Margaret Hamilton، الكرنفال، الذكاء الاصطناعي…',
     nfMaybe: 'هل كنت تبحث عن هذا؟', nfResults: (n) => arResults(n), nfNone: 'لا شيء هنا. جرّب كلمة أخرى.',
     nfWays: 'أو ابدأ من هنا', nfHome: 'الرئيسية', nfLatest: 'آخر ما في المدونة', project: 'مشروع', post: 'مقال',
-    onlyEs: 'هذا المقال متوفر مؤقتًا بالإسبانية فقط.', listNote: 'المقالات متوفرة مؤقتًا بالإسبانية فقط.', watch: 'شاهد الفيديو', code: 'شاهد الشيفرة', play: 'تشغيل الفيديو',
+    onlyEs: 'هذا المقال متوفر بالإسبانية فقط.', listNote: 'المقالات مترجمة آليًا عن أصلها الإسباني.',
+    autoNote: 'كُتب هذا المقال في الأصل بالإسبانية. هذه الترجمة آلية وقد تحتوي على أخطاء.', autoLink: 'اقرأ النسخة الأصلية بالإسبانية', watch: 'شاهد الفيديو', code: 'شاهد الشيفرة', play: 'تشغيل الفيديو',
     projects: 'المشاريع', allProjects: 'كل المشاريع', projPage: 'الصفحة الكاملة',
     projDeck: 'مختارات مما نشرته على GitHub: أنظمة تصميم وأدوات وتجارب مع الذكاء الاصطناعي وكرنفال قادس.',
     projCount: (n, a, b) => `${arProjects(n)} · ${a}–${b}`, projCountOne: (n) => arProjects(n),
@@ -104,6 +106,8 @@ export function url(path, q = {}) {
 }
 export const blogUrl = (page) => url('/blog/', page > 1 ? { p: page } : {});
 export const postUrl = (p) => url('/blog/articulo/', { a: p.id });
+// the same post in its Spanish original (the page without ?lang)
+export const postUrlEs = (p) => `${BASE}/blog/articulo/?a=${encodeURIComponent(p.id)}`;
 export const catUrl = (id) => url('/blog/categoria/', { c: id });
 export const tagUrl = (id) => url('/blog/etiqueta/', { t: id });
 export const homeUrl = (hash = '') => url('/') + hash;
