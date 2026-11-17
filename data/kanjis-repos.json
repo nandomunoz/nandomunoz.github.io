@@ -557,7 +557,8 @@
           "hajime"
         ],
         "meaning": "primero, inicial",
-        "reason": "React para quien empieza"
+        "meaning_en": "first, initial",
+        "reason": "React para quien empieza: un curso gratuito para dar los primeros pasos, un concepto por día"
       },
       "alternative": {
         "text": "入門",

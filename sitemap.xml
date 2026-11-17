@@ -180,4 +180,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://nandovejer.github.io/projects/kong-sole/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nandovejer.github.io/proyectos/kong-sole/"/>
   </url>
+  <url>
+    <loc>https://nandovejer.github.io/proyectos/react-para-torpes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nandovejer.github.io/proyectos/react-para-torpes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nandovejer.github.io/projects/react-para-torpes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nandovejer.github.io/proyectos/react-para-torpes/"/>
+  </url>
+  <url>
+    <loc>https://nandovejer.github.io/projects/react-para-torpes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nandovejer.github.io/proyectos/react-para-torpes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nandovejer.github.io/projects/react-para-torpes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nandovejer.github.io/proyectos/react-para-torpes/"/>
+  </url>
 </urlset>

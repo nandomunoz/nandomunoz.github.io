@@ -25,6 +25,7 @@ const IMAGES = {
 
 // repos with no public demo that ship a demo page of their own (index.html): cloned and served here
 const LOCAL = { 'illo-loader': 'main', 'js-subtype': 'master' };
+const NOIDLE = ['react-para-torpes'];   // pages whose network never goes idle: 'load' is enough
 const ZOOM = { 'illo-loader': 4 };   // the loaders are tiny: enlarged (a smaller viewport at a higher pixel ratio) so the picture says what they are
 // repos with nothing to open: the README is the picture (just the rendered article, not GitHub's chrome)
 const README = ['libros-del-mundo'];
@@ -66,7 +67,7 @@ function serveRepo(p) {
         const box = await page.locator('article.markdown-body').first().boundingBox();
         await page.screenshot({ path: png, fullPage: true, clip: { x: box.x, y: box.y, width: Math.min(box.width, 1200), height: Math.min(box.width, 1200) * 0.625 } });   // 16:10, like the others
       } else {
-        await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+        await page.goto(url, { waitUntil: NOIDLE.includes(p.id) ? 'load' : 'networkidle', timeout: 30000 });
         await page.waitForTimeout(1500);
         await page.screenshot({ path: png });
       }

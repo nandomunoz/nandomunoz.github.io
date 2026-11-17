@@ -452,5 +452,38 @@
       ],
       "quote": "Make your browser console look good."
     }
+  },
+  {
+    "id": "react-para-torpes",
+    "name": "React para torpes",
+    "year": 2023,
+    "tech": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "MDX"
+    ],
+    "demo": "https://nandovejer.github.io/react-para-torpes/",
+    "repo": "https://github.com/nandovejer/react-para-torpes",
+    "es": {
+      "kicker": "Curso de React",
+      "body": [
+        "React para torpes es un curso gratuito y en español para aprender React 19 con TypeScript en 30 días, más una semana extra de Next.js. Está pensado para quien empieza desde cero y quiere avanzar sin agobios.",
+        "Son 31 lecciones en cinco semanas, que van de los fundamentos y una lista de tareas hasta un CRUD final con React Router, Redux Toolkit y tests con Vitest. Todas siguen el mismo formato: un concepto con una analogía cotidiana, pasos numerados, el error típico antes de que tropieces con él, un ejercicio con su solución oculta y un resumen.",
+        "Cada lección trae un editor en vivo: cambias el código y ves el resultado al instante. Los ejemplos se compilan y se prueban en CI, así que el código del sitio no se queda desactualizado.",
+        "El repositorio es el curso y el sitio que lo sirve: un sitio estático hecho con Next.js, Tailwind CSS y MDX, con una portada interactiva cuyo progreso se guarda en tu navegador, sin registro ni cookies. Tiene licencia MIT."
+      ],
+      "quote": "Un concepto por día."
+    },
+    "en": {
+      "kicker": "React course",
+      "body": [
+        "React para torpes («React for dummies») is a free course in Spanish to learn React 19 with TypeScript in 30 days, plus an extra week of Next.js. It is made for anyone starting from zero who wants to move on without feeling overwhelmed.",
+        "It has 31 lessons over five weeks, going from the fundamentals and a to-do list to a final CRUD with React Router, Redux Toolkit and tests with Vitest. They all follow the same format: a concept with an everyday analogy, numbered steps, the typical mistake before you trip over it, an exercise with its solution hidden, and a summary.",
+        "Every lesson comes with a live editor: you change the code and see the result at once. The examples are built and tested in CI, so the code on the site never goes out of date.",
+        "The repository is the course and the site that serves it: a static site made with Next.js, Tailwind CSS and MDX, with an interactive home page whose progress is saved in your browser, with no sign-up and no cookies. It is MIT-licensed."
+      ],
+      "quote": "One concept a day."
+    }
   }
 ]
