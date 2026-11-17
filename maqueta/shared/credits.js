@@ -1,5 +1,5 @@
-// Trama · the credits and licence page (/maqueta/creditos/), in Spanish and
-// English: who made what this site is built from, and under which licence what is
+// Trama · the credits and licence page (/maqueta/creditos/), in Spanish,
+// English and Arabic: who made what this site is built from, and under which licence what is
 // the owner's own (code MIT, text and images all rights reserved: plan, L4, decided
 // 2026-11-16; legal report §6.4). Plain and short.
 //
@@ -59,6 +59,31 @@ export const CREDITS = {
       { p: '<strong>Left out</strong> of the above: the quoted lyrics, photographs and videos by other people (each with its credit and terms), the typefaces (SIL OFL) and LUZ (MIT).' },
       { h: 'How it is made' },
       { p: 'Written by a human. Programmed by a human plus AI: it helps, but it doesn’t decide.' }
+    ]
+  },
+  ar: {
+    title: 'الاعتمادات والترخيص',
+    deck: 'لمن تعود الخطوط والصور والشيفرة وراء هذا الموقع، وما الذي يمكنك فعله بما هو لي.',
+    updated: 'آخر تحديث في',
+    blocks: [
+      { h: 'الخطوط' },
+      { p: 'كلها مفتوحة المصدر، برخصة SIL Open Font License 1.1. خط Archivo من The Archivo Project Authors، وخط Chakra Petch من The Chakra Petch Project Authors، وخط Doto من The Doto Project Authors، وخط Playfair Display من The Playfair Display Project Authors. نص الترخيص موجود في <a href="/assets/fonts/OFL.txt">OFL.txt</a>.' },
+      { ul: ['<strong>Archivo</strong>، للنصوص والعناوين.', '<strong>Chakra Petch</strong>، للتسميات والأزرار.', '<strong>Doto</strong>، الخط المصنوع من نقاط.', '<strong>Playfair Display</strong>، للاسم الكبير في الصفحة الرئيسية.', '<strong>Noto Sans CJK JP</strong>، من Google و Adobe: منه تأتي ضربات حروف الكانجي المرسومة بالنقاط في كل مشروع.'] },
+      { h: 'الشيفرة' },
+      { p: 'زر اللون، والخط الزمني للمقالات، وتلوين الشيفرة وزر نسخها، وسجلّ اختيار ملفات تعريف الارتباط، كلها من <a href="https://luzds.com/" rel="noopener">LUZ</a>، وهو نظام تصميم من الشخص نفسه الذي صنع هذا الموقع. وهي مستخدمة برخصة MIT الخاصة به.' },
+      { h: 'صور المقالات' },
+      { p: 'الصورة البارزة لكل مقال، مع اسم صاحبها عندما يكون معروفًا. والصور داخل المقال تحمل اسم صاحبها في تعليقها. أغلفة تحليلات الكرنفال لأطراف أخرى: تُعرض للإعلام، دون قصد الربح، مع ذكر مصدرها. إذا كان الغلاف من تأليفك وتريد غير ذلك، فراسلني.' },
+      { covers: true },
+      { h: 'صور المشاريع' },
+      { p: 'هي لقطات شاشة لموقع كل مشروع، أو لصفحة المثال الخاصة به إن لم يكن له موقع، أو لملف README الخاص به في GitHub، مرسومة بالنقاط. وصورة Toolbar AEM هي صورة من مستودعه.' },
+      { h: 'الكلمات المقتبسة' },
+      { p: 'كلمات أغاني الكرنفال المقتبسة في التحليلات تعود لأصحابها، وأسماؤهم مذكورة في بداية كل قسم. وهي مقتبسة من أجل تحليلها، كما تسمح المادة 32 من قانون الملكية الفكرية في إسبانيا. إذا كانت من تأليفك وتريد أن أحذف اقتباسًا، فراسلني.' },
+      { h: 'الترخيص' },
+      { p: '<strong>شيفرة</strong> هذا الموقع برخصة MIT (ملف <code>LICENSE</code> في المستودع).' },
+      { p: '<strong>النصوص والصور التي تخصّني</strong> هي © Nando Muñoz، جميع الحقوق محفوظة. إذا أردت استخدام شيء منها، فاطلبه مني.' },
+      { p: '<strong>يُستثنى</strong> مما سبق: الكلمات المقتبسة، والصور الفوتوغرافية ومقاطع الفيديو التي لأشخاص آخرين (لكل منها اسم صاحبها وشروطها)، والخطوط (SIL OFL) و LUZ (MIT).' },
+      { h: 'كيف صُنع الموقع' },
+      { p: 'كتبه إنسان. وبرمجه إنسان مع الذكاء الاصطناعي: هو يساعد، لكنه لا يقرر.' }
     ]
   }
 }[lang];

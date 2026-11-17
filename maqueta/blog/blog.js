@@ -4,11 +4,11 @@
 //   category  /blog/categoria/[?c=<id>]   all categories, or the posts of one
 //   tag       /blog/etiqueta/[?t=<id>]    all tags, or the posts of one
 // Unknown ids render a "not found" page (the 404 of the sandbox).
-import { content, blog, lang } from '../shared/content.js';
+import { content, blog, lang, htmlLang } from '../shared/content.js';
 import { DotBlock, HeroField, clamp, easeOut, loadTone } from '../dots.js';
 import { RainField } from '../rain.js';
 import { codeBlock } from './code.js';
-import { B, langSwitch, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
+import { B, ARROW, langSwitch, url, blogUrl, postUrl, catUrl, tagUrl, homeUrl, date, pad, el, row, postDots, coverTone, coverPicture, projectPicture, coverLoop, projectTone, projectsUrl, projectUrl, projectRow, projectDots, glossEl, footer } from './parts.js';
 import { consent, allowed, grant, CT, POLICY } from '../shared/consent.js';
 import { getConsent } from '/assets/vendor/luz/cookie-consent.min.js';
 import { themeSwitch, onMode } from '../shared/theme.js';
@@ -28,9 +28,9 @@ const isProj = page === 'projects' || page === 'project';
 const [c, b] = await Promise.all([content(), blog()]);
 const H = {
   es: { skip: 'Saltar al contenido', bio: 'Bio', work: 'Proyectos', other: 'English', sections: 'Principal' },
-  en: { skip: 'Skip to content', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Main' }
+  en: { skip: 'Skip to content', bio: 'Bio', work: 'Projects', other: 'Español', sections: 'Main' },
+  ar: { skip: 'انتقل إلى المحتوى', bio: 'نبذة', work: 'المشاريع', other: 'English', sections: 'القائمة الرئيسية' }
 }[lang];
-document.documentElement.lang = lang;
 document.documentElement.classList.add('js', 'docked', reduce ? 'still' : 'moving');
 
 // ------------------------------------------------------------- chrome
@@ -172,12 +172,13 @@ function decode(h) {
 const kindOf = (p) => b.categories[p.category].kind;
 const years = (ps) => { const ys = ps.map((p) => p.year); return [Math.min(...ys), Math.max(...ys)]; };
 
-function head({ n = '03', crumbs = [], title, deck, count, decodeTitle = true }) {
+function head({ n = '03', crumbs = [], title, deck, note, count, decodeTitle = true }) {
   const h1 = el('h1', { class: decodeTitle ? 'bhead__title decode' : 'bhead__title', text: title });
   const node = el('header', { class: 'bhead' },
     crumbs.length ? el('p', { class: 'crumbs' }, ...crumbs.flatMap(([label, href], i) => [i ? el('span', { 'aria-hidden': 'true', text: ' / ' }) : null, el('a', { href, text: label })])) : el('p', { class: 'sec-head__n', 'aria-hidden': 'true', text: n }),
     h1,
     deck ? el('p', { class: 'bhead__deck', text: deck }) : null,
+    note ? el('p', { class: 'bhead__note', role: 'note', text: note }) : null,
     count ? el('p', { class: 'bhead__count', text: count }) : null);
   if (decodeTitle) decode(h1);
   return node;
@@ -215,9 +216,9 @@ function pager(cur, total, to) {
   const nums = el('ol', {}, ...Array.from({ length: total }, (_, i) => el('li', {},
     el('a', { href: to(i + 1), 'aria-current': i + 1 === cur ? 'page' : null, 'aria-label': `${pad(i + 1)}, ${B.page(i + 1, total)}`, text: pad(i + 1) }))));
   return el('nav', { class: 'pager', 'aria-label': B.pages },
-    cur > 1 ? el('a', { class: 'pager__dir', href: to(cur - 1), rel: 'prev', text: '← ' + B.newer }) : el('span', { class: 'pager__dir is-off', text: '← ' + B.newer }),
+    cur > 1 ? el('a', { class: 'pager__dir', href: to(cur - 1), rel: 'prev', text: ARROW.prev + ' ' + B.newer }) : el('span', { class: 'pager__dir is-off', text: ARROW.prev + ' ' + B.newer }),
     nums,
-    cur < total ? el('a', { class: 'pager__dir', href: to(cur + 1), rel: 'next', text: B.older + ' →' }) : el('span', { class: 'pager__dir is-off', text: B.older + ' →' }));
+    cur < total ? el('a', { class: 'pager__dir', href: to(cur + 1), rel: 'next', text: B.older + ' ' + ARROW.next }) : el('span', { class: 'pager__dir is-off', text: B.older + ' ' + ARROW.next }));
 }
 
 function featured(p) {
@@ -249,7 +250,7 @@ function notFound() {
   // a malformed % in the address must not blank the page: show it as it came
   let shown = location.pathname + location.search;
   try { shown = decodeURIComponent(shown); } catch { /* keep the raw text */ }
-  shown = shown.replace(/[?&]lang=en/, '');
+  shown = shown.replace(/[?&]lang=(en|ar)/, '');
   // the search form is handled here, not by an inline attribute (a strict CSP would block that)
   document.addEventListener('submit', (e) => { if (e.target.closest?.('.lost__search')) e.preventDefault(); });
 
@@ -322,7 +323,7 @@ function listPage() {
   const [a, z] = years(b.posts);
   document.title = `Blog${cur > 1 ? ` · ${B.page(cur, total)}` : ''} · ${c.name}`;
   put(
-    head({ title: B.blog, deck: B.deck, count: B.count(b.posts.length, a, z) + (cur > 1 ? ` · ${B.page(cur, total)}` : '') }),
+    head({ note: B.listNote, title: B.blog, deck: B.deck, count: B.count(b.posts.length, a, z) + (cur > 1 ? ` · ${B.page(cur, total)}` : '') }),
     chips(),
     cur === 1 ? featured(slice[0]) : null,
     rows(cur === 1 ? slice.slice(1) : slice),
@@ -341,7 +342,7 @@ function categoryPage() {
         el('p', { class: 'cat__desc', text: k.desc }),
         el('p', { class: 'cat__count', text: B.countOne(k.count) }));
     }));
-    put(head({ crumbs: [[B.blog, blogUrl()]], title: B.categories, count: `${Object.keys(b.categories).length} · ${B.countOne(b.posts.length)}` }),
+    put(head({ note: B.listNote, crumbs: [[B.blog, blogUrl()]], title: B.categories, count: `${Object.keys(b.categories).length} · ${B.countOne(b.posts.length)}` }),
       el('aside', { class: 'legend' }, el('h3', { text: B.legendTitle }), el('p', { text: B.legend })), grid);
     return;
   }
@@ -352,7 +353,7 @@ function categoryPage() {
   const cur = clamp(parseInt(q.get('p'), 10) || 1, 1, total);
   document.title = `${k.name} · Blog · ${c.name}`;
   put(
-    head({ crumbs: [[B.blog, blogUrl()], [B.categories, url('/blog/categoria/')]], title: k.name, deck: k.desc, count: B.countOne(posts.length) }),
+    head({ note: B.listNote, crumbs: [[B.blog, blogUrl()], [B.categories, url('/blog/categoria/')]], title: k.name, deck: k.desc, count: B.countOne(posts.length) }),
     chips(id),
     rows(posts.slice((cur - 1) * PER_PAGE, cur * PER_PAGE)),
     pager(cur, total, (n) => url('/blog/categoria/', { c: id, p: n > 1 ? n : null })));
@@ -366,7 +367,7 @@ function tagPage() {
     const cloud = el('ul', { class: 'tags tags--cloud' }, ...Object.values(b.tags).filter((t) => t.count)
       .sort((x, y) => y.count - x.count || x.label.localeCompare(y.label))
       .map((t) => el('li', { style: `--w:${(t.count / max).toFixed(2)}` }, el('a', { href: tagUrl(t.id) }, el('span', { text: '#' + t.label }), el('sup', { text: t.count })))));
-    put(head({ crumbs: [[B.blog, blogUrl()]], title: B.tags, count: `${Object.values(b.tags).filter((t) => t.count).length} ${B.tags.toLowerCase()}` }), cloud);
+    put(head({ note: B.listNote, crumbs: [[B.blog, blogUrl()]], title: B.tags, count: `${Object.values(b.tags).filter((t) => t.count).length} ${B.tags.toLowerCase()}` }), cloud);
     return;
   }
   const t = b.tags[id];
@@ -374,7 +375,7 @@ function tagPage() {
   const posts = b.posts.filter((p) => p.tags.includes(id));
   document.title = `#${t.label} · Blog · ${c.name}`;
   put(
-    head({ crumbs: [[B.blog, blogUrl()], [B.tags, url('/blog/etiqueta/')]], title: '#' + t.label, count: `${B.tagged} #${t.label} · ${B.countOne(posts.length)}` }),
+    head({ note: B.listNote, crumbs: [[B.blog, blogUrl()], [B.tags, url('/blog/etiqueta/')]], title: '#' + t.label, count: `${B.tagged} #${t.label} · ${B.countOne(posts.length)}` }),
     el('ul', { class: 'tags' }, ...Object.values(b.tags).filter((x) => x.count && x.id !== id).map((x) => el('li', {}, el('a', { href: tagUrl(x.id), text: '#' + x.label })))),
     rows(posts));
 }
@@ -480,7 +481,7 @@ function video(x) {
     const yes = el('button', { type: 'button', class: 'consent__btn', text: CT.gateYes });
     yes.addEventListener('click', () => { grant('youtube'); play(); });
     // the notice is in the page's interface language, whatever the post's own
-    return el('div', { class: 'video__gate', role: 'group', 'aria-label': name, lang, 'data-nosnippet': '' },
+    return el('div', { class: 'video__gate', role: 'group', 'aria-label': name, lang: htmlLang, 'data-nosnippet': '' },
       el('p', { class: 'video__gate-title' }, el('span', { class: 'video__gate-icon', 'aria-hidden': 'true', text: '▶' }), name),
       el('p', {}, CT.gate, ' ', el('a', { href: POLICY, text: CT.policy }), '.'),
       el('p', { text: CT.gateOr }),
@@ -547,8 +548,8 @@ function postPage() {
   // prev/next (older = next in reading order down the list)
   const newer = b.posts[i - 1], older = b.posts[i + 1];
   const pn = el('nav', { class: 'post__nav', 'aria-label': B.blog },
-    newer ? el('a', { href: postUrl(newer), rel: 'prev' }, el('span', { class: 'post__dir', text: '← ' + B.newerPost }), el('span', { class: 'post__to', lang: ownLang(newer), text: newer.title })) : el('span'),
-    older ? el('a', { href: postUrl(older), rel: 'next' }, el('span', { class: 'post__dir', text: B.olderPost + ' →' }), el('span', { class: 'post__to', lang: ownLang(older), text: older.title })) : el('span'));
+    newer ? el('a', { href: postUrl(newer), rel: 'prev' }, el('span', { class: 'post__dir', text: ARROW.prev + ' ' + B.newerPost }), el('span', { class: 'post__to', lang: ownLang(newer), text: newer.title })) : el('span'),
+    older ? el('a', { href: postUrl(older), rel: 'next' }, el('span', { class: 'post__dir', text: B.olderPost + ' ' + ARROW.next }), el('span', { class: 'post__to', lang: ownLang(older), text: older.title })) : el('span'));
 
   // related: same category first, then shared tags
   const score = (o) => (o.category === p.category ? 2 : 0) + o.tags.filter((tg) => p.tags.includes(tg)).length;
@@ -657,8 +658,8 @@ function projectPage() {
 
   const prev = all[i - 1], next = all[i + 1];
   const pn = el('nav', { class: 'post__nav', 'aria-label': B.projects },
-    prev ? el('a', { href: projectUrl(prev), rel: 'prev' }, el('span', { class: 'post__dir', text: '← ' + B.prev }), el('span', { class: 'post__to', text: prev.name })) : el('span'),
-    next ? el('a', { href: projectUrl(next), rel: 'next' }, el('span', { class: 'post__dir', text: B.next + ' →' }), el('span', { class: 'post__to', text: next.name })) : el('span'));
+    prev ? el('a', { href: projectUrl(prev), rel: 'prev' }, el('span', { class: 'post__dir', text: ARROW.prev + ' ' + B.prev }), el('span', { class: 'post__to', text: prev.name })) : el('span'),
+    next ? el('a', { href: projectUrl(next), rel: 'next' }, el('span', { class: 'post__dir', text: B.next + ' ' + ARROW.next }), el('span', { class: 'post__to', text: next.name })) : el('span'));
   const shared = (o) => o.tech.filter((x) => p.tech.includes(x)).length;
   const related = all.filter((o) => o !== p && shared(o) > 0).sort((x, y) => shared(y) - shared(x) || byYear(x, y)).slice(0, 3);
 

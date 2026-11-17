@@ -1,5 +1,6 @@
 // Trama · the hero's poster (the motto on top, the credits at the foot) typed in letter by letter
 // with a thin terminal cursor (style.css: .caret). A letter appears in its own colour: no wake, no fade.
+// In Arabic (right to left, joined letters) it goes a word at a time.
 //
 //   import { typePoster } from './shared/poster.js';
 //   typePoster({ deck, name, kicker, bill }, { motto, key, green, reduce });
@@ -8,6 +9,8 @@
 // The motto is one line per sentence. Words in `green` take the accent; the rest of `key`
 // goes in italics. Every letter is its own inline-block (a word joiner keeps a word from breaking
 // mid-way); the plain text stays in a hidden copy for screen readers.
+
+import { rtl } from './content.js';
 
 const rnd = (a, b) => a + Math.random() * (b - a);
 
@@ -36,6 +39,15 @@ function charify(el) {
   let pos = 0;
   for (const n of nodes) {
     const frag = document.createDocumentFragment();
+    if (rtl) {
+      // Arabic letters join: a block of its own per letter would cut the word into isolated forms,
+      // so the typing goes a word at a time (the cursor still walks ahead of it)
+      for (const part of n.textContent.split(/( )/)) {
+        if (part === ' ') frag.append(document.createTextNode(' '));
+        else if (part) { const s = document.createElement('span'); s.className = 'c'; s.textContent = part; frag.append(s); chars.push(s); }
+      }
+      n.replaceWith(frag); continue;
+    }
     for (const ch of n.textContent) {
       pos += ch.length;
       if (ch === ' ') { frag.append(document.createTextNode(' ')); continue; }
@@ -54,6 +66,7 @@ export function typePoster({ deck, name, kicker, bill }, { motto, key, green, re
   deck.replaceChildren(...lines);
   if (reduce) return { play() {}, stop() {} };
 
+  if (rtl) name.dir = 'ltr';                                         // a Latin name inside the Arabic page: its letters must not flow right to left
   const L = lines.map(charify), N = charify(name), Kk = charify(kicker);
   const all = [...L.flat(), ...N, ...Kk];
   all.forEach((x) => { x.style.visibility = 'hidden'; });
@@ -70,7 +83,7 @@ export function typePoster({ deck, name, kicker, bill }, { motto, key, green, re
     const plan = []; let at = delay, billAt = 0;
     const type = (chars, min, max) => chars.forEach((x) => {
       plan.push({ x, at }); const ch = x.textContent;
-      at += ch === ',' ? 200 : ch === '.' ? 360 : rnd(min, max);
+      at += ch === ',' ? 200 : ch === '.' ? 360 : rnd(min, max) * (rtl ? Math.max(1, ch.length * 0.8) : 1);   // a word takes as long as its letters
     });
     L.forEach((line) => { type(line, 22, 46); at += 110; });
     billAt = at; at += 220; type(N, 46, 70); at += 160; type(Kk, 9, 15);

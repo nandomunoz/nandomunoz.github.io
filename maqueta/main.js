@@ -1,5 +1,5 @@
 import { content, blog } from './shared/content.js';
-import { B, langSwitch, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, homeUrl, footer, MOTTO } from './blog/parts.js';
+import { B, langSwitch, glossOf, glossEl, row, coverLoop, blogUrl, projectsUrl, projectUrl, homeUrl, footer, MOTTO, ARROW } from './blog/parts.js';
 import { themeSwitch, onMode } from './shared/theme.js';
 import { RainField } from './rain.js';
 import { greenOnHover } from './shared/green.js';
@@ -30,6 +30,17 @@ const T = {
     demo: 'See demo', repo: 'See code', prev: 'Previous', next: 'Next',
     blog: 'Blog', allPosts: 'All posts',
     of: 'of', sections: 'Main', projects: 'Projects', other: 'English', newTab: '(opens in a new tab)'
+  },
+  ar: {
+    skip: 'انتقل إلى المحتوى', bio: 'نبذة', work: 'المشاريع',
+    heroPre: 'موقع من إنجاز', motto: MOTTO,
+    mottoKey: /(المشروع|الإنسان|الذكاء الاصطناعي|السبب|المحور|وسيلة)/, mottoGreen: ['المشروع', 'الإنسان', 'الذكاء الاصطناعي'],
+    legendTitle: 'كيف تُقرأ الكتل',
+    legend: 'كل كتلة مشروع. كلما كان أحدث زادت كثافته؛ وكلما طال نصه زاد ارتفاعها. رمز الكانجي الخاص به مرسوم بحجم كبير؛ والنمط في الخلفية مأخوذ من لقطة شاشته.',
+    count: (n, a, b) => `${B.projCountOne(n)} · ${a}–${b}`, open: 'افتح', close: 'إغلاق', shot: (n) => `لقطة شاشة لـ ${n}`,
+    demo: 'شاهد العرض', repo: 'شاهد الشيفرة', prev: 'السابق', next: 'التالي',
+    blog: 'المدونة', allPosts: 'كل المقالات',
+    of: 'من', sections: 'القائمة الرئيسية', projects: 'المشاريع', other: 'العربية', newTab: '(يُفتح في تبويب جديد)'
   }
 };
 const FEATURED = ['luz', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem'];
@@ -59,12 +70,12 @@ const t = T[c.lang];
 // the home shows four projects; the rest live on /proyectos/
 const allProjects = c.projects;
 c.projects = FEATURED.map((id) => allProjects.find((p) => p.id === id)).filter(Boolean);
-document.documentElement.lang = c.lang;
 document.documentElement.classList.add('js', reduce ? 'still' : 'moving');
 if (!sdaView) document.documentElement.classList.add('no-sda');
 
 // ------------------------------------------------------------- texts
 $$('[data-t]').forEach((n) => { const v = t[n.dataset.t]; if (typeof v === 'string') n.textContent = v; });
+$$('[data-arrow]').forEach((n) => { n.textContent = ARROW[n.dataset.arrow]; });
 $('#nav').setAttribute('aria-label', t.sections);
 $('.panel__nav').setAttribute('aria-label', t.projects);
 $$('[data-slot]').forEach((n) => { n.textContent = c[n.dataset.slot]; });
@@ -79,7 +90,7 @@ $('.top__mark').href = homeUrl();                                    // the logo
 document.title = c.name;
 
 // the bio's last words point to the blog and the projects
-const BIO_LINKS = { es: [['mis artículos', '#blog'], ['mis proyectos', projectsUrl()]], en: [['my articles', '#blog'], ['my projects', projectsUrl()]] }[c.lang];
+const BIO_LINKS = { es: [['mis artículos', '#blog'], ['mis proyectos', projectsUrl()]], en: [['my articles', '#blog'], ['my projects', projectsUrl()]], ar: [['مقالاتي', '#blog'], ['مشاريعي', projectsUrl()]] }[c.lang];
 const linked = (text) => {
   const out = []; let rest = text;
   for (const [words, href] of BIO_LINKS) {
@@ -123,7 +134,7 @@ c.projects.forEach((p, i) => {
   const block = el('div', { class: 'item__block', 'data-i': i }, back, front, glossEl(p));
   const stage = el('div', { class: 'item__stage' }, block);
   const openBtn = el('button', { class: 'item__open', type: 'button', 'aria-haspopup': 'dialog', 'data-i': i },
-    el('span', { text: t.open }), el('span', { class: 'vh', text: ' ' + p.name }), el('span', { class: 'item__arrow', 'aria-hidden': 'true', text: '→' }));
+    el('span', { text: t.open }), el('span', { class: 'vh', text: ' ' + p.name }), el('span', { class: 'item__arrow', 'aria-hidden': 'true', text: ARROW.next }));
   const text = el('div', { class: 'item__text' },
     el('p', { class: 'item__meta' }, el('span', { text: p.year })),
     el('h3', { class: 'item__name', text: p.name }),
@@ -306,11 +317,11 @@ function fill(i) {
   const links = [];
   if (p.demo) links.push(el('a', { href: p.demo, target: '_blank', rel: 'noopener' }, el('span', { text: t.demo }), el('span', { class: 'vh', text: ' ' + t.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })));
   if (p.repo) links.push(el('a', { href: p.repo, target: '_blank', rel: 'noopener' }, el('span', { text: t.repo }), el('span', { class: 'vh', text: ' ' + t.newTab }), el('span', { 'aria-hidden': 'true', text: ' ↗' })));
-  links.push(el('a', { href: projectUrl(p) }, el('span', { text: B.projPage }), el('span', { 'aria-hidden': 'true', text: ' →' })));
+  links.push(el('a', { href: projectUrl(p) }, el('span', { text: B.projPage }), el('span', { 'aria-hidden': 'true', text: ' ' + ARROW.next })));
   $('#p-links').replaceChildren(...links);
   const n = c.projects.length, a = (i - 1 + n) % n, b = (i + 1) % n;
-  $('#p-prev').replaceChildren(el('span', { class: 'panel__dir', text: '← ' + t.prev }), el('span', { class: 'panel__to', text: c.projects[a].name }));
-  $('#p-next').replaceChildren(el('span', { class: 'panel__dir', text: t.next + ' →' }), el('span', { class: 'panel__to', text: c.projects[b].name }));
+  $('#p-prev').replaceChildren(el('span', { class: 'panel__dir', text: ARROW.prev + ' ' + t.prev }), el('span', { class: 'panel__to', text: c.projects[a].name }));
+  $('#p-next').replaceChildren(el('span', { class: 'panel__dir', text: t.next + ' ' + ARROW.next }), el('span', { class: 'panel__to', text: c.projects[b].name }));
   $('#p-prev').dataset.i = a; $('#p-next').dataset.i = b;
   sheet.scrollTop = 0;
 }

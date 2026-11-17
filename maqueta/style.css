@@ -165,6 +165,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* in the footer the button reads like the other links of the page: sentence case */
 .foot .lang-dd__btn { text-transform: none; letter-spacing: .03em; font-size: .82rem; color: var(--mute); }
 .foot .lang-dd__btn:hover { color: var(--ink); }
+.foot__cur { display: inline-flex; align-items: center; gap: .6em; padding: .4rem 0; color: var(--ink); text-transform: none; letter-spacing: .03em; font-size: .82rem; }
+.foot__cur .lang-dd__dot { border: 0; background: var(--blaze); box-shadow: 0 0 0 .2em color-mix(in srgb, var(--blaze) 28%, transparent); }
+@media (forced-colors: active) { .foot__cur .lang-dd__dot { background: Highlight; forced-color-adjust: none; box-shadow: none; } }
 @media (forced-colors: active) {
   .lang-dd__list { border-color: CanvasText; background: Canvas; }
   .lang-dd__cur .lang-dd__dot { background: Highlight; forced-color-adjust: none; box-shadow: none; }
@@ -333,10 +336,6 @@ section { position: relative; }
 /* the links of the three lists read as words, in sentence case (the group titles above keep their capitals) */
 .foot__group li > a, .foot__group li > .foot__consent { text-transform: none; letter-spacing: .03em; font-size: .82rem; }
 .foot__n { color: var(--faint-text); }
-/* a group without a visible title (preferences): the title stays for screen readers and its one row, «Idioma», is the title of the others' size and on their row */
-.foot__group--bare > .foot__h { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.foot__group--bare .foot__pref { padding: 0; border-bottom: 0; }
-.foot__group--bare .foot__k { margin: 0 0 .5rem; font: 600 .62rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }   /* «Idioma» takes the place of the title: same size, same row as the others */
 /* preferences read as controls, not links: what it is, how it stands, the button that changes it */
 .foot__pref { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .9rem; padding: .5rem 0 .3rem; border-bottom: 1px dotted var(--faint); }
 .foot__pref:last-child { border-bottom: 0; }
@@ -729,3 +728,15 @@ section { position: relative; }
 .prose .consent__btn { color: var(--ink); text-decoration: none; }
 .prose .consent__btn--quiet { color: var(--mute); }
 .prose .consent__btn--quiet:hover { color: var(--ink); }
+
+/* ------------------------------------------------------------ Arabic (right to left)
+   ?lang=ar puts dir="rtl" and lang="ar-SY" on <html> (shared/content.js; every page's head does it
+   before the first paint). Arabic letters join: no letter-spacing, no capitals, no slant — the Latin
+   names that stay in the page (the logo, the hero's name, the section numbers) keep their look. The
+   fonts of the page have no Arabic: the browser takes the glyphs from the system's (Noto Sans Arabic,
+   Segoe UI, Geeza Pro, Tahoma…), letter by letter, through the families' fallbacks. */
+html[dir="rtl"] *, html[dir="rtl"] *::before, html[dir="rtl"] *::after { letter-spacing: 0 !important; text-transform: none !important; }
+html[dir="rtl"] em, html[dir="rtl"] i { font-style: normal; }
+html[dir="rtl"] .top__mark, html[dir="rtl"] .top__mark *, html[dir="rtl"] .hero__name, html[dir="rtl"] .nav__n, html[dir="rtl"] .foot__n, html[dir="rtl"] .toc__n, html[dir="rtl"] .sec-head__n { letter-spacing: revert-layer !important; }
+/* the Spanish of a post inside an Arabic page keeps its own direction */
+html[dir="rtl"] [lang="es"], html[dir="rtl"] [lang="en"] { direction: ltr; text-align: left; unicode-bidi: isolate; }

@@ -66,6 +66,23 @@ export const CT = {
     gateOr: 'If you would rather not, open it on YouTube: YouTube’s own rules apply there.',
     gateYes: 'Accept and watch here', gateNo: 'Watch on YouTube', newTab: '(opens in a new tab)'
   }
+  ,ar: {
+    title: 'الكوكيز',
+    text: 'لا كوكيز خاصة بنا. فقط فيديوهات YouTube تستخدمها، إن حمّلتها.',
+    policy: 'سياسة الكوكيز', policyMore: 'اقرأ سياسة الكوكيز',
+    all: 'قبول', none: 'رفض', choose: 'الإعدادات',
+    dialog: 'إعدادات الكوكيز', dialogText: 'لا يستخدم هذا الموقع كوكيز خاصة به ولا يعدّ زياراتك. اختر هل يجوز تحميل فيديوهات YouTube:',
+    legend: 'محتوى خارجي',
+    youtube: 'فيديوهات YouTube', youtubeHint: 'المشغّل (youtube-nocookie.com) والصور الصغيرة للفيديوهات (i.ytimg.com)، من Google. قد تحفظ YouTube كوكيز عند التشغيل. يسري اختيارك 180 يومًا.',
+    save: 'حفظ', cancel: 'إلغاء',
+    done: 'تم الحفظ. غيّره من «إعدادات الكوكيز» في أسفل الصفحة.', close: 'إغلاق',
+    saved: 'تم حفظ إعدادات الكوكيز. يمكنك تغييرها من «إعدادات الكوكيز» في أسفل الصفحة.',
+    open: 'إعدادات الكوكيز',
+    video: 'فيديو YouTube',
+    gate: 'هذا الفيديو على YouTube (Google). لمشاهدته هنا سيتصل متصفحك بـ Google، التي سترى عنوان IP الخاص بك (عنوان اتصالك) وقد تحفظ كوكيز. سأتذكّر موافقتك 180 يومًا لجميع الفيديوهات.',
+    gateOr: 'إن كنت تفضّل ألا يحدث ذلك، فافتحه على YouTube: هناك تسري قواعد YouTube.',
+    gateYes: 'قبول والمشاهدة هنا', gateNo: 'المشاهدة على YouTube', newTab: '(يُفتح في تبويب جديد)'
+  }
 }[lang];
 
 export const allowed = (name) => !!getConsent(KEY)?.granted.includes(name);

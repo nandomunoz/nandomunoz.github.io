@@ -88,20 +88,20 @@ export const KANJI_OF = {
 };
 export const kanjiOf = (id) => KANJI_OF[id] || '';
 
-// the first sense of the kanji's meaning, [es, en] (data/kanjis-repos.json: meaning, meaning_en)
+// the first sense of the kanji's meaning, [es, en, ar] (data/kanjis-repos.json: meaning, meaning_en)
 const MEANING = {
-  光: ['luz', 'light'],
-  跡: ['huella', 'footprint'],
-  内: ['dentro', 'inside'],
-  歌: ['canción', 'song'],
-  遊: ['jugar', 'to play'],
-  譜: ['partitura', 'sheet music'],
-  替: ['cambiar', 'to swap'],
-  皆: ['todos', 'everyone'],
-  旅: ['viaje', 'journey'],
-  変: ['cambiar', 'to change'],
-  析: ['analizar', 'to analyse'],
-  巡: ['dar vueltas', 'to go around'],
-  型: ['molde', 'mould'],
+  光: ['luz', 'light', 'نور'],
+  跡: ['huella', 'footprint', 'أثر'],
+  内: ['dentro', 'inside', 'داخل'],
+  歌: ['canción', 'song', 'أغنية'],
+  遊: ['jugar', 'to play', 'لعب'],
+  譜: ['partitura', 'sheet music', 'نوتة موسيقية'],
+  替: ['cambiar', 'to swap', 'استبدال'],
+  皆: ['todos', 'everyone', 'الجميع'],
+  旅: ['viaje', 'journey', 'رحلة'],
+  変: ['cambiar', 'to change', 'تغيير'],
+  析: ['analizar', 'to analyse', 'تحليل'],
+  巡: ['dar vueltas', 'to go around', 'دوران'],
+  型: ['molde', 'mould', 'قالب'],
 };
-export const kanjiGloss = (ch, lang) => (MEANING[[...(ch || '')][0]] || [])[lang === 'en' ? 1 : 0] || '';
+export const kanjiGloss = (ch, lang) => (MEANING[[...(ch || '')][0]] || [])[{ es: 0, en: 1, ar: 2 }[lang] ?? 0] || '';

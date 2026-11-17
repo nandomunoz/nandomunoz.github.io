@@ -1,9 +1,18 @@
 // Trama · blog pieces shared by the home (section 03) and the blog pages:
 // strings, URLs that keep ?lang=en, dates and the post row.
-import { lang } from '../shared/content.js';
+import { lang, htmlLang } from '../shared/content.js';
 import { kanjiOf, kanjiGloss } from '../shared/kanji-cells.js';
 
 export const BASE = '/maqueta';
+// the arrows that say back and forward: they turn over where the text runs right to left
+export const ARROW = lang === 'ar' ? { prev: '→', next: '←' } : { prev: '←', next: '→' };
+
+// Arabic counts: 1 and 2 have their own words, 3–10 take the plural, 11 and up take the singular after the number
+const arN = (n, one, two, few, many) => (n === 1 ? one : n === 2 ? two : n % 100 >= 3 && n % 100 <= 10 ? `${n} ${few}` : `${n} ${many}`);
+const arPosts = (n) => arN(n, 'مقال واحد', 'مقالان', 'مقالات', 'مقالًا');
+const arProjects = (n) => arN(n, 'مشروع واحد', 'مشروعان', 'مشاريع', 'مشروعًا');
+const arResults = (n) => arN(n, 'نتيجة واحدة', 'نتيجتان', 'نتائج', 'نتيجة');
+const arMin = (m) => arN(m, 'دقيقة واحدة', 'دقيقتان', 'دقائق', 'دقيقة');
 
 export const B = {
   es: {
@@ -24,7 +33,7 @@ export const B = {
     nfSearch: 'Buscar en el blog y los proyectos', nfPlaceholder: 'Margaret Hamilton, carnaval, IA…',
     nfMaybe: '¿Buscabas esto?', nfResults: (n) => (n === 1 ? '1 resultado' : `${n} resultados`), nfNone: 'Nada por aquí. Prueba con otra palabra.',
     nfWays: 'O empieza por aquí', nfHome: 'Inicio', nfLatest: 'Lo último del blog', project: 'Proyecto', post: 'Artículo',
-    onlyEs: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo',
+    onlyEs: '', listNote: '', watch: 'Ver el vídeo', code: 'Ver el código', play: 'Reproducir vídeo',
     projects: 'Proyectos', allProjects: 'Todos los proyectos', projPage: 'Ficha completa',
     projDeck: 'Una selección de lo que he publicado en GitHub: sistemas de diseño, herramientas, experimentos con IA y el Carnaval de Cádiz.',
     projCount: (n, a, b) => `${n} proyectos · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 proyecto' : `${n} proyectos`),
@@ -50,13 +59,39 @@ export const B = {
     nfSearch: 'Search the blog and the projects', nfPlaceholder: 'Margaret Hamilton, carnival, AI…',
     nfMaybe: 'Were you looking for this?', nfResults: (n) => (n === 1 ? '1 result' : `${n} results`), nfNone: 'Nothing here. Try another word.',
     nfWays: 'Or start here', nfHome: 'Home', nfLatest: 'Latest on the blog', project: 'Project', post: 'Post',
-    onlyEs: 'This post is only available in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video',
+    onlyEs: 'This post is temporarily only available in Spanish.', listNote: 'The posts are temporarily only in Spanish.', watch: 'Watch the video', code: 'See the code', play: 'Play video',
     projects: 'Projects', allProjects: 'All projects', projPage: 'Full page',
     projDeck: 'A selection of what I’ve published on GitHub: design systems, tools, AI experiments and the Cádiz Carnival.',
     projCount: (n, a, b) => `${n} projects · ${a}–${b}`, projCountOne: (n) => (n === 1 ? '1 project' : `${n} projects`),
     allTech: 'All', techLabel: 'Technology', year: 'Year', demo: 'See demo', repo: 'See code', shot: (n) => `Screenshot of ${n}`, moreProjects: 'More projects',
     newTab: '(opens in a new tab)', projLegendTitle: 'How to read the blocks',
     projLegend: 'The newer the project, the denser its screen; its kanji is drawn in it.'
+  },
+  ar: {
+    blog: 'المدونة', deck: 'الكود والذكاء الاصطناعي وإدارة الفرق وكرنفال قادس.',
+    count: (n, a, b) => `${arPosts(n)} · ${a === b ? a : `${a}–${b}`}`, countOne: (n) => arPosts(n),
+    all: 'كل المقالات', categories: 'التصنيفات', allCategories: 'كل التصنيفات', tags: 'الوسوم', allTags: 'كل الوسوم',
+    min: (m) => `قراءة ${arMin(m)}`, minShort: (m) => `${m} د`, latest: 'الأحدث',
+    newer: 'الأحدث', older: 'الأقدم', page: (a, b) => `الصفحة ${a} من ${b}`, pages: 'الصفحات',
+    toc: 'في هذا المقال', timeline: 'الخط الزمني', shareThis: 'مشاركة المقال', copy: 'نسخ الرابط', copied: 'تم نسخ الرابط', codeCopy: 'نسخ', codeCopyLabel: 'نسخ مثال الشيفرة', copyFail: 'حدّد الرابط وانسخه', shareLink: 'رابط المقال', shareOn: 'المشاركة على', email: 'البريد', close: 'إغلاق', newTab: '(يُفتح في تبويب جديد)',
+    prev: 'السابق', next: 'التالي', newerPost: 'الأحدث', olderPost: 'الأقدم', related: 'تابع القراءة', back: 'العودة إلى المدونة',
+    by: 'بقلم', authorMore: 'المزيد عني', write: 'راسلني',
+    published: 'نُشر', reading: 'القراءة', in: 'في', tagged: 'الموسومة بـ',
+    nf: 'غير موجودة', nfText: 'هذه الصفحة غير موجودة أو انتقلت إلى مكان آخر.',
+    legendTitle: 'كيف تُقرأ الأنماط', legend: 'لكل تصنيف نمطه؛ وكلما طال المقال زادت كثافة نمطه.',
+    nfKicker: 'خطأ 404 · الصفحة غير موجودة', nfTitle: 'تفتّتت هذه الصفحة إلى نقاط.',
+    nfLead: 'لا يوجد شيء في', nfLead2: '. ربما كُتب الرابط خطأً أو انتقلت الصفحة إلى مكان آخر.',
+    nfHint: 'المس للمسح', nfHintFine: 'انقر للمسح',
+    nfSearch: 'ابحث في المدونة والمشاريع', nfPlaceholder: 'Margaret Hamilton، الكرنفال، الذكاء الاصطناعي…',
+    nfMaybe: 'هل كنت تبحث عن هذا؟', nfResults: (n) => arResults(n), nfNone: 'لا شيء هنا. جرّب كلمة أخرى.',
+    nfWays: 'أو ابدأ من هنا', nfHome: 'الرئيسية', nfLatest: 'آخر ما في المدونة', project: 'مشروع', post: 'مقال',
+    onlyEs: 'هذا المقال متوفر مؤقتًا بالإسبانية فقط.', listNote: 'المقالات متوفرة مؤقتًا بالإسبانية فقط.', watch: 'شاهد الفيديو', code: 'شاهد الشيفرة', play: 'تشغيل الفيديو',
+    projects: 'المشاريع', allProjects: 'كل المشاريع', projPage: 'الصفحة الكاملة',
+    projDeck: 'مختارات مما نشرته على GitHub: أنظمة تصميم وأدوات وتجارب مع الذكاء الاصطناعي وكرنفال قادس.',
+    projCount: (n, a, b) => `${arProjects(n)} · ${a}–${b}`, projCountOne: (n) => arProjects(n),
+    allTech: 'الكل', techLabel: 'التقنية', year: 'السنة', demo: 'شاهد العرض', repo: 'شاهد الشيفرة', shot: (n) => `لقطة شاشة لـ ${n}`, moreProjects: 'مشاريع أخرى',
+    newTab: '(يُفتح في تبويب جديد)', projLegendTitle: 'كيف تُقرأ الكتل',
+    projLegend: 'كلما كان المشروع أحدث زادت كثافة نمطه؛ ورمز الكانجي الخاص به مرسوم فيه.'
   }
 }[lang];
 
@@ -64,7 +99,7 @@ export const B = {
 export function url(path, q = {}) {
   const u = new URL(BASE + path, location.origin);
   for (const [k, v] of Object.entries(q)) if (v != null && v !== '') u.searchParams.set(k, v);
-  if (lang === 'en') u.searchParams.set('lang', 'en');
+  if (lang !== 'es') u.searchParams.set('lang', lang);
   return u.pathname + u.search;
 }
 export const blogUrl = (page) => url('/blog/', page > 1 ? { p: page } : {});
@@ -80,19 +115,22 @@ export const projectUrl = (p) => url('/proyectos/proyecto/', { p: p.id });
 // small print: privacy, cookie policy, credits and licence) and Preferences (what changes
 // something here: the language; the colour mode is the round button, not a row here). The cookie
 // settings button sits in the small print: shared/consent.js (LUZ) wires it.
-export const MOTTO = { es: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio', en: 'Project, the reason. Human, the core. TechnologAI, only the means' }[lang];
+export const MOTTO = { es: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio', en: 'Project, the reason. Human, the core. TechnologAI, only the means', ar: 'المشروع: السبب. الإنسان: المحور. الذكاء الاصطناعي: مجرّد وسيلة' }[lang];
 const FOOT = {
   es: { sections: 'Secciones', follow: 'Sígueme', about: 'Sobre esta web', prefs: 'Preferencias', bio: 'Bio', work: 'Proyectos', blog: 'Blog',
     privacy: 'Privacidad', cookies: 'Cookies', credits: 'Créditos y licencia', language: 'Idioma', cookieSettings: 'Ajustes de cookies',
     legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.'] },
   en: { sections: 'Sections', follow: 'Follow me', about: 'About this site', prefs: 'Preferences', bio: 'Bio', work: 'Projects', blog: 'Blog',
     privacy: 'Privacy', cookies: 'Cookies', credits: 'Credits and licence', language: 'Language', cookieSettings: 'Cookie settings',
-    legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.'] }
+    legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.'] },
+  ar: { sections: 'الأقسام', follow: 'تابعني', about: 'عن هذا الموقع', prefs: 'التفضيلات', bio: 'نبذة', work: 'المشاريع', blog: 'المدونة',
+    privacy: 'الخصوصية', cookies: 'الكوكيز', credits: 'الاعتمادات والترخيص', language: 'اللغة', cookieSettings: 'إعدادات الكوكيز',
+    legal: ['المحتوى © ', '، باستثناء ما يُنسب إلى أصحابه في ', 'الاعتمادات', '. صُنع بـ ', ' (رخصة MIT). كيف يستخدم هذا الموقع الكوكيز، في ', 'سياسة الكوكيز', '؛ ويمكنك تغيير ', 'إعدادات الكوكيز', ' متى شئت.'] }
 }[lang];
 // this same page in a language (Spanish is the page without ?lang)
 function langHref(l) {
   const u = new URL(location.href);
-  if (l === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang');
+  if (l !== 'es') u.searchParams.set('lang', l); else u.searchParams.delete('lang');
   return u.pathname + u.search;
 }
 // the language switch: a button with the name of the page's language and, when pressed, the list of
@@ -101,7 +139,7 @@ function langHref(l) {
 // through the list. The page's own language is plain text (aria-current), the others links to this same
 // page in them, each with its language. In the masthead and, the same, in the footer. No choice is stored:
 // the ?lang in every link carries it.
-const LANGS = [['es', 'Español'], ['en', 'English']];
+const LANGS = [['es', 'Español', 'es'], ['en', 'English', 'en'], ['ar', 'العربية', 'ar-SY']];   // [key, its own name, its lang attribute]
 const SVGNS = 'http://www.w3.org/2000/svg';
 const chevron = () => { // five dots in a V
   const s = document.createElementNS(SVGNS, 'svg');
@@ -114,14 +152,14 @@ const chevron = () => { // five dots in a V
 const dot = () => el('span', { class: 'lang-dd__dot', 'aria-hidden': 'true' });
 let ddCount = 0;
 export function langSwitch(cls = 'langs') {
-  const id = `lang-dd-${++ddCount}`, label = lang === 'en' ? 'Language' : 'Idioma', now = lang === 'en' ? 'current language' : 'idioma actual';
+  const id = `lang-dd-${++ddCount}`, label = { es: 'Idioma', en: 'Language', ar: 'اللغة' }[lang], now = { es: 'idioma actual', en: 'current language', ar: 'اللغة الحالية' }[lang];
   const here = LANGS.find(([l]) => l === lang);
   const btn = el('button', { type: 'button', class: 'lang-dd__btn', 'aria-expanded': 'false', 'aria-controls': id, popovertarget: id },
-    el('span', { class: 'vh', text: `${label}: ` }), el('span', { lang, text: here[1] }), chevron());
+    el('span', { class: 'vh', text: `${label}: ` }), el('span', { lang: htmlLang, text: here[1] }), chevron());
   const menu = el('ul', { class: 'lang-dd__list', id, popover: 'auto', dir: 'ltr', 'aria-label': label },
-    ...LANGS.map(([l, name]) => el('li', {}, l === lang
-      ? el('span', { class: 'lang-dd__cur', lang: l, 'aria-current': 'true' }, dot(), el('span', { text: name }), el('span', { class: 'vh', text: `, ${now}` }))
-      : el('a', { href: langHref(l), hreflang: l, lang: l }, dot(), el('span', { text: name })))));
+    ...LANGS.map(([l, name, tag]) => el('li', {}, l === lang
+      ? el('span', { class: 'lang-dd__cur', lang: tag, 'aria-current': 'true' }, dot(), el('span', { text: name }), el('span', { class: 'vh', lang: htmlLang, text: `, ${now}` }))
+      : el('a', { href: langHref(l), hreflang: tag, lang: tag }, dot(), el('span', { text: name })))));
   // under the button, or over it when there is no room below; at its edge, never out of the window
   const place = () => {
     const b = btn.getBoundingClientRect(), h = menu.offsetHeight, w = menu.offsetWidth, below = innerHeight - b.bottom;
@@ -142,7 +180,10 @@ const ext = (href, text) => el('a', { href, target: '_blank', rel: 'noopener' },
 const group = (id, title, tag, props, ...kids) => el(tag, { class: 'foot__group', 'aria-labelledby': id, ...props }, el('h2', { class: 'foot__h', id, text: title }), ...kids);
 const list = (...items) => el('ul', {}, ...items.map((i) => el('li', {}, i)));
 const page = (href, text) => el('a', { href, text });
-const pref = (label, value, button) => el('li', { class: 'foot__pref' }, el('span', { class: 'foot__k', text: label }), value, button);
+// the languages as links, for the footer: the page's own is plain text with a green dot after it (aria-current), the others link to this same page in them
+const langLinks = () => list(...LANGS.map(([l, name, tag]) => l === lang
+  ? el('span', { class: 'foot__cur', lang: tag, 'aria-current': 'true' }, el('span', { text: name }), el('span', { class: 'lang-dd__dot', 'aria-hidden': 'true' }), el('span', { class: 'vh', lang: htmlLang, text: `, ${{ es: 'idioma actual', en: 'current language', ar: 'اللغة الحالية' }[lang]}` }))
+  : el('a', { href: langHref(l), hreflang: tag, lang: tag, text: name })));
 export const footer = (c) => el('footer', { class: 'foot' },
   el('div', { class: 'foot__groups' },
     group('foot-sections', FOOT.sections, 'nav', {},
@@ -154,9 +195,7 @@ export const footer = (c) => el('footer', { class: 'foot' },
       // the cookie settings button is the way back into the banner (shared/consent.js: LUZ wires it, hidden until then)
       list(page(url('/privacidad/'), FOOT.privacy), page(url('/cookies/'), FOOT.cookies),
         el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: FOOT.cookieSettings }), page(url('/creditos/'), FOOT.credits))),
-    group('foot-prefs', FOOT.prefs, 'section', { class: 'foot__group foot__group--bare' },
-      el('ul', {},
-        pref(FOOT.language, langSwitch('langs foot__lang'))))),
+    group('foot-lang', FOOT.language, 'section', {}, langLinks())),
   el('div', { class: 'foot__end' },
     el('p', { class: 'foot__by' }, FOOT.legal[0], c.name, FOOT.legal[1], page(url('/creditos/'), FOOT.legal[2]), FOOT.legal[3], ext('https://luzds.com/', 'LUZ'), FOOT.legal[4],
       page(url('/cookies/'), FOOT.legal[5]), FOOT.legal[6],
@@ -183,7 +222,7 @@ export function projectRow(p) {
   return { li, cv, dots: projectDots(p) };
 }
 
-const locale = lang === 'en' ? 'en-GB' : lang;                   // the English is British (16 November 2026)
+const locale = { es: 'es', en: 'en-GB', ar: 'ar-SY-u-nu-latn' }[lang];   // the English is British (16 November 2026); the Arabic of Syria keeps the Latin digits of the site's numbers
 const fmt = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' });
 const fmtShort = new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'short' });
 export const date = (d) => fmt.format(new Date(d + 'T12:00:00'));
