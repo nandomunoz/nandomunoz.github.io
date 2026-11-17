@@ -84,10 +84,10 @@ export const MOTTO = { es: 'Proyecto, el motivo. Humano, el centro. TecnologIA, 
 const FOOT = {
   es: { sections: 'Secciones', follow: 'Sígueme', about: 'Sobre esta web', prefs: 'Preferencias', bio: 'Bio', work: 'Proyectos', blog: 'Blog',
     privacy: 'Privacidad', cookies: 'Cookies', credits: 'Créditos y licencia', language: 'Idioma', cookieSettings: 'Ajustes de cookies',
-    rights: 'Todos los derechos reservados, salvo lo que se acredite aparte.', madeWith: 'Hecho con ' },
+    legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.'] },
   en: { sections: 'Sections', follow: 'Follow me', about: 'About this site', prefs: 'Preferences', bio: 'Bio', work: 'Projects', blog: 'Blog',
     privacy: 'Privacy', cookies: 'Cookies', credits: 'Credits and licence', language: 'Language', cookieSettings: 'Cookie settings',
-    rights: 'All rights reserved, except what is credited separately.', madeWith: 'Made with ' }
+    legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.'] }
 }[lang];
 // this same page in a language (Spanish is the page without ?lang)
 function langHref(l) {
@@ -99,7 +99,7 @@ function langHref(l) {
 // to this same page in it; each carries its language and its full name for a screen reader.
 // In the masthead and, the same, in the footer. No choice is stored: the ?lang in every link carries it.
 const LANGS = [['es', 'ES', 'Español'], ['en', 'EN', 'English']];
-export const langSwitch = (cls = 'langs') => el('span', { class: cls, role: 'group', 'aria-label': lang === 'en' ? 'Language' : 'Idioma' },
+export const langSwitch = (cls = 'langs') => el('span', { class: `${cls} langs--switch`, role: 'group', 'aria-label': lang === 'en' ? 'Language' : 'Idioma' },
   ...LANGS.flatMap(([l, code, name], i) => [
     i ? el('span', { class: 'langs__sep', 'aria-hidden': 'true', text: '·' }) : null,
     l === lang
@@ -125,8 +125,9 @@ export const footer = (c) => el('footer', { class: 'foot' },
       el('ul', {},
         pref(FOOT.language, langSwitch('langs foot__lang'))))),
   el('div', { class: 'foot__end' },
-    el('p', { class: 'foot__by' }, `© ${c.name} · ${new Date().getFullYear()} · `, FOOT.rights, ' ', FOOT.madeWith, ext('https://luzds.com/', 'LUZ'), '.'),
-    el('p', { class: 'foot__motto', text: MOTTO })));
+    el('p', { class: 'foot__by' }, FOOT.legal[0], c.name, FOOT.legal[1], page(url('/creditos/'), FOOT.legal[2]), FOOT.legal[3], ext('https://luzds.com/', 'LUZ'), FOOT.legal[4],
+      page(url('/cookies/'), FOOT.legal[5]), FOOT.legal[6],
+      el('button', { type: 'button', class: 'foot__consent', 'data-luz-consent-open': '', hidden: '', text: FOOT.legal[7] }), FOOT.legal[8])));
 
 // the screen of a project, as on the home: denser the newer, its kanji drawn in
 const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };

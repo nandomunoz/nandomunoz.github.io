@@ -139,6 +139,24 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .langs__cur { color: var(--ink); padding: .5rem 0; text-decoration: underline dotted var(--blaze); text-underline-offset: .35em; text-decoration-thickness: 2px; }
 .langs__sep { color: var(--faint-text); }
 .langs a { color: var(--mute); }
+/* the switch with a state dot: a dotted track, the page's language filled in ink with a lit green dot,
+   the other with a hollow ring. A control, not a link: it is the one thing in the page that changes
+   the page itself rather than going somewhere */
+.langs.langs--switch { gap: 0; padding: .2rem; border: 1px dotted var(--faint-text); border-radius: 999px; }
+.langs--switch .langs__sep { display: none; }
+.langs.langs--switch .langs__cur, .langs.langs--switch a { display: inline-flex; align-items: center; gap: .55em; padding: .4rem .85rem .4rem .7rem; border-radius: 999px; line-height: 1; text-decoration: none; }
+.langs--switch .langs__cur::before, .langs--switch a::before { content: ''; width: .55em; height: .55em; border-radius: 50%; flex: none; box-sizing: border-box; }
+.langs.langs--switch .langs__cur { background: var(--ink); color: var(--bg); }
+.langs--switch .langs__cur::before { background: var(--blaze-on-ink, var(--blaze)); box-shadow: 0 0 0 .18em color-mix(in srgb, var(--blaze-on-ink, var(--blaze)) 30%, transparent); }
+.langs--switch a::before { border: 1.5px solid var(--faint-text); }
+.langs.langs--switch a:hover { color: var(--ink); text-decoration: none; background: color-mix(in srgb, var(--ink) 14%, transparent); }
+.langs--switch a:hover::before { border-color: var(--blaze); }
+@media (forced-colors: active) {
+  .langs.langs--switch { border-color: CanvasText; }
+  .langs.langs--switch .langs__cur { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+  .langs--switch .langs__cur::before { background: HighlightText; box-shadow: none; }
+  .langs--switch a::before { border-color: CanvasText; }
+}
 
 .top a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
 .top .top__mark:hover { text-decoration: none; }                      /* the logo that leads home takes no underline */
@@ -299,18 +317,19 @@ section { position: relative; }
 .foot__group ul { list-style: none; margin: 0; padding: 0; }
 .foot__group li { margin: 0; }
 .foot__group li > a { display: inline-block; padding: .4rem 0; }
+/* the links of the three lists read as words, in sentence case (the group titles above keep their capitals) */
+.foot__group li > a, .foot__group li > .foot__consent { text-transform: none; letter-spacing: .03em; font-size: .82rem; }
 .foot__n { color: var(--faint-text); }
 /* preferences read as controls, not links: what it is, how it stands, the button that changes it */
 .foot__pref { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .9rem; padding: .5rem 0 .3rem; border-bottom: 1px dotted var(--faint); }
 .foot__pref:last-child { border-bottom: 0; }
 .foot__k { flex: 0 0 100%; color: var(--mute); }                          /* the label on its own line, then how it stands and the button */
-.foot__pref .langs { gap: .9em; }
-.foot__pref .langs__cur, .foot__pref .langs a { padding: .5rem 0; }
 .foot__end { display: grid; gap: .9rem; padding-top: 1.4rem; border-top: 1px dotted var(--faint); }
 .foot__by { margin: 0; }
 .foot__by a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
 .foot__by a:hover { color: var(--blaze); filter: var(--blaze-lift); }
-.foot__motto { margin: 0; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mute); }
+.foot__by .foot__consent { display: inline; padding: 0; color: var(--ink); text-decoration: underline dotted; text-underline-offset: .25em; }
+.foot__by .foot__consent:hover { color: var(--blaze); filter: var(--blaze-lift); }
 @media (min-width: 48em) { .foot__groups { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 64em) { .foot__groups { grid-template-columns: repeat(4, 1fr); } }
 @media (forced-colors: active) { .foot__consent { text-decoration: underline; } }
@@ -378,7 +397,7 @@ section { position: relative; }
 
 /* ============================================================ ≥ 48em */
 @media (min-width: 48em) {
-  .nav { top: 1.05rem; left: auto; right: calc(var(--gut) + 7rem); }
+  .nav { top: 1.05rem; left: auto; right: calc(var(--gut) + 9.6rem); }
   .top__lang { order: 2; }
 
   .bio { grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; padding-block: 14rem 10rem; }

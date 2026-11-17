@@ -1,0 +1,74 @@
+/* Trama · the language switch in four takes (sandbox only). Each take is a
+   modifier on .langs (style.css), so a winner is one block to move over. */
+.vbar { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding: .9rem var(--gut); font: 500 .68rem/1.4 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--mute);
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(6px); border-bottom: 1px dotted var(--rule); }
+.vbar nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+.vbar a { color: var(--mute); text-decoration: none; }
+.vbar a:hover { color: var(--ink); }
+main > h1 { margin: 0; padding: 3rem var(--gut) .6rem; font: 700 clamp(1.6rem, 4vw, 2.4rem)/1.1 var(--dots); letter-spacing: .02em; }
+.vlead { margin: 0; padding: 0 var(--gut) 2.5rem; max-width: 46rem; font: 400 1rem/1.6 Archivo, system-ui, sans-serif; color: var(--mute); }
+.vlead em { color: var(--ink); font-style: normal; }
+
+.vx { padding: 2.2rem var(--gut) 2.6rem; border-top: 1px dotted var(--rule); scroll-margin-top: 3rem; }
+.vx__tag { display: flex; flex-wrap: wrap; gap: .3rem .9em; align-items: baseline; margin: 0 0 .5rem; font: 600 .72rem/1.4 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
+.vx__tag b { font: 700 1.1rem/1 var(--dots); color: var(--blaze); filter: var(--blaze-lift); letter-spacing: .05em; }
+.vx__idea { margin: 0 0 1.4rem; max-width: 44rem; font: 400 .95rem/1.55 Archivo, system-ui, sans-serif; color: var(--mute); }
+.vx__row { display: grid; gap: 1.2rem; align-items: start; }
+@media (min-width: 56em) { .vx__row { grid-template-columns: 1.3fr 1fr; } }
+.vx__cap { margin: 0 0 .5rem; font: 500 .62rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--faint-text); }
+
+/* the masthead's strip: the logo, links of the site, and the switch */
+.ctx { border: 1px dotted var(--faint); padding: .35rem 1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  font: 600 .75rem/1 var(--mono); text-transform: uppercase; letter-spacing: .2em; color: var(--mute); }
+.ctx a { text-decoration: none; padding: .5rem 0; color: var(--mute); }
+.ctx a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+.ctx__mark { color: var(--ink); }
+.ctx__mark span { font: 700 1rem/1 var(--dots); letter-spacing: 0; margin-right: .6em; }
+.ctx__links { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+.ctx .langs { margin-left: auto; }
+/* the footer's group, as it is in the page */
+.vfoot { border: 1px dotted var(--faint); padding: 1rem; display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; font: 500 .7rem/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint-text); }
+.vfoot a { color: var(--mute); text-decoration: none; display: inline-block; padding: .4rem 0; }
+.vfoot a:hover { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .35em; }
+.vfoot ul { list-style: none; margin: 0; padding: 0; }
+
+/* ---------------------------------------------------------------- 01 the switch */
+/* a two-way switch: a dotted track, the active language filled in ink. A link is a word; this is a control */
+.langs--v1 { gap: 0; padding: .2rem; border: 1px dotted var(--faint-text); border-radius: 999px; }
+.langs--v1 .langs__sep { display: none; }
+.langs--v1 .langs__cur, .langs--v1 a { padding: .4rem .8rem; border-radius: 999px; line-height: 1; text-decoration: none; }
+.langs--v1 .langs__cur { background: var(--ink); color: var(--bg); }
+.langs.langs--v1 a:hover { color: var(--ink); text-decoration: none; background: color-mix(in srgb, var(--ink) 14%, transparent); }
+.foot__pref .langs--v1 .langs__cur, .foot__pref .langs--v1 a { padding: .4rem .8rem; }
+
+/* ---------------------------------------------------------------- 02 the globe */
+/* a small globe drawn in dots before the codes: the symbol says «language» before the letters do */
+.langs__globe { align-self: center; width: 1.05em; height: 1.05em; margin-right: .1em; color: var(--mute); flex: none; }
+.langs--v2 .langs__globe circle { fill: currentColor; }
+.langs--v2:hover .langs__globe { color: var(--blaze); }
+
+/* ---------------------------------------------------------------- 03 by name */
+/* each language in its own name and in the page's reading face, in sentence case: the mono capitals stay for the site's places */
+.langs--v3 { font: 500 .9rem/1 Archivo, system-ui, sans-serif; letter-spacing: 0; text-transform: none; gap: .7em; }
+.langs--v3 .langs__sep { font-family: var(--mono); }
+.langs--v3 a:hover { color: var(--ink); }
+.langs--v3 .langs__cur { padding: .5rem 0; }
+
+/* ---------------------------------------------------------------- 04 the state dot */
+/* a radio's grammar: a dot before each language, filled and lit in green for the one you are in, a hollow ring for the other */
+.langs--v4 { gap: 1.1em; }
+.langs--v4 .langs__sep { display: none; }
+.langs--v4 .langs__cur, .langs--v4 a { display: inline-flex; align-items: center; gap: .55em; text-decoration: none; }
+.langs--v4 .langs__cur::before, .langs--v4 a::before { content: ''; width: .6em; height: .6em; border-radius: 50%; flex: none; box-sizing: border-box; }
+.langs--v4 .langs__cur::before { background: var(--blaze); box-shadow: 0 0 0 .2em color-mix(in srgb, var(--blaze) 28%, transparent); }
+.langs--v4 a::before { border: 1.5px solid var(--faint-text); }
+.langs.langs--v4 a:hover { color: var(--ink); text-decoration: none; }
+.langs--v4 a:hover::before { border-color: var(--blaze); }
+
+@media (forced-colors: active) {
+  .langs--v1 { border-color: CanvasText; }
+  .langs--v1 .langs__cur { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+  .langs--v4 .langs__cur::before { background: Highlight; forced-color-adjust: none; }
+  .langs--v4 a::before { border-color: CanvasText; }
+}
