@@ -17,6 +17,9 @@ export const rtl = dir === 'rtl';
 document.documentElement.lang = htmlLang;
 document.documentElement.dir = dir;
 
+// Projects of data/projects.json (the Cassette's file, which stays as it is) that the maqueta does not show
+const HIDDEN = new Set(['coac-analisis', 'illo-loader']);
+
 // The Arabic texts of the home, the projects and the blog's categories and tags live in their own file
 // (maqueta/shared/content-ar.json), so the Cassette's data files stay as they are.
 const arabic = () => fetch('/maqueta/shared/content-ar.json').then((r) => r.json());
@@ -38,7 +41,7 @@ export async function content() {
     contactText: t.contactText,
     motto: t.motto,
     socials: [...site.socials, ...site.extraSocials],
-    projects: projects.map((p, i) => ({
+    projects: projects.filter((p) => !HIDDEN.has(p.id)).map((p, i) => ({
       id: p.id, n: i + 1, name: p.name, year: p.year, tech: p.tech, demo: p.demo, repo: p.repo,
       kicker: lang === 'ar' ? ar.projects[p.id].kicker : p[lang].kicker, body: lang === 'ar' ? ar.projects[p.id].body : p[lang].body
     }))
