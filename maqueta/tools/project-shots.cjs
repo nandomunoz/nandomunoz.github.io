@@ -20,7 +20,7 @@ const projects = require(path.join(root, 'data/projects.json'));
 const only = process.argv.slice(2);
 // projects whose picture is an image of their own rather than a screenshot
 const IMAGES = {
-  'toolbar-aem': 'https://raw.githubusercontent.com/nandovejer/toolbar-aem/master/toolbar-aem-01.jpeg'
+  'toolbar-aem': 'https://raw.githubusercontent.com/nandomunoz/toolbar-aem/master/toolbar-aem-01.jpeg'
 };
 
 // repos with no public demo that ship a demo page of their own (index.html): cloned and served here

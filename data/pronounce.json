@@ -96,7 +96,8 @@
     "React Router": "Riact Ráuter",
     "CI": "ce i",
     "MDX": "eme de equis",
-    "CRUD": "crud"
+    "CRUD": "crud",
+    "nandomunoz": "nando muñoz"
   },
   "en": {
     "Fernando Muñoz": "Fernando Moonyoth",
@@ -137,6 +138,7 @@
     "kong.enabled = false": "kong dot enabled equals false",
     "para torpes": "pah-rah tor-pess",
     "Redux Toolkit": "Redux Toolkit",
-    "Vitest": "Vee-test"
+    "Vitest": "Vee-test",
+    "nandomunoz": "nando Moonyoth"
   }
 }

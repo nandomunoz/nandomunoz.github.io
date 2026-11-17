@@ -1,11 +1,11 @@
 {
-  "source": "gh repo list nandovejer (nombre, descripción, lenguaje y topics; no se ha leído el código)",
+  "source": "gh repo list nandomunoz (nombre, descripción, lenguaje y topics; no se ha leído el código)",
   "note": "inferred: true = el repo no tiene descripción y el kanji se ha elegido por el nombre y el lenguaje",
   "count": 61,
   "repos": [
     {
       "repo": "nandovejer.github.io",
-      "url": "https://github.com/nandovejer/nandovejer.github.io",
+      "url": "https://github.com/nandomunoz/nandovejer.github.io",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -28,7 +28,7 @@
     },
     {
       "repo": "luz",
-      "url": "https://github.com/nandovejer/luz",
+      "url": "https://github.com/nandomunoz/luz",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -52,7 +52,7 @@
     },
     {
       "repo": "streetcai",
-      "url": "https://github.com/nandovejer/streetcai",
+      "url": "https://github.com/nandomunoz/streetcai",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -77,7 +77,7 @@
     },
     {
       "repo": "cole",
-      "url": "https://github.com/nandovejer/cole",
+      "url": "https://github.com/nandomunoz/cole",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -100,7 +100,7 @@
     },
     {
       "repo": "coac",
-      "url": "https://github.com/nandovejer/coac",
+      "url": "https://github.com/nandomunoz/coac",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -124,7 +124,7 @@
     },
     {
       "repo": "ai-md",
-      "url": "https://github.com/nandovejer/ai-md",
+      "url": "https://github.com/nandomunoz/ai-md",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -147,7 +147,7 @@
     },
     {
       "repo": "apiChrome",
-      "url": "https://github.com/nandovejer/apiChrome",
+      "url": "https://github.com/nandomunoz/apiChrome",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -171,7 +171,7 @@
     },
     {
       "repo": "ikay-vanilla",
-      "url": "https://github.com/nandovejer/ikay-vanilla",
+      "url": "https://github.com/nandomunoz/ikay-vanilla",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -195,7 +195,7 @@
     },
     {
       "repo": "toolbar-aem",
-      "url": "https://github.com/nandovejer/toolbar-aem",
+      "url": "https://github.com/nandomunoz/toolbar-aem",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -219,7 +219,7 @@
     },
     {
       "repo": "ikay",
-      "url": "https://github.com/nandovejer/ikay",
+      "url": "https://github.com/nandomunoz/ikay",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -243,7 +243,7 @@
     },
     {
       "repo": "string-transformer",
-      "url": "https://github.com/nandovejer/string-transformer",
+      "url": "https://github.com/nandomunoz/string-transformer",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -267,7 +267,7 @@
     },
     {
       "repo": "api-coac",
-      "url": "https://github.com/nandovejer/api-coac",
+      "url": "https://github.com/nandomunoz/api-coac",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -289,7 +289,7 @@
     },
     {
       "repo": "libreria-ia-2026",
-      "url": "https://github.com/nandovejer/libreria-ia-2026",
+      "url": "https://github.com/nandomunoz/libreria-ia-2026",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -312,7 +312,7 @@
     },
     {
       "repo": "open-apk-tv",
-      "url": "https://github.com/nandovejer/open-apk-tv",
+      "url": "https://github.com/nandomunoz/open-apk-tv",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -335,7 +335,7 @@
     },
     {
       "repo": "coac-analisis",
-      "url": "https://github.com/nandovejer/coac-analisis",
+      "url": "https://github.com/nandomunoz/coac-analisis",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -357,7 +357,7 @@
     },
     {
       "repo": "accessibility",
-      "url": "https://github.com/nandovejer/accessibility",
+      "url": "https://github.com/nandomunoz/accessibility",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -381,7 +381,7 @@
     },
     {
       "repo": "landingtest",
-      "url": "https://github.com/nandovejer/landingtest",
+      "url": "https://github.com/nandomunoz/landingtest",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -404,7 +404,7 @@
     },
     {
       "repo": "illo-loader",
-      "url": "https://github.com/nandovejer/illo-loader",
+      "url": "https://github.com/nandomunoz/illo-loader",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -428,7 +428,7 @@
     },
     {
       "repo": "js-subtype",
-      "url": "https://github.com/nandovejer/js-subtype",
+      "url": "https://github.com/nandomunoz/js-subtype",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -453,7 +453,7 @@
     },
     {
       "repo": "libros-del-mundo",
-      "url": "https://github.com/nandovejer/libros-del-mundo",
+      "url": "https://github.com/nandomunoz/libros-del-mundo",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -477,7 +477,7 @@
     },
     {
       "repo": "github-corner",
-      "url": "https://github.com/nandovejer/github-corner",
+      "url": "https://github.com/nandomunoz/github-corner",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -500,7 +500,7 @@
     },
     {
       "repo": "console.cool",
-      "url": "https://github.com/nandovejer/console.cool",
+      "url": "https://github.com/nandomunoz/console.cool",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -523,7 +523,7 @@
     },
     {
       "repo": "binary-to-assci",
-      "url": "https://github.com/nandovejer/binary-to-assci",
+      "url": "https://github.com/nandomunoz/binary-to-assci",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -544,7 +544,7 @@
     },
     {
       "repo": "react-para-torpes",
-      "url": "https://github.com/nandovejer/react-para-torpes",
+      "url": "https://github.com/nandomunoz/react-para-torpes",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -568,7 +568,7 @@
     },
     {
       "repo": "handle-url",
-      "url": "https://github.com/nandovejer/handle-url",
+      "url": "https://github.com/nandomunoz/handle-url",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -591,7 +591,7 @@
     },
     {
       "repo": "ia-hora-que",
-      "url": "https://github.com/nandovejer/ia-hora-que",
+      "url": "https://github.com/nandomunoz/ia-hora-que",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -614,7 +614,7 @@
     },
     {
       "repo": "html5-boilerplate-pro",
-      "url": "https://github.com/nandovejer/html5-boilerplate-pro",
+      "url": "https://github.com/nandomunoz/html5-boilerplate-pro",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -637,7 +637,7 @@
     },
     {
       "repo": "html5-tags-classless",
-      "url": "https://github.com/nandovejer/html5-tags-classless",
+      "url": "https://github.com/nandomunoz/html5-tags-classless",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -660,7 +660,7 @@
     },
     {
       "repo": "ares-json",
-      "url": "https://github.com/nandovejer/ares-json",
+      "url": "https://github.com/nandomunoz/ares-json",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -683,7 +683,7 @@
     },
     {
       "repo": "static-html-webpack-boilerplate",
-      "url": "https://github.com/nandovejer/static-html-webpack-boilerplate",
+      "url": "https://github.com/nandomunoz/static-html-webpack-boilerplate",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -706,7 +706,7 @@
     },
     {
       "repo": "boilerplateWebpack4",
-      "url": "https://github.com/nandovejer/boilerplateWebpack4",
+      "url": "https://github.com/nandomunoz/boilerplateWebpack4",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -729,7 +729,7 @@
     },
     {
       "repo": "handle_Markdown_files_to_json",
-      "url": "https://github.com/nandovejer/handle_Markdown_files_to_json",
+      "url": "https://github.com/nandomunoz/handle_Markdown_files_to_json",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -752,7 +752,7 @@
     },
     {
       "repo": "handle_Markdown_files_to_html",
-      "url": "https://github.com/nandovejer/handle_Markdown_files_to_html",
+      "url": "https://github.com/nandomunoz/handle_Markdown_files_to_html",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -775,7 +775,7 @@
     },
     {
       "repo": "JavaScript-Object-Functions",
-      "url": "https://github.com/nandovejer/JavaScript-Object-Functions",
+      "url": "https://github.com/nandomunoz/JavaScript-Object-Functions",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -798,7 +798,7 @@
     },
     {
       "repo": "converter-online-github",
-      "url": "https://github.com/nandovejer/converter-online-github",
+      "url": "https://github.com/nandomunoz/converter-online-github",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -821,7 +821,7 @@
     },
     {
       "repo": "sfcc-docs",
-      "url": "https://github.com/nandovejer/sfcc-docs",
+      "url": "https://github.com/nandomunoz/sfcc-docs",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -844,7 +844,7 @@
     },
     {
       "repo": "post-webcomponent",
-      "url": "https://github.com/nandovejer/post-webcomponent",
+      "url": "https://github.com/nandomunoz/post-webcomponent",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -865,7 +865,7 @@
     },
     {
       "repo": "pwa-html5",
-      "url": "https://github.com/nandovejer/pwa-html5",
+      "url": "https://github.com/nandomunoz/pwa-html5",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -888,7 +888,7 @@
     },
     {
       "repo": "transition-with-mask-image",
-      "url": "https://github.com/nandovejer/transition-with-mask-image",
+      "url": "https://github.com/nandomunoz/transition-with-mask-image",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -909,7 +909,7 @@
     },
     {
       "repo": "caitube.api",
-      "url": "https://github.com/nandovejer/caitube.api",
+      "url": "https://github.com/nandomunoz/caitube.api",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -932,7 +932,7 @@
     },
     {
       "repo": "vsc-minimal",
-      "url": "https://github.com/nandovejer/vsc-minimal",
+      "url": "https://github.com/nandomunoz/vsc-minimal",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -953,7 +953,7 @@
     },
     {
       "repo": "boilerplate-lint",
-      "url": "https://github.com/nandovejer/boilerplate-lint",
+      "url": "https://github.com/nandomunoz/boilerplate-lint",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -976,7 +976,7 @@
     },
     {
       "repo": "json-template-properties",
-      "url": "https://github.com/nandovejer/json-template-properties",
+      "url": "https://github.com/nandomunoz/json-template-properties",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -999,7 +999,7 @@
     },
     {
       "repo": "webpack-4-boilerplate",
-      "url": "https://github.com/nandovejer/webpack-4-boilerplate",
+      "url": "https://github.com/nandomunoz/webpack-4-boilerplate",
       "fork": true,
       "archived": true,
       "inferred": false,
@@ -1022,7 +1022,7 @@
     },
     {
       "repo": "multilingual-lists",
-      "url": "https://github.com/nandovejer/multilingual-lists",
+      "url": "https://github.com/nandomunoz/multilingual-lists",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1046,7 +1046,7 @@
     },
     {
       "repo": "countries-json",
-      "url": "https://github.com/nandovejer/countries-json",
+      "url": "https://github.com/nandomunoz/countries-json",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -1069,7 +1069,7 @@
     },
     {
       "repo": "simple_boilerplate",
-      "url": "https://github.com/nandovejer/simple_boilerplate",
+      "url": "https://github.com/nandomunoz/simple_boilerplate",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1092,7 +1092,7 @@
     },
     {
       "repo": "JS_best_practices",
-      "url": "https://github.com/nandovejer/JS_best_practices",
+      "url": "https://github.com/nandomunoz/JS_best_practices",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -1113,7 +1113,7 @@
     },
     {
       "repo": "basic_js",
-      "url": "https://github.com/nandovejer/basic_js",
+      "url": "https://github.com/nandomunoz/basic_js",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -1136,7 +1136,7 @@
     },
     {
       "repo": "gulp-boilerplate",
-      "url": "https://github.com/nandovejer/gulp-boilerplate",
+      "url": "https://github.com/nandomunoz/gulp-boilerplate",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1159,7 +1159,7 @@
     },
     {
       "repo": "squeezebox-vanilla",
-      "url": "https://github.com/nandovejer/squeezebox-vanilla",
+      "url": "https://github.com/nandomunoz/squeezebox-vanilla",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1182,7 +1182,7 @@
     },
     {
       "repo": "svg-snippet-vsc",
-      "url": "https://github.com/nandovejer/svg-snippet-vsc",
+      "url": "https://github.com/nandomunoz/svg-snippet-vsc",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -1203,7 +1203,7 @@
     },
     {
       "repo": "basicjs",
-      "url": "https://github.com/nandovejer/basicjs",
+      "url": "https://github.com/nandomunoz/basicjs",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -1226,7 +1226,7 @@
     },
     {
       "repo": "frontool",
-      "url": "https://github.com/nandovejer/frontool",
+      "url": "https://github.com/nandomunoz/frontool",
       "fork": false,
       "archived": false,
       "inferred": true,
@@ -1247,7 +1247,7 @@
     },
     {
       "repo": "gulp-combine-media-queries",
-      "url": "https://github.com/nandovejer/gulp-combine-media-queries",
+      "url": "https://github.com/nandomunoz/gulp-combine-media-queries",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1270,7 +1270,7 @@
     },
     {
       "repo": "resetcss",
-      "url": "https://github.com/nandovejer/resetcss",
+      "url": "https://github.com/nandomunoz/resetcss",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -1293,7 +1293,7 @@
     },
     {
       "repo": "SVG-Snippets",
-      "url": "https://github.com/nandovejer/SVG-Snippets",
+      "url": "https://github.com/nandomunoz/SVG-Snippets",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1314,7 +1314,7 @@
     },
     {
       "repo": "SVG-SMIL-Snippets",
-      "url": "https://github.com/nandovejer/SVG-SMIL-Snippets",
+      "url": "https://github.com/nandomunoz/SVG-SMIL-Snippets",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -1337,7 +1337,7 @@
     },
     {
       "repo": "MixinColor",
-      "url": "https://github.com/nandovejer/MixinColor",
+      "url": "https://github.com/nandomunoz/MixinColor",
       "fork": false,
       "archived": false,
       "inferred": false,
@@ -1361,7 +1361,7 @@
     },
     {
       "repo": "codrops-medium-style-page-transitions",
-      "url": "https://github.com/nandovejer/codrops-medium-style-page-transitions",
+      "url": "https://github.com/nandomunoz/codrops-medium-style-page-transitions",
       "fork": true,
       "archived": false,
       "inferred": false,
@@ -1384,7 +1384,7 @@
     },
     {
       "repo": "kong.sole",
-      "url": "https://github.com/nandovejer/kong.sole",
+      "url": "https://github.com/nandomunoz/kong.sole",
       "fork": false,
       "archived": false,
       "inferred": false,

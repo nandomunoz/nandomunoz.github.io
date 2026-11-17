@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Copies what the site takes from LUZ (https://luzds.com, github.com/nandovejer/luz)
+// Copies what the site takes from LUZ (https://luzds.com, github.com/nandomunoz/luz)
 // into assets/vendor/luz/, so the site is served as it is, from its own repository:
 //   tokens.min.css      @luz-ds/tokens: the --luz-* custom properties (no styles of its own)
 //   theme-mode.min.js   @luz-ds/core: <luz-theme-mode>, the colour-mode switch
@@ -43,7 +43,7 @@ try {
   copyFileSync(join(unpacked.tokens, 'LICENSE'), join(out, 'LICENSE'));
   writeFileSync(join(out, 'README.md'), `# LUZ, copied
 
-Copies of [\`@luz-ds/tokens\`](https://github.com/nandovejer/luz/tree/main/packages/tokens) ${VERSIONS.tokens}, [\`@luz-ds/core\`](https://github.com/nandovejer/luz/tree/main/packages/core) ${VERSIONS.core} and [\`@luz-ds/catalog\`](https://github.com/nandovejer/luz/tree/main/packages/catalog) ${VERSIONS.catalog} (MIT, see LICENSE). Do not edit: change the versions in \`tools/luz-sync.mjs\` and run it.
+Copies of [\`@luz-ds/tokens\`](https://github.com/nandomunoz/luz/tree/main/packages/tokens) ${VERSIONS.tokens}, [\`@luz-ds/core\`](https://github.com/nandomunoz/luz/tree/main/packages/core) ${VERSIONS.core} and [\`@luz-ds/catalog\`](https://github.com/nandomunoz/luz/tree/main/packages/catalog) ${VERSIONS.catalog} (MIT, see LICENSE). Do not edit: change the versions in \`tools/luz-sync.mjs\` and run it.
 
 \`\`\`sh
 node tools/luz-sync.mjs

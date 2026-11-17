@@ -2,13 +2,13 @@
   "name": "Nando Muñoz",
   "nick": "Nando",
   "monogram": "N",
-  "baseUrl": "https://nandovejer.github.io",
+  "baseUrl": "https://nandomunoz.github.io",
   "socials": [
     {
       "id": "github",
       "label": "GitHub",
-      "handle": "nandovejer",
-      "url": "https://github.com/nandovejer"
+      "handle": "nandomunoz",
+      "url": "https://github.com/nandomunoz"
     },
     {
       "id": "x",
