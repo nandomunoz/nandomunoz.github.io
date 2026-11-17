@@ -1,0 +1,11 @@
+/* The dotted canvases (plan Phase 5). Until the script mounts one (or if it never does) the canvas shows a field
+   of dots made of CSS, so no block is an empty hole; the script sets the canvas height and the field goes away. */
+@layer trama {
+  canvas[data-dots] { display: block; inline-size: 100%; min-block-size: 6rem; }
+  canvas[data-dots]:not([data-mounted]) {
+    background: radial-gradient(circle, var(--faint) 1px, transparent 1.6px) 0 0 / 8px 8px;
+  }
+  /* decoration: never read, never reached, never wider than its box */
+  canvas[data-dots], canvas.rain { max-inline-size: 100%; }
+  @media (forced-colors: active) { canvas[data-dots], canvas.rain { forced-color-adjust: none; } }
+}

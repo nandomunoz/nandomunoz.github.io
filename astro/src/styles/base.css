@@ -11,6 +11,8 @@
   @font-face { font-family: Doto; src: url('/fonts/doto-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
   @font-face { font-family: 'Chakra Petch'; src: url('/fonts/chakra-petch-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
   @font-face { font-family: 'Chakra Petch'; src: url('/fonts/chakra-petch-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+  /* the poster's mask: the name after the Matrix title (src/scripts/rain.js); never shown as text */
+  @font-face { font-family: 'Playfair Display'; src: url('/fonts/playfair-display-latin-wght-normal.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
 
   /* Short aliases of the maqueta's CSS, read from the theme's LUZ tokens (the dark values are in luz-theme-trama.css). */
   :root {

@@ -61,3 +61,10 @@ if (links.length) {
   }), { rootMargin: '-45% 0px -50% 0px' });
   secs.forEach((s) => io.observe(s));
 }
+
+// ---------------------------------------------------------------- the progress rail where scroll timelines do not exist (Firefox)
+if (!CSS.supports('animation-timeline: scroll()') || reduce.matches) {
+  const set = () => root.style.setProperty('--p', (scrollY / Math.max(1, root.scrollHeight - innerHeight)).toFixed(4));
+  addEventListener('scroll', set, { passive: true });
+  set();
+}

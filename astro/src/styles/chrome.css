@@ -97,7 +97,7 @@
     .rail { display: block; position: fixed; inset-inline-end: 1.4rem; inset-block-start: 25vh; block-size: 50vh; inline-size: 8px; z-index: 4;
       background: radial-gradient(circle, var(--rule) 1.3px, transparent 1.8px) 50% 0 / 8px 9px repeat-y; }
     .rail i { position: absolute; inset: 0; background: radial-gradient(circle, var(--ink) 1.6px, transparent 2.1px) 50% 0 / 8px 9px repeat-y;
-      clip-path: inset(0 0 100% 0); }
+      clip-path: inset(0 0 calc((1 - var(--p, 0)) * 100%) 0); }
   }
   @supports (animation-timeline: scroll()) {
     .rail i { animation: fill-rail linear both; animation-timeline: scroll(root); }
