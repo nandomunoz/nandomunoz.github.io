@@ -58,7 +58,7 @@
   /* the pill: under the thumb. On a phone from the first paint (CSS only); from 48em when docked */
   @media (max-width: 47.99em) {
     .nav {
-      position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); inset-inline: 50% auto; translate: -50% 0; width: max-content;
+      position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); left: 50%; right: auto; translate: -50% 0; width: max-content;
       padding: .55rem 1.1rem; border-radius: 999px;
       background: color-mix(in srgb, var(--bg-2) 82%, transparent); backdrop-filter: blur(10px) saturate(.6);
       box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 40px -10px var(--rule);
@@ -75,7 +75,7 @@
   }
   @media (min-width: 48em) {
     .docked .nav {
-      position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); inset-inline: 50% auto; translate: -50% 0; width: max-content;
+      position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); left: 50%; right: auto; translate: -50% 0; width: max-content;
       padding: .55rem 1.1rem; border-radius: 999px;
       background: color-mix(in srgb, var(--bg-2) 82%, transparent); backdrop-filter: blur(10px) saturate(.6);
       box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 67%, transparent), 0 0 40px -10px var(--rule);

@@ -8,7 +8,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const blog = JSON.parse(fs.readFileSync(path.join(ROOT, 'maqueta/shared/blog.json'), 'utf8'));
 // The same processor and options as astro.config.mjs
-const proc = await satteri({ features: { smartPunctuation: false } }).createRenderer({ syntaxHighlight: false, gfm: false });
+const proc = await satteri({ features: { smartPunctuation: false, headingAttributes: true } }).createRenderer({ syntaxHighlight: false, gfm: false });
 
 const ENT = { amp: '&', quot: '"', lt: '<', gt: '>', nbsp: ' ', apos: "'" };
 const text = (h) => h.replace(/<(script|style)[\s\S]*?<\/\1>/g, '').replace(/<[^>]+>/g, ' ')
@@ -17,7 +17,8 @@ const text = (h) => h.replace(/<(script|style)[\s\S]*?<\/\1>/g, '').replace(/<[^
 const count = (h, re) => (h.match(re) || []).length;
 
 // what the blocks say, as text (the order is the document's)
-function expected(body) {
+const WATCH = { es: 'Ver en YouTube', en: 'Watch on YouTube', ar: 'شاهد على YouTube' };
+function expected(body, L) {
   const parts = [];
   for (const x of body) {
     if (x.p != null) parts.push(x.p);
@@ -27,7 +28,7 @@ function expected(body) {
     else if (x.img) parts.push(x.cap || '');
     else if (x.quote) parts.push(...x.quote, x.cite || '');
     else if (x.pull) parts.push(...x.pull, x.cite || '');
-    else if (x.yt) parts.push(x.cap || '');
+    else if (x.yt) parts.push(`<a href="https://www.youtube.com/watch?v=${x.yt}">`, x.title, `${WATCH[L]} ↗`, x.cap || '');
     else if (x.tweet != null) parts.push(x.tweet, x.by, '·', x.date || 'X', `<a href="${x.url}">`);
     else if (x.embed) parts.push(`<a href="${x.embed}">`, x.embed, x.cap || '');
     else if (x.gist) parts.push(`<a href="${x.gist}">`, x.gist);
@@ -43,7 +44,7 @@ for (const p of blog.posts) for (const L of ['es', 'en', 'ar']) {
   const file = path.join(ROOT, 'astro/src/content/posts', p.id, `${L === 'es' ? 'index' : L}.md`);
   const body = fs.readFileSync(file, 'utf8').replace(/^---[\s\S]*?\n---\n/, '');
   const html = (await proc.render(body)).code;
-  const want = expected(p[L].body);
+  const want = expected(p[L].body, L);
   const norm = (s) => text(s).replace(/\s+/g, '');
   const a = norm(html), b = norm(want.join(' '));
   const wantHtml = want.join('\n');

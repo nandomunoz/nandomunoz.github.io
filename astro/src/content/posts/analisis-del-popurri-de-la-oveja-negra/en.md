@@ -20,7 +20,7 @@ The <strong>second act</strong> (THE BALLAD OF THE BLACK SHEEP) develops the sto
 
 During the <strong>third act</strong> (THE SLAUGHTER OF THE SHEEP) the character understands his situation and reflects; it is almost a revelation. Finally, the <strong>fourth act, or denouement</strong> (THE DISOBEDIENCE OF THE BLACK SHEEP) is an epic ending: powerful, direct, moving, passionate and dramatic (not necessarily sad).
 
-<figure class="video"><yt-facade video="23eSN-eBwW4" title="Comparsa, La oveja negra - Preliminares" start="1055"></yt-facade><figcaption><a href="https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055">https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055</a></figcaption></figure>
+<figure class="video"><yt-facade video="23eSN-eBwW4" title="Comparsa, La oveja negra - Preliminares" start="1055"><a href="https://www.youtube.com/watch?v=23eSN-eBwW4&amp;t=1055s" rel="noopener"><span class="video__title">Comparsa, La oveja negra - Preliminares</span><span class="video__go">Watch on YouTube ↗</span></a></yt-facade><figcaption><a href="https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055">https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055</a></figcaption></figure>
 
 Without further dilation (as a midwife would say), let's go through the analysis cuarteta by cuarteta:
 

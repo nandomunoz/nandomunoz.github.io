@@ -2,9 +2,9 @@
 // The footer of every page (plan Phase 4; DESIGN.md §8): four labelled groups and a last line — the
 // small print — in plain HTML. The cookie settings buttons stay `hidden` until the consent script runs.
 import { getEntry } from 'astro:content';
-import { ui, pathFor, htmlLang, hreflang, languageName, locales, type Locale, type Route } from '../i18n/ui';
+import { ui, pathFor, htmlLang, hreflang, languageName, locales, type Locale, type Route, type Rest } from '../i18n/ui';
 import { luzUrl } from '../lib/site';
-interface Props { lang: Locale; route: Route; rest?: string }
+interface Props { lang: Locale; route: Route; rest?: Rest }
 const { lang, route, rest = '' } = Astro.props;
 const t = ui[lang], f = t.foot;
 const site = (await getEntry('site', 'site'))!.data;

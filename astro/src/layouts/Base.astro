@@ -6,7 +6,7 @@ import '../styles/luz-theme-trama.css';
 import '../styles/base.css';
 import '../styles/chrome.css';
 import '../styles/blocks.css';
-import { htmlLang, dir, hreflang, ui, locales, pathFor, type Locale, type Route } from '../i18n/ui';
+import { htmlLang, dir, hreflang, ui, locales, pathFor, type Locale, type Route, type Rest } from '../i18n/ui';
 import Masthead from '../components/Masthead.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -18,7 +18,7 @@ interface Props {
   /** which route this page is, so every language's address (and the language switch) is built from it */
   route: Route;
   /** what comes after the route's segment, e.g. a project's id */
-  rest?: string;
+  rest?: Rest;
   /** the section the page belongs to, for the menu's aria-current */
   current?: 'projects' | 'blog';
   noindex?: boolean;
@@ -44,6 +44,7 @@ const home = route === 'home';
     <link rel="canonical" href={site + pathFor(lang, route, rest)}>
     {locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={site + pathFor(l, route, rest)}>)}
     <link rel="alternate" hreflang="x-default" href={site + pathFor('es', route, rest)}>
+    <script type="speculationrules" is:inline>{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
     <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   </head>

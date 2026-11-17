@@ -1,0 +1,26 @@
+---
+// /blog/categoria/<id>/ (and /2/…) — the posts of one category.
+import BlogLayout from './BlogLayout.astro';
+import BlogHead from './BlogHead.astro';
+import Chips from './Chips.astro';
+import PostList from './PostList.astro';
+import Pager from './Pager.astro';
+import { loadBlog, pagesOf } from '../../lib/blog.js';
+import { blogStrings } from '../../i18n/blog.js';
+import { pathFor, blogRest, type Locale } from '../../i18n/ui';
+import { getEntry } from 'astro:content';
+interface Props { lang: Locale; id: string; page: number }
+const { lang, id, page } = Astro.props;
+const B = blogStrings(lang);
+const { posts, categories } = await loadBlog(lang);
+const k = categories[id];
+const mine = posts.filter((p) => p.category === id);
+const pages = pagesOf(mine);
+const name = (await getEntry('site', 'site'))!.data.name;
+---
+<BlogLayout lang={lang} title={`${k.name} · Blog · ${name}`} description={k.desc} rest={blogRest.category(id, page)}>
+  <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')], [B.categories, pathFor(lang, 'blog', blogRest.categories())]]} title={k.name} deck={k.desc} count={B.countOne(mine.length)} />
+  <Chips lang={lang} categories={categories} current={id} />
+  <PostList lang={lang} posts={pages[page - 1]} categories={categories} />
+  <Pager lang={lang} current={page} total={pages.length} href={(n) => pathFor(lang, 'blog', blogRest.category(id, n))} />
+</BlogLayout>

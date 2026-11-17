@@ -3,8 +3,8 @@
 // five dots, and a popover of links in the top layer. A disclosure, not an ARIA menu. The page's own
 // language is plain text (aria-current); the others link to this same page in them, each with its
 // lang. Without JS the popover still opens (it is declarative); src/scripts/chrome.js places it.
-import { locales, hreflang, htmlLang, languageName, ui, type Locale, type Route, pathFor } from '../i18n/ui';
-interface Props { lang: Locale; route: Route; rest?: string; id: string }
+import { locales, hreflang, htmlLang, languageName, ui, type Locale, type Route, type Rest, pathFor } from '../i18n/ui';
+interface Props { lang: Locale; route: Route; rest?: Rest; id: string }
 const { lang, route, rest = '', id } = Astro.props;
 const t = ui[lang];
 ---

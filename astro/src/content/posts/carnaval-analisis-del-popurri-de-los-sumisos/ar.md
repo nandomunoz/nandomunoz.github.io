@@ -10,7 +10,7 @@ original: "https://soynando.com/carnaval-analisis-del-popurri-de-los-sumisos/"
 cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1000,"h":668,"alt":"صورة بلون سيبيا لأعضاء فرقة «لوس سوميسوس» (comparsa)، متنكرين في هيئة مهرّجين بوجوه مطلية، يغنّون على خشبة المسرح","credit":"Foto firmada «@DIAZ FARRE»."}
 ---
 
-<figure class="video"><yt-facade video="gyGeLPDGoS8" title="Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares"></yt-facade></figure>
+<figure class="video"><yt-facade video="gyGeLPDGoS8" title="Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares"><a href="https://www.youtube.com/watch?v=gyGeLPDGoS8" rel="noopener"><span class="video__title">Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade></figure>
 
 ## Cuarteta الأولى: أيار، أكثر بكثير من تغيير في الموعد
 
@@ -26,7 +26,7 @@ cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1000,"h":668,"alt":"�
 
 من هنا يبدأ النقد، وأول ما يتناوله عالم الـcoro وجمعية المؤلفين. كيف؟ بقليل من البحث يتبيّن أنه تحت اسم Guacamayos y Lechuguinos يظهر coro شهير من عام 1984، موسيقاه من تأليف <a href="https://www.diariodecadiz.es/diario_del_carnaval/coro-Julio-Pardo-COAC-2022_0_1654934651.html">Julio Pardo</a> (مرجع في عالم الـcoro) وكلماته من تأليف <a href="https://www.lavozdigital.es/cadiz-provincia/lvci-entrevista-kiko-zamora-presidente-4667054992001-20151218080000_video.html">Quico Zamora</a> (رئيس جمعية مؤلفي كرنفال قادس – <a href="http://aaccadiz.com/">aaccadiz.com</a>). ويُحتمل أيضًا أنهم يشيرون إلى <a href="http://curiosidadesdecadiz.blogspot.com/2014/06/guacamayos-y-lechuginos.html">الشخصيات التاريخية التي كان ذلك الـcoro يمثّلها</a>، حيث يُحثّون على ألا يصمتوا، وألا يكونوا خاضعين.
 
-<figure class="video"><yt-facade video="d_Yzdhk5Aqk" title="1984 Coro Guacamayos y lechuginos 02 A ti tacita de plata"></yt-facade></figure>
+<figure class="video"><yt-facade video="d_Yzdhk5Aqk" title="1984 Coro Guacamayos y lechuginos 02 A ti tacita de plata"><a href="https://www.youtube.com/watch?v=d_Yzdhk5Aqk" rel="noopener"><span class="video__title">1984 Coro Guacamayos y lechuginos 02 A ti tacita de plata</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade></figure>
 
 يعيدنا اسم الـcoro إلى لحظة تاريخية غريبة خلال حرب الاستقلال:
 

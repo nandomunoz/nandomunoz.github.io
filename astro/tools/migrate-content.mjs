@@ -70,17 +70,34 @@ wr('src/content/tags.json', json(Object.entries(blog.tags).map(([id, t]) => ({
 // ---------------------------------------------------------------- posts
 const plain = (h) => h.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+// A timeline's date: a <time> with its machine-readable value when the text gives one ("11 de junio de 2018",
+// "junio de 2018", "1206"); "Siglo IV a. C." stays plain text
+const MONTHS = { enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6, julio: 7, agosto: 8, septiembre: 9, setiembre: 9, octubre: 10, noviembre: 11, diciembre: 12 };
+function dated(when) {
+  const t = String(when).trim().toLowerCase(), p2 = (n) => String(n).padStart(2, '0');
+  let m, iso = null;
+  if ((m = /^(\d{1,2}) de ([a-zé]+) de (\d{3,4})$/.exec(t)) && MONTHS[m[2]]) iso = `${m[3].padStart(4, '0')}-${p2(MONTHS[m[2]])}-${p2(m[1])}`;
+  else if ((m = /^([a-zé]+) de (\d{3,4})$/.exec(t)) && MONTHS[m[1]]) iso = `${m[2].padStart(4, '0')}-${p2(MONTHS[m[1]])}`;
+  else if (/^\d{4}$/.test(t)) iso = t;
+  return iso ? `<time class="luz-timeline__date" datetime="${iso}">${when}</time>` : `<span class="luz-timeline__date">${when}</span>`;
+}
+const WATCH = { es: 'Ver en YouTube', en: 'Watch on YouTube', ar: 'شاهد على YouTube' };
 const caption = (c) => (c ? `<figcaption>${c}</figcaption>` : '');
 const startOf = (params) => (/start=(\d+)/.exec(params || '') || [])[1];
+// a custom element at the start of a line is an HTML *block* only when its opening tag is alone on the line
+const oneLineKeep = (h) => h.replace(/\n\s*/g, ' ').replace(/(<luz-timeline[^>]*>) /, '$1\n').replace(/ (<\/luz-timeline>)/, '\n$1');
 const oneLine = (h) => h.replace(/\n\s*/g, ' '); // no blank line may split an HTML block
 
 // A stray backtick in the text (WordPress left them as plain characters) would open a Markdown code span
 const tick = (s) => s.replace(/`/g, '\\`');
 
-function renderBlock(x, L, pid) {
+// WordPress anchors that links in the posts still point to: the block index of the heading (the same in every language)
+const ANCHORS = { 'tu-navegador-sabe-sobre-ti-mas-de-lo-que-crees': { 8: 'webapi' } };
+
+function renderBlock(x, L, pid, k) {
   const lang = L !== 'es' && x.lang === 'es' ? ' lang="es"' : '';
   if (x.p != null) return tick(x.p);
-  if (x.h) return `${x.lv === 3 ? '###' : '##'} ${tick(x.h)}`;
+  if (x.h) return `${x.lv === 3 ? '###' : '##'} ${tick(x.h)}${ANCHORS[pid]?.[k] ? ` {#${ANCHORS[pid][k]}}` : ''}`;
   if (x.ul) return x.ul.map((s, i) => `${x.ol ? `${i + 1}.` : '-'} ${tick(s)}`).join('\n');
   if (x.code != null) { const f = x.code.includes('```') ? '````' : '```'; return `${f}${x.lang || ''}\n${x.code}\n${f}`; }
   if (x.img) {
@@ -92,12 +109,12 @@ function renderBlock(x, L, pid) {
   }
   if (x.quote) return oneLine(`<blockquote${lang}>${x.quote.map((s) => `<p>${s}</p>`).join('')}${x.cite ? `<cite>${x.cite}</cite>` : ''}</blockquote>`);
   if (x.pull) return oneLine(`<figure class="pull"><blockquote${lang}>${x.pull.map((s) => `<p>${s}</p>`).join('')}</blockquote>${caption(x.cite)}</figure>`);
-  if (x.yt) { const st = startOf(x.params); return oneLine(`<figure class="video"><yt-facade video="${x.yt}" title="${esc(x.title)}"${st ? ` start="${st}"` : ''}></yt-facade>${caption(x.cap)}</figure>`); }
+  if (x.yt) { const st = startOf(x.params); return oneLine(`<figure class="video"><yt-facade video="${x.yt}" title="${esc(x.title)}"${st ? ` start="${st}"` : ''}><a href="https://www.youtube.com/watch?v=${x.yt}${st ? `&amp;t=${st}s` : ''}" rel="noopener"><span class="video__title">${esc(x.title)}</span><span class="video__go">${WATCH[L]} ↗</span></a></yt-facade>${caption(x.cap)}</figure>`); }
   if (x.tweet != null) return oneLine(`<figure class="tweet"><blockquote lang="es">${x.tweet}</blockquote><figcaption><span>${x.by}</span> · <a href="${x.url}" rel="noopener">${x.date || 'X'}</a></figcaption></figure>`);
   if (x.embed) return oneLine(`<figure class="embed" data-host="${x.host}"><a href="${x.embed}" rel="noopener">${x.embed}</a>${caption(x.cap)}</figure>`);
   if (x.gist) return oneLine(`<figure class="embed" data-host="gist.github.com"><a href="${x.gist}" rel="noopener">${x.gist}</a></figure>`);
   if (x.table) return oneLine(`<figure class="table"><div class="scroll" tabindex="0" role="region" aria-label="${esc(plain(x.cap || ''))}"><table>${x.table.head.length ? `<thead><tr>${x.table.head.map((s) => `<th scope="col">${s}</th>`).join('')}</tr></thead>` : ''}<tbody>${x.table.rows.map((r) => `<tr>${r.map((s) => `<td>${s}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${caption(x.cap)}</figure>`);
-  if (x.timeline) return oneLine(`<luz-timeline aria-label="${esc(plain(x.label || ''))}"${x.layout === 'vertical' ? ' layout="vertical"' : ''}><ol class="luz-timeline">${x.timeline.map((s) => `<li class="luz-timeline__item"><time>${s.when}</time><p class="luz-timeline__title">${s.title}</p>${s.text ? `<p class="luz-timeline__text">${s.text}</p>` : ''}${s.by ? `<p class="luz-timeline__by">${s.by}</p>` : ''}</li>`).join('')}</ol></luz-timeline>`);
+  if (x.timeline) return oneLineKeep(`<luz-timeline aria-label="${esc(plain(x.label || ''))}"${x.layout === 'vertical' ? ' layout="vertical"' : ''}>\n<ol class="luz-timeline">${x.timeline.map((s) => `<li class="luz-timeline__item">${dated(s.when)}<p class="luz-timeline__title">${s.title}</p>${s.text ? `<p class="luz-timeline__text">${s.text}</p>` : ''}${s.by ? `<p class="luz-timeline__by">${s.by}</p>` : ''}</li>`).join('')}</ol>\n</luz-timeline>`);
   if (x.hr) return '---';
   throw new Error(`unknown block in ${pid}/${L}: ${Object.keys(x)}`);
 }
@@ -130,7 +147,7 @@ for (const p of blog.posts) {
       cover: { src: './cover.jpg', tone: './cover.tone.webp', w: p.cover.w, h: p.cover.h, alt: ALT[p.id]?.[L] ?? (L === 'es' ? p.cover.alt : p.cover[`alt_${L}`] ?? p.cover.alt), ...(p.cover.credit ? { credit: p.cover.credit } : {}) }
     };
     const front = ['---', ...Object.entries(fm).map(([k, v]) => `${k}: ${yaml(v)}`), '---'].join('\n');
-    const body = t.body.map((x) => renderBlock(x, L, p.id)).join('\n\n');
+    const body = t.body.map((x, k) => renderBlock(x, L, p.id, k)).join('\n\n');
     wr(`${dir}/${L === 'es' ? 'index' : L}.md`, `${front}\n\n${body}\n`);
   }
 }

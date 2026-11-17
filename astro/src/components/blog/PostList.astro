@@ -1,0 +1,18 @@
+---
+// A list of rows, grouped by year (the year in Doto, fixed on the left on a desktop) or in one run.
+import { byYear } from '../../lib/blog.js';
+import PostRow from './PostRow.astro';
+import type { Locale } from '../../i18n/ui';
+interface Props { lang: Locale; posts: any[]; categories: Record<string, { id: string; name: string }>; group?: boolean }
+const { lang, posts, categories, group = true } = Astro.props;
+---
+<div class="blist">
+  {group
+    ? byYear(posts).map(([year, list]: [number, any[]], g: number) => (
+        <section class="byear" aria-label={String(year)}>
+          <h2 class="byear__n">{year}</h2>
+          <ol class="brows">{list.map((p: any, i: number) => <PostRow lang={lang} post={p} categories={categories} eager={g === 0 && i === 0} />)}</ol>
+        </section>
+      ))
+    : <ol class="brows">{posts.map((p: any) => <PostRow lang={lang} post={p} categories={categories} />)}</ol>}
+</div>

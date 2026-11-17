@@ -46,7 +46,7 @@ cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1600,"h":1067,"alt":"
 
 في تلك السنوات بدأت Hamilton تسمّي عملها <strong>«هندسة البرمجيات»</strong>، وفي البداية كانت العبارة تُضحك الناس. مرة أخرى كان عليها أن تقنع الآخرين بشيء كانت تراه واضحًا كل الوضوح. لكن انتبه، لم تخترعها هي: فهي ترد في مجلة عام 1965، وفي رسالة من Anthony Oettinger، رئيس ACM، عام 1966، وانتشرت في مؤتمر لحلف الناتو عام 1968. ما فعلته كان شيئًا آخر، وأصعب في رأيي: أن تناضل كي يعني التعبير شيئًا، وكي يُطلب من البرمجيات الصرامة نفسها التي تُطلب من الجسر أو الصاروخ. وهكذا ترويه هي نفسها في مقابلة سجّلها Draper، المختبر الذي تحوّل إليه مختبرها حين انفصل عن MIT:
 
-<figure class="video"><yt-facade video="uGqIjYzmAXc" title="Margaret Hamilton on Software Engineering" start="16"></yt-facade><figcaption>Margaret Hamilton تتحدث عن هندسة البرمجيات (بالإنجليزية، دقيقتان، 2019) · <a href="https://www.youtube.com/@hackthemoon2449">Hack the Moon</a>، قناة مختبر Draper، على <a href="https://www.youtube.com/watch?v=uGqIjYzmAXc&amp;t=16s">YouTube</a>.</figcaption></figure>
+<figure class="video"><yt-facade video="uGqIjYzmAXc" title="Margaret Hamilton on Software Engineering" start="16"><a href="https://www.youtube.com/watch?v=uGqIjYzmAXc&amp;t=16s" rel="noopener"><span class="video__title">Margaret Hamilton on Software Engineering</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade><figcaption>Margaret Hamilton تتحدث عن هندسة البرمجيات (بالإنجليزية، دقيقتان، 2019) · <a href="https://www.youtube.com/@hackthemoon2449">Hack the Moon</a>، قناة مختبر Draper، على <a href="https://www.youtube.com/watch?v=uGqIjYzmAXc&amp;t=16s">YouTube</a>.</figcaption></figure>
 
 ## سبع وعشرون ثانية في Houston
 

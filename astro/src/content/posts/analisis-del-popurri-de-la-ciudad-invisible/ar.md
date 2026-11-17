@@ -10,7 +10,7 @@ original: "https://soynando.com/analisis-del-popurri-de-la-ciudad-invisible/"
 cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1600,"h":930,"alt":"صورة comparsa «La ciudad invisible» وهي تؤدّي على المسرح","credit":"Imagen: <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."}
 ---
 
-<figure class="video"><yt-facade video="K5C0Sgui8HI" title="Popurrí con letra. Comparsa «La ciudad invisible» (2023)"></yt-facade></figure>
+<figure class="video"><yt-facade video="K5C0Sgui8HI" title="Popurrí con letra. Comparsa «La ciudad invisible» (2023)"><a href="https://www.youtube.com/watch?v=K5C0Sgui8HI" rel="noopener"><span class="video__title">Popurrí con letra. Comparsa «La ciudad invisible» (2023)</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade></figure>
 
 تحليل لـ popurrí Antonio Martínez Ares في هذا العام 2023 مع comparsa «La ciudad invisible»، يركّز فيه على الأداء، الرائع موسيقيًا والمليء بتفاصيل التسعينيات على طريقة الـ comparsas.
 
@@ -20,7 +20,7 @@ cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1600,"h":930,"alt":"�
 
 في تقديم Los Piratas عام 1998، يقول Ángel Subiela (المدير)، ضمن tipo زعيم هؤلاء القراصنة، «es por aquí, no hay confusión»
 
-<figure class="video"><yt-facade video="1Vd6G5pvK4I" title="Comparsa Los Piratas (1998) - Presentación  (Final)" start="63"></yt-facade></figure>
+<figure class="video"><yt-facade video="1Vd6G5pvK4I" title="Comparsa Los Piratas (1998) - Presentación  (Final)" start="63"><a href="https://www.youtube.com/watch?v=1Vd6G5pvK4I&amp;t=63s" rel="noopener"><span class="video__title">Comparsa Los Piratas (1998) - Presentación  (Final)</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade></figure>
 
 <figure class="pull"><blockquote lang="es"><p>¿Cuánto hace ya?<br>Un día mas<br>Algo he dejado en el polvo del martillo<br>Al menos te deje mi amor ese estribillo<br><br>Ese estribillo<br>De eso no me acuerdo yo<br>Illo ni yo<br>¿Cómo qué no?</p></blockquote></figure>
 
@@ -30,7 +30,7 @@ cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1600,"h":930,"alt":"�
 
 ربما يدافع Antonio هنا عن النبرة العامة لـ comparsa، أو يسوّغها، وهو ينظر إلى comparsas التسعينيات الخاصة به. على الأرجح بسبب قرب زمن إنشائه أنطولوجيته الجديدة «la comparsa miserable»
 
-<figure class="video"><yt-facade video="tbc8sCRYp6U" title="#Popurrí De Popurrís / Una #Comparsa Miserable / Antología #MartínezAres #Carnaval2022  🎭"></yt-facade></figure>
+<figure class="video"><yt-facade video="tbc8sCRYp6U" title="#Popurrí De Popurrís / Una #Comparsa Miserable / Antología #MartínezAres #Carnaval2022  🎭"><a href="https://www.youtube.com/watch?v=tbc8sCRYp6U" rel="noopener"><span class="video__title">#Popurrí De Popurrís / Una #Comparsa Miserable / Antología #MartínezAres #Carnaval2022  🎭</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade></figure>
 
 <figure class="pull"><blockquote lang="es"><p>Este carnaval<br>Lo voy a vivir en el subsuelo<br>Desentrañare lo que más quiero<br>Lo que más quiero<br>Este carnaval<br>Y los que hagan falta<br>Si es preciso<br>En las tinieblas<br>Hay paraíso</p></blockquote></figure>
 
@@ -44,7 +44,7 @@ cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1600,"h":930,"alt":"�
 
 تحية إلى تقديم comparsa «El Vapor» الخاصة به
 
-<figure class="video"><yt-facade video="_5QiekLs8Fg" title="Comparsa. El Vapor | PRELIMINARES (Presentación y Pasodobles) | Carnaval de Cádiz 1997" start="7"></yt-facade></figure>
+<figure class="video"><yt-facade video="_5QiekLs8Fg" title="Comparsa. El Vapor | PRELIMINARES (Presentación y Pasodobles) | Carnaval de Cádiz 1997" start="7"><a href="https://www.youtube.com/watch?v=_5QiekLs8Fg&amp;t=7s" rel="noopener"><span class="video__title">Comparsa. El Vapor | PRELIMINARES (Presentación y Pasodobles) | Carnaval de Cádiz 1997</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade></figure>
 
 <figure class="pull"><blockquote lang="es"><p>¿Qué no?<br>Un día mas<br>Según se mire compañero<br>Un día menos</p></blockquote></figure>
 

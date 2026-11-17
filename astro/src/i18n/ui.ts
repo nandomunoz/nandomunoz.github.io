@@ -24,11 +24,29 @@ const segments = {
 } as const;
 export type Route = keyof typeof segments;
 
+/** What comes after a route's segment: the same text in every language, or one per language (a category is
+ *  «categoria» in Spanish and «category» in English and Arabic). */
+export type Rest = string | Partial<Record<Locale, string>>;
+
 /** The path of a route in a language, with the trailing slash: pathFor('en', 'projects', 'luz') → /en/projects/luz/ */
-export function pathFor(l: Locale, route: Route, rest = ''): string {
+export function pathFor(l: Locale, route: Route, rest: Rest = ''): string {
   const seg = segments[route][locales.indexOf(l)];
-  return `${prefix(l)}/${seg ? seg + '/' : ''}${rest ? rest.replace(/^\/|\/$/g, '') + '/' : ''}`.replace('//', '/');
+  const r = typeof rest === 'string' ? rest : (rest[l] ?? '');
+  return `${prefix(l)}/${seg ? seg + '/' : ''}${r ? r.replace(/^\/|\/$/g, '') + '/' : ''}`.replace('//', '/');
 }
+
+/** The blog's pages, by language: lists are /blog/, /blog/2/…; a category is /blog/categoria/x/ (es) or
+ *  /blog/category/x/; a tag /blog/etiqueta/x/ or /blog/tag/x/. Returns the `rest` for pathFor(l, 'blog', …). */
+const CAT = { es: 'categoria', en: 'category', ar: 'category' } as const;
+const TAG = { es: 'etiqueta', en: 'tag', ar: 'tag' } as const;
+export const blogRest = {
+  page: (n: number) => (n > 1 ? String(n) : ''),
+  post: (slug: string) => slug,
+  categories: (): Rest => ({ es: CAT.es, en: CAT.en, ar: CAT.ar }),
+  category: (id: string, n = 1): Rest => Object.fromEntries(locales.map((l) => [l, `${CAT[l]}/${id}${n > 1 ? '/' + n : ''}`])),
+  tags: (): Rest => ({ es: TAG.es, en: TAG.en, ar: TAG.ar }),
+  tag: (id: string, n = 1): Rest => Object.fromEntries(locales.map((l) => [l, `${TAG[l]}/${id}${n > 1 ? '/' + n : ''}`]))
+};
 
 export const ui = {
   es: {

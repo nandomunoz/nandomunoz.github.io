@@ -10,7 +10,7 @@ original: "https://soynando.com/analisis-del-popurri-de-la-ciudad-invisible/"
 cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1600,"h":930,"alt":"Imagen de la comparsa La ciudad invisible interpretando en el escenario","credit":"Imagen: <a href=\"https://www.facebook.com/LaComparsaDeMartinezAres\" rel=\"noopener\">La Comparsa de Martínez Ares</a>."}
 ---
 
-<figure class="video"><yt-facade video="K5C0Sgui8HI" title="Popurrí con letra. Comparsa «La ciudad invisible» (2023)"></yt-facade></figure>
+<figure class="video"><yt-facade video="K5C0Sgui8HI" title="Popurrí con letra. Comparsa «La ciudad invisible» (2023)"><a href="https://www.youtube.com/watch?v=K5C0Sgui8HI" rel="noopener"><span class="video__title">Popurrí con letra. Comparsa «La ciudad invisible» (2023)</span><span class="video__go">Ver en YouTube ↗</span></a></yt-facade></figure>
 
 Análisis del popurrí de Antonio Martínez Ares este año 2023 con su comparsa «La ciudad invisible», donde se focaliza en la interpretación, musicalmente espléndida y repleta de detalles noventeros comparsistas.
 
@@ -20,7 +20,7 @@ Análisis del popurrí de Antonio Martínez Ares este año 2023 con su comparsa 
 
 Presentación de los Piratas del año 1998, Ángel Subiela (el director), dentro del tipo de jefe de estos filibusteros dice “es por aquí, no hay confusión”
 
-<figure class="video"><yt-facade video="1Vd6G5pvK4I" title="Comparsa Los Piratas (1998) - Presentación  (Final)" start="63"></yt-facade></figure>
+<figure class="video"><yt-facade video="1Vd6G5pvK4I" title="Comparsa Los Piratas (1998) - Presentación  (Final)" start="63"><a href="https://www.youtube.com/watch?v=1Vd6G5pvK4I&amp;t=63s" rel="noopener"><span class="video__title">Comparsa Los Piratas (1998) - Presentación  (Final)</span><span class="video__go">Ver en YouTube ↗</span></a></yt-facade></figure>
 
 <figure class="pull"><blockquote><p>¿Cuánto hace ya?<br>Un día mas<br>Algo he dejado en el polvo del martillo<br>Al menos te deje mi amor ese estribillo<br><br>Ese estribillo<br>De eso no me acuerdo yo<br>Illo ni yo<br>¿Cómo qué no?</p></blockquote></figure>
 
@@ -30,7 +30,7 @@ Tanto Ramoni como Cateto no estuvieron en la comparsa de los sumisos del año an
 
 Aquí quizás Antonio esté reivindicando o argumentando el tono general de la comparsa mirando a sus comparsas de los noventa. Muy probablemente debido a la cercanía en el tiempo de la creación de su nueva antología “la comparsa miserable”
 
-<figure class="video"><yt-facade video="tbc8sCRYp6U" title="#Popurrí De Popurrís / Una #Comparsa Miserable / Antología #MartínezAres #Carnaval2022  🎭"></yt-facade></figure>
+<figure class="video"><yt-facade video="tbc8sCRYp6U" title="#Popurrí De Popurrís / Una #Comparsa Miserable / Antología #MartínezAres #Carnaval2022  🎭"><a href="https://www.youtube.com/watch?v=tbc8sCRYp6U" rel="noopener"><span class="video__title">#Popurrí De Popurrís / Una #Comparsa Miserable / Antología #MartínezAres #Carnaval2022  🎭</span><span class="video__go">Ver en YouTube ↗</span></a></yt-facade></figure>
 
 <figure class="pull"><blockquote><p>Este carnaval<br>Lo voy a vivir en el subsuelo<br>Desentrañare lo que más quiero<br>Lo que más quiero<br>Este carnaval<br>Y los que hagan falta<br>Si es preciso<br>En las tinieblas<br>Hay paraíso</p></blockquote></figure>
 
@@ -44,7 +44,7 @@ Homenaje de la presentación de la revolución en los coreaos <a href="https://y
 
 Homenaje a la presentación de su comparsa El Vapor
 
-<figure class="video"><yt-facade video="_5QiekLs8Fg" title="Comparsa. El Vapor | PRELIMINARES (Presentación y Pasodobles) | Carnaval de Cádiz 1997" start="7"></yt-facade></figure>
+<figure class="video"><yt-facade video="_5QiekLs8Fg" title="Comparsa. El Vapor | PRELIMINARES (Presentación y Pasodobles) | Carnaval de Cádiz 1997" start="7"><a href="https://www.youtube.com/watch?v=_5QiekLs8Fg&amp;t=7s" rel="noopener"><span class="video__title">Comparsa. El Vapor | PRELIMINARES (Presentación y Pasodobles) | Carnaval de Cádiz 1997</span><span class="video__go">Ver en YouTube ↗</span></a></yt-facade></figure>
 
 <figure class="pull"><blockquote><p>¿Qué no?<br>Un día mas<br>Según se mire compañero<br>Un día menos</p></blockquote></figure>
 

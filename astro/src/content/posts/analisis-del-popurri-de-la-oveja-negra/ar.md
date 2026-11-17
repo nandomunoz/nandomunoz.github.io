@@ -20,7 +20,7 @@ cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1000,"h":750,"alt":"M
 
 وخلال <strong>الفصل الثالث</strong> (LA MATANZA DE LAS OVEJAS) تفهم الشخصية وضعها وتتأمل، وهو يكاد يكون كشفًا. وأخيرًا، <strong>الفصل الرابع أو الخاتمة</strong> (LA DESOBEDIENCIA DE LA OVEJA NEGRA) نهاية ملحمية، قوية، مباشرة، مؤثرة، عاطفية ودرامية (ليست حزينة بالضرورة).
 
-<figure class="video"><yt-facade video="23eSN-eBwW4" title="Comparsa, La oveja negra - Preliminares" start="1055"></yt-facade><figcaption><a href="https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055">https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055</a></figcaption></figure>
+<figure class="video"><yt-facade video="23eSN-eBwW4" title="Comparsa, La oveja negra - Preliminares" start="1055"><a href="https://www.youtube.com/watch?v=23eSN-eBwW4&amp;t=1055s" rel="noopener"><span class="video__title">Comparsa, La oveja negra - Preliminares</span><span class="video__go">شاهد على YouTube ↗</span></a></yt-facade><figcaption><a href="https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055">https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055</a></figcaption></figure>
 
 دون مزيد من الاتّساع (كما كانت ستقول القابلة) لننتقل إلى التحليل رباعيةً رباعية:
 

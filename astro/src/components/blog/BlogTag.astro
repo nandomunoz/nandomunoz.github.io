@@ -1,0 +1,23 @@
+---
+// /blog/etiqueta/<id>/ — the posts with one tag.
+import BlogLayout from './BlogLayout.astro';
+import BlogHead from './BlogHead.astro';
+import PostList from './PostList.astro';
+import { loadBlog } from '../../lib/blog.js';
+import { blogStrings } from '../../i18n/blog.js';
+import { pathFor, blogRest, type Locale } from '../../i18n/ui';
+import { getEntry } from 'astro:content';
+interface Props { lang: Locale; id: string }
+const { lang, id } = Astro.props;
+const B = blogStrings(lang);
+const { posts, categories, tags } = await loadBlog(lang);
+const t = tags[id];
+const mine = posts.filter((p) => p.tags.includes(id));
+const others = Object.values(tags).filter((x) => x.count && x.id !== id);
+const name = (await getEntry('site', 'site'))!.data.name;
+---
+<BlogLayout lang={lang} title={`#${t.label} · Blog · ${name}`} rest={blogRest.tag(id)} noindex={mine.length < 2}>
+  <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')], [B.tags, pathFor(lang, 'blog', blogRest.tags())]]} title={'#' + t.label} count={`${B.tagged} #${t.label} · ${B.countOne(mine.length)}`} />
+  <ul class="tags">{others.map((x) => <li><a href={pathFor(lang, 'blog', blogRest.tag(x.id))}>#{x.label}</a></li>)}</ul>
+  <PostList lang={lang} posts={mine} categories={categories} />
+</BlogLayout>

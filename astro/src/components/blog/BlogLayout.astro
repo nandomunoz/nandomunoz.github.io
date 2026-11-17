@@ -1,0 +1,11 @@
+---
+// A blog page: the shared chrome plus the blog's own styles, with the page content in a .blog column.
+import Base from '../../layouts/Base.astro';
+import '../../styles/blog.css';
+import type { Locale, Rest } from '../../i18n/ui';
+interface Props { lang: Locale; title: string; description?: string; rest?: Rest; noindex?: boolean; /** the article class on <main> content */ cls?: string }
+const { lang, title, description, rest, noindex, cls = 'blog' } = Astro.props;
+---
+<Base lang={lang} title={title} description={description} route="blog" rest={rest} current="blog" noindex={noindex}>
+  <div class={cls}><slot /></div>
+</Base>

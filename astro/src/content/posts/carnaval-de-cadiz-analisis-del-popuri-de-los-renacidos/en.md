@@ -10,7 +10,7 @@ original: "https://soynando.com/carnaval-de-cadiz-analisis-del-popuri-de-los-ren
 cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1500,"h":500,"alt":"Comparsa - Los Renacidos","credit":"Cartel de la comparsa Los Renacidos."}
 ---
 
-<figure class="video"><yt-facade video="mZ8Y6Ov4e2Y" title="Popurrí con letra. Comparsa «Los Renacidos» (2022). El Chapa escribe al grupo de Juan Carlos Aragón"></yt-facade></figure>
+<figure class="video"><yt-facade video="mZ8Y6Ov4e2Y" title="Popurrí con letra. Comparsa «Los Renacidos» (2022). El Chapa escribe al grupo de Juan Carlos Aragón"><a href="https://www.youtube.com/watch?v=mZ8Y6Ov4e2Y" rel="noopener"><span class="video__title">Popurrí con letra. Comparsa «Los Renacidos» (2022). El Chapa escribe al grupo de Juan Carlos Aragón</span><span class="video__go">Watch on YouTube ↗</span></a></yt-facade></figure>
 
 ## First quatrain: we find out who Los Renacidos are
 
@@ -104,7 +104,7 @@ Also remembering those who are gone “<em>Y si de lo que queda atrás / Yo guar
 
 <strong>Extra details from the street during the 2022 carnival</strong>
 
-<figure class="video"><yt-facade video="bJVfCVO9yc0" title="Comparsa Los renacidos (Popurrí) - Lunes de Carnaval"></yt-facade></figure>
+<figure class="video"><yt-facade video="bJVfCVO9yc0" title="Comparsa Los renacidos (Popurrí) - Lunes de Carnaval"><a href="https://www.youtube.com/watch?v=bJVfCVO9yc0" rel="noopener"><span class="video__title">Comparsa Los renacidos (Popurrí) - Lunes de Carnaval</span><span class="video__go">Watch on YouTube ↗</span></a></yt-facade></figure>
 
 https://twitter.com/Badawidecadi/status/1534082026290167808
 

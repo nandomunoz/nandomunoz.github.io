@@ -20,7 +20,7 @@ El <strong>segundo acto</strong> (LA BALADA DE LA OVEJA NEGRA) desarrolla la his
 
 Durante el <strong>tercer acto</strong> (LA MATANZA DE LAS OVEJAS) el personaje comprende su situación, reflexiona, es casi una revelación. Por último, el <strong>cuarto acto o desenlace</strong> (LA DESOBEDIENCIA DE LA OVEJA NEGRA) es un final épico, potente, directo, emocionante, pasional y dramático (no necesariamente triste).
 
-<figure class="video"><yt-facade video="23eSN-eBwW4" title="Comparsa, La oveja negra - Preliminares" start="1055"></yt-facade><figcaption><a href="https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055">https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055</a></figcaption></figure>
+<figure class="video"><yt-facade video="23eSN-eBwW4" title="Comparsa, La oveja negra - Preliminares" start="1055"><a href="https://www.youtube.com/watch?v=23eSN-eBwW4&amp;t=1055s" rel="noopener"><span class="video__title">Comparsa, La oveja negra - Preliminares</span><span class="video__go">Ver en YouTube ↗</span></a></yt-facade><figcaption><a href="https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055">https://youtu.be/23eSN-eBwW4?feature=shared&amp;t=1055</a></figcaption></figure>
 
 Sin más dilatación (como diría una comadrona) vayamos al análisis cuarteta por cuarteta:
 

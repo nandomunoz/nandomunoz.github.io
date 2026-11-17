@@ -10,7 +10,7 @@ original: "https://soynando.com/carnaval-analisis-del-popurri-de-los-sumisos/"
 cover: {"src":"./cover.jpg","tone":"./cover.tone.webp","w":1000,"h":668,"alt":"Sepia photograph of the members of the comparsa Los Sumisos, dressed as clowns with painted faces, singing on a stage","credit":"Foto firmada «@DIAZ FARRE»."}
 ---
 
-<figure class="video"><yt-facade video="gyGeLPDGoS8" title="Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares"></yt-facade></figure>
+<figure class="video"><yt-facade video="gyGeLPDGoS8" title="Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares"><a href="https://www.youtube.com/watch?v=gyGeLPDGoS8" rel="noopener"><span class="video__title">Popurrí con letra. Comparsa «Los Sumisos» (2022) de Antonio Martínez Ares</span><span class="video__go">Watch on YouTube ↗</span></a></yt-facade></figure>
 
 ## First quatrain: May, much more than a change of date
 
@@ -26,7 +26,7 @@ The list goes on, more moments than events, to end with the ironic reference to 
 
 From here the criticism begins, starting with the world of the coro and the authors' association. How? Well, by digging a little, it turns out that under the name Guacamayos y Lechuguinos appears a famous coro from 1984 with music by <a href="https://www.diariodecadiz.es/diario_del_carnaval/coro-Julio-Pardo-COAC-2022_0_1654934651.html">Julio Pardo</a> (a leading figure in the world of the coro) and lyrics by <a href="https://www.lavozdigital.es/cadiz-provincia/lvci-entrevista-kiko-zamora-presidente-4667054992001-20151218080000_video.html">Quico Zamora</a> (president of the Cádiz Carnival Authors' Association – <a href="http://aaccadiz.com/">aaccadiz.com</a>). It is also possible that they are referring <a href="http://curiosidadesdecadiz.blogspot.com/2014/06/guacamayos-y-lechuginos.html">to the historical figures that coro represented</a>, in which they are urged not to stay quiet, not to be submissive.
 
-<figure class="video"><yt-facade video="d_Yzdhk5Aqk" title="1984 Coro Guacamayos y lechuginos 02 A ti tacita de plata"></yt-facade></figure>
+<figure class="video"><yt-facade video="d_Yzdhk5Aqk" title="1984 Coro Guacamayos y lechuginos 02 A ti tacita de plata"><a href="https://www.youtube.com/watch?v=d_Yzdhk5Aqk" rel="noopener"><span class="video__title">1984 Coro Guacamayos y lechuginos 02 A ti tacita de plata</span><span class="video__go">Watch on YouTube ↗</span></a></yt-facade></figure>
 
 The name of the coro takes us back to a curious historical moment during the War of Independence:
 

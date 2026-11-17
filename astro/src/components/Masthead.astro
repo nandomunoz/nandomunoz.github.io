@@ -1,8 +1,8 @@
 ---
 // The strip on top: the logo that leads home and the language switch (plan Phase 4).
-import { ui, pathFor, type Locale, type Route } from '../i18n/ui';
+import { ui, pathFor, type Locale, type Route, type Rest } from '../i18n/ui';
 import LangSwitch from './LangSwitch.astro';
-interface Props { lang: Locale; route: Route; rest?: string }
+interface Props { lang: Locale; route: Route; rest?: Rest }
 const { lang, route, rest } = Astro.props;
 ---
 <header class="top">
