@@ -1,0 +1,12 @@
+---
+// One row of the project list: its dotted screen (the halftone of its capture), year and technologies, name and kicker.
+import { pathFor, type Locale } from '../../i18n/ui';
+interface Props { lang: Locale; project: any }
+const { lang, project: p } = Astro.props;
+---
+<li class="brow prow" data-tech={JSON.stringify(p.tech)}>
+  <div class="brow__thumb"><canvas class="brow__dots" aria-hidden="true" data-dots={JSON.stringify(p.row)}></canvas></div>
+  <p class="brow__meta"><span>{p.year}</span><span>{p.tech.join(' · ')}</span></p>
+  <h3 class="brow__title prow__name" dir="ltr"><a href={pathFor(lang, 'projects', p.id)}>{p.name}</a></h3>
+  <p class="brow__excerpt">{p.kicker}</p>
+</li>

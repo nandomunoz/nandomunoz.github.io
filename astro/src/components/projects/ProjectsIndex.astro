@@ -1,0 +1,51 @@
+---
+// /proyectos/ (plan Phase 7): every project newest year first, grouped by year, with a filter by technology.
+// The filter is JS only (src/scripts/projects.js hides rows); without JS the chips are not shown and the whole list is.
+import { loadProjects, techSlug } from '../../lib/projects.js';
+import { blogStrings } from '../../i18n/blog.js';
+import { DENSITY } from '../../lib/home.js';
+import { pathFor, ui, type Locale } from '../../i18n/ui';
+import ProjectsLayout from './ProjectsLayout.astro';
+import BlogHead from '../blog/BlogHead.astro';
+import ProjectRow from './ProjectRow.astro';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const B = blogStrings(lang), t = ui[lang];
+const { projects, techs } = await loadProjects(lang);
+const ys = projects.map((p) => p.year);
+const years: [number, typeof projects][] = [];
+for (const p of projects) { const g = years.at(-1); if (g && g[0] === p.year) g[1].push(p); else years.push([p.year, [p]]); }
+const base = pathFor(lang, 'projects');
+---
+<ProjectsLayout lang={lang} title={`${B.projects} · ${t.siteName}`} description={B.projDeck}>
+  <BlogHead n="02" title={B.projects} deck={B.projDeck} count={B.projCount(projects.length, Math.min(...ys), Math.max(...ys))} />
+  <nav class="chips chips--tech" aria-label={B.techLabel} data-tech-filter>
+    <ul>
+      <li><a href={base} aria-current="page" data-tech=""><span>{B.allTech}</span><sup>{projects.length}</sup></a></li>
+      {Object.entries(techs).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([x, n]) => (
+        <li><a href={`${base}?tech=${techSlug(x)}`} data-tech={x}><span>{x}</span><sup>{n}</sup></a></li>
+      ))}
+    </ul>
+  </nav>
+  <div class="legend" role="group" aria-labelledby="legend-title">
+    <h2 id="legend-title" class="legend__title">{B.projLegendTitle}</h2>
+    <p>{B.projLegend}</p>
+    <ul class="legend__keys">
+      {Object.entries(DENSITY).map(([y, d], k) => (
+        <li><canvas aria-hidden="true" data-dots={JSON.stringify({ cell: 6, rows: 7, density: d, kind: 6, seed: 7 + k, fixed: true })}></canvas><span>{y}</span></li>
+      ))}
+    </ul>
+  </div>
+  <div class="blist" data-projects>
+    {years.map(([year, list]) => (
+      <section class="byear" aria-label={String(year)} data-year>
+        <h2 class="byear__n">{year}</h2>
+        <ol class="brows">{list.map((p) => <ProjectRow lang={lang} project={p} />)}</ol>
+      </section>
+    ))}
+  </div>
+</ProjectsLayout>
+<script>
+  import '../../scripts/blocks.js';
+  import '../../scripts/projects.js';
+</script>
