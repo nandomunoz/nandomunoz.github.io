@@ -48,7 +48,7 @@
       "HTML",
       "LUZ"
     ],
-    "demo": "https://nandovejer.github.io/ikay-vanilla/",
+    "demo": "https://nandomunoz.github.io/ikay-vanilla/",
     "repo": "https://github.com/nandomunoz/ikay-vanilla",
     "plate": "fingerprint",
     "es": {
@@ -88,7 +88,7 @@
       "Chrome AI",
       "LUZ"
     ],
-    "demo": "https://nandovejer.github.io/apiChrome/",
+    "demo": "https://nandomunoz.github.io/apiChrome/",
     "repo": "https://github.com/nandomunoz/apiChrome",
     "ornament": "asterism",
     "es": {
@@ -161,7 +161,7 @@
       "Vite",
       "PWA"
     ],
-    "demo": "https://nandovejer.github.io/streetcai/",
+    "demo": "https://nandomunoz.github.io/streetcai/",
     "repo": "https://github.com/nandomunoz/streetcai",
     "ornament": "fleuron",
     "es": {
@@ -197,7 +197,7 @@
       "CSS",
       "JSON"
     ],
-    "demo": "https://nandovejer.github.io/api-coac/",
+    "demo": "https://nandomunoz.github.io/api-coac/",
     "repo": "https://github.com/nandomunoz/api-coac",
     "plate": "guitar",
     "es": {
@@ -258,7 +258,7 @@
     "tech": [
       "HTML"
     ],
-    "demo": "https://nandovejer.github.io/accessibility/",
+    "demo": "https://nandomunoz.github.io/accessibility/",
     "repo": "https://github.com/nandomunoz/accessibility",
     "plate": "keyhole",
     "es": {
@@ -319,7 +319,7 @@
       "CSS",
       "PWA"
     ],
-    "demo": "https://nandovejer.github.io/string-transformer/",
+    "demo": "https://nandomunoz.github.io/string-transformer/",
     "repo": "https://github.com/nandomunoz/string-transformer",
     "es": {
       "kicker": "Herramienta de texto",
@@ -347,7 +347,7 @@
       "JavaScript",
       "Chrome AI"
     ],
-    "demo": "https://nandovejer.github.io/coac-analisis/",
+    "demo": "https://nandomunoz.github.io/coac-analisis/",
     "repo": "https://github.com/nandomunoz/coac-analisis",
     "es": {
       "kicker": "Dashboard de datos",
