@@ -144,6 +144,57 @@ for (const url of ['/', `/blog/${POST}/`, '/proyectos/', '/politica-de-cookies/'
   await ctx.close();
 }
 
+// ---------------------------------------------------------------- text spacing (1.4.12) and forced colours
+console.log('layout shift and LCP (unthrottled: the shift is the same, the LCP only a floor)');
+for (const [name, url] of [['es home', '/'], ['es post', `/blog/${POST}/`], ['es projects', '/proyectos/'], ['es project', '/proyectos/luz/'], ['ar home', '/ar/']]) {
+  for (const width of [375, 1280]) {
+    const ctx = await browser.newContext({ viewport: { width, height: width < 600 ? 700 : 800 } });
+    const pg = await ctx.newPage();
+    await pg.addInitScript(() => {
+      window.__cls = 0; window.__lcp = 0;
+      new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+      new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
+    });
+    await pg.goto(base + url); await pg.waitForTimeout(2500);
+    const { cls, lcp } = await pg.evaluate(() => ({ cls: window.__cls, lcp: window.__lcp }));
+    console.log(`  ${name} @${width}: CLS ${cls.toFixed(3)}, LCP ${Math.round(lcp)} ms`);
+    note(cls < 0.1, `${name} @${width}: CLS ${cls.toFixed(3)} (limit 0.1)`);
+    note(lcp < 2500, `${name} @${width}: LCP ${Math.round(lcp)} ms (limit 2500)`);
+    await ctx.close();
+  }
+}
+
+console.log('text spacing and forced colours');
+const SPACING = '*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-block-end:2em!important}';
+for (const [name, url] of pages) {
+  if (!exists(url) && !url.endsWith('404.html')) continue;
+  if (quick && !key.has(name)) continue;
+  for (const width of [375, 1280]) {
+    const ctx = await browser.newContext({ viewport: { width, height: 800 }, reducedMotion: 'reduce' });
+    const pg = await ctx.newPage();
+    await pg.goto(base + url);
+    await pg.addStyleTag({ content: SPACING });
+    await pg.waitForTimeout(500);
+    // text that a box cuts off: a clipping box whose content does not fit
+    const cut = await pg.evaluate(() => [...document.querySelectorAll('body *')].filter((e) => {
+      if (e.closest('canvas, .vh, [hidden], luz-cookie-consent') || !e.textContent.trim()) return false;
+      const c = getComputedStyle(e);
+      if (!/hidden|clip/.test(c.overflowX + c.overflowY) || c.position === 'fixed') return false;
+      return e.scrollHeight > e.clientHeight + 2 && /hidden|clip/.test(c.overflowY) || e.scrollWidth > e.clientWidth + 2 && /hidden|clip/.test(c.overflowX);
+    }).map((e) => e.className || e.tagName).slice(0, 3));
+    note(!cut.length, `${name} @${width} with the text spacing of 1.4.12: clipped ${cut.join(', ')}`);
+    note(!(await pg.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)), `${name} @${width} with the text spacing of 1.4.12: scrolls sideways`);
+    await ctx.close();
+  }
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, forcedColors: 'active', reducedMotion: 'reduce' });
+  const pg = await ctx.newPage();
+  const errs = [];
+  pg.on('pageerror', (e) => errs.push(e.message));
+  await pg.goto(base + url); await pg.waitForTimeout(500);
+  note(!errs.length && !(await pg.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)), `${name} in forced colours: ${errs[0] ?? 'scrolls sideways'}`);
+  await ctx.close();
+}
+
 await browser.close();
 server.close();
 console.log(fails.length ? `\n${fails.length} failure(s)` : '\n✓ audit passed');

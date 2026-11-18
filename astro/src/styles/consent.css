@@ -98,6 +98,8 @@
     .luz-cookie-consent { inset: auto var(--gut) 1.25rem auto; inline-size: 22rem; }
     :root:has(luz-cookie-consent > :not([hidden])) body { padding-block-end: 0; }
     :root:has(luz-cookie-consent > :not([hidden])) .foot { padding-block-end: calc(var(--luz-consent-h, 0px) + 2.5rem); }
+    /* the cover's credits (the name) sit in the same corner: they rise above the card while it is there */
+    :root:has(luz-cookie-consent > :not([hidden])) .hero__copy { padding-block-end: calc(var(--luz-consent-h, 0px) + 2.5rem); }
     :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: 0; }
     :lang(ar) .luz-cookie-consent { inset: auto auto 1.25rem var(--gut); }
   }

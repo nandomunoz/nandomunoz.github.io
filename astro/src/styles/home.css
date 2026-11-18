@@ -3,14 +3,14 @@
    and --accent-fill for dots and fills. */
 @layer trama {
   /* ------------------------------------------------------------ cover */
-  .hero { position: relative; block-size: max(36rem, 100svh); overflow: clip; isolation: isolate; }
+  .hero { position: relative; display: grid; min-block-size: max(36rem, 100svh); overflow: clip; isolation: isolate; }   /* it grows with its text (1.4.12: a user's spacing must not cut it) */
   .hero__field { position: absolute; inset: 0; z-index: 0; display: block; inline-size: 100%; block-size: 100%; touch-action: pan-y; cursor: pointer; }
   /* until the rain runs (or without JS): a field of dots */
   .hero__field:not([data-mounted]) { background: radial-gradient(circle, var(--faint) 1px, transparent 1.6px) 0 0 / 9px 9px; opacity: .5; }
   .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     background: linear-gradient(to bottom, var(--bg) 0, color-mix(in srgb, var(--bg) 80%, transparent) 30%, transparent 62%),
                 linear-gradient(to top, color-mix(in srgb, var(--bg) 92%, transparent) 0, transparent 30%); }
-  .hero__copy { position: absolute; inset: 0; z-index: 1; pointer-events: none; display: grid; grid-template-rows: auto 1fr auto; padding: 7.8rem var(--gut) 3rem; }
+  .hero__copy { position: relative; z-index: 1; pointer-events: none; display: grid; grid-template-rows: auto 1fr auto; padding: 7.8rem var(--gut) 3rem; }
   .hero__copy > * { margin: 0; }
   .hero__deck { font-family: Archivo, system-ui, sans-serif; font-weight: 200; font-stretch: 72%; font-size: clamp(3rem, 14.5vw, 11rem); line-height: .86; letter-spacing: -.025em; color: var(--ink); max-inline-size: 11ch; }
   .hero__deck .l { display: block; }
@@ -145,7 +145,7 @@
   @media (min-width: 64em) {
     .hero__copy { padding-block: 6.5rem 3.5rem; }
     .hero__deck { max-inline-size: none; font-size: clamp(4rem, 7.2vw, 9rem); line-height: .98; letter-spacing: -.02em; }
-    .hero__deck .l { white-space: nowrap; }
+    /* each sentence is a line of its own; it may wrap by word if a user's text spacing makes it longer than the screen (1.4.12) */
     .hero__billing { justify-self: end; justify-items: end; text-align: end; min-inline-size: 26rem; }
     .bio { padding-block: 18rem 12rem; }
     .bio .sec-head { grid-column: 2 / 6; position: sticky; inset-block-start: 20vh; align-self: start; }
