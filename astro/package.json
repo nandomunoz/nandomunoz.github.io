@@ -12,7 +12,6 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test \"src/**/*.test.mjs\"",
-    "verify:content": "node tools/verify-content.mjs",
     "check:links": "node tools/check-links.mjs",
     "check:placeholders": "node tools/check-placeholders.mjs",
     "wp:inventory": "node tools/wp-inventory.mjs",

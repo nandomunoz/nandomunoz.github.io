@@ -1,5 +1,5 @@
-// Content collections (plan, Phase 3). The data comes from the maqueta through
-// tools/migrate-content.mjs; from here on this is the source of truth.
+// Content collections (plan, Phase 3). The data was migrated once from the maqueta (now removed);
+// from here on this is the source of truth.
 import { defineCollection } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 import { z } from 'astro/zod';

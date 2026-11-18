@@ -12,7 +12,6 @@ Node 22.22 o más. Desde esta carpeta:
 | `npm run dev` | Servidor de desarrollo en `localhost:4321`. |
 | `npm run build` | `astro check`, `astro build` → `dist/` (150 páginas) y `tools/csp.mjs`, que pone la Content-Security-Policy como `<meta>` con el hash de cada script en línea. |
 | `npm test` | Pruebas `node:test`: paridad es/en/ar, plurales del árabe, datos de la home, tiempo de lectura. |
-| `npm run verify:content` | Cada artículo migrado se renderiza como decían los bloques de origen. |
 | `npm run check:links` | Enlaces, imágenes y anclas internas de `dist/`. |
 | `npm run budgets` | Peso por página frente al presupuesto (HTML+CSS < 60 KB, JS < 35 KB en la home, < 20 KB en un artículo). |
 | `npm run audit` | Chromium sobre `dist/`: axe (WCAG 2.2 AA), reflow, sin JS, cookies sin peticiones a Google, foco, espaciado de texto, colores forzados, CLS, el panel de proyectos. `CHROMIUM=/ruta/a/chrome` para elegir navegador; `-- --quick` para una pasada corta. |

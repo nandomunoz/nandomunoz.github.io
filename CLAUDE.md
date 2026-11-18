@@ -13,7 +13,7 @@ Si el build dice que la voz no está instalada, ejecuta `tools/voice-setup.sh` (
 
 ## Imágenes: siempre `<picture>`, nunca un `<img>` suelto
 
-Toda imagen de contenido va dentro de un `<picture>`, aunque hoy solo haya un formato, para poder añadir otros (AVIF, WebP…) con `<source type="…">` sin tocar el marcado. El `<img>` de dentro es el formato de respaldo y es el que lleva `alt`, `width`, `height` y `loading`. Esto vale para el HTML que escribas a mano, para el que genera `build.mjs` y para el que monta el JS de la maqueta.
+Toda imagen de contenido va dentro de un `<picture>`, aunque hoy solo haya un formato, para poder añadir otros (AVIF, WebP…) con `<source type="…">` sin tocar el marcado. El `<img>` de dentro es el formato de respaldo y es el que lleva `alt`, `width`, `height` y `loading`. Esto vale para el HTML que escribas a mano y para el que generan `build.mjs` y el sitio Astro (`astro/`).
 
 ```html
 <picture>
