@@ -1,0 +1,31 @@
+---
+// 01 · three columns of dots and the bio's paragraphs; the last words of the last one point to the blog and the projects.
+import { ui, pathFor, type Locale } from '../../i18n/ui';
+import SecHead from './SecHead.astro';
+interface Props { lang: Locale; bio: string[] }
+const { lang, bio } = Astro.props;
+const t = ui[lang], h = t.home;
+const href = (route: string) => (route === 'blog' ? '#blog' : pathFor(lang, 'projects'));
+// «mis artículos» and «mis proyectos» become links, found from the end of each paragraph
+function linked(text: string) {
+  const out: (string | { words: string; to: string })[] = [];
+  let rest = text;
+  for (const [words, route] of h.bioLinks) {
+    const at = rest.lastIndexOf(words);
+    if (at < 0) continue;
+    out.push(rest.slice(0, at), { words, to: href(route) });
+    rest = rest.slice(at + words.length);
+  }
+  return [...out, rest];
+}
+const cols = [{ rows: 34, density: 1, kind: 1, seed: 101 }, { rows: 24, density: 0.75, kind: 3, seed: 102 }, { rows: 44, density: 0.95, kind: 2, seed: 103 }];
+---
+<section class="bio" id="bio" aria-labelledby="bio-title">
+  <div class="bio__cols" aria-hidden="true">
+    {cols.map((c) => <canvas class="col" data-dots={JSON.stringify(c)}></canvas>)}
+  </div>
+  <SecHead n="01" id="bio-title" title={t.bio} />
+  <div class="bio__text">
+    {bio.map((p, i) => <p class:list={['reveal', { bio__lead: i === 0 }]}>{linked(p).map((x) => (typeof x === 'string' ? x : <a href={x.to}>{x.words}</a>))}</p>)}
+  </div>
+</section>

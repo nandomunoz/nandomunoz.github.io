@@ -1,0 +1,21 @@
+---
+// 04 · «Escríbeme»: a field of dots, a line of text and the networks (not the blog: it is this site).
+import { getEntry } from 'astro:content';
+import { ui, type Locale } from '../../i18n/ui';
+import SecHead from './SecHead.astro';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const t = ui[lang];
+const site = (await getEntry('site', 'site'))!.data, L = site[lang];
+const socials = site.socials.filter((s) => s.id !== 'blog');
+---
+<section class="contact" id="contacto" aria-labelledby="contact-title">
+  <canvas class="contact__field" aria-hidden="true" data-dots={JSON.stringify({ rows: 22, density: 0.8, kind: 0, seed: 404, narrow: { rows: 16 } })}></canvas>
+  <SecHead n="04" id="contact-title" title={L.contactTitle} />
+  <p class="contact__text reveal">{L.contactText}</p>
+  <ul class="socials">
+    {socials.map((s) => (
+      <li><a href={s.url} rel="me noopener" target="_blank"><span class="socials__label">{s.label}</span><span class="socials__lead" aria-hidden="true"></span><span class="socials__handle">{s.handle}</span><span class="vh"> {t.newTab}</span></a></li>
+    ))}
+  </ul>
+</section>

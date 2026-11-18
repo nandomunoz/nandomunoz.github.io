@@ -1,0 +1,55 @@
+---
+// 02 · the five featured projects (plan Phase 6): each a dotted block (its kanji drawn big over the halftone of
+// its screenshot, the year setting the density, the text's length the height), a legend of how to read them,
+// and a link to all. The cards are links to /proyectos/<id>/ (they work without JS).
+import { getCollection } from 'astro:content';
+import { ui, pathFor, type Locale } from '../../i18n/ui';
+import { FEATURED, DENSITY, projectBlocks } from '../../lib/home.js';
+import { arrows } from '../../i18n/blog.js';
+import SecHead from './SecHead.astro';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const t = ui[lang], h = t.home, A = arrows(lang);
+const all = await getCollection('projects', (p) => !p.data.hidden);
+const featured = FEATURED.map((id) => all.find((p) => p.data.id === id)).filter((p): p is NonNullable<typeof p> => !!p);
+const blocks = projectBlocks(featured, lang);
+const years = all.map((p) => p.data.year);
+const count = h.count(all.length, Math.min(...years), Math.max(...years));
+const text = (p: (typeof featured)[number]) => p.data[lang === 'ar' && !p.data.ar ? 'es' : lang]!;
+---
+<section class="work" id="trabajo" aria-labelledby="work-title">
+  <SecHead n="02" id="work-title" title={t.work} count={count} />
+  <div class="legend reveal" role="group" aria-labelledby="legend-title">
+    <h3 id="legend-title">{h.legendTitle}</h3>
+    <p>{h.legend}</p>
+    <ul class="legend__keys">
+      {Object.entries(DENSITY).map(([y, d], k) => (
+        <li><canvas aria-hidden="true" data-dots={JSON.stringify({ cell: 6, rows: 7, density: d, kind: 6, seed: 7 + k, fixed: true })}></canvas><span>{y}</span></li>
+      ))}
+    </ul>
+  </div>
+  <ol class="works">
+    {blocks.map(({ p, h: hh, gloss, front, back }, i) => {
+      const d = p.data, url = pathFor(lang, 'projects', d.id);
+      return (
+        <li class="item" style={`--k:${i};--w:${58 + (hh % 43)}%;--depth:${(hh >> 4) % 3}`}>
+          <div class="item__stage">
+            <a class="item__block" href={url} tabindex="-1" aria-hidden="true" data-i={i}>
+              <canvas class="back" data-dots={JSON.stringify(back)}></canvas>
+              <canvas class="front" data-dots={JSON.stringify({ ...front, tone: d.shot?.tone?.src })}></canvas>
+              {gloss && <span class="gloss">{gloss}</span>}
+            </a>
+          </div>
+          <div class="item__text">
+            <p class="item__meta"><span>{d.year}</span></p>
+            <h3 class="item__name" dir="ltr">{d.name}</h3>
+            <p class="item__kicker">{text(p).kicker}</p>
+            <ul class="tech">{d.tech.map((x: string) => <li>{x}</li>)}</ul>
+            <a class="item__open" href={url}><span>{h.open}</span><span class="vh"> {d.name}</span><span class="item__arrow" aria-hidden="true">{A.next}</span></a>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+  <a class="blogsec__all work__all" href={pathFor(lang, 'projects')}><span>{h.allProjects}</span> <span aria-hidden="true">{A.next}</span></a>
+</section>

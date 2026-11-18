@@ -21,7 +21,9 @@ const visible = new Set();
 let lastCell = 0, lastWidth = innerWidth, pending = false;
 
 function make(e, cell) {
-  const o = { cell, ...e.opts };
+  // `narrow`: options that replace the others under 64rem (a card is shorter on a phone)
+  const { narrow, ...rest } = e.opts;
+  const o = { cell, ...rest, ...(innerWidth < 1024 ? narrow : null) };
   if (e.tone) o.tone = e.tone;
   return new DotBlock(e.cv, o);
 }

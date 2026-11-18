@@ -57,6 +57,12 @@ export const ui = {
       cookieSettings: 'Ajustes de cookies',
       legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.']
     },
+    home: {
+      pre: 'una web de', motto: 'Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio', key: '(Proyecto|Humano|IA|motivo|centro|medio)', green: ['Proyecto', 'Humano', 'IA'],
+      legendTitle: 'Cómo leer los bloques', legend: 'Cada bloque es un proyecto. Cuanto más reciente, más denso; cuanto más largo su texto, más alto. Su kanji va dibujado en grande; la trama de fondo sale de su captura.',
+      open: 'Abrir', allProjects: 'Todos los proyectos', allPosts: 'Todos los artículos', bioLinks: [['mis artículos', 'blog'], ['mis proyectos', 'projects']],
+      count: (n: number, a: number, b: number) => `${n} proyectos · ${a}–${b}`
+    },
     theme: { legend: 'Modo de color', light: 'Claro', 'high-contrast': 'Contraste alto', dark: 'Oscuro' }
   },
   en: {
@@ -67,6 +73,12 @@ export const ui = {
       cookieSettings: 'Cookie settings',
       legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.']
     },
+    home: {
+      pre: 'a site by', motto: 'Project, the reason. Human, the core. TechnologAI, only the means', key: '(Project|Human|AI|reason|core|means)', green: ['Project', 'Human', 'AI'],
+      legendTitle: 'How to read the blocks', legend: 'Each block is a project. The newer, the denser; the longer its text, the taller. Its kanji is drawn big; the field behind it comes from its screenshot.',
+      open: 'Open', allProjects: 'All projects', allPosts: 'All posts', bioLinks: [['my articles', 'blog'], ['my projects', 'projects']],
+      count: (n: number, a: number, b: number) => `${n} projects · ${a}–${b}`
+    },
     theme: { legend: 'Colour mode', light: 'Light', 'high-contrast': 'High contrast', dark: 'Dark' }
   },
   ar: {
@@ -76,6 +88,12 @@ export const ui = {
       sections: 'الأقسام', follow: 'تابعني', about: 'عن هذا الموقع', privacy: 'الخصوصية', cookies: 'الكوكيز', credits: 'الاعتمادات والترخيص',
       cookieSettings: 'إعدادات الكوكيز',
       legal: ['المحتوى © ', '، باستثناء ما يُنسب إلى أصحابه في ', 'الاعتمادات', '. صُنع بـ ', ' (رخصة MIT). كيف يستخدم هذا الموقع الكوكيز، في ', 'سياسة الكوكيز', '؛ ويمكنك تغيير ', 'إعدادات الكوكيز', ' متى شئت.']
+    },
+    home: {
+      pre: 'موقع من إنجاز', motto: 'المشروع: السبب. الإنسان: المحور. الذكاء الاصطناعي: مجرّد وسيلة', key: '(المشروع|الإنسان|الذكاء الاصطناعي|السبب|المحور|وسيلة)', green: ['المشروع', 'الإنسان', 'الذكاء الاصطناعي'],
+      legendTitle: 'كيف تُقرأ الكتل', legend: 'كل كتلة مشروع. كلما كان أحدث زادت كثافته؛ وكلما طال نصه زاد ارتفاعها. رمز الكانجي الخاص به مرسوم بحجم كبير؛ والنمط في الخلفية مأخوذ من لقطة شاشته.',
+      open: 'افتح', allProjects: 'كل المشاريع', allPosts: 'كل المقالات', bioLinks: [['مقالاتي', 'blog'], ['مشاريعي', 'projects']],
+      count: (n: number, a: number, b: number) => `${n === 1 ? 'مشروع واحد' : n === 2 ? 'مشروعان' : n % 100 >= 3 && n % 100 <= 10 ? n + ' مشاريع' : n + ' مشروعًا'} · ${a}–${b}`
     },
     theme: { legend: 'نمط الألوان', light: 'فاتح', 'high-contrast': 'تباين عالٍ', dark: 'داكن' }
   }
