@@ -52,6 +52,6 @@ const sections = [
     </section>
   </div>
   <div class="foot__end">
-    <p class="foot__by">{f.legal[0]}{site.name}{f.legal[1]}<a href={pathFor(lang, 'credits')}>{f.legal[2]}</a>{f.legal[3]}<a href={luzUrl} target="_blank" rel="noopener"><span>LUZ</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>{f.legal[4]}<a href={pathFor(lang, 'cookies')}>{f.legal[5]}</a>{f.legal[6]}<button type="button" class="foot__consent" data-luz-consent-open hidden>{f.legal[7]}</button>{f.legal[8]}</p>
+    <p class="foot__by">{f.legal[0]}{site.name}{f.legal[1]}<a href={pathFor(lang, 'credits')}>{f.legal[2]}</a>{f.legal[3]}<a href={luzUrl} target="_blank" rel="noopener"><span>LUZ</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>{f.legal[4]}<a href={pathFor(lang, 'cookies')}>{f.legal[5]}</a>{f.legal[6]}<a class="foot__nojs" href={pathFor(lang, 'cookies')}>{f.legal[7]}</a><button type="button" class="foot__consent" data-luz-consent-open hidden>{f.legal[7]}</button>{f.legal[8]}</p>
   </div>
 </footer>
