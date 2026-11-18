@@ -85,8 +85,14 @@
   }
   @media screen and (height > 30rem) and (max-width: 63.99em) {
     /* while it shows, the pill moves to the edge to make room: beside the card when it fits, riding on it when not (consent.js measures it) */
-    :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { inset-inline-start: max(.75rem, var(--gut)); translate: 0 0; inset-block-end: 1.25rem; }
+    :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { left: max(.75rem, var(--gut)); right: auto; translate: 0 0; inset-block-end: 1.25rem; }
     :root.docked:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+  }
+  /* on a phone the home's menu is already the pill (CSS only, no .docked class): it makes room the same way */
+  @media screen and (height > 30rem) and (max-width: 47.99em) {
+    :root:has(luz-cookie-consent > :not([hidden])) .nav { left: max(.75rem, var(--gut)); right: auto; translate: 0 0; inset-block-end: 1.25rem; }
+    :root:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: calc(var(--luz-consent-h, 0px) + 6rem); }
   }
   @media screen and (height > 30rem) and (min-width: 48em) {
     .luz-cookie-consent { inset: auto var(--gut) 1.25rem auto; inline-size: 22rem; }

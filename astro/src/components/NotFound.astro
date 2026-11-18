@@ -18,7 +18,7 @@ const { posts, categories } = await loadBlog(lang);
 const index = (lang === 'es' ? '' : `/${lang}`) + '/search.json';
 const ways = [['01', t.bio, pathFor(lang, 'home') + '#bio'], ['02', t.work, pathFor(lang, 'projects')], ['03', t.blog, pathFor(lang, 'blog')], ['04', site[lang].contactTitle, pathFor(lang, 'home') + '#contacto']];
 ---
-<Base lang={lang} title={`404 · ${B.nf} · ${site.name}`} description={B.nfText} route="home" noindex>
+<Base lang={lang} title={`404 · ${B.nf} · ${site.name}`} description={B.nfText} route="home" inner noindex>
   {lang === 'es' && <script is:inline set:html={`var l=location.pathname.split('/')[1];if((l==='en'||l==='ar')&&location.pathname.indexOf('/404/')<0)location.replace('/'+l+'/404/?from='+encodeURIComponent(location.pathname+location.search))`} />}
   <div class="lost-page"><div class="blog">
     <section class="lost" aria-labelledby="lost-title" data-lost data-index={index}>

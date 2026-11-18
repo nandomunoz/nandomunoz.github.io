@@ -15,7 +15,9 @@
     "verify:content": "node tools/verify-content.mjs",
     "check:links": "node tools/check-links.mjs",
     "check:placeholders": "node tools/check-placeholders.mjs",
-    "redirects": "node tools/redirects.mjs"
+    "redirects": "node tools/redirects.mjs",
+    "budgets": "node tools/budgets.mjs",
+    "audit": "node tools/audit.mjs"
   },
   "dependencies": {
     "@luz-ds/catalog": "0.4.1",
@@ -25,6 +27,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
+    "axe-core": "4.10.3",
+    "playwright-core": "1.65.1",
     "typescript": "6.0.3"
   }
 }

@@ -29,10 +29,12 @@ interface Props {
   ogType?: 'website' | 'article';
   /** schema.org nodes for this page, written as one @graph */
   jsonld?: object[];
+  /** a page that is not the home but borrows its route (the 404): the menu links to the home's sections instead of scrolling to them */
+  inner?: boolean;
 }
-const { lang, title, description = '', route, rest = '', current, noindex = false, image, ogType = 'website', jsonld = [] } = Astro.props;
+const { lang, title, description = '', route, rest = '', current, noindex = false, image, ogType = 'website', jsonld = [], inner = false } = Astro.props;
 const site = Astro.site!.origin;
-const home = route === 'home';
+const home = route === 'home' && !inner;
 const url = site + pathFor(lang, route, rest);
 const og = image ?? { src: `/og/${lang}.jpg`, alt: title };
 const ogLocale = { es: 'es_ES', en: 'en_GB', ar: 'ar_SY' } as const;
