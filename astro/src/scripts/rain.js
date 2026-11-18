@@ -301,12 +301,18 @@ const lluvia = {
       const k = sw && u < SWAP[2] ? easeIn(u < SWAP[0] ? u / SWAP[0] : u < SWAP[1] ? 1 : clamp(1 - (u - SWAP[1]) / (SWAP[2] - SWAP[1]))) : 0;
       // and every mask breathes while it moves, between 0.2 and 0.25 opacity (at rest it holds the top of that)
       const op = reduce || f.still ? 0.25 : 0.2 + 0.05 * (0.5 - 0.5 * Math.cos(((now - f.cycleT0) / 3200) * Math.PI * 2));
-      const g = f.mix.getContext('2d'); g.globalCompositeOperation = 'copy'; g.globalAlpha = 1; g.fillStyle = 'rgba(0,0,0,0)'; g.fillRect(0, 0, f.mix.width, f.mix.height);
-      g.globalCompositeOperation = 'lighter';
-      if (A.m) { g.globalAlpha = op * (1 - k); g.drawImage(A.m, 0, 0); }
-      if (B.m && k > 0) { g.globalAlpha = op * k; g.drawImage(B.m, 0, 0); }
-      g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
-      ctx.globalAlpha = enter; f.mask = f.mix; line = A.line * (1 - k) + B.line * k;
+      if (k === 0 && A.m) {
+        // no crossfade (the usual frame): the one mask is cut out at its own opacity, with no mixing canvas (three full-size
+        // draws less per frame; the result is the same: the mix would hold this mask at `op`)
+        f.mask = A.m; ctx.globalAlpha = enter * op; line = A.line;
+      } else {
+        const g = f.mix.getContext('2d'); g.globalCompositeOperation = 'copy'; g.globalAlpha = 1; g.fillStyle = 'rgba(0,0,0,0)'; g.fillRect(0, 0, f.mix.width, f.mix.height);
+        g.globalCompositeOperation = 'lighter';
+        if (A.m) { g.globalAlpha = op * (1 - k); g.drawImage(A.m, 0, 0); }
+        if (B.m && k > 0) { g.globalAlpha = op * k; g.drawImage(B.m, 0, 0); }
+        g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
+        ctx.globalAlpha = enter; f.mask = f.mix; line = A.line * (1 - k) + B.line * k;
+      }
     }
     ctx.globalCompositeOperation = 'destination-out'; if (f.mask) ctx.drawImage(f.mask, 0, 0, w, h);
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
