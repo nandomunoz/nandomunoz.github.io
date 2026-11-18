@@ -9,7 +9,7 @@
       "CSS"
     ],
     "demo": "https://luzds.com/",
-    "repo": "https://github.com/nandovejer/luz",
+    "repo": "https://github.com/nandomunoz/luz",
     "plate": "lamp",
     "es": {
       "kicker": "Sistema de diseño",
@@ -49,7 +49,7 @@
       "LUZ"
     ],
     "demo": "https://nandovejer.github.io/ikay-vanilla/",
-    "repo": "https://github.com/nandovejer/ikay-vanilla",
+    "repo": "https://github.com/nandomunoz/ikay-vanilla",
     "plate": "fingerprint",
     "es": {
       "kicker": "Huella digital del navegador",
@@ -89,7 +89,7 @@
       "LUZ"
     ],
     "demo": "https://nandovejer.github.io/apiChrome/",
-    "repo": "https://github.com/nandovejer/apiChrome",
+    "repo": "https://github.com/nandomunoz/apiChrome",
     "ornament": "asterism",
     "es": {
       "kicker": "IA en el navegador",
@@ -123,7 +123,7 @@
       "LUZ"
     ],
     "demo": "https://coac.com.es/",
-    "repo": "https://github.com/nandovejer/coac",
+    "repo": "https://github.com/nandomunoz/coac",
     "plate": "mask",
     "es": {
       "kicker": "Carnaval de Cádiz",
@@ -162,7 +162,7 @@
       "PWA"
     ],
     "demo": "https://nandovejer.github.io/streetcai/",
-    "repo": "https://github.com/nandovejer/streetcai",
+    "repo": "https://github.com/nandomunoz/streetcai",
     "ornament": "fleuron",
     "es": {
       "kicker": "Videojuego",
@@ -198,7 +198,7 @@
       "JSON"
     ],
     "demo": "https://nandovejer.github.io/api-coac/",
-    "repo": "https://github.com/nandovejer/api-coac",
+    "repo": "https://github.com/nandomunoz/api-coac",
     "plate": "guitar",
     "es": {
       "kicker": "Archivo musical",
@@ -230,7 +230,7 @@
       "Chrome Extension"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/toolbar-aem",
+    "repo": "https://github.com/nandomunoz/toolbar-aem",
     "ornament": "vine",
     "es": {
       "kicker": "Extensión de Chrome",
@@ -259,7 +259,7 @@
       "HTML"
     ],
     "demo": "https://nandovejer.github.io/accessibility/",
-    "repo": "https://github.com/nandovejer/accessibility",
+    "repo": "https://github.com/nandomunoz/accessibility",
     "plate": "keyhole",
     "es": {
       "kicker": "Accesibilidad",
@@ -290,7 +290,7 @@
       "Markdown"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/libros-del-mundo",
+    "repo": "https://github.com/nandomunoz/libros-del-mundo",
     "ornament": "hedera",
     "es": {
       "kicker": "Biblioteca",
@@ -320,7 +320,7 @@
       "PWA"
     ],
     "demo": "https://nandovejer.github.io/string-transformer/",
-    "repo": "https://github.com/nandovejer/string-transformer",
+    "repo": "https://github.com/nandomunoz/string-transformer",
     "es": {
       "kicker": "Herramienta de texto",
       "body": [
@@ -348,7 +348,7 @@
       "Chrome AI"
     ],
     "demo": "https://nandovejer.github.io/coac-analisis/",
-    "repo": "https://github.com/nandovejer/coac-analisis",
+    "repo": "https://github.com/nandomunoz/coac-analisis",
     "es": {
       "kicker": "Dashboard de datos",
       "body": [
@@ -375,7 +375,7 @@
       "Web Components"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/illo-loader",
+    "repo": "https://github.com/nandomunoz/illo-loader",
     "es": {
       "kicker": "Componente web",
       "body": [
@@ -402,7 +402,7 @@
       "Node.js"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/js-subtype",
+    "repo": "https://github.com/nandomunoz/js-subtype",
     "es": {
       "kicker": "Librería npm",
       "body": [
