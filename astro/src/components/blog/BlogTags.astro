@@ -14,7 +14,7 @@ const used = Object.values(tags).filter((t) => t.count).sort((x, y) => y.count -
 const max = Math.max(...used.map((t) => t.count));
 const name = (await getEntry('site', 'site'))!.data.name;
 ---
-<BlogLayout lang={lang} title={`${B.tags} · Blog · ${name}`} rest={blogRest.tags()}>
+<BlogLayout lang={lang} title={`${B.tags} · Blog · ${name}`} description={B.tagsDeck} rest={blogRest.tags()}>
   <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')]]} title={B.tags} count={`${used.length} ${B.tags.toLowerCase()}`} />
   <ul class="tags tags--cloud">
     {used.map((t) => <li style={`--w:${(t.count / max).toFixed(2)}`}><a href={pathFor(lang, 'blog', blogRest.tag(t.id))}><span>#{t.label}</span><sup>{t.count}</sup></a></li>)}

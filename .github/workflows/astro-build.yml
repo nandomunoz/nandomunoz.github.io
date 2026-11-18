@@ -24,6 +24,7 @@ jobs:
       - run: npm run check:links
       - run: npm run budgets
       - run: npm run redirects
+      - run: npm run seo
       - run: node tools/check-placeholders.mjs
       - run: npx playwright-core install --with-deps chromium
       - run: npm run audit

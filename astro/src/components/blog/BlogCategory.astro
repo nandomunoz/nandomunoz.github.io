@@ -18,7 +18,7 @@ const mine = posts.filter((p) => p.category === id);
 const pages = pagesOf(mine);
 const name = (await getEntry('site', 'site'))!.data.name;
 ---
-<BlogLayout lang={lang} title={`${k.name} · Blog · ${name}`} description={k.desc} rest={blogRest.category(id, page)}>
+<BlogLayout lang={lang} title={`${k.name}${page > 1 ? ` · ${B.page(page, pages.length)}` : ''} · Blog · ${name}`} description={k.desc} rest={blogRest.category(id, page)}>
   <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')], [B.categories, pathFor(lang, 'blog', blogRest.categories())]]} title={k.name} deck={k.desc} count={B.countOne(mine.length)} />
   <Chips lang={lang} categories={categories} current={id} />
   <PostList lang={lang} posts={pages[page - 1]} categories={categories} />

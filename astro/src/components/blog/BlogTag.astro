@@ -16,7 +16,7 @@ const mine = posts.filter((p) => p.tags.includes(id));
 const others = Object.values(tags).filter((x) => x.count && x.id !== id);
 const name = (await getEntry('site', 'site'))!.data.name;
 ---
-<BlogLayout lang={lang} title={`#${t.label} · Blog · ${name}`} rest={blogRest.tag(id)} noindex={mine.length < 2}>
+<BlogLayout lang={lang} title={`#${t.label} · Blog · ${name}`} description={B.tagDeck('#' + t.label)} rest={blogRest.tag(id)} noindex={mine.length < 2}>
   <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')], [B.tags, pathFor(lang, 'blog', blogRest.tags())]]} title={'#' + t.label} count={`${B.tagged} #${t.label} · ${B.countOne(mine.length)}`} />
   <ul class="tags">{others.map((x) => <li><a href={pathFor(lang, 'blog', blogRest.tag(x.id))}>#{x.label}</a></li>)}</ul>
   <PostList lang={lang} posts={mine} categories={categories} />

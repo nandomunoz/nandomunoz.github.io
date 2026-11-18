@@ -16,6 +16,8 @@ Node 22.22 o más. Desde esta carpeta:
 | `npm run check:links` | Enlaces, imágenes y anclas internas de `dist/`. |
 | `npm run budgets` | Peso por página frente al presupuesto (HTML+CSS < 60 KB, JS < 35 KB en la home, < 20 KB en un artículo). |
 | `npm run audit` | Chromium sobre `dist/`: axe (WCAG 2.2 AA), reflow, sin JS, cookies sin peticiones a Google, foco, espaciado de texto, colores forzados, CLS, el panel de proyectos. `CHROMIUM=/ruta/a/chrome` para elegir navegador; `-- --quick` para una pasada corta. |
+| `npm run seo` | SEO de `dist/`: canónica, título y descripción únicos, un h1, `lang`, Open Graph, JSON-LD, `hreflang` recíproco y sitemap. |
+| `npm run wp:inventory <carpeta>` | Inventario y copia de soynando.com desde fuera (sitemaps y API pública de WordPress); `--media` baja también las imágenes. |
 | `npm run redirects` | Genera `redirects/` (las redirecciones de soynando.com) y comprueba que cada destino existe. |
 | `npm run check:placeholders` | Falla mientras queden `⟦…⟧` (datos que solo conoce el dueño) en las páginas. |
 

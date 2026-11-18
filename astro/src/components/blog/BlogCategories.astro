@@ -13,7 +13,7 @@ const { posts, categories } = await loadBlog(lang);
 const list = Object.values(categories);
 const name = (await getEntry('site', 'site'))!.data.name;
 ---
-<BlogLayout lang={lang} title={`${B.categories} · Blog · ${name}`} rest={blogRest.categories()}>
+<BlogLayout lang={lang} title={`${B.categories} · Blog · ${name}`} description={B.categoriesDeck} rest={blogRest.categories()}>
   <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')]]} title={B.categories} count={`${list.length} · ${B.countOne(posts.length)}`} />
   <aside class="legend"><h3>{B.legendTitle}</h3><p>{B.legend}</p></aside>
   <ul class="cats">

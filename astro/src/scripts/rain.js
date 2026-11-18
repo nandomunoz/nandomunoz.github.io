@@ -22,6 +22,10 @@ import { rng, clamp } from './dots.js';
 import { CATS } from './gatos.js';
 import deskUrl from '../assets/escritorio.jpg?url';
 
+// The canvases' pixel density: the screen's, up to 2 (the governor of RainField lowers the cap to 1 on a device that cannot keep up).
+let DPR_CAP = 2;
+const DPR = () => Math.min(devicePixelRatio || 1, DPR_CAP);
+
 const TAU = Math.PI * 2;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = matchMedia('(pointer: coarse)').matches;
@@ -48,7 +52,7 @@ function nameMask(w, h, narrow, baseY, text = 'Nando Muñoz') {
   const lineW = (line) => [...line].reduce((sum, ch, i) => sum + adv(ch) + (i && line[i - 1] !== ' ' && ch !== ' ' ? TRACK * cap : 0), 0);
   const W = Math.max(...lines.map(lineW)), H = lines.length * cap + (lines.length - 1) * LEAD * cap;
   const k = Math.min((w * (narrow ? 0.9 : 0.92)) / W, (h * (narrow ? 0.56 : 0.42)) / H);   // units of the 100px font → px
-  const dpr = Math.min(devicePixelRatio || 1, 2), mc = document.createElement('canvas'); mc.width = Math.round(w * dpr); mc.height = Math.round(h * dpr);
+  const dpr = DPR(), mc = document.createElement('canvas'); mc.width = Math.round(w * dpr); mc.height = Math.round(h * dpr);
   const m = mc.getContext('2d'); m.setTransform(dpr, 0, 0, dpr, 0, 0); m.font = TITLE(100 * k); m.textBaseline = 'alphabetic'; m.fillStyle = '#000';
   const C = cap * k;
   lines.forEach((line, li) => {
@@ -84,7 +88,7 @@ function nameMask(w, h, narrow, baseY, text = 'Nando Muñoz') {
 function catsMask(w, h, narrow, baseY) {
   const L = CATS.left, R = CATS.right, tall = CATS.base - Math.min(L.y0, R.y0);
   const s = Math.min((baseY * (narrow ? 0.62 : 0.8)) / tall, (w * 0.47) / (L.x1 - L.x0), (w * 0.47) / (CATS.W - R.x0));
-  const dpr = Math.min(devicePixelRatio || 1, 2), mc = document.createElement('canvas'); mc.width = Math.round(w * dpr); mc.height = Math.round(h * dpr);
+  const dpr = DPR(), mc = document.createElement('canvas'); mc.width = Math.round(w * dpr); mc.height = Math.round(h * dpr);
   const m = mc.getContext('2d'); m.fillStyle = '#000';
   const put = (shape, tx) => {
     m.setTransform(dpr * s, 0, 0, dpr * s, dpr * tx, dpr * (baseY - CATS.base * s));
@@ -108,18 +112,22 @@ function picture(src, onload) {
   return im;
 }
 function imageMask(w, h, im, fx = 0.45, fy = 0.42) {
-  const dpr = Math.min(devicePixelRatio || 1, 2), W = Math.round(w * dpr), H = Math.round(h * dpr);
-  const mc = document.createElement('canvas'); mc.width = W; mc.height = H;
-  const m = mc.getContext('2d', { willReadFrequently: true });
-  const s = Math.max(W / im.naturalWidth, H / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s;
-  m.drawImage(im, clamp(W / 2 - dw * fx, W - dw, 0), clamp(H / 2 - dh * fy, H - dh, 0), dw, dh);   // cover, around the focal point
-  const d = m.getImageData(0, 0, W, H), p = d.data;
+  // The pixel loop runs at half size (a quarter of the pixels): the mask is a soft smoothstep of the light, so scaling it back up
+  // to the field's size changes nothing the eye can tell, and it is the heaviest one-off job of the home on a phone.
+  const dpr = DPR(), W = Math.round(w * dpr), H = Math.round(h * dpr), qw = Math.ceil(W / 2), qh = Math.ceil(H / 2);
+  const sm = document.createElement('canvas'); sm.width = qw; sm.height = qh;
+  const m = sm.getContext('2d', { willReadFrequently: true });
+  const s = Math.max(qw / im.naturalWidth, qh / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s;
+  m.drawImage(im, clamp(qw / 2 - dw * fx, qw - dw, 0), clamp(qh / 2 - dh * fy, qh - dh, 0), dw, dh);   // cover, around the focal point
+  const d = m.getImageData(0, 0, qw, qh), p = d.data;
   for (let i = 0; i < p.length; i += 4) {
     const lum = (0.2126 * p[i] + 0.7152 * p[i + 1] + 0.0722 * p[i + 2]) / 255;
     const keep = clamp((lum - 0.06) / 0.42), k = keep * keep * (3 - 2 * keep);   // how much rain stays: none in the dark, all in the light
     p[i] = p[i + 1] = p[i + 2] = 0; p[i + 3] = Math.round((1 - k) * 255);
   }
   m.putImageData(d, 0, 0);
+  const mc = document.createElement('canvas'); mc.width = W; mc.height = H;
+  mc.getContext('2d').drawImage(sm, 0, 0, W, H);
   return mc;
 }
 
@@ -153,8 +161,12 @@ const lluvia = {
     f.cats = mode === 'cats'; f.pic = mode === 'image';
     if (mode === 'cycle') {
       // the fourth take: the name, the cats and the picture in turn, each crossfading into the next, round and round
-      const im = picture(f.opt.src, () => f.resize()), base = baseRow * gh;
-      f.cycle = [{ m: nameMask(w, h, narrow, base, name), line: 1 }, { m: catsMask(w, h, narrow, base), line: 1 }, { m: im ? imageMask(w, h, im) : null, line: 0 }];
+      // The picture's mask is only seen when a pointer wakes the field after its first 5 s, so it is built when the browser is idle,
+      // not in the first frames, and when the picture lands only that mask is made (the rain is not rebuilt).
+      const base = baseRow * gh, slot = { m: null, line: 0 };
+      f.cycle = [{ m: nameMask(w, h, narrow, base, name), line: 1 }, { m: catsMask(w, h, narrow, base), line: 1 }, slot];
+      const make = () => { if (f.cycle?.[2] !== slot) return; const im = picture(f.opt.src, make); if (im) slot.m = imageMask(w, h, im); };
+      (window.requestIdleCallback ? (fn) => requestIdleCallback(fn, { timeout: 2500 }) : (fn) => setTimeout(fn, 600))(make);
       const mix = document.createElement('canvas'); mix.width = f.cycle[0].m.width; mix.height = f.cycle[0].m.height; f.mix = mix;
       f.cycleT0 = f.cycleT0 || performance.now(); f.mask = null;
     } else if (f.pic) { const im = picture(f.opt.src, () => f.resize()); f.mask = im ? imageMask(w, h, im) : null; }
@@ -162,8 +174,9 @@ const lluvia = {
     f.scans = []; f.sheet = null; f.footFade = null;
     Object.assign(f, { fs, gw, gh, gc, gr, ox, baseRow, glow: new Float64Array(gc).fill(-1e9), t0: performance.now() });
     if (reduce) for (let i = 0; i < 120; i++) { f.rain.now += 45; this.rainTick(f); }   // a still frame of the rain
-    else if (!f.introDone) {
-      // the first time it loads, the pen's rain: an empty sheet, every column's drop setting off from the top
+    else if (f.opt.intro && !f.introDone) {
+      // opt-in (`intro: true`; the home does not use it: the field is already written when it first shows, as the maqueta's was in
+      // practice, where a second layout() cancelled it). The first time it loads, the pen's rain: an empty sheet, every column's drop setting off from the top
       // (a few ticks apart), falling in green all the way down and writing the sheet as it goes
       f.rain.c.fill(-1);
       for (let c = 0; c < gc; c++) f.rain.drop[c] = -2 - Math.floor(rand() * 16);
@@ -216,7 +229,7 @@ const lluvia = {
   atlas(f) {                                                          // the 33 glyphs in mute, ink and green; rebuilt when the size or the colours change
     const key = `${f.gw}x${f.gh} ${f.opt.dots ? 'dots' : 'glyphs'} ${P.mute} ${P.ink} ${P.green}`;
     if (f.atlasKey === key) return f.atl;
-    const dpr = Math.min(devicePixelRatio || 1, 2), w = Math.round(f.gw * dpr), h = Math.round(f.gh * dpr), cv = document.createElement('canvas');
+    const dpr = DPR(), w = Math.round(f.gw * dpr), h = Math.round(f.gh * dpr), cv = document.createElement('canvas');
     cv.width = w * 33; cv.height = h * 3;
     const g = cv.getContext('2d'); g.font = `500 ${f.fs * dpr}px ${FAM}`; g.textAlign = 'center'; g.textBaseline = 'middle';
     [P.mute, P.ink, P.green].forEach((col, row) => { g.fillStyle = col; for (let k = 0; k < 33; k++) {
@@ -233,7 +246,7 @@ const lluvia = {
     // Kept on a canvas of its own where only the cells whose look changed are redrawn, from the atlas.
     const A = this.atlas(f), aw = A.w, ah = A.h;
     if (!f.sheet || f.sheet.key !== f.atlasKey) {
-      const dpr = Math.min(devicePixelRatio || 1, 2), cv = document.createElement('canvas'); cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      const dpr = DPR(), cv = document.createElement('canvas'); cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
       const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
       const cv3 = document.createElement('canvas'); cv3.width = cv.width; cv3.height = cv.height;
       const g3 = cv3.getContext('2d'); g3.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -359,7 +372,7 @@ export class RainField {
   layout() {
     const cv = this.cv, f = this.f, w = cv.clientWidth, h = cv.clientHeight;
     if (!w || !h || !this.fonts) return;
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = DPR();
     cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     f.w = w; f.h = h; grid(f); lluvia.build(f);
     if (this.resting) lluvia.settle(f);                               // a new size, still at rest: the sheet is rebuilt, so settle it again
@@ -371,12 +384,26 @@ export class RainField {
   // The rain moves for 5 s of screen time (the clock only runs while it is drawn on screen) and then rests on a still
   // frame, so nothing moves on the page for good (WCAG 2.2.2). wake() gives it another 5 s; it does nothing while it is
   // already moving, so a pointer that keeps moving does not extend the window.
+  // The quality governor (a device we cannot measure here: no real phone, no Safari). The cost of each frame (the time the
+  // main thread spends drawing it) and the gap between frames are averaged over a dozen frames; a device that cannot keep up
+  // steps down once, then again: level 1 draws at 30 fps (every other frame), level 2 also at 1× density (a quarter of the
+  // pixels; the field is rebuilt once). It never steps back up, and a fast device never leaves level 0.
+  level = 0; cost = 0; gap = 16.7; seen = 0;
+  govern(cost, dt) {
+    this.cost += (cost - this.cost) * 0.2; this.gap += (dt - this.gap) * 0.2;
+    if (++this.seen < 12 || dt > 250) return;
+    if (this.level === 0 && (this.cost > 11 || this.gap > 26)) { this.level = 1; this.seen = 0; }
+    else if (this.level === 1 && this.cost > 20 && DPR_CAP > 1) { this.level = 2; this.seen = 0; DPR_CAP = 1; this.layout(); }
+  }
   loop = (t) => {
     if (!this.running) return;
+    if (this.level && t - this.last < 30) { this.raf = requestAnimationFrame(this.loop); return; }   // level 1: every other frame
     const dt = t - this.last; this.last = t;
     this.left -= Math.min(dt, 250);                                      // (a tab asleep for minutes costs 250 ms, not minutes)
     if (this.left <= 0) return this.rest();
+    const t0 = performance.now();
     this.draw(t, dt); this.raf = requestAnimationFrame(this.loop);
+    this.govern(performance.now() - t0, dt);
   };
   rest() {
     this.resting = true; this.raf = 0;

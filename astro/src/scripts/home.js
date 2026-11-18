@@ -61,5 +61,6 @@ addEventListener('resize', () => {
 document.addEventListener('trama:mode', () => { hero?.repaint(); });
 
 await document.fonts.ready;
-hero?.layout();
+// the field lays itself out once its title font is ready (rain.js); here only if the canvas has another size by now
+if (hero && (hero.f.w !== cv.clientWidth || hero.f.h !== cv.clientHeight)) hero.layout();
 hero?.start();

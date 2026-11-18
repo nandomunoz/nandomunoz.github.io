@@ -18,7 +18,8 @@
     "wp:inventory": "node tools/wp-inventory.mjs",
     "redirects": "node tools/redirects.mjs",
     "budgets": "node tools/budgets.mjs",
-    "audit": "node tools/audit.mjs"
+    "audit": "node tools/audit.mjs",
+    "seo": "node tools/seo-check.mjs"
   },
   "dependencies": {
     "@luz-ds/catalog": "0.4.1",
