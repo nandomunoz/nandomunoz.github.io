@@ -3,9 +3,9 @@
 import Base from '../../layouts/Base.astro';
 import '../../styles/blog.css';
 import type { Locale, Rest } from '../../i18n/ui';
-interface Props { lang: Locale; title: string; description?: string; rest?: Rest; noindex?: boolean; /** the article class on <main> content */ cls?: string }
-const { lang, title, description, rest, noindex, cls = 'blog' } = Astro.props;
+interface Props { lang: Locale; title: string; description?: string; rest?: Rest; noindex?: boolean; /** the article class on <main> content */ cls?: string; image?: { src: string; alt: string }; ogType?: 'website' | 'article'; jsonld?: object[] }
+const { lang, title, description, rest, noindex, cls = 'blog', image, ogType, jsonld } = Astro.props;
 ---
-<Base lang={lang} title={title} description={description} route="blog" rest={rest} current="blog" noindex={noindex}>
+<Base lang={lang} title={title} description={description} route="blog" rest={rest} current="blog" noindex={noindex} image={image} ogType={ogType} jsonld={jsonld}>
   <div class={cls}><slot /></div>
 </Base>

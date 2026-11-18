@@ -6,6 +6,7 @@ import { Picture } from 'astro:assets';
 import { loadProjects, relatedProjects, techSlug } from '../../lib/projects.js';
 import { blogStrings, arrows } from '../../i18n/blog.js';
 import { pathFor, ui, type Locale } from '../../i18n/ui';
+import { breadcrumb, cropped, abs, personNode } from '../../lib/jsonld';
 import ProjectsLayout from './ProjectsLayout.astro';
 import ProjectRow from './ProjectRow.astro';
 interface Props { lang: Locale; id: string }
@@ -17,13 +18,15 @@ const p = projects[i], prev = projects[i - 1], next = projects[i + 1];
 const related = relatedProjects(p, projects);
 const href = (x: { id: string }) => pathFor(lang, 'projects', x.id);
 const list = pathFor(lang, 'projects');
-const jsonld = {
-  '@context': 'https://schema.org', '@type': 'SoftwareSourceCode', name: p.name, description: p.kicker, codeRepository: p.repo,
-  programmingLanguage: p.tech, dateCreated: String(p.year), inLanguage: lang === 'ar' ? 'ar' : lang, author: { '@type': 'Person', name: 'Nando Muñoz', url: 'https://nandomunoz.com/' },
-  ...(p.demo ? { url: p.demo } : {})
-};
+const here = pathFor(lang, 'projects', p.id);
+const jsonld = [
+  { '@type': 'SoftwareSourceCode', '@id': `${abs(here)}#code`, name: p.name, description: p.kicker, url: abs(here), codeRepository: p.repo, programmingLanguage: p.tech, dateCreated: String(p.year), inLanguage: lang, author: { '@id': 'https://nandomunoz.com/#person' }, ...(p.demo ? { sameAs: p.demo } : {}) },
+  breadcrumb([[t.siteName, pathFor(lang, 'home')], [B.projects, list], [p.name, here]]),
+  await personNode(lang)
+];
+const image = p.shot ? { src: await cropped(p.shot.src, 1200, 630), alt: B.shot(p.name) } : undefined;
 ---
-<ProjectsLayout lang={lang} title={`${p.name} · ${B.projects} · ${t.siteName}`} description={`${p.kicker}. ${p.body[0]}`.slice(0, 200)} rest={p.id} cls="blog post project">
+<ProjectsLayout lang={lang} title={`${p.name} · ${B.projects} · ${t.siteName}`} description={`${p.kicker}. ${p.body[0]}`.slice(0, 200)} rest={p.id} cls="blog post project" image={image} jsonld={jsonld}>
   <header class="post__head">
     <p class="crumbs"><a href={list}>{B.projects}</a><span aria-hidden="true"> / </span><span>{p.year}</span></p>
     <h1 class="post__title" dir="ltr">{p.name}</h1>
@@ -62,7 +65,6 @@ const jsonld = {
       <div class="blist"><ol class="brows">{related.map((x: any) => <ProjectRow lang={lang} project={x} />)}</ol></div>
     </section>
   )}
-  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
 </ProjectsLayout>
 <script>
   import '../../scripts/blocks.js';

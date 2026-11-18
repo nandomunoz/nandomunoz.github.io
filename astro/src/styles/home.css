@@ -192,6 +192,8 @@
   }
   :lang(ar) .hero__deck { font-size: clamp(2.3rem, 7.6vw, 6.4rem); max-inline-size: none; line-height: 1.05; font-stretch: 100%; }
   @media (max-width: 47.99em) { :lang(ar) .hero__deck { font-size: clamp(2.3rem, 10.5vw, 4rem); } }
+  /* Arabic lines are long and do not break between letters: on a wide screen they may wrap by word and use a smaller size */
+  @media (min-width: 64em) { :lang(ar) .hero__deck { font-size: clamp(2.6rem, 5.4vw, 5.2rem); } :lang(ar) .hero__deck .l { white-space: normal; } }
   :lang(ar) .item__name, :lang(ar) .socials__label { font-stretch: 100%; text-transform: none; }
   /* a project's name is Latin (or Spanish) text in a right-to-left page: it keeps its own direction and sits on the page's side */
   :lang(ar) .item__name { text-align: right; justify-self: start; }

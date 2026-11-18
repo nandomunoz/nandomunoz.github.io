@@ -4,9 +4,9 @@ import Base from '../../layouts/Base.astro';
 import '../../styles/blog.css';
 import '../../styles/projects.css';
 import type { Locale, Rest } from '../../i18n/ui';
-interface Props { lang: Locale; title: string; description?: string; rest?: Rest; cls?: string }
-const { lang, title, description, rest, cls = 'blog' } = Astro.props;
+interface Props { lang: Locale; title: string; description?: string; rest?: Rest; cls?: string; image?: { src: string; alt: string }; jsonld?: object[] }
+const { lang, title, description, rest, cls = 'blog', image, jsonld } = Astro.props;
 ---
-<Base lang={lang} title={title} description={description} route="projects" rest={rest} current="projects">
+<Base lang={lang} title={title} description={description} route="projects" rest={rest} current="projects" image={image} jsonld={jsonld}>
   <div class={cls}><slot /></div>
 </Base>

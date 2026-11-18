@@ -73,7 +73,7 @@ const tags = defineCollection({
 });
 
 const social = z.object({ id: z.string(), label: z.string(), handle: z.string(), url: z.url() });
-const ui = z.looseObject({ kicker: z.string(), deck: z.string(), bio: z.array(z.string()).or(z.string()), contactTitle: z.string(), contactText: z.string(), motto: z.any() });
+const ui = z.looseObject({ title: z.string(), metaDescription: z.string(), kicker: z.string(), deck: z.string(), bio: z.array(z.string()).or(z.string()), contactTitle: z.string(), contactText: z.string(), motto: z.any() });
 const site = defineCollection({
   loader: file('./src/content/site.json', { parser: (text) => [{ id: 'site', ...JSON.parse(text) }] }),
   schema: z.object({ id: z.string(), name: z.string(), nick: z.string().optional(), monogram: z.string().optional(), domain: z.string(), socials: z.array(social), es: ui, en: ui, ar: ui })
