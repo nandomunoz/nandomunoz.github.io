@@ -14,8 +14,8 @@
 //         · { glance: [[label, value]] } · { now: true } the visitor's current choice
 //         and the button that opens the settings · { table: { label, head, rows } }
 //
-// ⟦…⟧ marks something only the owner knows (the contact address): do not publish with it.
-export const UPDATED = '2026-11-16';
+// Contact address: hola@soynando.com (owner, 2026-11-18). ⟦…⟧ would mark anything else only the owner knows: do not publish with it.
+export const UPDATED = '2026-11-18';
 
 export const POLICY = {
   es: {
@@ -83,7 +83,7 @@ export const POLICY = {
       { p: 'Si navegas en modo privado (o «incógnito»), todo se borra solo al cerrar la ventana.' },
 
       { h: '¿Quién es el responsable?' },
-      { p: 'Esta web es de Nando Muñoz, que la escribe y la mantiene. Para cualquier duda sobre cookies o datos, escríbeme a ⟦correo de contacto⟧. Aquí tienes también la <a href="{privacy}">política de privacidad</a>.' },
+      { p: 'Esta web es de Nando Muñoz, que la escribe y la mantiene. Para cualquier duda sobre cookies o datos, escríbeme a <a href="mailto:hola@soynando.com" dir="ltr">hola@soynando.com</a>. Aquí tienes también la <a href="{privacy}">política de privacidad</a>.' },
       { p: 'Si crees que no se respetan tus datos, también puedes acudir a la <a href="https://www.aepd.es/">Agencia Española de Protección de Datos</a>.' }
     ],
     now: {
@@ -160,7 +160,7 @@ export const POLICY = {
       { p: 'If you browse in private (or “incognito”) mode, everything is deleted by itself when you close the window.' },
 
       { h: 'Who is responsible?' },
-      { p: 'This site belongs to Nando Muñoz, who writes and looks after it. For any question about cookies or data, write to ⟦contact email⟧. You can also read the <a href="{privacy}">privacy policy</a>.' },
+      { p: 'This site belongs to Nando Muñoz, who writes and looks after it. For any question about cookies or data, write to <a href="mailto:hola@soynando.com" dir="ltr">hola@soynando.com</a>. You can also read the <a href="{privacy}">privacy policy</a>.' },
       { p: 'If you think your data is not being respected, you can also go to the Spanish data protection authority, the <a href="https://www.aepd.es/en">AEPD</a>.' }
     ],
     now: {
@@ -237,7 +237,7 @@ export const POLICY = {
       { p: 'إذا تصفحت في الوضع الخاص (أو «التصفح المتخفّي»)، يُحذف كل شيء تلقائيًا عند إغلاق النافذة.' },
 
       { h: 'من المسؤول؟' },
-      { p: 'هذا الموقع يخص Nando Muñoz، وهو من يكتبه ويعتني به. لأي سؤال عن الكوكيز أو البيانات، يمكنك مراسلتي على ⟦عنوان البريد للتواصل⟧. ويمكنك أيضًا قراءة <a href="{privacy}">سياسة الخصوصية</a>.' },
+      { p: 'هذا الموقع يخص Nando Muñoz، وهو من يكتبه ويعتني به. لأي سؤال عن الكوكيز أو البيانات، يمكنك مراسلتي على <a href="mailto:hola@soynando.com" dir="ltr">hola@soynando.com</a>. ويمكنك أيضًا قراءة <a href="{privacy}">سياسة الخصوصية</a>.' },
       { p: 'إذا رأيت أن بياناتك لا تُحترم، يمكنك أيضًا التوجه إلى هيئة حماية البيانات الإسبانية، <a href="https://www.aepd.es/en">AEPD</a>.' }
     ],
     now: {

@@ -21,7 +21,16 @@ for (const dir of fs.readdirSync(path.join(root, 'src/content/posts'))) {
 const rows = posts.map((p) => [`soynando.com${p.from}`, `${NEW}/blog/${p.slug}/`]);
 // the pages of the old site that keep their address, and the feed
 rows.push(['soynando.com/politica-de-cookies/', `${NEW}/politica-de-cookies/`], ['soynando.com/privacidad/', `${NEW}/privacidad/`], ['soynando.com/feed/', `${NEW}/rss.xml`],
-  ['soynando.com/blog/', `${NEW}/blog/`], ['soynando.com/category/', `${NEW}/blog/categoria/`], ['soynando.com/tag/', `${NEW}/blog/etiqueta/`]);
+  ['soynando.com/blog/', `${NEW}/blog/`], ['soynando.com/proyectos/', `${NEW}/proyectos/`],
+  // the authors' archives (a WordPress page with nothing the new site has): the home, where the bio is
+  ['soynando.com/author/nando-munoz/', `${NEW}/`], ['soynando.com/author/admin/', `${NEW}/`]);
+// categories and tags, one by one (the inventory of the old site: tools/wp-inventory.mjs). The categories changed their slug;
+// the tags kept it (and `historia-de-la-informatica`, `frontend`, `uncategorized` had no posts: they fall to the list).
+const WP_CATEGORIES = { 'hablo-de-codigo-y-gestion': 'codigo-y-gestion', 'hablo-de-literatura-y-pensamiento': 'literatura-y-pensamiento' };
+for (const [from, to] of Object.entries(WP_CATEGORIES)) rows.push([`soynando.com/category/${from}/`, `${NEW}/blog/categoria/${to}/`]);
+for (const t of JSON.parse(fs.readFileSync(path.join(root, 'src/content/tags.json'), 'utf8'))) rows.push([`soynando.com/tag/${t.id}/`, `${NEW}/blog/etiqueta/${t.id}/`]);
+// the families last: whatever slug is not above goes to the list
+rows.push(['soynando.com/category/', `${NEW}/blog/categoria/`], ['soynando.com/tag/', `${NEW}/blog/etiqueta/`]);
 
 const dup = rows.map((r) => r[0]).filter((s, i, a) => a.indexOf(s) !== i);
 if (dup.length) throw new Error(`two posts share an old address: ${[...new Set(dup)].join(', ')}`);
@@ -50,7 +59,7 @@ these are served by whoever serves soynando.com (plan D11).
 ## Cloudflare (recommended)
 
 1. Put soynando.com's DNS on Cloudflare (proxied records).
-2. **Bulk Redirects** → create a list from \`soynando-bulk-redirects.csv\` (${rows.length} entries: the ${posts.length} posts, the policy pages, the feed and the blog;
+2. **Bulk Redirects** → create a list from \`soynando-bulk-redirects.csv\` (${rows.length} entries: the ${posts.length} posts, the policy pages, the projects, the authors, every category and tag, the feed and the blog;
    \`/category/\` and \`/tag/\` match by prefix) and a Bulk Redirect rule that uses it.
 3. A **Redirect Rule** after it for everything else: \`(http.host eq "soynando.com" or http.host eq "www.soynando.com")\` → static \`${NEW}/\`, 301.
 4. In Search Console add nandomunoz.com and use *Change of address* from soynando.com.
@@ -61,7 +70,7 @@ Put \`soynando.htaccess\` at the top of soynando.com's \`.htaccess\`, before Wor
 
 ## Not covered yet
 
-- Categories and tags of WordPress go to the lists (\`/blog/categoria/\`, \`/blog/etiqueta/\`): the old slugs that changed need the WordPress inventory (plan phase 0, W-questions) to be mapped one by one.
+- Categories and tags are mapped one by one from the inventory of the old site (\`npm run wp:inventory\`); a slug not in the list falls to \`/blog/categoria/\` or \`/blog/etiqueta/\`.
 - \`nandomunoz.github.io\` (the Cassette site that lives there now) → the new domain: plan D5 / U5.
 - Images under \`wp-content/uploads/\` fall to the home.
 `);

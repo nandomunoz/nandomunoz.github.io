@@ -2,7 +2,7 @@
 // a self-assessment, not an external audit. When something is checked (a screen reader, Safari), change it here and the date.
 // Same blocks as the other legal pages (credits.js).
 //
-// ⟦…⟧ marks something only the owner knows (the contact address): do not publish with it.
+// Contact address: hola@soynando.com (owner, 2026-11-18). ⟦…⟧ would mark anything else only the owner knows: do not publish with it.
 export const UPDATED = '2026-11-18';
 
 export const ACCESSIBILITY = {
@@ -37,7 +37,7 @@ export const ACCESSIBILITY = {
       { h: 'Cómo lo he evaluado' },
       { p: 'Es una evaluación mía, no una auditoría externa.' },
       { h: 'Si algo no te funciona' },
-      { p: 'Escríbeme a ⟦correo de contacto⟧ y cuéntame qué página, qué dispositivo y qué ayuda usas. Te contesto en menos de un mes y lo corrijo.' }
+      { p: 'Escríbeme a <a href="mailto:hola@soynando.com" dir="ltr">hola@soynando.com</a> y cuéntame qué página, qué dispositivo y qué ayuda usas. Te contesto en menos de un mes y lo corrijo.' }
     ]
   },
   en: {
@@ -71,7 +71,7 @@ export const ACCESSIBILITY = {
       { h: 'How I assessed it' },
       { p: 'It is my own assessment, not an external audit.' },
       { h: 'If something does not work for you' },
-      { p: 'Write to ⟦contact email⟧ and tell me which page, which device and which assistive technology you use. I answer in less than a month and fix it.' }
+      { p: 'Write to <a href="mailto:hola@soynando.com" dir="ltr">hola@soynando.com</a> and tell me which page, which device and which assistive technology you use. I answer in less than a month and fix it.' }
     ]
   },
   ar: {
@@ -105,7 +105,7 @@ export const ACCESSIBILITY = {
       { h: 'كيف قيّمته' },
       { p: 'هذا تقييم مني، وليس تدقيقًا خارجيًا.' },
       { h: 'إن لم يعمل لك شيء' },
-      { p: 'اكتب لي على ⟦عنوان البريد للتواصل⟧ وأخبرني بالصفحة والجهاز والتقنية المساعدة التي تستخدمها. أجيبك في أقل من شهر وأصلحه.' }
+      { p: 'اكتب لي على <a href="mailto:hola@soynando.com" dir="ltr">hola@soynando.com</a> وأخبرني بالصفحة والجهاز والتقنية المساعدة التي تستخدمها. أجيبك في أقل من شهر وأصلحه.' }
     ]
   }
 };

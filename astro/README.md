@@ -43,6 +43,6 @@ tools/                migración, comprobadores, auditoría, redirecciones, tarj
 
 **Ver el resultado.** `npm run dev`, y antes de subir `npm run build && npm run audit`.
 
-## Lo que falta para publicar
+## Publicar
 
-Está en la Fase 11 del plan: el dominio y su DNS, el hosting (Cloudflare Pages o GitHub Pages), el correo de contacto de las políticas (`npm run check:placeholders`), el inventario de URLs de WordPress y la copia de seguridad. Las redirecciones de soynando.com ya están generadas en `redirects/`.
+Hosting: GitHub Pages, dominio nandomunoz.com (`public/CNAME`), contacto `hola@soynando.com`. `.github/workflows/astro-deploy.yml` construye, pasa todos los filtros (los `⟦…⟧` sin rellenar y los enlaces rotos son error) y publica desde `main` o a mano. Falta, y es de quien tenga acceso: fusionar en `main`, activar Pages con «GitHub Actions», apuntar el DNS, aplicar `redirects/` en soynando.com y verificar Search Console. `npm run wp:inventory <carpeta> [--media]` inventaría y copia soynando.com desde fuera (sitemaps y API pública).

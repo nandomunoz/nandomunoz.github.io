@@ -6,7 +6,7 @@ these are served by whoever serves soynando.com (plan D11).
 ## Cloudflare (recommended)
 
 1. Put soynando.com's DNS on Cloudflare (proxied records).
-2. **Bulk Redirects** → create a list from `soynando-bulk-redirects.csv` (17 entries: the 11 posts, the policy pages, the feed and the blog;
+2. **Bulk Redirects** → create a list from `soynando-bulk-redirects.csv` (31 entries: the 11 posts, the policy pages, the projects, the authors, every category and tag, the feed and the blog;
    `/category/` and `/tag/` match by prefix) and a Bulk Redirect rule that uses it.
 3. A **Redirect Rule** after it for everything else: `(http.host eq "soynando.com" or http.host eq "www.soynando.com")` → static `https://nandomunoz.com/`, 301.
 4. In Search Console add nandomunoz.com and use *Change of address* from soynando.com.
@@ -17,6 +17,6 @@ Put `soynando.htaccess` at the top of soynando.com's `.htaccess`, before WordPre
 
 ## Not covered yet
 
-- Categories and tags of WordPress go to the lists (`/blog/categoria/`, `/blog/etiqueta/`): the old slugs that changed need the WordPress inventory (plan phase 0, W-questions) to be mapped one by one.
+- Categories and tags are mapped one by one from the inventory of the old site (`npm run wp:inventory`); a slug not in the list falls to `/blog/categoria/` or `/blog/etiqueta/`.
 - `nandomunoz.github.io` (the Cassette site that lives there now) → the new domain: plan D5 / U5.
 - Images under `wp-content/uploads/` fall to the home.
