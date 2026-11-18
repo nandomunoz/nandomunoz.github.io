@@ -10,7 +10,7 @@ Node 22.22 o más. Desde esta carpeta:
 |---|---|
 | `npm install` | Instala (Astro y LUZ con versión exacta). |
 | `npm run dev` | Servidor de desarrollo en `localhost:4321`. |
-| `npm run build` | `astro check` y `astro build` → `dist/` (147 páginas). |
+| `npm run build` | `astro check`, `astro build` → `dist/` (150 páginas) y `tools/csp.mjs`, que pone la Content-Security-Policy como `<meta>` con el hash de cada script en línea. |
 | `npm test` | Pruebas `node:test`: paridad es/en/ar, plurales del árabe, datos de la home, tiempo de lectura. |
 | `npm run verify:content` | Cada artículo migrado se renderiza como decían los bloques de origen. |
 | `npm run check:links` | Enlaces, imágenes y anclas internas de `dist/`. |

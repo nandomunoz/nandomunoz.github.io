@@ -48,6 +48,13 @@ const key = new Set(['es home', 'es post+video', 'es projects', 'es cookies', 'a
 const fails = [], note = (ok, what) => { if (!ok) { fails.push(what); console.log('  ✗', what); } return ok; };
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || undefined });
+// every page of every test reports a Content-Security-Policy violation (the policy is a <meta>, tools/csp.mjs) as a failure
+const newContext = browser.newContext.bind(browser);
+browser.newContext = async (...args) => {
+  const ctx = await newContext(...args);
+  ctx.on('page', (pg) => pg.on('console', (m) => /Content[- ]Security[- ]Policy/i.test(m.text()) && note(false, `CSP violation on ${pg.url()}: ${m.text().slice(0, 200)}`)));
+  return ctx;
+};
 const google = /youtube|ytimg|googlevideo|google\.com|gstatic/;
 const exists = (u) => fs.existsSync(path.join(dist, new URL(u, base).pathname.replace(/\/$/, '/index.html')));
 
