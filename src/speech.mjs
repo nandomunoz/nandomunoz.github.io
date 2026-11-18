@@ -8,7 +8,7 @@
 // settings, the pauses. So a clip is made once; when a text changes, its name
 // changes, the new one is made and the old one goes.
 //
-//   voice.clip(lang, parts) → the clip's URL (from a page in cassette/<lang>/)
+//   voice.clip(lang, parts) → the clip's URL (from a page in eastereggs/<version>/<lang>/)
 //   voice.finish({ check, noAudio }) → makes the missing clips with Piper
 //     (tools/voice.py), deletes the ones nothing uses; with `check`, only
 //     reports both.

@@ -328,6 +328,11 @@ const station = (u) => `
 // One square inside another inside another, all sitting in the bottom right
 // corner, in three colours of the stripe under the masthead.
 // the favicon: the same mark, as a file
+// The other versions of the site (Disquetes, VHS, Cassette and Digital) live under /eastereggs/<version>/<lang>/:
+// one folder deeper than they were written for, so what points out of eastereggs/ (the assets, the root, the
+// project pages) gets one more ../ — the links between versions, which stay inside eastereggs/, do not.
+const EGGS = 'eastereggs';
+const egg = (html) => html.replace(/(["'(])\.\.\/\.\.\/(?!(?:disquetes|vhs|cassette|digital)\/)/g, '$1../../../');
 const ICON = '../../assets/favicon.svg';
 const brandMark = `<svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
     <rect width="24" height="24" style="fill: var(--c-crimson)"/>
@@ -665,7 +670,7 @@ ${masthead(lang, t, u, { bioHref: '#tv' })}
   </ol>
 </section>
 </main>
-${colophon(t, u, { href: lang === 'es' ? '../../' : '../../cassette/en/', code: u.cassetteCode, label: u.cassetteVersion }, '', { theme: false })}
+${colophon(t, u, { href: `../../digital/${lang}/`, code: u.digitalCode, label: u.digitalVersion }, '', { theme: false })}
 </body>
 </html>
 `;
@@ -853,9 +858,9 @@ const verifyMeta = () => [
 ].filter(Boolean).join('\n  ');
 
 // The cassette is the site: in Spanish it lives at the root (and at
-// /cassette/es/, which names the root as its canonical address); in English at
-// /cassette/en/.
-const cassetteUrl = (l) => (l === 'es' ? `${site.baseUrl}/` : `${site.baseUrl}/cassette/${l}/`);
+// /eastereggs/cassette/es/, which names the root as its canonical address); in
+// English at /eastereggs/cassette/en/.
+const cassetteUrl = (l) => (l === 'es' ? `${site.baseUrl}/` : `${site.baseUrl}/${EGGS}/cassette/${l}/`);
 // Each project has its own page, the one a search engine can index and a link
 // can point to (the cassette only shows a project by its hash): /proyectos/luz/,
 // /projects/luz/.
@@ -883,7 +888,9 @@ const jsonLd = (lang, t, url) => {
   ];
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 };
-const cassettePage = (lang) => {
+// The Cassette and Digital are the same page (cassette.js drives both): Digital draws it in line
+// (themes/digital.css, digital.css over cassette.css).
+const cassettePage = (lang, { digital = false } = {}) => {
   const t = { ...site.i18n[lang], lang };
   const u = ui[lang];
   const c = u.cassette;
@@ -921,7 +928,7 @@ const cassettePage = (lang) => {
         </a>
       </li>`;
   return `<!doctype html>
-<html data-theme="cassette" lang="${lang}" class="no-js">
+<html data-theme="${digital ? 'digital' : 'cassette'}" lang="${lang}" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -939,18 +946,19 @@ const cassettePage = (lang) => {
   <link rel="preload" href="../../assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/chakra-petch-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/vendor/luz/tokens.min.css">
-  <link rel="stylesheet" href="../../assets/css/themes/cassette.css">
+  <link rel="stylesheet" href="../../assets/css/themes/${digital ? 'digital' : 'cassette'}.css">
   <link rel="stylesheet" href="../../assets/css/archivo.css">
   <link rel="stylesheet" href="../../assets/css/chrome.css">
   <link rel="preload" href="../../assets/fonts/special-elite-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/cassette.css">
+  ${digital ? '<link rel="stylesheet" href="../../assets/css/digital.css">' : ''}
   <script>document.documentElement.classList.replace('no-js','js')</script>
   <script type="module" src="../../assets/js/cassette.js"></script>
   ${THEME_MODE_JS('../../')}
 </head>
-<body class="cas">
+<body class="cas${digital ? ' dig' : ''}">
 <a class="skip" href="#main">${t.skip}</a>
-${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (k === 'es' ? '../../' : '../en/') })}
+${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (digital ? `../${k}/` : k === 'es' ? '../../' : '../en/') })}
 <main id="main">
 <div class="studio">
   <div class="studio__spine" aria-hidden="true"></div>
@@ -1070,7 +1078,7 @@ ${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (k === 'es' ? '../.
     </span>
   </div>
 </div>
-${colophon(t, u, { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion }, voiceCredit(lang, c))}
+${colophon(t, u, digital ? { href: `../../cassette/${lang}/`, code: u.cassetteCode, label: u.cassetteVersion } : { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion }, voiceCredit(lang, c))}
 </body>
 </html>
 `;
@@ -1094,7 +1102,7 @@ const projectPage = (lang, p, i) => {
   const total = o.body.reduce((n, b) => n + trackLen(b), 0);
   o.length = total > 15 * 60 ? 'C90' : 'C60';
   const url = projectUrl(lang, p.id);
-  const home = lang === 'es' ? '../../' : '../../cassette/en/';
+  const home = lang === 'es' ? '../../' : `../../${EGGS}/cassette/en/`;
   const title = `${p.name} · ${o.use} · ${site.name}`;
   const description = sentences(o.body[0]);
   const card = notes(o, c, lang, {
@@ -1172,7 +1180,7 @@ ${masthead(lang, t, u, { bioHref: home, home, shelfHref: `${home}#${lang === 'es
     </ul>
   </section>
 </main>
-${colophon(t, u, { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion })}
+${colophon(t, u, { href: `../../${EGGS}/disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion })}
 </body>
 </html>
 `;
@@ -1229,10 +1237,10 @@ const write = (path, html) => {
 const clear = (dir) => { if (!CHECK) rmSync(join(root, dir), { recursive: true, force: true }); };
 
 clear('archivo'); // old prototype paths
-// the Disquetes version, one of the alternatives, under /disquetes/
-clear('disquetes');
-for (const lang of LANGS) write(`disquetes/${lang}/index.html`, page(lang));
-write('disquetes/index.html', toLanguage('', '../assets/favicon.svg'));
+// the Disquetes version, one of the alternatives, under /eastereggs/disquetes/ (clear() empties eastereggs/ once, here)
+clear(`${EGGS}`);
+for (const lang of LANGS) write(`${EGGS}/disquetes/${lang}/index.html`, egg(page(lang)));
+write(`${EGGS}/disquetes/index.html`, toLanguage('', '../../assets/favicon.svg'));
 // /es/ and /en/ (where Disquetes used to live: old links, bookmarks and
 // cached front doors) now open the cassette in that language
 const toCassette = (lang) => `<!doctype html>
@@ -1241,10 +1249,10 @@ const toCassette = (lang) => `<!doctype html>
   <meta charset="utf-8">
   <title>${site.name}</title>
   <link rel="canonical" href="${cassetteUrl(lang)}">
-  <meta http-equiv="refresh" content="0; url=${lang === 'es' ? '../' : '../cassette/en/'}">
-  <script>location.replace('${lang === 'es' ? '../' : '../cassette/en/'}' + location.hash);</script>
+  <meta http-equiv="refresh" content="0; url=${lang === 'es' ? '../' : `../${EGGS}/cassette/en/`}">
+  <script>location.replace('${lang === 'es' ? '../' : `../${EGGS}/cassette/en/`}' + location.hash);</script>
 </head>
-<body><p><a href="${lang === 'es' ? '../' : '../cassette/en/'}">${site.name}</a></p></body>
+<body><p><a href="${lang === 'es' ? '../' : `../${EGGS}/cassette/en/`}">${site.name}</a></p></body>
 </html>
 `;
 for (const lang of LANGS) {
@@ -1254,14 +1262,15 @@ for (const lang of LANGS) {
 // the site's front door is the cassette itself, in Spanish (no redirect): the
 // same page with its paths taken from the root
 write('index.html', cassettePage('es')
+  .replaceAll('"../../disquetes/', `"${EGGS}/disquetes/`)
   .replaceAll('"../../', '"')
-  .replaceAll('href="../en/"', 'href="cassette/en/"'));
-clear('vhs');
-for (const lang of LANGS) write(`vhs/${lang}/index.html`, vhsPage(lang));
-write('vhs/index.html', toLanguage('', '../assets/favicon.svg'));
-clear('cassette');
-for (const lang of LANGS) write(`cassette/${lang}/index.html`, cassettePage(lang));
-write('cassette/index.html', toLanguage('', '../assets/favicon.svg'));
+  .replaceAll('href="../en/"', `href="${EGGS}/cassette/en/"`));
+for (const lang of LANGS) write(`${EGGS}/vhs/${lang}/index.html`, egg(vhsPage(lang)));
+write(`${EGGS}/vhs/index.html`, toLanguage('', '../../assets/favicon.svg'));
+for (const lang of LANGS) write(`${EGGS}/cassette/${lang}/index.html`, egg(cassettePage(lang)));
+write(`${EGGS}/cassette/index.html`, toLanguage('', '../../assets/favicon.svg'));
+for (const lang of LANGS) write(`${EGGS}/digital/${lang}/index.html`, egg(cassettePage(lang, { digital: true })));
+write(`${EGGS}/digital/index.html`, toLanguage('', '../../assets/favicon.svg'));
 // a page for every project, in each language
 for (const lang of LANGS) {
   clear(ui[lang].project.slug);
@@ -1270,7 +1279,7 @@ for (const lang of LANGS) {
 
 /* ---------- for the crawlers: robots.txt, sitemap.xml, 404.html ---------- */
 // Only the canonical addresses are listed (the Spanish cassette at the root, the
-// English one at /cassette/en/), each with its alternates; no dates, so the
+// English one at /eastereggs/cassette/en/), each with its alternates; no dates, so the
 // build stays the same from one day to the next (--check).
 write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.baseUrl}/sitemap.xml\n`);
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
@@ -1322,7 +1331,7 @@ write('404.html', `<!doctype html>
     <h1>404</h1>
     <p lang="es">Esta página no existe.</p>
     <p lang="en">This page does not exist.</p>
-    <nav><a href="/">Ir al portafolio</a><a href="/cassette/en/" hreflang="en" lang="en">English edition</a></nav>
+    <nav><a href="/">Ir al portafolio</a><a href="/${EGGS}/cassette/en/" hreflang="en" lang="en">English edition</a></nav>
   </main>
 </body>
 </html>

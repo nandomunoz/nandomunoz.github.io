@@ -1,6 +1,10 @@
 # Nando Muñoz · portafolio
 
-Sitio estático: `node build.mjs` genera las páginas (`index.html` —el cassette en español—, `cassette/`, `disquetes/`, `vhs/`, `es/` y `en/`), las de cada proyecto y los ficheros para buscadores a partir de `data/site.json`, `data/projects.json` y `data/archivo.json`. GitHub Pages sirve `main` tal cual.
+Sitio estático: `node build.mjs` genera las páginas (`index.html` —el cassette en español—, `es/` y `en/`, y las otras versiones dentro de `eastereggs/`: `cassette/`, `disquetes/`, `vhs/` y `digital/`), las de cada proyecto y los ficheros para buscadores a partir de `data/site.json`, `data/projects.json` y `data/archivo.json`. GitHub Pages sirve `main` tal cual.
+
+## Easter eggs
+
+Las versiones alternativas del portafolio viven en `eastereggs/<versión>/<es|en>/`: **Disquetes**, **VHS**, **Cassette** (en inglés es la versión canónica, `/eastereggs/cassette/en/`) y **Digital** (el cassette dibujado en línea: `assets/css/digital.css` sobre `cassette.css`, tema `themes/digital.css`). Se encadenan por el pie: Cassette → Disquetes → VHS → Digital → Cassette. Están a una carpeta más de profundidad que las páginas de la raíz, y el build lo corrige solo (`egg()` en `build.mjs` añade un `../` a lo que sale de `eastereggs/`). Esta carpeta y la raíz las sustituirá el sitio de Astro (`astro/`) cuando se publique.
 
 ## SEO
 
