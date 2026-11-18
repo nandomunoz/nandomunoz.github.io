@@ -8,6 +8,7 @@ import { CT } from './consent.js';
 import { PRIVACY } from './legal/privacy.js';
 import { POLICY } from './legal/cookies.js';
 import { CREDITS } from './legal/credits.js';
+import { ACCESSIBILITY } from './legal/accessibility.js';
 
 const same = (a, b, what) => assert.deepEqual(Object.keys(a).sort(), Object.keys(b).sort(), what);
 
@@ -21,7 +22,7 @@ test('the cookie card and the video gate are the same in es, en and ar', () => {
   for (const l of ['es', 'en', 'ar']) for (const [k, v] of Object.entries(CT[l])) assert.ok(String(v).length > 0, `${l}.${k} is empty`);
 });
 test('the policy, privacy and credits pages have the same blocks in every language', () => {
-  for (const [name, doc] of Object.entries({ PRIVACY, POLICY, CREDITS })) {
+  for (const [name, doc] of Object.entries({ PRIVACY, POLICY, CREDITS, ACCESSIBILITY })) {
     const shape = (l) => doc[l].blocks.map((b) => Object.keys(b)[0]).join(',');
     assert.equal(shape('en'), shape('es'), `${name}: en has other blocks than es`);
     assert.equal(shape('ar'), shape('es'), `${name}: ar has other blocks than es`);

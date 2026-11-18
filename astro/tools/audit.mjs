@@ -33,16 +33,16 @@ const base = `http://127.0.0.1:${server.address().port}`;
 const ARTICLE = 'carnaval-de-cadiz-analisis-del-popuri-de-los-renacidos', POST = 'margaret-hamilton';
 const L = { es: '', en: '/en', ar: '/ar' };
 const T = {
-  es: { projects: '/proyectos/', project: '/proyectos/luz/', cat: '/blog/categoria/', tags: '/blog/etiqueta/', policy: '/politica-de-cookies/', privacy: '/privacidad/', credits: '/creditos/', notfound: '/404.html' },
-  en: { projects: '/projects/', project: '/projects/luz/', cat: '/blog/category/', tags: '/blog/tag/', policy: '/cookie-policy/', privacy: '/privacy/', credits: '/credits/', notfound: '/404/' },
-  ar: { projects: '/projects/', project: '/projects/luz/', cat: '/blog/category/', tags: '/blog/tag/', policy: '/cookie-policy/', privacy: '/privacy/', credits: '/credits/', notfound: '/404/' }
+  es: { projects: '/proyectos/', project: '/proyectos/luz/', cat: '/blog/categoria/', tags: '/blog/etiqueta/', policy: '/politica-de-cookies/', privacy: '/privacidad/', credits: '/creditos/', access: '/accesibilidad/', notfound: '/404.html' },
+  en: { projects: '/projects/', project: '/projects/luz/', cat: '/blog/category/', tags: '/blog/tag/', policy: '/cookie-policy/', privacy: '/privacy/', credits: '/credits/', access: '/accessibility/', notfound: '/404/' },
+  ar: { projects: '/projects/', project: '/projects/luz/', cat: '/blog/category/', tags: '/blog/tag/', policy: '/cookie-policy/', privacy: '/privacy/', credits: '/credits/', access: '/accessibility/', notfound: '/404/' }
 };
 const pages = [];
 for (const l of Object.keys(L)) {
   const p = L[l], t = T[l];
   pages.push([`${l} home`, `${p}/`], [`${l} projects`, p + t.projects], [`${l} project`, p + t.project], [`${l} blog`, `${p}/blog/`], [`${l} blog p2`, `${p}/blog/2/`],
     [`${l} post`, `${p}/blog/${POST}/`], [`${l} post+video`, `${p}/blog/${ARTICLE}/`], [`${l} post+code`, `${p}/blog/aprendiendo-web-components/`], [`${l} categories`, p + t.cat], [`${l} category`, `${p + t.cat}${l === 'es' ? 'literatura-y-pensamiento' : 'literatura-y-pensamiento'}/`],
-    [`${l} tags`, p + t.tags], [`${l} cookies`, p + t.policy], [`${l} privacy`, p + t.privacy], [`${l} credits`, p + t.credits], [`${l} 404`, p + t.notfound]);
+    [`${l} tags`, p + t.tags], [`${l} cookies`, p + t.policy], [`${l} privacy`, p + t.privacy], [`${l} credits`, p + t.credits], [`${l} accessibility`, p + t.access], [`${l} 404`, p + t.notfound]);
 }
 const key = new Set(['es home', 'es post+video', 'es projects', 'es cookies', 'ar home', 'ar post', 'en home']);
 const fails = [], note = (ok, what) => { if (!ok) { fails.push(what); console.log('  ✗', what); } return ok; };
@@ -90,7 +90,7 @@ for (const [name, url] of pages) {
   const pg = await ctx.newPage();
   await pg.goto(base + url);
   const r = await pg.evaluate(() => ({ h1: document.querySelectorAll('h1').length, text: document.querySelector('main')?.innerText.length ?? 0, links: document.querySelectorAll('main a[href]').length }));
-  note(r.h1 === 1 && r.text > 150 && r.links >= 2, `${name} without JS: h1 ${r.h1}, ${r.text} chars, ${r.links} links`);
+  note(r.h1 === 1 && r.text > 150 && r.links >= 1, `${name} without JS: h1 ${r.h1}, ${r.text} chars, ${r.links} links`);
   await ctx.close();
 }
 

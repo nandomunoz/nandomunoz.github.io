@@ -12,7 +12,7 @@ export async function GET({ site }: { site: URL }) {
   const blog = await loadBlog('es');
   const projects = (await getCollection('projects')).filter((p) => !p.data.hidden);
   const pages: Page[] = [
-    { route: 'home' }, { route: 'projects' }, { route: 'blog' }, { route: 'privacy' }, { route: 'cookies' }, { route: 'credits' },
+    { route: 'home' }, { route: 'projects' }, { route: 'blog' }, { route: 'privacy' }, { route: 'cookies' }, { route: 'credits' }, { route: 'accessibility' },
     ...projects.map((p) => ({ route: 'projects' as Route, rest: p.data.id })),
     ...blog.posts.map((p: any) => ({ route: 'blog' as Route, rest: blogRest.post(p.slug), lastmod: p.date.toISOString().slice(0, 10) })),
     { route: 'blog', rest: blogRest.categories() },

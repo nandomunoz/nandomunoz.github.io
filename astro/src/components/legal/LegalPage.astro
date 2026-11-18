@@ -9,14 +9,15 @@ import '../../styles/legal.css';
 import { PRIVACY, UPDATED as PV_UPDATED } from '../../i18n/legal/privacy.js';
 import { POLICY, UPDATED as PO_UPDATED } from '../../i18n/legal/cookies.js';
 import { CREDITS, UPDATED as CR_UPDATED } from '../../i18n/legal/credits.js';
+import { ACCESSIBILITY, UPDATED as AC_UPDATED } from '../../i18n/legal/accessibility.js';
 import { pathFor, blogRest, ui, type Locale } from '../../i18n/ui';
 import { blogStrings } from '../../i18n/blog.js';
 import { loadBlog, longDate } from '../../lib/blog.js';
-interface Props { lang: Locale; kind: 'privacy' | 'cookies' | 'credits' }
+interface Props { lang: Locale; kind: 'privacy' | 'cookies' | 'credits' | 'accessibility' }
 const { lang, kind } = Astro.props;
 const B = blogStrings(lang), t = ui[lang];
-const T: any = { privacy: PRIVACY, cookies: POLICY, credits: CREDITS }[kind][lang];
-const updated = { privacy: PV_UPDATED, cookies: PO_UPDATED, credits: CR_UPDATED }[kind];
+const T: any = { privacy: PRIVACY, cookies: POLICY, credits: CREDITS, accessibility: ACCESSIBILITY }[kind][lang];
+const updated = { privacy: PV_UPDATED, cookies: PO_UPDATED, credits: CR_UPDATED, accessibility: AC_UPDATED }[kind];
 const fill = (s: string) => s.replace('{privacy}', pathFor(lang, 'privacy')).replace('{cookies}', pathFor(lang, 'cookies'));
 const { posts } = kind === 'credits' ? await loadBlog(lang) : { posts: [] as any[] };
 const credited = posts.filter((p: any) => p.data.cover.credit);

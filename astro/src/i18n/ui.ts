@@ -20,6 +20,7 @@ const segments = {
   privacy: ['privacidad', 'privacy', 'privacy'],
   cookies: ['politica-de-cookies', 'cookie-policy', 'cookie-policy'],
   credits: ['creditos', 'credits', 'credits'],
+  accessibility: ['accesibilidad', 'accessibility', 'accessibility'],
   estilo: ['estilo', 'estilo', 'estilo']
 } as const;
 export type Route = keyof typeof segments;
@@ -53,7 +54,7 @@ export const ui = {
     skip: 'Saltar al contenido', siteName: 'Nando Muñoz', sections: 'Principal', bio: 'Bio', work: 'Proyectos', blog: 'Blog',
     language: 'Idioma', currentLanguage: 'idioma actual', newTab: '(se abre en otra pestaña)',
     foot: {
-      sections: 'Secciones', follow: 'Sígueme', about: 'Sobre esta web', privacy: 'Privacidad', cookies: 'Cookies', credits: 'Créditos y licencia',
+      sections: 'Secciones', follow: 'Sígueme', about: 'Sobre esta web', privacy: 'Privacidad', cookies: 'Cookies', credits: 'Créditos y licencia', accessibility: 'Accesibilidad',
       cookieSettings: 'Ajustes de cookies',
       legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.']
     },
@@ -69,7 +70,7 @@ export const ui = {
     skip: 'Skip to content', siteName: 'Nando Muñoz', sections: 'Main', bio: 'Bio', work: 'Projects', blog: 'Blog',
     language: 'Language', currentLanguage: 'current language', newTab: '(opens in a new tab)',
     foot: {
-      sections: 'Sections', follow: 'Follow me', about: 'About this site', privacy: 'Privacy', cookies: 'Cookies', credits: 'Credits and licence',
+      sections: 'Sections', follow: 'Follow me', about: 'About this site', privacy: 'Privacy', cookies: 'Cookies', credits: 'Credits and licence', accessibility: 'Accessibility',
       cookieSettings: 'Cookie settings',
       legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.']
     },
@@ -85,7 +86,7 @@ export const ui = {
     skip: 'انتقل إلى المحتوى', siteName: 'Nando Muñoz', sections: 'القائمة الرئيسية', bio: 'نبذة', work: 'المشاريع', blog: 'المدونة',
     language: 'اللغة', currentLanguage: 'اللغة الحالية', newTab: '(يُفتح في تبويب جديد)',
     foot: {
-      sections: 'الأقسام', follow: 'تابعني', about: 'عن هذا الموقع', privacy: 'الخصوصية', cookies: 'الكوكيز', credits: 'الاعتمادات والترخيص',
+      sections: 'الأقسام', follow: 'تابعني', about: 'عن هذا الموقع', privacy: 'الخصوصية', cookies: 'الكوكيز', credits: 'الاعتمادات والترخيص', accessibility: 'إمكانية الوصول',
       cookieSettings: 'إعدادات الكوكيز',
       legal: ['المحتوى © ', '، باستثناء ما يُنسب إلى أصحابه في ', 'الاعتمادات', '. صُنع بـ ', ' (رخصة MIT). كيف يستخدم هذا الموقع الكوكيز، في ', 'سياسة الكوكيز', '؛ ويمكنك تغيير ', 'إعدادات الكوكيز', ' متى شئت.']
     },
