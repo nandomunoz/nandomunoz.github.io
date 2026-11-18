@@ -11,7 +11,7 @@ export default defineConfig({
   // The posts keep their text exactly as written: no smart punctuation (it would change quotes and
   // dashes) and no GFM (its autolinks would nest a link inside a link whose text is a URL; tables and
   // other special blocks are written as HTML).
-  markdown: { gfm: false, processor: satteri({ features: { smartPunctuation: false, headingAttributes: true } }) },
+  markdown: { syntaxHighlight: false, gfm: false, processor: satteri({ features: { smartPunctuation: false, headingAttributes: true } }) },
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en', 'ar'],

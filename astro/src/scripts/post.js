@@ -50,6 +50,15 @@ if (prose) {
     a.target = '_blank'; a.rel = 'noopener';
     if (note) { const s = document.createElement('span'); s.className = 'vh'; s.textContent = ' ' + note; a.append(s); }
   }
+  // «#» after every h2: a link to that section, shown on hover and on focus
+  const anchor = prose.dataset.anchor || '';
+  for (const h of prose.querySelectorAll('h2[id]')) {
+    const a = document.createElement('a');
+    a.className = 'prose__anchor'; a.href = '#' + h.id; a.textContent = '#'; a.setAttribute('aria-label', `${anchor}: ${h.textContent}`);
+    h.append(a);
+  }
+  // code: LUZ's highlighter and a copy button, loaded only in the posts that have a block
+  if (prose.querySelector('pre')) import('./code.js');
   // a block of code or a table that scrolls sideways must be reachable with the keyboard (WCAG 2.1.1)
   for (const pre of prose.querySelectorAll('pre')) {
     if (pre.scrollWidth <= pre.clientWidth) continue;

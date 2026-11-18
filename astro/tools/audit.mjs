@@ -41,7 +41,7 @@ const pages = [];
 for (const l of Object.keys(L)) {
   const p = L[l], t = T[l];
   pages.push([`${l} home`, `${p}/`], [`${l} projects`, p + t.projects], [`${l} project`, p + t.project], [`${l} blog`, `${p}/blog/`], [`${l} blog p2`, `${p}/blog/2/`],
-    [`${l} post`, `${p}/blog/${POST}/`], [`${l} post+video`, `${p}/blog/${ARTICLE}/`], [`${l} categories`, p + t.cat], [`${l} category`, `${p + t.cat}${l === 'es' ? 'literatura-y-pensamiento' : 'literatura-y-pensamiento'}/`],
+    [`${l} post`, `${p}/blog/${POST}/`], [`${l} post+video`, `${p}/blog/${ARTICLE}/`], [`${l} post+code`, `${p}/blog/aprendiendo-web-components/`], [`${l} categories`, p + t.cat], [`${l} category`, `${p + t.cat}${l === 'es' ? 'literatura-y-pensamiento' : 'literatura-y-pensamiento'}/`],
     [`${l} tags`, p + t.tags], [`${l} cookies`, p + t.policy], [`${l} privacy`, p + t.privacy], [`${l} credits`, p + t.credits], [`${l} 404`, p + t.notfound]);
 }
 const key = new Set(['es home', 'es post+video', 'es projects', 'es cookies', 'ar home', 'ar post', 'en home']);

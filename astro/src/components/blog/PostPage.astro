@@ -61,7 +61,7 @@ const image = { src: await cropped(d.cover.src, 1200, 630), alt: d.cover.alt };
       </div>
     </aside>
     <div class="post__main">
-      <div class="prose" data-new-tab={t.newTab}><Content /></div>
+      <div class="prose" data-new-tab={t.newTab} data-anchor={B.sectionLink}><Content /></div>
       <ul class="tags" aria-label={B.tags}>{post.tags.map((id) => <li><a href={pathFor(lang, 'blog', blogRest.tag(id))}>#{tags[id].label}</a></li>)}</ul>
       <section class="author" aria-label={B.by}>
         <p class="author__by">{B.by}</p>
