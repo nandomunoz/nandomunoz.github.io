@@ -73,6 +73,10 @@
     .nav ol { gap: .9rem; }
     .nav a { letter-spacing: .1em; white-space: nowrap; }
   }
+  /* from 48em the menu sits centred in the masthead, on the line of the logo and the language (until it docks) */
+  @media (min-width: 48em) {
+    .nav { inset-block-start: 1.38rem; left: 50%; right: auto; translate: -50% 0; }
+  }
   @media (min-width: 48em) {
     .docked .nav {
       position: fixed; inset-block: auto max(1rem, env(safe-area-inset-bottom)); left: 50%; right: auto; translate: -50% 0; width: max-content;
