@@ -13,7 +13,8 @@
     "check": "astro check",
     "test": "node --test \"src/**/*.test.mjs\"",
     "verify:content": "node tools/verify-content.mjs",
-    "check:links": "node tools/check-links.mjs"
+    "check:links": "node tools/check-links.mjs",
+    "check:placeholders": "node tools/check-placeholders.mjs"
   },
   "dependencies": {
     "@luz-ds/catalog": "0.4.1",

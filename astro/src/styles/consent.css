@@ -1,0 +1,17 @@
+/* Cookie choice: the site's buttons (Chakra caps over a row of dots), the card and the video gate (plan Phase 9).
+   Ported from the maqueta. */
+@layer trama {
+  /* the site's buttons: Chakra caps over a row of dots that turns green; at least 44 px tall to tap */
+  .consent__btn {
+    display: inline-flex; align-items: center; min-block-size: 2.75rem; padding: .3rem 0 .5rem; border: 0; cursor: pointer;
+    font: 600 .68rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--ink); text-decoration: none; background-color: transparent;
+    background-image: radial-gradient(circle, var(--ink) 1px, transparent 1.6px); background-position: 0 calc(100% - .35rem); background-size: 6px 6px; background-repeat: repeat-x;
+  }
+  .consent__btn:hover { background-image: radial-gradient(circle, var(--accent-fill) 1.3px, transparent 1.8px); }
+  .consent__btn--quiet { color: var(--mute); background-image: radial-gradient(circle, var(--faint) 1px, transparent 1.6px); }
+  .consent__btn--quiet:hover { color: var(--ink); }
+  .prose .consent__btn { color: var(--ink); text-decoration: none; }
+  .prose .consent__btn--quiet { color: var(--mute); }
+  .prose .consent__btn--quiet:hover { color: var(--ink); }
+  @media (forced-colors: active) { .consent__btn { text-decoration: underline; } }
+}

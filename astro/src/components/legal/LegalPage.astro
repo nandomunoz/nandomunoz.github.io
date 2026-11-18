@@ -1,0 +1,57 @@
+---
+// The policy and credits pages (plan Phase 9, M3): static HTML in the three languages, indexable. The texts are data
+// (src/i18n/legal/*.js) in blocks: { h } { p } { ul } { glance } { table } { now } { covers }.
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BlogHead from '../blog/BlogHead.astro';
+import '../../styles/blog.css';
+import '../../styles/legal.css';
+import { PRIVACY, UPDATED as PV_UPDATED } from '../../i18n/legal/privacy.js';
+import { POLICY, UPDATED as PO_UPDATED } from '../../i18n/legal/cookies.js';
+import { CREDITS, UPDATED as CR_UPDATED } from '../../i18n/legal/credits.js';
+import { pathFor, blogRest, ui, type Locale } from '../../i18n/ui';
+import { blogStrings } from '../../i18n/blog.js';
+import { loadBlog, longDate } from '../../lib/blog.js';
+interface Props { lang: Locale; kind: 'privacy' | 'cookies' | 'credits' }
+const { lang, kind } = Astro.props;
+const B = blogStrings(lang), t = ui[lang];
+const T: any = { privacy: PRIVACY, cookies: POLICY, credits: CREDITS }[kind][lang];
+const updated = { privacy: PV_UPDATED, cookies: PO_UPDATED, credits: CR_UPDATED }[kind];
+const fill = (s: string) => s.replace('{privacy}', pathFor(lang, 'privacy')).replace('{cookies}', pathFor(lang, 'cookies'));
+const { posts } = kind === 'credits' ? await loadBlog(lang) : { posts: [] as any[] };
+const credited = posts.filter((p: any) => p.data.cover.credit);
+const count = [`${T.updated} ${longDate(lang, updated)}`, T.read].filter(Boolean).join(' · ');
+const slug = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
+---
+<Base lang={lang} title={`${T.title} · ${t.siteName}`} description={T.deck} route={kind} rest="">
+  <div class="blog legal-page">
+    <BlogHead crumbs={[[B.nfHome, pathFor(lang, 'home')]]} title={T.title} deck={T.deck} count={count} />
+    <div class="prose legal">
+      {T.blocks.map((x: any) => {
+        if (x.h) return <h2 id={slug(x.h) || undefined}>{x.h}</h2>;
+        if (x.p) return <p set:html={fill(x.p)} />;
+        if (x.ul) return <ul>{x.ul.map((li: string) => <li set:html={li} />)}</ul>;
+        if (x.glance) return <dl class="glance">{x.glance.map(([k, v]: string[]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>;
+        if (x.table) return (
+          <div class="legal__table" role="region" tabindex="0" aria-label={x.table.label}>
+            <table>
+              <thead><tr>{x.table.head.map((h: string) => <th scope="col">{h}</th>)}</tr></thead>
+              <tbody>{x.table.rows.map((r: string[]) => <tr>{r.map((cell, i) => (i ? <td set:html={cell} /> : <th scope="row" set:html={cell} />))}</tr>)}</tbody>
+            </table>
+          </div>
+        );
+        if (x.now) return (
+          <section class="now" aria-labelledby="now-title" data-consent-now hidden data-text={JSON.stringify({ none: T.now.none, yes: T.now.yes, no: T.now.no })}>
+            <h2 class="now__title" id="now-title">{T.now.title}</h2>
+            <div aria-live="polite"><p data-consent-status></p></div>
+            <button type="button" class="consent__btn" data-consent-open>{T.now.change}</button>
+          </section>
+        );
+        if (x.covers) return (
+          <ul>{credited.map((p: any) => <li><a href={pathFor(lang, 'blog', blogRest.post(p.slug))}>{p.data.title}</a> · <span lang="es" set:html={p.data.cover.credit} /></li>)}</ul>
+        );
+        return null;
+      })}
+    </div>
+  </div>
+</Base>
