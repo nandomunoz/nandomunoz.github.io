@@ -1,7 +1,7 @@
 {
   "source": "gh repo list nandomunoz (nombre, descripción, lenguaje y topics; no se ha leído el código)",
   "note": "inferred: true = el repo no tiene descripción y el kanji se ha elegido por el nombre y el lenguaje",
-  "count": 61,
+  "count": 62,
   "repos": [
     {
       "repo": "nandovejer.github.io",
@@ -48,6 +48,31 @@
         "text": "光明",
         "romaji": "kōmyō",
         "meaning": "claridad, esperanza"
+      }
+    },
+    {
+      "repo": "luz-ai",
+      "url": "https://github.com/nandomunoz/luz-ai",
+      "fork": false,
+      "archived": false,
+      "inferred": false,
+      "kanji": {
+        "char": "役",
+        "on": [
+          "yaku",
+          "eki"
+        ],
+        "kun": [
+          "yaku"
+        ],
+        "meaning": "utilidad, papel",
+        "meaning_en": "usefulness, role",
+        "reason": "«Actually useful»: 役に立つ, servir de verdad; y cada agente y cada skill hace su papel"
+      },
+      "alternative": {
+        "text": "助手",
+        "romaji": "joshu",
+        "meaning": "asistente"
       }
     },
     {

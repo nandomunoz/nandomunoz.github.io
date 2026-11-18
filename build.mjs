@@ -486,7 +486,7 @@ ${colophon(t, u, { href: `../../vhs/${lang}/`, code: u.vhsCode, label: u.vhsVers
 const SPINE = {
   bio: 'c', luz: 'a', ikay: 'f', 'chrome-local-ai': 'e', 'quien-canta-hoy': 'b',
   'ares-api': 'g', 'toolbar-aem': 'd', accesibilidad: 'a', 'libros-del-mundo': 'h',
-  'string-transformer': 'c', 'coac-analisis': 'b', 'illo-loader': 'e', 'js-subtype': 'f', 'kong-sole': 'g', 'react-para-torpes': 'h',
+  'string-transformer': 'c', 'coac-analisis': 'b', 'illo-loader': 'e', 'js-subtype': 'f', 'kong-sole': 'g', 'react-para-torpes': 'h', 'luz-ai': 'c',
   github: 'a', x: 'f', blog: 'd', linkedin: 'e'
 };
 // The lettering of each spine, as varied as on a real shelf: condensed sans,
@@ -494,7 +494,7 @@ const SPINE = {
 const TYPE = {
   luz: 'serif', ikay: 'wide', 'chrome-local-ai': 'cond', 'quien-canta-hoy': 'script',
   'ares-api': 'serif', 'toolbar-aem': 'mono', accesibilidad: 'wide', 'libros-del-mundo': 'script',
-  'string-transformer': 'cond', 'coac-analisis': 'serif', 'illo-loader': 'script', 'js-subtype': 'mono', 'kong-sole': 'mono', 'react-para-torpes': 'serif',
+  'string-transformer': 'cond', 'coac-analisis': 'serif', 'illo-loader': 'script', 'js-subtype': 'mono', 'kong-sole': 'mono', 'react-para-torpes': 'serif', 'luz-ai': 'mono',
   github: 'mono', x: 'wide', blog: 'script', linkedin: 'cond'
 };
 // Real cases are not all alike: a little taller or shorter, wider or thinner.

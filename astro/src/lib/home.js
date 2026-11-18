@@ -2,8 +2,8 @@
 // options its dotted block needs (density by year, kind and seed by id, rows by text length), so the page
 // ships them in `data-dots` and the browser only draws. Ported from the maqueta's main.js.
 
-/** The five projects of the home, in this order; the rest live on /proyectos/. */
-export const FEATURED = ['luz', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem'];
+/** The six projects of the home, in this order; the rest live on /proyectos/. */
+export const FEATURED = ['luz', 'luz-ai', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem'];
 /** Denser the newer. */
 export const DENSITY = { 2023: 0.36, 2024: 0.52, 2025: 0.68, 2026: 0.86 };
 export const densityOf = (/** @type {number} */ y) => DENSITY[y] ?? 0.6;

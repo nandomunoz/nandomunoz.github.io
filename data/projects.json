@@ -485,5 +485,41 @@
       ],
       "quote": "One concept a day."
     }
+  },
+  {
+    "id": "luz-ai",
+    "name": "Luz AI",
+    "year": 2026,
+    "tech": [
+      "Markdown",
+      "Claude Code"
+    ],
+    "demo": null,
+    "repo": "https://github.com/nandomunoz/luz-ai",
+    "ornament": "fleuron",
+    "es": {
+      "kicker": "Agentes y skills para IA",
+      "body": [
+        "Son mis agentes y skills para asistentes de IA, todo escrito por mí. Hoy son cuatro agentes que auditan una web (SEO, rendimiento, accesibilidad y funciones de IA) y dos skills: una escribe READMEs y la otra hace tráileres de un proyecto.",
+        "No hay nada que instalar: copias el prompt de la pieza que quieres y lo pegas en tu asistente, abierto en tu proyecto y con capacidad para abrir URLs. Si vas a usar una a menudo, la copias a tu proyecto, o a tu carpeta de usuario para tenerla en todos.",
+        "Los agentes son plantillas: cada uno trae un bloque de contexto con huecos y una regla que le impide seguir mientras quede alguno sin rellenar. Prefiero un auditor que se para y pregunta a uno que se inventa tu proyecto y te da un informe de buen aspecto.",
+        "Tres de los agentes solo leen. El cuarto, el que mejora los Core Web Vitals, cambia tu código y ejecuta comandos con tus permisos, y mide antes y después de cada cambio.",
+        "Las skills trabajan sobre el código real: una escribe o reescribe el README de cualquier repo y te enseña el borrador antes de escribir nada, y la otra hace un tráiler animado con sonido para redes sociales (necesita HyperFrames).",
+        "El README dice también lo que no hay: agentes de otras personas, agentes listos para usar sin tocarlos y pruebas automáticas de cuánto aciertan. Un auditor así ayuda a no olvidar cosas, no a dar la web por revisada. Tiene licencia MIT."
+      ],
+      "quote": "Prefiero un auditor que se para y pregunta a uno que se inventa tu proyecto."
+    },
+    "en": {
+      "kicker": "Agents and skills for AI",
+      "body": [
+        "These are my agents and skills for AI assistants, all written by me. Today there are four agents that audit a website (SEO, performance, accessibility and AI features) and two skills: one writes READMEs and the other makes trailers of a project.",
+        "There is nothing to install: you copy the prompt of the piece you want and paste it into your assistant, opened in your project and able to open URLs. If you will use one often, you copy it into your project, or into your user folder to have it in every one.",
+        "The agents are templates: each one carries a context block with blanks and a rule that forbids it from going on while any blank is left. I prefer an auditor that stops and asks over one that invents your project and hands you a good-looking report.",
+        "Three of the agents only read. The fourth, which improves the Core Web Vitals, changes your code and runs commands with your permissions, and measures before and after each change.",
+        "The skills work from the real code: one writes or rewrites the README of any repo and shows you the draft before writing anything, and the other makes an animated trailer with sound for social media (it needs HyperFrames).",
+        "The README also says what is not there: other people’s agents, agents ready to use untouched and automated tests of how often they are right. An auditor like this helps you not forget things, not to consider the site reviewed. It is MIT-licensed."
+      ],
+      "quote": "I prefer an auditor that stops and asks over one that invents your project."
+    }
   }
 ]

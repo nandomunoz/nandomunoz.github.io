@@ -18,7 +18,7 @@ document.documentElement.lang = htmlLang;
 document.documentElement.dir = dir;
 
 // Projects of data/projects.json (the Cassette's file, which stays as it is) that the maqueta does not show
-const HIDDEN = new Set(['coac-analisis', 'illo-loader']);
+const HIDDEN = new Set(['coac-analisis', 'illo-loader', 'luz-ai']);
 
 // The maqueta is the site as nandomunoz.com. data/site.json (the Cassette's file, which stays as it
 // is and points at today's soynando.com) names the domain in the blog and RSS entries: here they read
