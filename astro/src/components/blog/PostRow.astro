@@ -4,14 +4,16 @@ import { Picture } from 'astro:assets';
 import { pathFor, blogRest, type Locale } from '../../i18n/ui';
 import { blogStrings } from '../../i18n/blog.js';
 import { longDate, isoDate } from '../../lib/blog.js';
-interface Props { lang: Locale; post: any; categories: Record<string, { id: string; name: string }>; /** the first row in the page loads its image at once */ eager?: boolean }
+interface Props { lang: Locale; post: any; categories: Record<string, { id: string; name: string; kind?: number }>; /** the first row in the page loads its image at once */ eager?: boolean }
 const { lang, post, categories, eager = false } = Astro.props;
 const B = blogStrings(lang), cat = categories[post.category], c = post.data.cover;
+const loop = { rows: 9, density: post.density, kind: cat.kind, seed: post.seed, label: '', tone: c.tone?.src, bw: true };
 ---
 <li class="brow">
   <div class="brow__thumb">
     <div class="brow__dots cover-loop is-rest">
       <Picture src={c.src} alt="" widths={[176, 352]} sizes="(min-width: 48em) 8rem, 5.5rem" formats={['avif', 'webp']} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+      <canvas aria-hidden="true" data-loop={JSON.stringify(loop)}></canvas>
     </div>
   </div>
   <p class="brow__meta">

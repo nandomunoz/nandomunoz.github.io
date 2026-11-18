@@ -3,7 +3,7 @@
 import { byYear } from '../../lib/blog.js';
 import PostRow from './PostRow.astro';
 import type { Locale } from '../../i18n/ui';
-interface Props { lang: Locale; posts: any[]; categories: Record<string, { id: string; name: string }>; group?: boolean }
+interface Props { lang: Locale; posts: any[]; categories: Record<string, { id: string; name: string; kind?: number }>; group?: boolean }
 const { lang, posts, categories, group = true } = Astro.props;
 ---
 <div class="blist">

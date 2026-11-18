@@ -7,7 +7,7 @@ const { crumbs = [], title, deck, note, count, n = '03' } = Astro.props;
   {crumbs.length
     ? <p class="crumbs">{crumbs.map(([label, href], i) => <>{i > 0 && <span aria-hidden="true"> / </span>}<a href={href}>{label}</a></>)}</p>
     : <p class="sec-head__n" aria-hidden="true">{n}</p>}
-  <h1 class="bhead__title">{title}</h1>
+  <h1 class:list={['bhead__title', { decode: title.length <= 24 }]}>{title}</h1>
   {deck && <p class="bhead__deck">{deck}</p>}
   {note && <p class="bhead__note" role="note">{note}</p>}
   {count && <p class="bhead__count">{count}</p>}

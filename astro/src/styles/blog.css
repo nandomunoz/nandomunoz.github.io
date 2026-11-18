@@ -142,7 +142,8 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--matrix) 1.3
 .cover-loop picture { position: absolute; inset: 0; overflow: hidden; filter: var(--sink); }
 /* object-position matches the crop the dots use (toneAt: centred, 15 % down) */
 .cover-loop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; filter: grayscale(1); }
-.cover-loop canvas { position: relative; }
+.cover-loop canvas { position: relative; display: block; inline-size: 100%; max-inline-size: 100%; }
+.feat > * { min-inline-size: 0; }
 .cover-loop.is-shown picture, .cover-loop.is-rest picture { filter: none; }
 .cover-loop.is-shown canvas, .cover-loop.is-rest canvas { visibility: hidden; }
 .cover-loop.is-shown img { transition: filter .7s var(--ease); }

@@ -94,6 +94,10 @@ const feed = (l: Locale) => site + (l === 'es' ? '' : `/${l}`) + '/rss.xml';
       import '../scripts/chrome.js';
       import '../scripts/theme.js';
       import '../scripts/consent.js';
+      // titles in dots (the home's sections, the short titles of lists)
+      if (document.querySelector('.decode')) import('../scripts/titles.js');
+      // the featured images play one cycle of dots: only where there are some
+      if (document.querySelector('canvas[data-loop]')) import('../scripts/cover-loop.js');
     </script>
   </body>
 </html>

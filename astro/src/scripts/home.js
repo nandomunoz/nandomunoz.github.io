@@ -1,9 +1,7 @@
-// The home's behaviour (plan Phase 6): the rain over the cover with the poster typed in, the section titles that
-// resolve from noise into dots, the projects' cards that tilt under the pointer, and the reveal of what scrolls
+// The home's behaviour (plan Phase 6): the rain over the cover with the poster typed in, the projects' cards that tilt under the pointer, and the reveal of what scrolls
 // in where CSS scroll timelines do not exist. The dotted blocks themselves are mounted by blocks.js.
 import { RainField } from './rain.js';
 import { typePoster } from './poster.js';
-import { HeroField } from './dots.js';
 import { greenOnHover } from './green.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -30,26 +28,6 @@ if (cv && heroEl) {
     { motto: p.motto, key: new RegExp(p.key), green: new Set(p.green), reduce }
   ).play(900);
 }
-
-// ------------------------------------------------------------- titles resolve from noise into dots
-const titles = $$('.decode').map((h) => {
-  const text = h.textContent.trim();
-  const c = document.createElement('canvas');
-  c.className = 'title-dots'; c.setAttribute('aria-hidden', 'true');
-  const vh = document.createElement('span'); vh.className = 'vh'; vh.textContent = text;
-  h.replaceChildren(vh, c);
-  const item = { c, text, f: null };
-  c.addEventListener('pointermove', (e) => { if (item.f) { const r = c.getBoundingClientRect(); item.f.ptr = { x: e.clientX - r.left, y: e.clientY - r.top }; } });
-  c.addEventListener('pointerleave', () => { if (item.f) item.f.ptr = null; });
-  return item;
-});
-const titleIO = new IntersectionObserver((es) => es.forEach((e) => {
-  const item = titles.find((x) => x.c === e.target);
-  if (e.isIntersecting && e.intersectionRatio > 0.4) {
-    item.f ??= new HeroField(item.c, item.text, { reduce, plain: 13 });
-    item.f.start();
-  } else if (!e.isIntersecting && item.f) item.f.stop();
-}), { threshold: [0, 0.5] });
 
 // ------------------------------------------------------------- cards tilt under the pointer
 const works = document.querySelector('.works');
@@ -78,11 +56,10 @@ if (root.classList.contains('no-sda') && !reduce) {
 let rw = innerWidth, tm;
 addEventListener('resize', () => {
   clearTimeout(tm);
-  tm = setTimeout(() => { if (innerWidth === rw) return; rw = innerWidth; hero?.layout(); titles.forEach((x) => x.f?.layout()); }, 180);
+  tm = setTimeout(() => { if (innerWidth === rw) return; rw = innerWidth; hero?.layout(); }, 180);
 });
-document.addEventListener('trama:mode', () => { hero?.repaint(); titles.forEach((x) => x.f?.repaint()); });
+document.addEventListener('trama:mode', () => { hero?.repaint(); });
 
 await document.fonts.ready;
 hero?.layout();
 hero?.start();
-titles.forEach((x) => titleIO.observe(x.c));
