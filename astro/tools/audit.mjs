@@ -145,6 +145,31 @@ for (const url of ['/', `/blog/${POST}/`, '/proyectos/', '/politica-de-cookies/'
 }
 
 // ---------------------------------------------------------------- text spacing (1.4.12) and forced colours
+console.log('the project panel open');
+for (const [url, label] of [['/', 'es'], ['/en/', 'en'], ['/ar/', 'ar']]) for (const width of [375, 1280]) {
+  const ctx = await browser.newContext({ viewport: { width, height: 760 }, reducedMotion: 'reduce' });
+  await ctx.addInitScript(() => localStorage.setItem('luz-consent', JSON.stringify({ version: 1, policy: 'x', asked: ['youtube'], granted: [], expires: Date.now() + 1e10, given: new Date().toISOString() })));
+  const pg = await ctx.newPage();
+  const errs = [];
+  pg.on('pageerror', (e) => errs.push(e.message));
+  await pg.goto(base + url); await pg.waitForTimeout(800);
+  const card = pg.locator('.item__open').first();
+  await card.scrollIntoViewIfNeeded(); await pg.waitForTimeout(500);
+  await card.click(); await pg.waitForTimeout(900);
+  const st = await pg.evaluate(() => ({ open: document.querySelector('[data-panel]').open, inside: !!document.activeElement?.closest('[data-panel]'), path: location.pathname }));
+  note(st.open && st.inside, `panel ${label} @${width}: open ${st.open}, focus inside ${st.inside}`);
+  note(/\/(proyectos|projects)\/[a-z-]+\/$/.test(st.path), `panel ${label} @${width}: the address is not the project's (${st.path})`);
+  await pg.evaluate(axeSource);
+  const r = await pg.evaluate(() => axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] } }));
+  const hard = r.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
+  note(!hard.length, `panel ${label} @${width}: ${hard.map((v) => v.id + ' ×' + v.nodes.length).join(', ')}`);
+  await pg.keyboard.press('Escape'); await pg.waitForTimeout(500);
+  const back = await pg.evaluate(() => ({ open: document.querySelector('[data-panel]').open, focus: document.activeElement?.className, path: location.pathname }));
+  note(!back.open && back.focus === 'item__open' && !/\/(proyectos|projects)\//.test(back.path), `panel ${label} @${width}: Esc left it open or lost the focus (${JSON.stringify(back)})`);
+  note(!errs.length, `panel ${label} @${width}: errors ${errs[0]}`);
+  await ctx.close();
+}
+
 console.log('layout shift and LCP (unthrottled: the shift is the same, the LCP only a floor)');
 for (const [name, url] of [['es home', '/'], ['es post', `/blog/${POST}/`], ['es projects', '/proyectos/'], ['es project', '/proyectos/luz/'], ['ar home', '/ar/']]) {
   for (const width of [375, 1280]) {
