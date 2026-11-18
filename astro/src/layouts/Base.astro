@@ -52,9 +52,11 @@ const feed = (l: Locale) => site + (l === 'es' ? '' : `/${l}`) + '/rss.xml';
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="canonical" href={url}>
-    {locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={site + pathFor(l, route, rest)}>)}
-    <link rel="alternate" hreflang="x-default" href={site + pathFor('es', route, rest)}>
+    {!noindex && <>
+      <link rel="canonical" href={url}>
+      {locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={site + pathFor(l, route, rest)}>)}
+      <link rel="alternate" hreflang="x-default" href={site + pathFor('es', route, rest)}>
+    </>}
     {!noindex && <>
       <meta property="og:type" content={ogType}>
       <meta property="og:site_name" content="Nando Muñoz">

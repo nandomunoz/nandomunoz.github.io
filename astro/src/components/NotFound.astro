@@ -1,0 +1,54 @@
+---
+// The 404 (plan Phase 9): the rain with the desk picture drawn in it (a click scans), the address that failed, a
+// search over the posts and projects prefilled from that address, the four sections and the latest posts.
+// src/scripts/lost.js fills the address and runs the rain and the search; without JS the links below still work.
+import Base from '../layouts/Base.astro';
+import '../styles/blog.css';
+import '../styles/lost.css';
+import { getEntry } from 'astro:content';
+import { pathFor, ui, type Locale } from '../i18n/ui';
+import { blogStrings } from '../i18n/blog.js';
+import { loadBlog } from '../lib/blog.js';
+import PostRow from './blog/PostRow.astro';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const B = blogStrings(lang), t = ui[lang];
+const site = (await getEntry('site', 'site'))!.data;
+const { posts, categories } = await loadBlog(lang);
+const index = (lang === 'es' ? '' : `/${lang}`) + '/search.json';
+const ways = [['01', t.bio, pathFor(lang, 'home') + '#bio'], ['02', t.work, pathFor(lang, 'projects')], ['03', t.blog, pathFor(lang, 'blog')], ['04', site[lang].contactTitle, pathFor(lang, 'home') + '#contacto']];
+---
+<Base lang={lang} title={`404 · ${B.nf} · ${site.name}`} description={B.nfText} route="home" noindex>
+  {lang === 'es' && <script is:inline set:html={`var l=location.pathname.split('/')[1];if((l==='en'||l==='ar')&&location.pathname.indexOf('/404/')<0)location.replace('/'+l+'/404/?from='+encodeURIComponent(location.pathname+location.search))`} />}
+  <div class="lost-page"><div class="blog">
+    <section class="lost" aria-labelledby="lost-title" data-lost data-index={index}>
+      <div class="lost__stage">
+        <canvas class="lost__field" aria-hidden="true"></canvas>
+        <p class="lost__hint" aria-hidden="true" hidden data-hint={JSON.stringify({ fine: B.nfHintFine, touch: B.nfHint })}></p>
+      </div>
+      <div class="lost__copy">
+        <p class="lost__kicker">{B.nfKicker}</p>
+        <h1 class="lost__title" id="lost-title">{B.nfTitle}</h1>
+        <p class="lost__lead">{B.nfLead} <code data-address>…</code>{B.nfLead2}</p>
+      </div>
+      <form class="lost__search" role="search" hidden>
+        <label for="lost-q">{B.nfSearch}</label>
+        <div class="lost__field-row"><input type="search" id="lost-q" name="q" autocomplete="off" placeholder={B.nfPlaceholder} spellcheck="false"></div>
+        <p class="lost__status" role="status"></p>
+        <ol class="lost__results"></ol>
+      </form>
+      <nav class="lost__ways" aria-labelledby="lost-ways">
+        <h2 id="lost-ways">{B.nfWays}</h2>
+        <ul>{ways.map(([n, label, href]) => <li><a href={href}><span class="lost__n" aria-hidden="true">{n}</span><span>{label}</span><span class="lost__arrow" aria-hidden="true">{lang === 'ar' ? '←' : '→'}</span></a></li>)}</ul>
+      </nav>
+      <section class="lost__latest" aria-labelledby="lost-latest">
+        <h2 id="lost-latest">{B.nfLatest}</h2>
+        <div class="blist"><ol class="brows">{posts.slice(0, 3).map((p: any) => <PostRow lang={lang} post={p} categories={categories} />)}</ol></div>
+      </section>
+    </section>
+  </div></div>
+</Base>
+<script>
+  import '../scripts/blocks.js';
+  import '../scripts/lost.js';
+</script>
