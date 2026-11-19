@@ -6,6 +6,9 @@ import { z } from 'astro/zod';
 
 const locales = ['es', 'en', 'ar'] as const;
 
+/** A link that is data for an href: http or https only (z.url() alone would let `javascript:` or `data:` through). */
+const httpUrl = z.url().refine((u) => /^https?:\/\//i.test(u), { message: 'must be an http(s) URL' });
+
 /** A name and a short description in every language. */
 const named = z.object({ name: z.string(), desc: z.string() });
 const label = z.object({ es: z.string(), en: z.string(), ar: z.string() });
@@ -24,7 +27,7 @@ const posts = defineCollection({
       /** true for en and ar: shows the «translated automatically» notice and links to the original */
       translated: z.boolean(),
       /** The WordPress address, kept only to build the redirects and the RSS guid */
-      original: z.url(),
+      original: httpUrl,
       cover: z.object({
         src: image(),
         /** the grey read as halftone by the dot engine */
@@ -50,8 +53,8 @@ const projects = defineCollection({
       name: z.string(),
       year: z.number().int(),
       tech: z.array(z.string()),
-      demo: z.url().nullable().optional(),
-      repo: z.url(),
+      demo: httpUrl.nullable().optional(),
+      repo: httpUrl,
       plate: z.string().optional(),
       kanji: z.object({ char: z.string(), meaning: label }).nullable(),
       shot: z.object({ src: image(), tone: image().optional() }).nullable(),
@@ -72,7 +75,7 @@ const tags = defineCollection({
   schema: z.object({ id: z.string(), es: z.string(), en: z.string(), ar: z.string() })
 });
 
-const social = z.object({ id: z.string(), label: z.string(), handle: z.string(), url: z.url() });
+const social = z.object({ id: z.string(), label: z.string(), handle: z.string(), url: httpUrl });
 const ui = z.looseObject({ title: z.string(), metaDescription: z.string(), kicker: z.string(), deck: z.string(), bio: z.array(z.string()).or(z.string()), contactTitle: z.string(), contactText: z.string(), motto: z.any() });
 const site = defineCollection({
   loader: file('./src/content/site.json', { parser: (text) => [{ id: 'site', ...JSON.parse(text) }] }),
