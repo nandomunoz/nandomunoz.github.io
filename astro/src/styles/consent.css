@@ -1,0 +1,122 @@
+/* Cookie choice: the site's buttons (Chakra caps over a row of dots), the card and the video gate (plan Phase 9).
+   Ported from the maqueta. */
+@layer trama {
+  /* the site's buttons: Chakra caps over a row of dots that turns green; at least 44 px tall to tap */
+  .consent__btn {
+    display: inline-flex; align-items: center; min-block-size: 2.75rem; padding: .3rem 0 .5rem; border: 0; cursor: pointer;
+    font: 600 .68rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--ink); text-decoration: none; background-color: transparent;
+    background-image: radial-gradient(circle, var(--ink) 1px, transparent 1.6px); background-position: 0 calc(100% - .35rem); background-size: 6px 6px; background-repeat: repeat-x;
+  }
+  .consent__btn:hover { background-image: radial-gradient(circle, var(--accent-fill) 1.3px, transparent 1.8px); }
+  .consent__btn--quiet { color: var(--mute); background-image: radial-gradient(circle, var(--faint) 1px, transparent 1.6px); }
+  .consent__btn--quiet:hover { color: var(--ink); }
+  .prose .consent__btn { color: var(--ink); text-decoration: none; }
+  .prose .consent__btn--quiet { color: var(--mute); }
+  .prose .consent__btn--quiet:hover { color: var(--ink); }
+  @media (forced-colors: active) { .consent__btn { text-decoration: underline; } }
+
+  /* the card, its settings and a post's video gate (ported from the maqueta) */
+  .luz-cookie-consent {
+    padding: .9rem 1.1rem .55rem;
+    background: var(--bg-2) radial-gradient(circle, var(--faint) 1.1px, transparent 1.6px) 0 0 / 8px 6px repeat-x;
+    color: var(--ink);
+    font: 400 .85rem/1.45 Archivo, system-ui, sans-serif;
+  }
+  .luz-cookie-consent[hidden], .luz-cookie-consent [hidden] { display: none; }
+  .luz-cookie-consent__title { margin: 0 0 .25rem; font: 600 .62rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .luz-cookie-consent__title::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-inline-end: .6em; border-radius: 50%; background: var(--accent-fill); vertical-align: .1em; }
+  .consent__text { margin: 0; color: var(--mute); text-wrap: pretty; }
+  .consent__text a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; white-space: nowrap; }
+  .consent__text a:hover { text-decoration-color: var(--accent-fill); }
+  .consent__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1.2rem; }
+  .consent__actions { display: flex; flex-wrap: wrap; gap: 0 1.2rem; align-items: center; margin: 0; }
+  /* the site's buttons: Chakra caps over a row of dots that turns maroon;
+     at least 44 px tall to tap */
+  .consent__btn {
+    display: inline-flex; align-items: center; min-height: 2.75rem; padding: .3rem 0 .5rem;
+    font: 600 .68rem/1 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--ink); text-decoration: none;
+    background: radial-gradient(circle, var(--ink) 1px, transparent 1.6px) 0 calc(100% - .35rem) / 6px 6px repeat-x;
+  }
+  .consent__btn:hover { background-image: radial-gradient(circle, var(--accent-fill) 1.3px, transparent 1.8px); }
+  .consent__btn--quiet { color: var(--mute); background-image: radial-gradient(circle, var(--faint) 1px, transparent 1.6px); }
+  .consent__btn--quiet:hover { color: var(--ink); }
+  .consent__done { display: flex; flex-wrap: wrap; gap: 0 1.2rem; align-items: center; justify-content: space-between; outline-offset: 6px; }
+  .consent__done p { margin: .3rem 0; color: var(--mute); }
+  /* LUZ: the open button keeps its room until the script shows it */
+  [data-luz-consent-open][hidden] { display: inline-block; visibility: hidden; }
+  /* the settings: a modal dialog, as narrow as the card's text needs */
+  .consent__dialog {
+    width: min(28rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; margin: auto; padding: 1.6rem 1.5rem 1rem;
+    border: 0; color: var(--ink);
+    background: var(--bg-2) radial-gradient(circle, var(--faint) 1.1px, transparent 1.6px) 0 0 / 8px 6px repeat-x;
+    box-shadow: 0 0 0 1px var(--edge), 0 30px 60px -20px var(--shade);
+    font: 400 .95rem/1.5 Archivo, system-ui, sans-serif;
+  }
+  .consent__dialog::backdrop { background: var(--scrim); backdrop-filter: blur(3px); }
+  .consent__dialog-title { margin: 0 0 .7rem; font: 700 1.35rem/1.1 var(--dots); }
+  .consent__dialog form { display: grid; gap: .9rem; }
+  .consent__lead { margin: 0; color: var(--mute); }
+  .consent__dialog fieldset { margin: 0; padding: .8rem 0 0; border: 0; border-top: 1px dotted var(--faint); }
+  .consent__dialog legend { float: inline-start; width: 100%; padding: 0; margin-bottom: .3rem; font: 500 .62rem/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .consent__check { display: flex; gap: .7rem; align-items: center; min-height: 2.75rem; cursor: pointer; clear: both; }
+  .consent__check input { width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--accent-fill); }
+  .consent__hint { margin-block: 0; margin-inline: 1.85rem 0; font: 400 .82rem/1.45 Archivo, system-ui, sans-serif; color: var(--mute); }
+  .consent__policy { margin: 0; font-size: .85rem; }
+  .consent__policy a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
+  .consent__dialog .consent__actions { border-top: 1px dotted var(--faint); padding-top: .2rem; }
+  /* a post's video before YouTube is let in: the question, on the trama */
+  .video__gate { position: absolute; inset: 0; display: grid; align-content: center; gap: .6rem; padding: 1.2rem clamp(1.2rem, 5%, 2.4rem);
+    background: var(--bg-2) radial-gradient(circle, var(--edge) 1.1px, transparent 1.5px) 0 0 / 6px 6px; }
+  .video__gate p { margin: 0; max-width: 34rem; font: 400 .95rem/1.5 Archivo, system-ui, sans-serif; color: var(--mute); }
+  .video__gate .consent__actions { gap: 0 1.6rem; }
+  .video__gate .video__gate-title { display: flex; gap: .8rem; align-items: center; font: 600 .72rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+  .video__gate-icon { flex: none; display: grid; place-items: center; width: 2.4rem; height: 2.4rem; padding-inline-start: .12em; border-radius: 50%; border: 1px dotted var(--faint); font-size: .7rem; color: var(--mute); }
+  /* the notice is never cut: the frame grows past 16:9 when the text needs it */
+  .video:has(.video__gate) { container-type: inline-size; }
+  .video__frame:has(> .video__gate) { aspect-ratio: auto; min-height: 56.25cqi; }
+  .video__frame > .video__gate { position: relative; min-height: inherit; }
+
+  /* the card: fixed at the bottom, a small one in the corner from 48em; LUZ keeps the room it takes (--luz-consent-h) */
+  @media screen and (height > 30rem) {
+    .luz-cookie-consent { position: fixed; z-index: 40; inset: auto .75rem max(.75rem, env(safe-area-inset-bottom)); max-block-size: 50dvh; overflow-y: auto; overscroll-behavior: contain;
+      box-shadow: 0 0 0 1px var(--edge), 0 18px 40px -12px color-mix(in srgb, var(--shade) 80%, transparent); }
+    :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: calc(var(--luz-consent-h, 0px) + 6rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) body { padding-block-end: calc(var(--luz-consent-h, 0px) + .75rem); }
+  }
+  @media screen and (height > 30rem) and (max-width: 63.99em) {
+    /* while it shows, the pill moves to the edge to make room: beside the card when it fits, riding on it when not (consent.js measures it) */
+    :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { left: max(.75rem, var(--gut)); right: auto; translate: 0 0; inset-block-end: 1.25rem; }
+    :root.docked:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+  }
+  /* on a phone the home's menu is already the pill (CSS only, no .docked class): it makes room the same way */
+  @media screen and (height > 30rem) and (max-width: 47.99em) {
+    :root:has(luz-cookie-consent > :not([hidden])) .nav { left: max(.75rem, var(--gut)); right: auto; translate: 0 0; inset-block-end: 1.25rem; }
+    :root:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: calc(var(--luz-consent-h, 0px) + 6rem); }
+  }
+  @media screen and (height > 30rem) and (min-width: 48em) {
+    .luz-cookie-consent { inset: auto var(--gut) 1.25rem auto; inline-size: 22rem; }
+    :root:has(luz-cookie-consent > :not([hidden])) body { padding-block-end: 0; }
+    :root:has(luz-cookie-consent > :not([hidden])) .foot { padding-block-end: calc(var(--luz-consent-h, 0px) + 2.5rem); }
+    /* the cover's credits (the name) sit in the same corner: they rise above the card while it is there */
+    :root:has(luz-cookie-consent > :not([hidden])) .hero__copy { padding-block-end: calc(var(--luz-consent-h, 0px) + 2.5rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: 0; }
+    :lang(ar) .luz-cookie-consent { inset: auto auto 1.25rem var(--gut); }
+  }
+  @media screen and (height > 30rem) and (min-width: 64em) {
+    :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+  }
+  /* the colour button rides above the card (when the card is fixed) and, on a phone, above the pill */
+  @media (height > 30rem) {
+    :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { inset-block-end: calc(var(--luz-consent-h, 0px) + max(1rem, env(safe-area-inset-bottom)) + 3.9rem); }
+  }
+  @media (min-width: 64em) and (height > 30rem) {
+    :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.75rem); }
+  }
+  /* a short window (400 % zoom, a phone on its side): the card is in the flow, first in the page */
+  @media screen and (height <= 30rem) { .luz-cookie-consent { padding-block-start: calc(var(--luz-masthead-h, 6rem) + .5rem); } }
+  @media (forced-colors: active) { .luz-cookie-consent, .consent__dialog { border: 1px solid CanvasText; } .luz-cookie-consent__title::before { background: CanvasText; } }
+  @media print { luz-cookie-consent { display: none; } }
+  /* without JS there is no card to open: the footer's sentence links to the policy instead */
+  .js .foot__nojs { display: none; }
+}

@@ -1,0 +1,25 @@
+---
+// The cover (plan Phase 6): a poster over the rain. The page's <h1> is the name; the motto, the «una web de»
+// and the kicker are in the HTML from the start (read as they are without JS) and src/scripts/home.js types
+// them in over the rain. In Arabic the motto goes a word at a time and the Latin name stays left to right.
+import { ui, type Locale } from '../../i18n/ui';
+interface Props { lang: Locale; name: string; kicker: string }
+const { lang, name, kicker } = Astro.props;
+const h = ui[lang].home;
+const key = new RegExp(h.key), green = new Set(h.green);
+// the same split as poster.js's rich(): one line per sentence, the key words green or leaning
+const lines = h.motto.split(/(?<=\.)\s+/).map((s) => s.split(key).map((part, i) => ({ part, key: i % 2 === 1, green: green.has(part) })));
+---
+<section class="hero" aria-labelledby="hero-name">
+  <canvas class="hero__field" aria-hidden="true" data-rain data-name={name}></canvas>
+  <div class="hero__copy">
+    <p class="hero__deck" data-poster={JSON.stringify({ motto: h.motto, key: h.key, green: h.green })}>
+      {lines.map((line) => <span class="l">{line.map((w) => (w.key ? (w.green ? <b class="ia">{w.part}</b> : <em>{w.part}</em>) : w.part))}</span>)}
+    </p>
+    <div class="hero__billing">
+      <p class="hero__pre" aria-hidden="true">{h.pre}</p>
+      <h1 id="hero-name" class="hero__name" dir={lang === 'ar' ? 'ltr' : undefined}>{name}</h1>
+      <p class="hero__kicker">{kicker}</p>
+    </div>
+  </div>
+</section>

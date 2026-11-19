@@ -1,0 +1,20 @@
+---
+// 03 · the three latest posts, as rows, and a link to all of them.
+import { ui, pathFor, type Locale } from '../../i18n/ui';
+import { loadBlog, span } from '../../lib/blog.js';
+import { blogStrings, arrows } from '../../i18n/blog.js';
+import PostRow from '../blog/PostRow.astro';
+import SecHead from './SecHead.astro';
+// the rows and the section's own layout (.brow, .blogsec) live in blog.css, which the home does not load otherwise
+import '../../styles/blog.css';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const t = ui[lang], B = blogStrings(lang), A = arrows(lang);
+const { posts, categories } = await loadBlog(lang);
+const [a, b] = span(posts);
+---
+<section class="blogsec" id="blog" aria-labelledby="blog-title">
+  <SecHead n="03" id="blog-title" title={t.blog} count={B.count(posts.length, a, b)} />
+  <div class="blist"><ol class="brows">{posts.slice(0, 3).map((p: any) => <PostRow lang={lang} post={p} categories={categories} />)}</ol></div>
+  <a class="blogsec__all" href={pathFor(lang, 'blog')}><span>{t.home.allPosts}</span> <span aria-hidden="true">{A.next}</span></a>
+</section>

@@ -1,0 +1,107 @@
+/* Trama on top of LUZ's HTML-without-classes (plan Phase 2; DESIGN.md §2–§4, §7).
+   Logical properties throughout so /ar/ (dir="rtl") needs no second sheet. */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  body, p, figure, blockquote, dl, dd, h1, h2, h3, h4 { margin: 0; }
+}
+
+@layer trama {
+  @font-face { font-family: Archivo; src: url('/fonts/archivo-latin-wdth-normal.woff2') format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+  @font-face { font-family: Doto; src: url('/fonts/doto-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: Doto; src: url('/fonts/doto-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Chakra Petch'; src: url('/fonts/chakra-petch-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Chakra Petch'; src: url('/fonts/chakra-petch-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+  /* the poster's mask: the name after the Matrix title (src/scripts/rain.js); never shown as text */
+  @font-face { font-family: 'Playfair Display'; src: url('/fonts/playfair-display-latin-wght-normal.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
+
+  /* Short aliases of the maqueta's CSS, read from the theme's LUZ tokens (the dark values are in luz-theme-trama.css). */
+  :root {
+    --gut: clamp(1.25rem, 5.5vw, 7rem);
+    --ease: cubic-bezier(.2, .8, .2, 1);
+    --mono: 'Chakra Petch', system-ui, sans-serif; /* not monospaced, despite the name (DESIGN.md §3) */
+    --dots: Doto, 'Chakra Petch', monospace;
+    --code: ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, 'DejaVu Sans Mono', 'Liberation Mono', monospace;
+    --bg: var(--luz-surface-page);
+    --bg-2: var(--luz-surface-muted);
+    --ink: var(--luz-text-primary);
+    --mute: var(--luz-text-secondary);
+    --faint-text: var(--luz-text-muted);
+    --matrix: var(--luz-brand-primary);
+    --luz-font-body: Archivo, system-ui, sans-serif;
+    --luz-font-heading: Archivo, system-ui, sans-serif;
+    --luz-font-sans: Archivo, system-ui, sans-serif;
+    --luz-font-mono: var(--code);
+  }
+
+  html { background: var(--bg); color-scheme: dark light; -webkit-text-size-adjust: 100%; scroll-padding-block: 2rem; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 380 1.0625rem/1.65 Archivo, system-ui, sans-serif; font-stretch: 100%;
+    overflow-x: clip;
+  }
+  ::selection { background: var(--accent-fill); color: var(--on-accent); }
+
+  /* Strokes are dotted, corners square, bullets dots, the focus ring a dotted outline (§4) */
+  a { color: inherit; text-decoration: underline dotted; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+  a:hover { color: var(--matrix); }
+  :focus-visible { outline: 3px dotted var(--ink); outline-offset: 5px; border-radius: 2px; }
+  hr { border: 0; border-block-start: 1px dotted var(--rule); margin-block: 3rem; }
+
+  h1, h2, h3, h4 { text-wrap: balance; font-weight: 800; font-stretch: 62%; text-transform: uppercase; line-height: 1.02; letter-spacing: .005em; }
+  h1 { font-size: clamp(2.6rem, 9vw, 6rem); }
+  h2 { font-size: clamp(1.9rem, 5.4vw, 3.4rem); }
+  h3 { font-size: clamp(1.4rem, 3.4vw, 2rem); }
+  h4 { font-size: 1.15rem; }
+  :lang(ar) :is(h1, h2, h3, h4) { font-stretch: 100%; text-transform: none; letter-spacing: 0; line-height: 1.25; }
+  :lang(ar) { letter-spacing: 0; }
+
+  /* Running content gets Trama's dotted bullets and green numbers; lists that are interface (menus, chips,
+     tags, rows) stay plain. Articles do it in blog.css (.prose); the style guide here. */
+  .guide ul { list-style: none; padding-inline-start: 1.4rem; }
+  .guide ul > li { position: relative; }
+  .guide ul > li::before { content: ''; position: absolute; inset-inline-start: -1.1rem; inset-block-start: .72em; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--ink); }
+  .guide ol { padding-inline-start: 1.6rem; }
+  ol > li::marker { font: 600 .8em var(--mono); color: var(--matrix); }
+
+  blockquote { position: relative; padding-inline-start: 2.2rem; color: var(--mute); }
+  blockquote::before { content: ''; position: absolute; inset-block: .3em; inset-inline-start: 0; inline-size: 8px;
+    background: radial-gradient(circle, var(--matrix) 2.2px, transparent 2.6px) 0 0 / 8px 12px repeat-y; }
+
+  code, kbd, samp { font-family: var(--code); font-size: .9em; }
+  pre { background: var(--bg-2); padding: 1.1rem 1.25rem; overflow-x: auto; font-family: var(--code); font-size: .88rem; line-height: 1.55; }
+  :not(pre) > code { background: var(--bg-2); padding: .08em .35em; }
+
+  table { border-collapse: collapse; inline-size: 100%; font-size: .95rem; }
+  th, td { text-align: start; padding: .6rem .8rem; border-block-end: 1px dotted var(--rule); vertical-align: top; }
+  th { font: 600 .72rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .16em; color: var(--mute); }
+  caption { text-align: start; color: var(--mute); padding-block-end: .5rem; }
+
+  figure img { display: block; max-inline-size: 100%; block-size: auto; }
+  figcaption { font: 500 .78rem/1.4 var(--mono); color: var(--faint-text); margin-block-start: .6rem; }
+
+  details { border-block: 1px dotted var(--rule); padding-block: .8rem; }
+  summary { cursor: pointer; font: 600 .78rem var(--mono); text-transform: uppercase; letter-spacing: .16em; }
+
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :is(input, select, textarea) { background: var(--luz-input-bg); border: 1px solid var(--luz-input-border); border-radius: 0; padding: .6rem .8rem; }
+  :is(input, select, textarea)::placeholder { color: var(--faint-text); }
+
+  .skip { position: fixed; inset-inline-start: 1rem; inset-block-start: 1rem; z-index: 50; padding: .6rem 1rem; background: var(--ink); color: var(--bg);
+    font: 600 .8rem var(--mono); text-transform: uppercase; letter-spacing: .12em; text-decoration: none; transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  .vh { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* Keywords and labels (Chakra Petch, caps, wide tracking) */
+  .label { font: 600 .72rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--mute); }
+  :lang(ar) .label { letter-spacing: 0; text-transform: none; }
+
+  @media (forced-colors: active) {
+    :focus-visible { outline-color: Highlight; }
+    .guide ul > li::before { background: CanvasText; }
+    blockquote::before { background: radial-gradient(circle, CanvasText 2.2px, transparent 2.6px) 0 0 / 8px 12px repeat-y; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+}
+
+/* The nav's links to the home's sections scroll there (and not when the user asks for less motion) */
+@media (prefers-reduced-motion: no-preference) { :root { scroll-behavior: smooth; } }

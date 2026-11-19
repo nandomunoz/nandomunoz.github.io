@@ -1,0 +1,35 @@
+{
+  "name": "nandomunoz-com",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build && node tools/csp.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node --test \"src/**/*.test.mjs\"",
+    "check:links": "node tools/check-links.mjs",
+    "check:placeholders": "node tools/check-placeholders.mjs",
+    "wp:inventory": "node tools/wp-inventory.mjs",
+    "redirects": "node tools/redirects.mjs",
+    "budgets": "node tools/budgets.mjs",
+    "audit": "node tools/audit.mjs",
+    "seo": "node tools/seo-check.mjs"
+  },
+  "dependencies": {
+    "@luz-ds/catalog": "0.4.1",
+    "@luz-ds/core": "0.4.1",
+    "@luz-ds/tokens": "0.4.1",
+    "astro": "7.4.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "axe-core": "4.10.3",
+    "playwright-core": "1.65.1",
+    "typescript": "6.0.3"
+  }
+}

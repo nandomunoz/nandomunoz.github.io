@@ -1,0 +1,22 @@
+---
+// /blog/etiqueta/ — the tag cloud: bigger the more it is used (a CSS variable computed at build).
+import BlogLayout from './BlogLayout.astro';
+import BlogHead from './BlogHead.astro';
+import { loadBlog } from '../../lib/blog.js';
+import { blogStrings } from '../../i18n/blog.js';
+import { pathFor, blogRest, type Locale } from '../../i18n/ui';
+import { getEntry } from 'astro:content';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const B = blogStrings(lang);
+const { tags } = await loadBlog(lang);
+const used = Object.values(tags).filter((t) => t.count).sort((x, y) => y.count - x.count || x.label.localeCompare(y.label, lang));
+const max = Math.max(...used.map((t) => t.count));
+const name = (await getEntry('site', 'site'))!.data.name;
+---
+<BlogLayout lang={lang} title={`${B.tags} · Blog · ${name}`} description={B.tagsDeck} rest={blogRest.tags()}>
+  <BlogHead note={B.listNote} crumbs={[[B.blog, pathFor(lang, 'blog')]]} title={B.tags} count={`${used.length} ${B.tags.toLowerCase()}`} />
+  <ul class="tags tags--cloud">
+    {used.map((t) => <li style={`--w:${(t.count / max).toFixed(2)}`}><a href={pathFor(lang, 'blog', blogRest.tag(t.id))}><span>#{t.label}</span><sup>{t.count}</sup></a></li>)}
+  </ul>
+</BlogLayout>

@@ -9,7 +9,7 @@
       "CSS"
     ],
     "demo": "https://luzds.com/",
-    "repo": "https://github.com/nandovejer/luz",
+    "repo": "https://github.com/nandomunoz/luz",
     "plate": "lamp",
     "es": {
       "kicker": "Sistema de diseño",
@@ -41,15 +41,15 @@
   {
     "id": "ikay",
     "name": "IKAY",
-    "year": 2026,
+    "year": 2020,
     "tech": [
       "JavaScript",
       "CSS",
       "HTML",
       "LUZ"
     ],
-    "demo": "https://nandovejer.github.io/ikay-vanilla/",
-    "repo": "https://github.com/nandovejer/ikay-vanilla",
+    "demo": "https://nandomunoz.github.io/ikay-vanilla/",
+    "repo": "https://github.com/nandomunoz/ikay-vanilla",
     "plate": "fingerprint",
     "es": {
       "kicker": "Huella digital del navegador",
@@ -88,8 +88,8 @@
       "Chrome AI",
       "LUZ"
     ],
-    "demo": "https://nandovejer.github.io/apiChrome/",
-    "repo": "https://github.com/nandovejer/apiChrome",
+    "demo": "https://nandomunoz.github.io/apiChrome/",
+    "repo": "https://github.com/nandomunoz/apiChrome",
     "ornament": "asterism",
     "es": {
       "kicker": "IA en el navegador",
@@ -123,7 +123,7 @@
       "LUZ"
     ],
     "demo": "https://coac.com.es/",
-    "repo": "https://github.com/nandovejer/coac",
+    "repo": "https://github.com/nandomunoz/coac",
     "plate": "mask",
     "es": {
       "kicker": "Carnaval de Cádiz",
@@ -161,8 +161,8 @@
       "Vite",
       "PWA"
     ],
-    "demo": "https://nandovejer.github.io/streetcai/",
-    "repo": "https://github.com/nandovejer/streetcai",
+    "demo": "https://nandomunoz.github.io/streetcai/",
+    "repo": "https://github.com/nandomunoz/streetcai",
     "ornament": "fleuron",
     "es": {
       "kicker": "Videojuego",
@@ -197,8 +197,8 @@
       "CSS",
       "JSON"
     ],
-    "demo": "https://nandovejer.github.io/api-coac/",
-    "repo": "https://github.com/nandovejer/api-coac",
+    "demo": "https://nandomunoz.github.io/api-coac/",
+    "repo": "https://github.com/nandomunoz/api-coac",
     "plate": "guitar",
     "es": {
       "kicker": "Archivo musical",
@@ -230,7 +230,7 @@
       "Chrome Extension"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/toolbar-aem",
+    "repo": "https://github.com/nandomunoz/toolbar-aem",
     "ornament": "vine",
     "es": {
       "kicker": "Extensión de Chrome",
@@ -258,8 +258,8 @@
     "tech": [
       "HTML"
     ],
-    "demo": "https://nandovejer.github.io/accessibility/",
-    "repo": "https://github.com/nandovejer/accessibility",
+    "demo": "https://nandomunoz.github.io/accessibility/",
+    "repo": "https://github.com/nandomunoz/accessibility",
     "plate": "keyhole",
     "es": {
       "kicker": "Accesibilidad",
@@ -290,7 +290,7 @@
       "Markdown"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/libros-del-mundo",
+    "repo": "https://github.com/nandomunoz/libros-del-mundo",
     "ornament": "hedera",
     "es": {
       "kicker": "Biblioteca",
@@ -319,8 +319,8 @@
       "CSS",
       "PWA"
     ],
-    "demo": "https://nandovejer.github.io/string-transformer/",
-    "repo": "https://github.com/nandovejer/string-transformer",
+    "demo": "https://nandomunoz.github.io/string-transformer/",
+    "repo": "https://github.com/nandomunoz/string-transformer",
     "es": {
       "kicker": "Herramienta de texto",
       "body": [
@@ -347,8 +347,8 @@
       "JavaScript",
       "Chrome AI"
     ],
-    "demo": "https://nandovejer.github.io/coac-analisis/",
-    "repo": "https://github.com/nandovejer/coac-analisis",
+    "demo": "https://nandomunoz.github.io/coac-analisis/",
+    "repo": "https://github.com/nandomunoz/coac-analisis",
     "es": {
       "kicker": "Dashboard de datos",
       "body": [
@@ -375,7 +375,7 @@
       "Web Components"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/illo-loader",
+    "repo": "https://github.com/nandomunoz/illo-loader",
     "es": {
       "kicker": "Componente web",
       "body": [
@@ -402,7 +402,7 @@
       "Node.js"
     ],
     "demo": null,
-    "repo": "https://github.com/nandovejer/js-subtype",
+    "repo": "https://github.com/nandomunoz/js-subtype",
     "es": {
       "kicker": "Librería npm",
       "body": [
@@ -418,6 +418,72 @@
         "It exposes a single function, getType, which returns the subtype’s name, handy to validate input precisely or decide how to handle a value. It works in Node.js and in modern browsers, installs from npm or yarn and is MIT licensed."
       ],
       "quote": "More precise than typeof."
+    }
+  },
+  {
+    "id": "kong-sole",
+    "name": "kong.sole",
+    "year": 2019,
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "LUZ"
+    ],
+    "demo": "https://nandomunoz.github.io/kong.sole/",
+    "repo": "https://github.com/nandomunoz/kong.sole",
+    "es": {
+      "kicker": "Estilos para la consola",
+      "body": [
+        "kong.sole hace que la consola del navegador se vea bien. Son ayudantes de una línea, como kong.success() o kong.error(), cada uno con su insignia y su icono, para estados, títulos, tarjetas, tablas, gráficos, banners e imágenes.",
+        "Además de pintar, ayuda a depurar: registros con etiqueta y color propio, objetos y diferencias entre dos estados, temporizadores, contadores y trazas de pila sin el ruido de las librerías. Los colores salen de una paleta oscura y otra clara, así que se leen igual en las dos consolas.",
+        "Es un módulo ES sin dependencias, de 14,4 KB comprimido y con licencia MIT, que se instala desde npm o se carga desde un CDN. Con kong.enabled = false cada llamada no hace nada, y no recoge datos, ni hace peticiones, ni usa cookies. Las imágenes y los banners se ven completos en Chrome y Edge.",
+        "La portada es un banco de pruebas: eliges una receta, pulsas Run y el resultado sale en un panel de la página y en tus DevTools."
+      ],
+      "quote": "Haz que la consola de tu navegador se vea bien."
+    },
+    "en": {
+      "kicker": "Styles for the console",
+      "body": [
+        "kong.sole makes the browser console look good. It is a set of one-line helpers, like kong.success() or kong.error(), each with its own badge and icon, for statuses, headings, cards, tables, charts, banners and images.",
+        "Besides drawing, it helps you debug: tagged loggers with a colour of their own, objects and the differences between two states, timers, counters and stack traces without the noise of libraries. The colours come from a dark and a light palette, so they read the same in both consoles.",
+        "It is an ES module with no dependencies, 14.4 KB gzipped and MIT-licensed, installed from npm or loaded from a CDN. With kong.enabled = false every call does nothing, and it collects no data, makes no requests and uses no cookies. Images and banners show in full in Chrome and Edge.",
+        "The home page is a playground: you pick a recipe, press Run and the result shows in a panel on the page and in your DevTools."
+      ],
+      "quote": "Make your browser console look good."
+    }
+  },
+  {
+    "id": "react-para-torpes",
+    "name": "React para torpes",
+    "year": 2023,
+    "tech": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "MDX"
+    ],
+    "demo": "https://nandomunoz.github.io/react-para-torpes/",
+    "repo": "https://github.com/nandomunoz/react-para-torpes",
+    "es": {
+      "kicker": "Curso de React",
+      "body": [
+        "React para torpes es un curso gratuito y en español para aprender React 19 con TypeScript en 30 días, más una semana extra de Next.js. Está pensado para quien empieza desde cero y quiere avanzar sin agobios.",
+        "Son 31 lecciones en cinco semanas, que van de los fundamentos y una lista de tareas hasta un CRUD final con React Router, Redux Toolkit y tests con Vitest. Todas siguen el mismo formato: un concepto con una analogía cotidiana, pasos numerados, el error típico antes de que tropieces con él, un ejercicio con su solución oculta y un resumen.",
+        "Cada lección trae un editor en vivo: cambias el código y ves el resultado al instante. Los ejemplos se compilan y se prueban en CI, así que el código del sitio no se queda desactualizado.",
+        "El repositorio es el curso y el sitio que lo sirve: un sitio estático hecho con Next.js, Tailwind CSS y MDX, con una portada interactiva cuyo progreso se guarda en tu navegador, sin registro ni cookies. Tiene licencia MIT."
+      ],
+      "quote": "Un concepto por día."
+    },
+    "en": {
+      "kicker": "React course",
+      "body": [
+        "React para torpes («React for dummies») is a free course in Spanish to learn React 19 with TypeScript in 30 days, plus an extra week of Next.js. It is made for anyone starting from zero who wants to move on without feeling overwhelmed.",
+        "It has 31 lessons over five weeks, going from the fundamentals and a to-do list to a final CRUD with React Router, Redux Toolkit and tests with Vitest. They all follow the same format: a concept with an everyday analogy, numbered steps, the typical mistake before you trip over it, an exercise with its solution hidden, and a summary.",
+        "Every lesson comes with a live editor: you change the code and see the result at once. The examples are built and tested in CI, so the code on the site never goes out of date.",
+        "The repository is the course and the site that serves it: a static site made with Next.js, Tailwind CSS and MDX, with an interactive home page whose progress is saved in your browser, with no sign-up and no cookies. It is MIT-licensed."
+      ],
+      "quote": "One concept a day."
     }
   }
 ]

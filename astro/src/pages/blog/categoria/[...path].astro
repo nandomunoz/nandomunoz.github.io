@@ -1,0 +1,14 @@
+---
+// /blog/categoria/<id>/ and /blog/categoria/<id>/2/…
+import BlogCategory from '../../../components/blog/BlogCategory.astro';
+import { loadBlog, pagesOf } from '../../../lib/blog.js';
+export async function getStaticPaths() {
+  const { posts, categories } = await loadBlog('es');
+  return Object.values(categories).filter((k: any) => k.count).flatMap((k: any) => {
+    const n = pagesOf(posts.filter((p: any) => p.category === k.id)).length;
+    return Array.from({ length: n }, (_, i) => ({ params: { path: i === 0 ? k.id : `${k.id}/${i + 1}` }, props: { id: k.id, page: i + 1 } }));
+  });
+}
+const { id, page } = Astro.props;
+---
+<BlogCategory lang="es" id={id} page={page} />

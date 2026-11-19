@@ -1,20 +1,20 @@
 {
-  "name": "Fernando Muñoz",
+  "name": "Nando Muñoz",
   "nick": "Nando",
   "monogram": "N",
-  "baseUrl": "https://nandovejer.github.io",
+  "baseUrl": "https://nandomunoz.github.io",
   "socials": [
     {
       "id": "github",
       "label": "GitHub",
-      "handle": "nandovejer",
-      "url": "https://github.com/nandovejer"
+      "handle": "nandomunoz",
+      "url": "https://github.com/nandomunoz"
     },
     {
       "id": "x",
       "label": "X",
-      "handle": "@nandovejer",
-      "url": "https://x.com/nandovejer"
+      "handle": "@soynandomunoz",
+      "url": "https://x.com/soynandomunoz"
     },
     {
       "id": "blog",
@@ -35,6 +35,12 @@
       "label": "Facebook",
       "handle": "nandovejer",
       "url": "https://www.facebook.com/nandovejer"
+    },
+    {
+      "id": "rss",
+      "label": "RSS",
+      "handle": "soynando.com/feed",
+      "url": "https://soynando.com/feed/"
     }
   ],
   "blogUrl": "https://soynando.com/blog/",
@@ -43,15 +49,15 @@
       "langName": "Español",
       "otherEdition": "English edition",
       "skip": "Saltar al contenido",
-      "metaDescription": "Fernando Muñoz, Tech Lead Frontend en Madrid. Portafolio de proyectos web: estándares, accesibilidad y herramientas sin dependencias.",
+      "metaDescription": "Nando Muñoz, tech lead de frontend entre Cádiz y Madrid. Portafolio de proyectos web: estándares, accesibilidad y herramientas sin dependencias.",
       "runningHead": "Portafolio",
       "volume": "Volumen",
-      "kicker": "Tech Lead Frontend · Madrid",
-      "deck": "Memorias de un programador que escribe",
+      "kicker": "Tech lead de frontend · AEM, EDS y SFCC · Cádiz · Madrid",
+      "deck": "Código y palabra solamente con IA, chirrÍA",
       "bio": [
         "Soy Nando Muñoz y llevo más de diez años construyendo productos para grandes marcas como tech lead de frontend. Llegué al oficio antes que la IA y he creado equipos de frontend en Adobe Experience Manager y Salesforce Commerce Cloud.",
         "Leo, subrayo y escribo. Publiqué un poemario, Leyendo Claroscuros, y desde entonces la palabra ha ido a parar sobre todo a dos sitios: la poesía y el Carnaval de Cádiz, donde analizo popurrís verso a verso con la calma que no cabe en una red social.",
-        "Llevo años escribiendo sobre ambos oficios y construyendo cosas al margen del trabajo"
+        "Llevo años escribiendo sobre ambos oficios y construyendo cosas al margen del trabajo. Si te apetece curiosear, aquí tienes mis artículos y mis proyectos."
       ],
       "readFull": "Leer el texto entero",
       "readErased": "Ver el poema borrado",
@@ -110,7 +116,7 @@
       "volvelleHint": "Arrastra el disco o usa las flechas",
       "turnLeft": "Girar a la izquierda",
       "turnRight": "Girar a la derecha",
-      "sheetSlug": "Pliego 1 · Fernando Muñoz · Espécimen · En octavo · MMXXVI",
+      "sheetSlug": "Pliego 1 · Nando Muñoz · Espécimen · En octavo · MMXXVI",
       "openPage": "Abrir página",
       "backToSheet": "Volver al pliego",
       "zoomIn": "Acercar",
@@ -120,21 +126,22 @@
       "loupeOff": "Guardar el cuentahílos",
       "microHint": "Doble clic sobre la letra para acercarte · arrastra para recorrerla",
       "title": "Tech Lead Frontend en Madrid",
-      "locale": "es_ES"
+      "locale": "es_ES",
+      "motto": "Escrito por un humano. Programado por un humano más la IA: ella ayuda, pero no decide."
     },
     "en": {
       "langName": "English",
       "otherEdition": "Edición en español",
       "skip": "Skip to content",
-      "metaDescription": "Fernando Muñoz, Frontend Tech Lead in Madrid. Portfolio of web projects: standards, accessibility and zero-dependency tools.",
+      "metaDescription": "Nando Muñoz, frontend tech lead between Cádiz and Madrid. Portfolio of web projects: standards, accessibility and zero-dependency tools.",
       "runningHead": "Portfolio",
       "volume": "Volume",
-      "kicker": "Frontend Tech Lead · Madrid",
-      "deck": "Memoirs of a coder who writes",
+      "kicker": "Frontend tech lead · AEM, EDS & SFCC · Cádiz · Madrid",
+      "deck": "Code and words made with AI alone just creak",
       "bio": [
         "I am Nando Muñoz, and for more than ten years I have been building products for big brands as a frontend tech lead. I came to the craft before AI did, and I have built frontend teams on Adobe Experience Manager and Salesforce Commerce Cloud.",
         "I read, I underline and I write. I published a book of poems, Leyendo Claroscuros, and since then the word has mostly ended up in two places: poetry and the Cádiz Carnival, where I analyse popurrís verse by verse, with a calm that doesn't fit on social media.",
-        "For years I have been writing about both crafts and building things outside of work"
+        "For years I have been writing about both crafts and building things outside of work. If you feel like browsing, here are my articles and my projects."
       ],
       "readFull": "Read the full text",
       "readErased": "See the erased poem",
@@ -193,7 +200,7 @@
       "volvelleHint": "Drag the disc or use the arrows",
       "turnLeft": "Turn left",
       "turnRight": "Turn right",
-      "sheetSlug": "Sheet 1 · Fernando Muñoz · Specimen · Octavo · MMXXVI",
+      "sheetSlug": "Sheet 1 · Nando Muñoz · Specimen · Octavo · MMXXVI",
       "openPage": "Open page",
       "backToSheet": "Back to the sheet",
       "zoomIn": "Zoom in",
@@ -203,7 +210,8 @@
       "loupeOff": "Put the linen tester away",
       "microHint": "Double-click the letter to zoom in · drag to travel through it",
       "title": "Frontend Tech Lead in Madrid",
-      "locale": "en_GB"
+      "locale": "en_GB",
+      "motto": "Written by a human. Programmed by a human plus AI: it helps, but it doesn’t decide."
     }
   },
   "verification": {
