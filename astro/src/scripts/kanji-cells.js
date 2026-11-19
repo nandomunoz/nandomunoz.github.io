@@ -1,7 +1,6 @@
 // Trama · the projects' kanji as dot cells, one string per row (# = a lit dot), like the
 // 3×5 digits in dots.js, at three sizes (the glyph's height in dots is the key). Made once by
-// maqueta/tools/kanji-cells.py from Noto Sans CJK JP Regular (SIL OFL 1.1, credited in
-// shared/credits.js); do not edit by hand.
+// .claude/tools/kanji-cells.py from Noto Sans CJK JP Regular (SIL OFL 1.1); do not edit by hand.
 export const KANJI = {
   光: {
     24: { w: 24, h: 24, rows: ['...........##...........', '...........##......##...', '...##......##......##...', '...###.....##.....###...', '....##.....##.....##....', '....###....##....###....', '.....##....##....##.....', '.....###...##...###.....', '......#....##....#......', '...........##...........', '########################', '########################', '.......###....##........', '.......##.....##........', '.......##.....##........', '.......##.....##........', '......###.....##........', '......###.....##........', '.....###......##......##', '.....###......##......##', '...####.......##......##', '..####........##.....###', '#####.........#########.', '.##............########.'] },
@@ -100,7 +99,7 @@ export const KANJI_OF = {
 };
 export const kanjiOf = (id) => KANJI_OF[id] || '';
 
-// the first sense of the kanji's meaning, [es, en, ar] (data/kanjis-repos.json: meaning, meaning_en)
+// the first sense of the kanji's meaning, [es, en, ar] (astro/src/content/projects.json: kanji.meaning)
 const MEANING = {
   光: ['luz', 'light', 'نور'],
   跡: ['huella', 'footprint', 'أثر'],

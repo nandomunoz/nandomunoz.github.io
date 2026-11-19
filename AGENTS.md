@@ -78,6 +78,7 @@ Al añadir un proyecto o cambiar un repo, revisa `data/kanjis-repos.json` (un ka
 ## Cómo trabajar
 
 - **Commits:** solo cuando te lo pidan; la excepción es `feature/astro`, donde se commitea por hito. Nunca hagas push sin que te lo pidan. Mensajes en inglés, claros sobre qué cambia y por qué.
+- **Archivos de `.claude/` (y `AGENTS.md`): pasan por el agente `ai-auditor` antes de commitearse.** Revisa secretos y rutas locales, instrucciones inseguras o contradictorias, texto inyectado y referencias rotas, y solo informa. Se commitea si el veredicto es PASS o PASS WITH NOTES; con BLOCK, primero se arregla. Nunca se commitean `settings.local.json` ni `settings.local.json.tmp.*`.
 - **Revisa antes de borrar o sobrescribir.** Y no commitees cambios que no hayas revisado (por ejemplo, el trabajo de otro agente a medias).
 - **No inventes contenido.** Los textos de proyectos salen de los README de repos reales de `github.com/nandomunoz`; los hechos, fechas y enlaces se comprueban.
 - **Voz del sitio:** primera persona, llana, cálida y directa, con tuteo. En español, comillas «» y ortografía RAE; en inglés, británico.
