@@ -1,6 +1,6 @@
 # nandomunoz.com (Astro)
 
-El sitio nuevo de [nandomunoz.com](https://nandomunoz.com): blog, proyectos y portada, en español, inglés y árabe. Estático (Astro 7), con [LUZ](https://luzds.com) como sistema de diseño (tema propio, `trama`) y JavaScript sin dependencias. El plan completo está en [`../.claude/plan/plan-soynando-astro.md`](../.claude/plan/plan-soynando-astro.md); esta carpeta no toca el sitio actual de la raíz (`../index.html`, `../eastereggs/`…), que sigue generándose con `node build.mjs`.
+El sitio nuevo de [nandomunoz.com](https://nandomunoz.com): blog, proyectos y portada, en español, inglés y árabe. Estático (Astro 7), con [LUZ](https://luzds.com) como sistema de diseño (tema propio, `trama`) y JavaScript sin dependencias. El plan completo está en `.claude/plan/plan-soynando-astro.md` (solo en local); esta carpeta no toca el sitio actual de la raíz (`../index.html`, `../eastereggs/`…), que sigue generándose con `node build.mjs`.
 
 ## Comandos
 
@@ -33,7 +33,7 @@ src/i18n/             ui.ts (rutas y textos por idioma), blog.js, consent.js, le
 src/lib/              datos calculados en build: blog.js, projects.js, home.js, jsonld.ts, feed.ts, search.ts
 src/scripts/          el JS del navegador: dots.js (motor de puntos), rain.js, blocks.js, home.js, panel.js, post.js, consent.js, video.js…
 src/styles/           luz-theme-trama.css (el tema), base.css, chrome.css, home.css, blog.css, projects.css, consent.css…
-tools/                comprobadores, auditoría, redirecciones, tarjetas sociales, capturas de proyectos (project-shots.cjs)
+tools/                comprobadores, auditoría, redirecciones, tarjetas sociales, capturas de proyectos (project-shots.cjs), los kanjis en puntos (kanji-cells.py)
 ```
 
 ## Escribir

@@ -2,7 +2,7 @@
 // Short and in the same plain language as the cookie policy. It says only what
 // the site really does: no sign-up, forms, comments, newsletter, adverts or
 // analytics; the host sees the visit like any server; Google only after the
-// «yes» to YouTube. Draft from .claude/plan/informe-legal-maqueta.md §6.2. Same
+// «yes» to YouTube. Draft from the legal report (local only, .claude/plan/informe-legal-maqueta.md §6.2). Same
 // blocks as shared/cookies-policy.js.
 //
 // Contact: hola@soynando.com. Host: GitHub Pages (plan D2, decided 2026-11-18). ⟦…⟧ would mark anything else only the

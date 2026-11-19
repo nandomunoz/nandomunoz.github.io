@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import { satteri } from '@astrojs/markdown-satteri';
 
-// nandomunoz.com — see .claude/plan/plan-soynando-astro.md (Phase 1).
+// nandomunoz.com — see the plan, .claude/plan/plan-soynando-astro.md, local only (Phase 1).
 export default defineConfig({
   site: 'https://nandomunoz.com',
   output: 'static',

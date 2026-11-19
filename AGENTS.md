@@ -11,7 +11,7 @@ Dos sitios conviven en el repo, del mismo dueño (Nando Muñoz):
 | **El portafolio actual** (Cassette, Disquetes, VHS y Digital) | raíz: `index.html`, `es/`, `en/`, `projects/`, `proyectos/`, `eastereggs/`, `assets/` | `node build.mjs` desde `data/*.json` y `src/` | Publicado en GitHub Pages (`main`) |
 | **El sitio nuevo** nandomunoz.com | `astro/` | Astro 7 + LUZ, estático, en es, en y ar | En la rama `feature/astro` |
 
-El plan del sitio nuevo y su historia están en `.claude/plan/plan-soynando-astro.md`. La maqueta (`maqueta/`) que le sirvió de prototipo ya no existe en esta rama; sigue en la rama `proto/home`.
+El plan del sitio nuevo y su historia están en `.claude/plan/plan-soynando-astro.md` (solo en la máquina del dueño: `.claude/` no está en el repo). La maqueta (`maqueta/`) que le sirvió de prototipo ya no existe en esta rama; sigue en la rama `proto/home`.
 
 ## Mapa
 
@@ -23,9 +23,9 @@ astro/src/content/               datos del sitio nuevo: site.json, projects.json
 astro/src/{pages,components,layouts,i18n,lib,scripts,styles}/
 astro/tools/                     comprobadores, auditoría, redirecciones, tarjetas, capturas de proyectos
 astro/DESIGN.md                  el sistema de diseño (tokens, puntos, modos de color)
-.claude/agents/                  agentes de revisión (accesibilidad, SEO, legal, rendimiento, tono, etc.)
-.claude/plan/                    planes e informes de auditoría (el plan de Astro; los informes de la maqueta, como historia)
-.claude/tools/                   herramientas de apoyo (kanji-cells.py, el generador de los kanjis en puntos)
+astro/tools/kanji-cells.py       el generador de los kanjis en puntos (escribe astro/src/scripts/kanji-cells.js)
+.claude/agents/                  (solo en local) agentes de revisión: accesibilidad, SEO, legal, rendimiento, tono, etc.
+.claude/plan/                    (solo en local) planes e informes de auditoría
 ```
 
 Hay datos que existen dos veces, uno por sitio (por ejemplo los enlaces sociales en `data/site.json` y en `astro/src/content/site.json`, o los proyectos en `data/projects.json` y `astro/src/content/projects.json`). Si cambias uno, cambia el otro.
@@ -80,7 +80,7 @@ Al añadir un proyecto o cambiar un repo, revisa `data/kanjis-repos.json` (un ka
 ## Cómo trabajar
 
 - **Commits:** solo cuando te lo pidan; la excepción es `feature/astro`, donde se commitea por hito. Nunca hagas push sin que te lo pidan. Mensajes en inglés, claros sobre qué cambia y por qué.
-- **Todo lo que está en `.claude/` se queda en local: nunca se commitea, ni se sube con push, ni se copia a un servicio externo.** Vale para agentes, herramientas, planes, informes y ajustes. Lo que un agente deje por escrito (un informe, un plan) va a `.claude/plan/` y no se añade a git. Si una tarea parece pedir lo contrario, pregunta antes. El agente `ai-auditor` queda para revisar esos archivos a petición.
+- **Todo lo que está en `.claude/` se queda en local: nunca se commitea, ni se sube con push, ni se copia a un servicio externo.** Vale para agentes, planes, informes y ajustes; las herramientas que el sitio necesita van en `astro/tools/` o `tools/`, nunca ahí. Lo que un agente deje por escrito (un informe, un plan) va a `.claude/plan/` y no se añade a git. Si una tarea parece pedir lo contrario, pregunta antes. El agente `ai-auditor` queda para revisar esos archivos a petición.
 - **Revisa antes de borrar o sobrescribir.** Y no commitees cambios que no hayas revisado (por ejemplo, el trabajo de otro agente a medias).
 - **No inventes contenido.** Los textos de proyectos salen de los README de repos reales de `github.com/nandomunoz`; los hechos, fechas y enlaces se comprueban.
 - **Voz del sitio:** primera persona, llana, cálida y directa, con tuteo. En español, comillas «» y ortografía RAE; en inglés, británico.
