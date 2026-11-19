@@ -71,7 +71,7 @@ Put \`soynando.htaccess\` at the top of soynando.com's \`.htaccess\`, before Wor
 ## Not covered yet
 
 - Categories and tags are mapped one by one from the inventory of the old site (\`npm run wp:inventory\`); a slug not in the list falls to \`/blog/categoria/\` or \`/blog/etiqueta/\`.
-- \`nandomunoz.github.io\` (the Cassette site that lives there now) → the new domain: plan D5 / U5.
+- \`nandomunoz.github.io\` needs nothing here: with nandomunoz.com as the custom domain of the Pages site, GitHub sends it there path and all, and the Cassette's old paths (\`/es/\`, \`/projects/<id>/\`, \`/eastereggs/…\`) are pages of the new site that send the visitor on (\`src/lib/legacy.js\`).
 - Images under \`wp-content/uploads/\` fall to the home.
 `);
 
