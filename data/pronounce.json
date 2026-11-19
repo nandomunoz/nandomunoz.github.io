@@ -97,7 +97,8 @@
     "CI": "ce i",
     "MDX": "eme de equis",
     "CRUD": "crud",
-    "nandomunoz": "nando muñoz"
+    "nandomunoz": "nando muñoz",
+    "soynandomunoz": "soy nando muñoz"
   },
   "en": {
     "Fernando Muñoz": "Fernando Moonyoth",
@@ -139,6 +140,7 @@
     "para torpes": "pah-rah tor-pess",
     "Redux Toolkit": "Redux Toolkit",
     "Vitest": "Vee-test",
-    "nandomunoz": "nando Moonyoth"
+    "nandomunoz": "nando Moonyoth",
+    "soynandomunoz": "soy nando Moonyoth"
   }
 }
