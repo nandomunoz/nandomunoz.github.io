@@ -5,6 +5,8 @@ import { loadBlog, span } from '../../lib/blog.js';
 import { blogStrings, arrows } from '../../i18n/blog.js';
 import PostRow from '../blog/PostRow.astro';
 import SecHead from './SecHead.astro';
+// the rows and the section's own layout (.brow, .blogsec) live in blog.css, which the home does not load otherwise
+import '../../styles/blog.css';
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const t = ui[lang], B = blogStrings(lang), A = arrows(lang);

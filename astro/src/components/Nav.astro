@@ -4,15 +4,15 @@
 // tablet, a vertical rail on a desktop). On inner pages `docked` is set on <html> by the layout.
 import { ui, pathFor, type Locale } from '../i18n/ui';
 import { getEntry } from 'astro:content';
-interface Props { lang: Locale; /** the section this page belongs to, for aria-current: 'projects' | 'blog' | undefined (home) */ current?: 'projects' | 'blog'; /** inner pages: links to the home's sections go to the home; home: '#bio' */ home?: boolean }
+interface Props { lang: Locale; /** the section this page belongs to, for aria-current: 'projects' | 'blog' | undefined (home) */ current?: 'projects' | 'blog'; /** inner pages: links to the home's sections go to the home; home: the four are anchors (#bio, #trabajo, #blog, #contacto) and scroll to the section */ home?: boolean }
 const { lang, current, home = false } = Astro.props;
 const t = ui[lang];
 const site = (await getEntry('site', 'site'))!.data;
 const h = (hash: string) => (home ? hash : pathFor(lang, 'home') + hash);
 const items = [
   { n: '01', href: h('#bio'), text: t.bio, current: false },
-  { n: '02', href: pathFor(lang, 'projects'), text: t.work, current: current === 'projects' },
-  { n: '03', href: pathFor(lang, 'blog'), text: t.blog, current: current === 'blog' },
+  { n: '02', href: home ? '#trabajo' : pathFor(lang, 'projects'), text: t.work, current: current === 'projects' },
+  { n: '03', href: home ? '#blog' : pathFor(lang, 'blog'), text: t.blog, current: current === 'blog' },
   { n: '04', href: h('#contacto'), text: site[lang].contactTitle, current: false }
 ];
 ---

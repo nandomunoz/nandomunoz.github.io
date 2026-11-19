@@ -102,3 +102,6 @@
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 }
+
+/* The nav's links to the home's sections scroll there (and not when the user asks for less motion) */
+@media (prefers-reduced-motion: no-preference) { :root { scroll-behavior: smooth; } }

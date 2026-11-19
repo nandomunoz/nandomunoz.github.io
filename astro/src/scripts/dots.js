@@ -127,7 +127,9 @@ export function sampleText(text, cols, rows, { weight = 900, stretch = 'normal',
   ctx.textAlign = align;
   ctx.textBaseline = 'alphabetic';
   const asc = m.actualBoundingBoxAscent, desc = m.actualBoundingBoxDescent;
-  ctx.fillText(text, align === 'left' ? m.actualBoundingBoxLeft + S : W / 2, H / 2 + (asc - desc) / 2);
+  // left: from the first column; right (right-to-left pages): ending at the last one; centre: in the middle
+  const x = align === 'left' ? m.actualBoundingBoxLeft + S : align === 'right' ? W - S : W / 2;
+  ctx.fillText(text, x, H / 2 + (asc - desc) / 2);
   const data = ctx.getImageData(0, 0, W, H).data;
   const cov = new Float32Array(cols * rows);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++)
@@ -362,7 +364,7 @@ export class HeroField {
     const tx = plain ? 0 : Math.round((cols - tCols) / 2), ty = plain ? 0 : rows - tRows - (narrow ? 1 : 2);
     const opt = { stretch: narrow ? 'extra-condensed' : 'semi-condensed', fill: 1 };
     let cov;
-    if (plain) cov = sampleText(this.text, tCols, tRows, { stretch: 'semi-condensed', weight: 800, fill: 0.86, align: 'left' });
+    if (plain) cov = sampleText(this.text, tCols, tRows, { stretch: 'semi-condensed', weight: 800, fill: 0.86, align: getComputedStyle(this.cv).direction === 'rtl' ? 'right' : 'left' });
     else if (stacked) {
       const top = tRows >> 1, a = sampleText(words[0].toUpperCase(), tCols, top, opt), b = sampleText(words.slice(1).join(' ').toUpperCase(), tCols, tRows - top, opt);
       cov = new Float32Array(tCols * tRows); cov.set(a); cov.set(b, a.length);
