@@ -1,0 +1,34 @@
+[
+  {
+    "id": "codigo-y-gestion",
+    "kind": 3,
+    "es": {
+      "name": "Código y gestión",
+      "desc": "Frontend, inteligencia artificial, historia de la informática y cómo se lidera un equipo."
+    },
+    "en": {
+      "name": "Code and management",
+      "desc": "Frontend, artificial intelligence, computing history and how a team is led."
+    },
+    "ar": {
+      "name": "الكود والإدارة",
+      "desc": "الواجهات الأمامية والذكاء الاصطناعي وتاريخ الحوسبة وكيف تُقاد الفرق."
+    }
+  },
+  {
+    "id": "literatura-y-pensamiento",
+    "kind": 2,
+    "es": {
+      "name": "Literatura y pensamiento",
+      "desc": "Análisis literarios y filosóficos de los popurrís del Carnaval de Cádiz."
+    },
+    "en": {
+      "name": "Literature and thought",
+      "desc": "Literary and philosophical readings of the Cádiz Carnival popurrís."
+    },
+    "ar": {
+      "name": "الأدب والفكر",
+      "desc": "قراءات أدبية وفلسفية لـ popurrís كرنفال قادس."
+    }
+  }
+]

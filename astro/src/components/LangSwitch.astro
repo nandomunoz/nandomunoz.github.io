@@ -1,0 +1,29 @@
+---
+// The language switch (plan Phase 4): a button with the name of the page's language and a chevron of
+// five dots, and a popover of links in the top layer. A disclosure, not an ARIA menu. The page's own
+// language is plain text (aria-current); the others link to this same page in them, each with its
+// lang. Without JS the popover still opens (it is declarative); src/scripts/chrome.js places it.
+import { locales, hreflang, htmlLang, languageName, ui, type Locale, type Route, type Rest, pathFor } from '../i18n/ui';
+interface Props { lang: Locale; route: Route; rest?: Rest; id: string }
+const { lang, route, rest = '', id } = Astro.props;
+const t = ui[lang];
+---
+<span class="lang-dd">
+  <button type="button" class="lang-dd__btn" aria-expanded="false" aria-controls={id} popovertarget={id}>
+    <span class="vh">{t.language}: </span><span lang={htmlLang[lang]}>{languageName[lang]}</span>
+    <svg class="lang-dd__chev" viewBox="0 0 5 3" aria-hidden="true" focusable="false">
+      {[[.5, .5], [4.5, .5], [1.5, 1.5], [3.5, 1.5], [2.5, 2.5]].map(([cx, cy]) => <circle cx={cx} cy={cy} r=".5" />)}
+    </svg>
+  </button>
+  <ul class="lang-dd__list" id={id} popover="auto" dir="ltr" aria-label={t.language}>
+    {locales.map((l) => (
+      <li>
+        {l === lang ? (
+          <span class="lang-dd__cur" lang={htmlLang[l]} aria-current="true"><span class="lang-dd__dot" aria-hidden="true"></span><span>{languageName[l]}</span><span class="vh" lang={htmlLang[lang]}>, {t.currentLanguage}</span></span>
+        ) : (
+          <a href={pathFor(l, route, rest)} hreflang={hreflang[l]} lang={htmlLang[l]}><span class="lang-dd__dot" aria-hidden="true"></span><span>{languageName[l]}</span></a>
+        )}
+      </li>
+    ))}
+  </ul>
+</span>

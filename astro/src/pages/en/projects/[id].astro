@@ -1,0 +1,10 @@
+---
+import ProjectPage from '../../../components/projects/ProjectPage.astro';
+import { loadProjects } from '../../../lib/projects.js';
+export async function getStaticPaths() {
+  const { projects } = await loadProjects('en');
+  return projects.map((p: { id: string }) => ({ params: { id: p.id } }));
+}
+const { id } = Astro.params;
+---
+<ProjectPage lang="en" id={id as string} />

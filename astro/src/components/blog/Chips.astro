@@ -1,0 +1,17 @@
+---
+// The category chips: a row you can swipe on a phone, plus the way to all categories and to the tags.
+import { pathFor, blogRest, type Locale } from '../../i18n/ui';
+import { blogStrings } from '../../i18n/blog.js';
+interface Props { lang: Locale; categories: Record<string, { id: string; name: string; count: number }>; current?: string }
+const { lang, categories, current } = Astro.props;
+const B = blogStrings(lang);
+---
+<nav class="chips" aria-label={B.categories}>
+  <ul>
+    {Object.values(categories).filter((k) => k.count).map((k) => (
+      <li><a href={pathFor(lang, 'blog', blogRest.category(k.id))} aria-current={current === k.id ? 'page' : undefined}><span>{k.name}</span><sup>{k.count}</sup></a></li>
+    ))}
+    <li class="chips__more"><a href={pathFor(lang, 'blog', blogRest.categories())} aria-current={current === '*' ? 'page' : undefined}>{B.allCategories}</a></li>
+    <li class="chips__more"><a href={pathFor(lang, 'blog', blogRest.tags())}>{B.tags}</a></li>
+  </ul>
+</nav>

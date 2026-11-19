@@ -1,0 +1,28 @@
+---
+// /blog/, /blog/2/… (plan Phase 8): the latest post big, the rest grouped by year, five a page.
+import BlogLayout from './BlogLayout.astro';
+import BlogHead from './BlogHead.astro';
+import Chips from './Chips.astro';
+import Featured from './Featured.astro';
+import PostList from './PostList.astro';
+import Pager from './Pager.astro';
+import { loadBlog, pagesOf, span } from '../../lib/blog.js';
+import { blogStrings } from '../../i18n/blog.js';
+import { pathFor, blogRest, type Locale } from '../../i18n/ui';
+import { getEntry } from 'astro:content';
+interface Props { lang: Locale; page: number }
+const { lang, page } = Astro.props;
+const B = blogStrings(lang);
+const { posts, categories } = await loadBlog(lang);
+const pages = pagesOf(posts), slice = pages[page - 1];
+const [a, z] = span(posts);
+const name = (await getEntry('site', 'site'))!.data.name;
+const pageNote = page > 1 ? ` · ${B.page(page, pages.length)}` : '';
+---
+<BlogLayout lang={lang} title={`Blog${pageNote} · ${name}`} description={B.deck} rest={blogRest.page(page)}>
+  <BlogHead note={B.listNote} title={B.blog} deck={B.deck} count={B.count(posts.length, a, z) + pageNote} />
+  <Chips lang={lang} categories={categories} />
+  {page === 1 && <Featured lang={lang} post={slice[0]} categories={categories} />}
+  <PostList lang={lang} posts={page === 1 ? slice.slice(1) : slice} categories={categories} />
+  <Pager lang={lang} current={page} total={pages.length} href={(n) => pathFor(lang, 'blog', blogRest.page(n))} />
+</BlogLayout>

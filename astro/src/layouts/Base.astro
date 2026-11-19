@@ -1,0 +1,103 @@
+---
+import '../styles/layers.css';
+import '@luz-ds/tokens/tokens.css';
+import '@luz-ds/core/base.css';
+import '../styles/luz-theme-trama.css';
+import '../styles/base.css';
+import '../styles/chrome.css';
+import '../styles/blocks.css';
+import '../styles/consent.css';
+import { htmlLang, dir, hreflang, ui, locales, pathFor, type Locale, type Route, type Rest } from '../i18n/ui';
+import Masthead from '../components/Masthead.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description?: string;
+  /** which route this page is, so every language's address (and the language switch) is built from it */
+  route: Route;
+  /** what comes after the route's segment, e.g. a project's id */
+  rest?: Rest;
+  /** the section the page belongs to, for the menu's aria-current */
+  current?: 'projects' | 'blog';
+  noindex?: boolean;
+  /** the picture for social cards (1200 × 630): an article's cover; every other page uses the language's own */
+  image?: { src: string; alt: string };
+  /** 'article' for a post */
+  ogType?: 'website' | 'article';
+  /** schema.org nodes for this page, written as one @graph */
+  jsonld?: object[];
+  /** a page that is not the home but borrows its route (the 404): the menu links to the home's sections instead of scrolling to them */
+  inner?: boolean;
+}
+const { lang, title, description = '', route, rest = '', current, noindex = false, image, ogType = 'website', jsonld = [], inner = false } = Astro.props;
+const site = Astro.site!.origin;
+const home = route === 'home' && !inner;
+const url = site + pathFor(lang, route, rest);
+const og = image ?? { src: `/og/${lang}.jpg`, alt: title };
+const ogLocale = { es: 'es_ES', en: 'en_GB', ar: 'ar_SY' } as const;
+const feed = (l: Locale) => site + (l === 'es' ? '' : `/${l}`) + '/rss.xml';
+---
+<!doctype html>
+<html lang={htmlLang[lang]} dir={dir[lang]} data-theme="trama" class={home ? undefined : 'docked'}>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <script is:inline>try{var m=localStorage.getItem('luz-theme');document.documentElement.dataset.mode=m==='light'||m==='high-contrast'||m==='dark'?m:matchMedia('(prefers-contrast: more)').matches?'high-contrast':'dark'}catch(e){document.documentElement.dataset.mode='dark'}document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('moving')</script>
+    <meta name="theme-color" content="#292929">
+    {noindex && <meta name="robots" content="noindex">}
+    <title>{title}</title>
+    {description && <meta name="description" content={description}>}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    {!noindex && <>
+      <link rel="canonical" href={url}>
+      {locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={site + pathFor(l, route, rest)}>)}
+      <link rel="alternate" hreflang="x-default" href={site + pathFor('es', route, rest)}>
+    </>}
+    {!noindex && <>
+      <meta property="og:type" content={ogType}>
+      <meta property="og:site_name" content="Nando Muñoz">
+      <meta property="og:locale" content={ogLocale[lang]}>
+      {locales.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={ogLocale[l]}>)}
+      <meta property="og:title" content={title}>
+      {description && <meta property="og:description" content={description}>}
+      <meta property="og:url" content={url}>
+      <meta property="og:image" content={og.src.startsWith('http') ? og.src : site + og.src}>
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta property="og:image:alt" content={og.alt}>
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content={title}>
+      {description && <meta name="twitter:description" content={description}>}
+      <meta name="twitter:image" content={og.src.startsWith('http') ? og.src : site + og.src}>
+      <meta name="twitter:image:alt" content={og.alt}>
+    </>}
+    <link rel="alternate" type="application/rss+xml" title={`Nando Muñoz · RSS (${hreflang[lang]})`} href={feed(lang)}>
+    {jsonld.length > 0 && <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonld }).replace(/</g, '\\u003c')} />}
+    <script type="speculationrules" is:inline>{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+    <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/doto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  </head>
+  <body>
+    <a class="skip" href="#main">{ui[lang].skip}</a>
+    <Masthead lang={lang} route={route} rest={rest} />
+    <Nav lang={lang} current={current} home={home} />
+    <main id="main"><slot /></main>
+    <div class="rail" aria-hidden="true"><i></i></div>
+    <Footer lang={lang} route={route} rest={rest} />
+    <script>
+      import '../scripts/chrome.js';
+      import '../scripts/theme.js';
+      import '../scripts/consent.js';
+      // titles in dots (the home's sections, the short titles of lists)
+      if (document.querySelector('.decode')) import('../scripts/titles.js');
+      // the featured images play one cycle of dots: only where there are some
+      if (document.querySelector('canvas[data-loop]')) import('../scripts/cover-loop.js');
+    </script>
+  </body>
+</html>

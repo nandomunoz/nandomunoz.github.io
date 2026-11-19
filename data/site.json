@@ -1,0 +1,222 @@
+{
+  "name": "Nando Muñoz",
+  "nick": "Nando",
+  "monogram": "N",
+  "baseUrl": "https://nandomunoz.github.io",
+  "socials": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "nandomunoz",
+      "url": "https://github.com/nandomunoz"
+    },
+    {
+      "id": "x",
+      "label": "X",
+      "handle": "@soynandomunoz",
+      "url": "https://x.com/soynandomunoz"
+    },
+    {
+      "id": "blog",
+      "label": "Blog",
+      "handle": "soynando.com",
+      "url": "https://soynando.com"
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "handle": "in/nandovejer",
+      "url": "https://www.linkedin.com/in/nandovejer"
+    }
+  ],
+  "extraSocials": [
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "handle": "nandovejer",
+      "url": "https://www.facebook.com/nandovejer"
+    },
+    {
+      "id": "rss",
+      "label": "RSS",
+      "handle": "soynando.com/feed",
+      "url": "https://soynando.com/feed/"
+    }
+  ],
+  "blogUrl": "https://soynando.com/blog/",
+  "i18n": {
+    "es": {
+      "langName": "Español",
+      "otherEdition": "English edition",
+      "skip": "Saltar al contenido",
+      "metaDescription": "Nando Muñoz, tech lead de frontend entre Cádiz y Madrid. Portafolio de proyectos web: estándares, accesibilidad y herramientas sin dependencias.",
+      "runningHead": "Portafolio",
+      "volume": "Volumen",
+      "kicker": "Tech lead de frontend · AEM, EDS y SFCC · Cádiz · Madrid",
+      "deck": "Código y palabra solamente con IA, chirrÍA",
+      "bio": [
+        "Soy Nando Muñoz y llevo más de diez años construyendo productos para grandes marcas como tech lead de frontend. Llegué al oficio antes que la IA y he creado equipos de frontend en Adobe Experience Manager y Salesforce Commerce Cloud.",
+        "Leo, subrayo y escribo. Publiqué un poemario, Leyendo Claroscuros, y desde entonces la palabra ha ido a parar sobre todo a dos sitios: la poesía y el Carnaval de Cádiz, donde analizo popurrís verso a verso con la calma que no cabe en una red social.",
+        "Llevo años escribiendo sobre ambos oficios y construyendo cosas al margen del trabajo. Si te apetece curiosear, aquí tienes mis artículos y mis proyectos."
+      ],
+      "readFull": "Leer el texto entero",
+      "readErased": "Ver el poema borrado",
+      "worksTitle": "Obras",
+      "tocTitle": "Índice",
+      "chapter": "Capítulo",
+      "plate": "Lám.",
+      "year": "Año",
+      "language": "Lengua",
+      "demo": "Ver demo",
+      "repo": "Ver código",
+      "socialsTitle": "Correspondencia",
+      "contactTitle": "Escríbeme",
+      "contactText": "Si algo de lo que lees aquí te sirve, o te chirría, cuéntamelo en redes.",
+      "prevPage": "Página anterior",
+      "nextPage": "Página siguiente",
+      "pageOf": "de",
+      "established": "Est. MMXXVI",
+      "interview": [
+        "¿En qué cree?",
+        "¿Y entonces?"
+      ],
+      "specimenTitle": "Espécimen",
+      "specimenLabel": "Compón tu propio texto",
+      "specimenPlaceholder": "Escribe aquí…",
+      "variants": {
+        "abecedario": {
+          "name": "Abecedario",
+          "summary": "El abecedario en una columna: una tira de tipos, y cada letra se abre en el inspector con sus líneas de métrica."
+        },
+        "cuentahilos": {
+          "name": "Cuentahílos",
+          "summary": "El alfabeto en una tira vertical de tipos. Cada letra viaja con zoom hasta el inspector, y un cuentahílos de imprenta amplía lo que pases por debajo."
+        },
+        "contraforma": {
+          "name": "Contraforma",
+          "summary": "Cada letra es una puerta: al hacer scroll crece hasta que te metes por su hueco, y al otro lado está el capítulo."
+        },
+        "cascada": {
+          "name": "Cascada",
+          "summary": "Una cascada de cuerpos, de 10 a 48 puntos, como en los especímenes. Cada línea se abre con zoom y despliega su capítulo."
+        },
+        "micrografia": {
+          "name": "Micrografía",
+          "summary": "Cada letra está compuesta con el texto de su capítulo en letra diminuta. Aumenta el zoom hasta poder leerla."
+        }
+      },
+      "glyphsTitle": "Tabla de glifos",
+      "metrics": [
+        "Ascendente",
+        "Altura de mayúsculas",
+        "Altura de x",
+        "Línea base",
+        "Descendente"
+      ],
+      "volvelleHint": "Arrastra el disco o usa las flechas",
+      "turnLeft": "Girar a la izquierda",
+      "turnRight": "Girar a la derecha",
+      "sheetSlug": "Pliego 1 · Nando Muñoz · Espécimen · En octavo · MMXXVI",
+      "openPage": "Abrir página",
+      "backToSheet": "Volver al pliego",
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar",
+      "zoomLabel": "Aumento",
+      "loupeOn": "Cuentahílos",
+      "loupeOff": "Guardar el cuentahílos",
+      "microHint": "Doble clic sobre la letra para acercarte · arrastra para recorrerla",
+      "title": "Tech Lead Frontend en Madrid",
+      "locale": "es_ES",
+      "motto": "Escrito por un humano. Programado por un humano más la IA: ella ayuda, pero no decide."
+    },
+    "en": {
+      "langName": "English",
+      "otherEdition": "Edición en español",
+      "skip": "Skip to content",
+      "metaDescription": "Nando Muñoz, frontend tech lead between Cádiz and Madrid. Portfolio of web projects: standards, accessibility and zero-dependency tools.",
+      "runningHead": "Portfolio",
+      "volume": "Volume",
+      "kicker": "Frontend tech lead · AEM, EDS & SFCC · Cádiz · Madrid",
+      "deck": "Code and words made with AI alone just creak",
+      "bio": [
+        "I am Nando Muñoz, and for more than ten years I have been building products for big brands as a frontend tech lead. I came to the craft before AI did, and I have built frontend teams on Adobe Experience Manager and Salesforce Commerce Cloud.",
+        "I read, I underline and I write. I published a book of poems, Leyendo Claroscuros, and since then the word has mostly ended up in two places: poetry and the Cádiz Carnival, where I analyse popurrís verse by verse, with a calm that doesn't fit on social media.",
+        "For years I have been writing about both crafts and building things outside of work. If you feel like browsing, here are my articles and my projects."
+      ],
+      "readFull": "Read the full text",
+      "readErased": "See the erased poem",
+      "worksTitle": "Works",
+      "tocTitle": "Contents",
+      "chapter": "Chapter",
+      "plate": "Pl.",
+      "year": "Year",
+      "language": "Language",
+      "demo": "View demo",
+      "repo": "View code",
+      "socialsTitle": "Correspondence",
+      "contactTitle": "Write to me",
+      "contactText": "If anything you read here is of use, or grates on you, tell me about it on social media.",
+      "prevPage": "Previous page",
+      "nextPage": "Next page",
+      "pageOf": "of",
+      "established": "Est. MMXXVI",
+      "interview": [
+        "What does he believe in?",
+        "And so?"
+      ],
+      "specimenTitle": "Specimen",
+      "specimenLabel": "Set your own text",
+      "specimenPlaceholder": "Type here…",
+      "variants": {
+        "abecedario": {
+          "name": "Alphabet",
+          "summary": "The alphabet in one column: a strip of type, and each letter opens in the inspector with its metric lines."
+        },
+        "cuentahilos": {
+          "name": "Linen tester",
+          "summary": "The alphabet as a vertical strip of type. Each letter zooms into the inspector, and a printer’s linen tester magnifies whatever you pass it over."
+        },
+        "contraforma": {
+          "name": "Counterform",
+          "summary": "Each letter is a doorway: scroll and it grows until you slip through its counter, into the chapter beyond."
+        },
+        "cascada": {
+          "name": "Waterfall",
+          "summary": "A waterfall of sizes, from 10 to 48 points, as in type specimens. Each line zooms open into its chapter."
+        },
+        "micrografia": {
+          "name": "Micrography",
+          "summary": "Each letter is drawn with its chapter’s own text in tiny type. Zoom in until you can read it."
+        }
+      },
+      "glyphsTitle": "Glyph table",
+      "metrics": [
+        "Ascender",
+        "Cap height",
+        "x-height",
+        "Baseline",
+        "Descender"
+      ],
+      "volvelleHint": "Drag the disc or use the arrows",
+      "turnLeft": "Turn left",
+      "turnRight": "Turn right",
+      "sheetSlug": "Sheet 1 · Nando Muñoz · Specimen · Octavo · MMXXVI",
+      "openPage": "Open page",
+      "backToSheet": "Back to the sheet",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "zoomLabel": "Magnification",
+      "loupeOn": "Linen tester",
+      "loupeOff": "Put the linen tester away",
+      "microHint": "Double-click the letter to zoom in · drag to travel through it",
+      "title": "Frontend Tech Lead in Madrid",
+      "locale": "en_GB",
+      "motto": "Written by a human. Programmed by a human plus AI: it helps, but it doesn’t decide."
+    }
+  },
+  "verification": {
+    "_": "Paste the content of the verification meta tag from Google Search Console and Bing Webmaster Tools here; the build writes the tags once they are filled.",
+    "google": "",
+    "bing": ""
+  }
+}

@@ -1,0 +1,29 @@
+# nandomunoz.com (Astro): build and check, no deploy yet (plan, Phases 1 and 10).
+# The gate: types and build, unit tests, the content against its source, every internal link, the page budgets and the
+# browser audit (axe, reflow, no-JS, the cookie choice, focus). The placeholders for the owner's contact data only warn
+# until the site is published (npm run check:placeholders without --warn fails on them).
+name: astro-build
+on:
+  push:
+    branches: [feature/astro]
+    paths: ['astro/**', '.github/workflows/astro-build.yml']
+  pull_request:
+    paths: ['astro/**']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: astro } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: astro/package-lock.json }
+      - run: npm ci
+      - run: npm test
+      - run: npm run build          # astro check && astro build
+      - run: npm run check:links
+      - run: npm run budgets
+      - run: npm run redirects
+      - run: npm run seo
+      - run: node tools/check-placeholders.mjs
+      - run: npx playwright-core install --with-deps chromium
+      - run: npm run audit

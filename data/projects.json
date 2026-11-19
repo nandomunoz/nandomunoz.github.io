@@ -1,0 +1,489 @@
+[
+  {
+    "id": "luz",
+    "name": "LUZ",
+    "year": 2024,
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS"
+    ],
+    "demo": "https://luzds.com/",
+    "repo": "https://github.com/nandomunoz/luz",
+    "plate": "lamp",
+    "es": {
+      "kicker": "Sistema de diseño",
+      "body": [
+        "LUZ (Light, Usable & Zero-dependency) es un sistema de diseño en HTML, CSS y módulos ES, sin dependencias en tiempo de ejecución. El HTML que escribes sale con estilo sin poner ninguna clase, y las clases solo añaden lo que el HTML no puede decir.",
+        "Son cuatro paquetes en npm que se apilan en un solo sentido: los tokens, el núcleo con el HTML sin clases y los componentes, y el catálogo, con buscador, aviso de cookies, selector de idioma y patrones de landing, blog, aplicación o documentación. En un proyecto que ya tiene diseño puede cargarse solo dentro de una región marcada y migrarse página a página.",
+        "Trae componentes de botones, formularios y tablas a pestañas, ventanas modales, avisos o un reproductor de vídeo, audio y MIDI. Cada uno tiene su página en la documentación con un ejemplo en vivo, el código para copiar y cuándo usarlo y cuándo no.",
+        "Apunta al nivel AA de WCAG 2.2 en sus tres modos de color, claro, oscuro y alto contraste: se maneja con teclado, el foco siempre se ve y cada página funciona sin JavaScript. Las pruebas automáticas pasan en cada cambio, y la declaración de accesibilidad dice también lo que aún no se ha probado.",
+        "Está pensado para personas y a la vez es sencillo para que un agente de IA lo escriba bien: la web publica la lista cerrada de clases, y luz-check lee sin conexión el HTML y el CSS de un proyecto y dice qué clases, elementos, orden de carga o colores están mal.",
+        "Cada cambio empieza con un test que falla, y cada archivo tiene un tamaño máximo que nadie sube para que pase. La paleta de color es propia y todo, fuentes incluidas, tiene licencia MIT, sin registro ni telemetría. Está en beta y es un punto de partida, no una web terminada: el contenido, la marca y las decisiones finales son tuyos."
+      ],
+      "quote": "Mejorar el HTML nativo en lugar de sustituirlo.",
+      "caption": "La lámpara"
+    },
+    "en": {
+      "kicker": "Design system",
+      "body": [
+        "LUZ (Light, Usable & Zero-dependency) is a design system in HTML, CSS and ES modules, with no runtime dependencies. The HTML you write comes out styled with no class, and classes only add what HTML cannot say.",
+        "It is four npm packages that stack in one direction: the tokens, the core with the class-free HTML and the components, and the catalog, with search, cookie consent, a language switch and patterns for a landing page, a blog, a web application or documentation. A project that already has a design can load it inside one marked region and migrate page by page.",
+        "It brings components from buttons, forms and tables to tabs, modal dialogs, alerts and a video, audio and MIDI player. Each one has a page in the documentation with a live example, the markup to copy, and when to use it and when not to.",
+        "It aims for WCAG 2.2 level AA in its three colour modes, light, dark and high contrast: it works with a keyboard, focus is always visible and every page works without JavaScript. Automated checks run on every change, and the accessibility statement also says what has not been tested yet.",
+        "It is made for people while staying plain enough for an AI agent to write it correctly: the site publishes the closed list of classes, and luz-check reads a project's HTML and CSS offline and says which classes, elements, load order or colours are wrong.",
+        "Every change starts with a failing test, and every file has a size ceiling that nobody raises to make it pass. The colour palette is its own, and everything, fonts included, is under the MIT licence, with no registration and no telemetry. It is in beta and a starting point, not a finished site: the content, the brand and the final decisions are yours."
+      ],
+      "quote": "Enhance native HTML instead of replacing it.",
+      "caption": "The lamp"
+    }
+  },
+  {
+    "id": "ikay",
+    "name": "IKAY",
+    "year": 2020,
+    "tech": [
+      "JavaScript",
+      "CSS",
+      "HTML",
+      "LUZ"
+    ],
+    "demo": "https://nandomunoz.github.io/ikay-vanilla/",
+    "repo": "https://github.com/nandomunoz/ikay-vanilla",
+    "plate": "fingerprint",
+    "es": {
+      "kicker": "Huella digital del navegador",
+      "body": [
+        "IKAY lee 33 datos que cualquier web obtiene de tu navegador sin pedirte un solo permiso y te los enseña como el expediente que una web guarda de ti.",
+        "Los datos van desde la ciudad que delata tu IP y la zona horaria, que comparada con la de esa IP apunta a si usas una VPN, hasta la memoria, la tarjeta gráfica, la batería, las fuentes instaladas o el modo incógnito. También sigue en directo el ratón, los clics y las teclas, sin guardar nada.",
+        "Cada dato llega en una frase, con una marca de protegido o no protegido y una explicación de lo que significa para ti, con el detalle técnico plegado para quien lo quiera. Al final calcula «tu ID», una huella que sobrevive a las cookies y al modo incógnito, sin guardar ni enviar nada.",
+        "La página parece un expediente: papel y tinta, capítulos y entradas numerados y un solo rojo de alarma usado como un rotulador. Los títulos van en Fraunces, el texto en Inter Tight y cada valor encontrado en Fira Code.",
+        "Está en español, inglés y árabe, que se lee de derecha a izquierda sin casos especiales. Tiene modo automático, claro, oscuro y alto contraste, con el texto a 7 a 1 o más en este último, se maneja con teclado y ningún estado depende solo del color.",
+        "Es la versión moderna del IKAY original, de 2020, que necesitaba compilarse y tenía 16 tarjetas: HTML, CSS y JavaScript sobre los tokens de LUZ, sin bundler y sin nada que instalar. Los tokens y las tipografías se sirven desde el propio repositorio, sin CDN, y no hay cookies ni analítica."
+      ],
+      "quote": "Treinta y tres datos, cero permisos.",
+      "caption": "La huella"
+    },
+    "en": {
+      "kicker": "Browser fingerprint",
+      "body": [
+        "IKAY reads 33 pieces of data that any website gets from your browser without asking for a single permission, and shows them as the file a website keeps on you.",
+        "The data runs from the city your IP gives away and the time zone, which compared with that IP's hints at a VPN, to memory, graphics card, battery, installed typefaces and incognito mode. It also follows your mouse, clicks and keys live, without storing anything.",
+        "Each one comes as a sentence, marked protected or not protected, with what it means for you and the technical detail folded away for the curious. At the end it computes “your ID”, a fingerprint that survives cookies and incognito mode, without storing or sending anything.",
+        "The page looks like a dossier: paper and ink, numbered chapters and entries, and a single alarm red used like a highlighter. Headings are set in Fraunces, reading text in Inter Tight and every value found in Fira Code.",
+        "It is in Spanish, English and Arabic, which reads right to left with no special cases. It has automatic, light, dark and high-contrast looks, with text at 7:1 or more in the last one, works with a keyboard, and no status relies on colour alone.",
+        "It is the modern version of the original IKAY, from 2020, which needed a build and had 16 cards: HTML, CSS and JavaScript on the LUZ tokens, no bundler and nothing to install. The tokens and typefaces are served from the repository itself, with no CDN, and there are no cookies and no analytics."
+      ],
+      "quote": "Thirty-three data points, zero permissions.",
+      "caption": "The fingerprint"
+    }
+  },
+  {
+    "id": "chrome-local-ai",
+    "name": "Chrome Local AI",
+    "year": 2025,
+    "tech": [
+      "TypeScript",
+      "Astro",
+      "Chrome AI",
+      "LUZ"
+    ],
+    "demo": "https://nandomunoz.github.io/apiChrome/",
+    "repo": "https://github.com/nandomunoz/apiChrome",
+    "ornament": "asterism",
+    "es": {
+      "kicker": "IA en el navegador",
+      "body": [
+        "Demos de las APIs de IA que Chrome trae integradas con Gemini Nano. Todo se ejecuta en tu dispositivo: no hay servidor y, una vez descargado el modelo, tampoco hace falta conexión.",
+        "Son quince demos sobre siete APIs: un playground con respuesta en streaming, un chat con varias sesiones que se pueden bifurcar, salida en JSON que sigue un esquema, recetas para clasificar, extraer o moderar textos, preguntas sobre una imagen, un buscador de sinónimos con matices, un corrector que marca el tipo de error y una caja de herramientas para resumir, traducir y reescribir un mismo texto.",
+        "La portada comprueba si tu navegador es compatible, enseña el estado de cada API, deja descargar los modelos con un botón y trae preguntas frecuentes. Cada demo empieza con una guía paso a paso.",
+        "Todas pasan por un motor propio, ai-engine-local, que si falta una API experimental recurre a la Prompt API y lo indica en el resultado. El sitio es bilingüe y está hecho con Astro, TypeScript y LUZ, con tests del motor y de los textos."
+      ],
+      "quote": "Inteligencia artificial que no sale de tu ordenador."
+    },
+    "en": {
+      "kicker": "AI in the browser",
+      "body": [
+        "Demos of the AI APIs built into Chrome with Gemini Nano. Everything runs on your device: there is no server and, once the model is downloaded, no connection is needed either.",
+        "There are fifteen demos on seven APIs: a playground with streamed answers, a chat with several sessions you can branch, JSON output that follows a schema, recipes to classify, extract or moderate text, questions about an image, a synonym finder that explains the nuances, a proofreader that marks the type of each error and a toolkit to summarise, translate and rewrite the same text.",
+        "The home page checks whether your browser is compatible, shows the state of each API, lets you download the models with a button and answers common questions. Every demo starts with a step-by-step guide.",
+        "They all go through an engine of its own, ai-engine-local, which falls back to the Prompt API when an experimental API is missing and says so in the result. The site is bilingual and built with Astro, TypeScript and LUZ, with tests for the engine and the texts."
+      ],
+      "quote": "Artificial intelligence that never leaves your computer."
+    }
+  },
+  {
+    "id": "quien-canta-hoy",
+    "name": "¿Quién canta hoy?",
+    "year": 2023,
+    "tech": [
+      "TypeScript",
+      "React",
+      "Vite",
+      "LUZ"
+    ],
+    "demo": "https://coac.com.es/",
+    "repo": "https://github.com/nandomunoz/coac",
+    "plate": "mask",
+    "es": {
+      "kicker": "Carnaval de Cádiz",
+      "body": [
+        "Responde a la pregunta que se hace todo el mundo durante el Carnaval de Cádiz: qué agrupación sale ahora en el COAC y cuándo me toca verla. El concurso del Gran Teatro Falla dura semanas, con una sesión por noche y más de una decena de agrupaciones en cada una, y el listado oficial es una tabla larga y sin horas.",
+        "Esta web la convierte en una página para el móvil que dice qué sesión es la de hoy, a qué hora aproximada sale cada agrupación, cuál está en directo y cuánto falta para la próxima.",
+        "La hora de cada agrupación se calcula a partir del orden de actuación, sumando lo que duran la actuación y el montaje; son estimaciones, no el horario oficial. Todas las horas son las de Cádiz estés donde estés, y la sesión de la noche sigue contando como la de ese día hasta la madrugada.",
+        "Cada agrupación lleva su modalidad, coro, comparsa, chirigota o cuarteto, su autor y su ciudad. Un buscador por autor lleva a la agrupación dentro de su sesión, y hay un enlace a la emisión en directo en YouTube y otro que busca lo que la agrupación presentó el año anterior.",
+        "Al construir la web, el contenido real de las sesiones se escribe dentro del HTML, con sus datos estructurados, para buscadores y lectores sin JavaScript. Tiene modo claro, oscuro y alto contraste, y los dos últimos cumplen el nivel AA de WCAG, que se comprueba con tests de contraste y de accesibilidad.",
+        "Sin cuentas, sin cookies y sin servidor: React y TypeScript sobre un tema propio de LUZ, con la lógica de fechas separada de los componentes y probada, también con un reloj simulado. Cambiar de fase es añadir el JSON copiado del listado oficial y tocar un solo archivo; las fechas salen del propio JSON. La web está en coac.com.es y se publica sola desde GitHub Actions."
+      ],
+      "quote": "Qué agrupaciones cantan hoy, y en qué orden.",
+      "caption": "El antifaz"
+    },
+    "en": {
+      "kicker": "Cádiz Carnival",
+      "body": [
+        "It answers the question everyone asks during the Cádiz Carnival: which group is on stage at the COAC right now, and when will mine be on. The contest at the Gran Teatro Falla lasts weeks, with one session a night and more than ten groups in each, and the official listing is a long table with no times.",
+        "This site turns it into a page for your phone that tells you which session is tonight, roughly when each group goes on, which one is live and how long until the next.",
+        "Each group's time is worked out from the running order, adding up the length of the performance and the set-up; they are estimates, not the official schedule. Every time is Cádiz time wherever you are, and the night's session still counts as that day's until the early morning.",
+        "Each group shows its category, coro, comparsa, chirigota or cuarteto, its author and its town. A search by author takes you to the group inside its session, and there is a link to the live broadcast on YouTube and another that looks up what the group performed the year before.",
+        "When the site is built, the real content of the sessions is written into the HTML, with its structured data, for search engines and readers without JavaScript. It has light, dark and high-contrast modes, and the last two meet WCAG level AA, checked with contrast and accessibility tests.",
+        "No accounts, no cookies and no server: React and TypeScript on a LUZ theme of its own, with the date logic kept apart from the components and tested, also against a simulated clock. Moving to a new round means adding the JSON copied from the official listing and editing a single file; the dates come from the JSON itself. The site lives at coac.com.es and publishes itself from GitHub Actions."
+      ],
+      "quote": "Which groups sing today, and in what order.",
+      "caption": "The mask"
+    }
+  },
+  {
+    "id": "streetcai",
+    "name": "Street Cai",
+    "year": 2026,
+    "tech": [
+      "TypeScript",
+      "Vite",
+      "PWA"
+    ],
+    "demo": "https://nandomunoz.github.io/streetcai/",
+    "repo": "https://github.com/nandomunoz/streetcai",
+    "ornament": "fleuron",
+    "es": {
+      "kicker": "Videojuego",
+      "body": [
+        "Street Cai es un juego de lucha arcade en 2D que se juega en el navegador, en escritorio y en el móvil, ambientado en Cádiz. Hay ocho luchadores, desde Chapa, el guerrero, hasta Bizcocho, el cantaor, y un jefe final, el Tío de la Tiza.",
+        "Cada luchador pelea en su barrio, de Candelaria o Santa María a La Caleta y el Teatro Falla. En la selección se puede luchar en el barrio del rival, como en las recreativas, o dejar que el escenario y hasta el luchador salgan al azar. Se juega contra la CPU, en tres dificultades, o entre dos personas en el mismo teclado.",
+        "El combate tiene golpes flojos y fuertes, combos por cancelación, bloqueo con una barra de guardia que se rompe si se abusa, un especial por personaje y un súper que se carga al pegar y al recibir. Las rondas son al mejor de tres.",
+        "Se juega gratis, sin monedas: al perder sale la pantalla de CONTINUE, con la cara del ganador y la del derrotado y una frase que se escribe sola, y al ganar el arcade pasan los créditos como en una recreativa. Si no tocas nada en la portada, empieza un combate de exhibición entre dos luchadores de la CPU.",
+        "En el móvil tiene un mando táctil con palanca y pulsadores de recreativa de los noventa; en vertical queda debajo de la pantalla, a mano del pulgar. También funciona con teclado y con mando.",
+        "El locutor es una voz generada con Piper, escrita a la gaditana, con seseo y expresiones del lugar. El juego es un canvas 2D propio, sin motor y sin dependencias de ejecución, pensado para cargar rápido en el móvil: arranca con unos 0,35 MB, trae el resto bajo demanda y funciona sin conexión."
+      ]
+    },
+    "en": {
+      "kicker": "Video game",
+      "body": [
+        "Street Cai is a 2D arcade fighting game that runs in the browser, on desktop and on phones, set in Cádiz. There are eight fighters, from Chapa, the warrior, to Bizcocho, the flamenco singer, and a final boss, the Chalk Uncle.",
+        "Each fighter battles in their own neighbourhood, from Candelaria or Santa María to La Caleta and the Teatro Falla. On the select screen you can fight in your rival’s neighbourhood, as in the arcades, or leave the stage and even the fighter to chance. You play against the CPU, on three difficulties, or two people share one keyboard.",
+        "Combat has light and heavy hits, cancel combos, blocking with a guard bar that breaks if you lean on it, one special per fighter and a super that charges as you hit and as you get hit. Rounds are best of three.",
+        "It is free to play, no coins: when you lose the CONTINUE screen comes up, with the winner’s face and the beaten one’s and a line that types itself out, and when you win the arcade the credits roll like in a cabinet. If you leave the title screen alone, an exhibition match between two CPU fighters starts.",
+        "On a phone it has a touch pad with a joystick and buttons styled after a nineties arcade cabinet; held upright it sits below the screen, under the thumb. It also works with a keyboard and a gamepad.",
+        "The announcer is a voice generated with Piper, written the Cádiz way, with its lisp and local phrases. The game is a canvas 2D of its own, with no engine and no runtime dependencies, built to load fast on a phone: it starts at about 0.35 MB, brings the rest on demand and works offline."
+      ]
+    }
+  },
+  {
+    "id": "ares-api",
+    "name": "Ares API",
+    "year": 2026,
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "JSON"
+    ],
+    "demo": "https://nandomunoz.github.io/api-coac/",
+    "repo": "https://github.com/nandomunoz/api-coac",
+    "plate": "guitar",
+    "es": {
+      "kicker": "Archivo musical",
+      "body": [
+        "Una API estática y sin dependencias con la discografía y la obra completa de Antonio Martínez Ares, el autor de comparsas del Carnaval de Cádiz. Sirve las composiciones, las letras y su contexto histórico como ficheros JSON alojados en GitHub Pages, sin base de datos, sin servidor y sin paso de compilación.",
+        "Incluye un índice ligero para autocompletar búsquedas sin descargar todos los datos, los datos repartidos por épocas y CORS abierto para usarla desde cualquier web. Carga en menos de un segundo en una red normal y es software libre con licencia MIT."
+      ],
+      "quote": "Una obra entera en ficheros JSON.",
+      "caption": "La guitarra"
+    },
+    "en": {
+      "kicker": "Music archive",
+      "body": [
+        "A static, zero-dependency API with the complete discography and works of Antonio Martínez Ares, the comparsa writer of the Cádiz Carnival. It serves the compositions, the lyrics and their historical context as JSON files hosted on GitHub Pages, with no database, no server and no build step.",
+        "It includes a light index for search autocomplete without downloading all the data, the data split by era, and open CORS so any website can use it. It loads in under a second on a normal network and is free software under the MIT licence."
+      ],
+      "quote": "A whole body of work in JSON files.",
+      "caption": "The guitar"
+    }
+  },
+  {
+    "id": "toolbar-aem",
+    "name": "Toolbar AEM",
+    "year": 2025,
+    "tech": [
+      "JavaScript",
+      "CSS",
+      "HTML",
+      "Chrome Extension"
+    ],
+    "demo": null,
+    "repo": "https://github.com/nandomunoz/toolbar-aem",
+    "ornament": "vine",
+    "es": {
+      "kicker": "Extensión de Chrome",
+      "body": [
+        "Una extensión de Chrome que añade una barra flotante a las páginas de Adobe Experience Manager para saltar entre el Editor, la vista publicada, Sites y CRXDE sin reescribir URLs, conservando la ruta del contenido.",
+        "Abre la misma página en otro entorno (local, desarrollo, QA, stage), pone un favicon de color distinto a cada uno para no confundir Stage con Local y guarda marcadores a las rutas más usadas.",
+        "Funciona con AEM as a Cloud Service, AMS, on-premise y el SDK local, y los ajustes se comparten con el equipo en un JSON. JavaScript plano, Manifest V3, sin compilación ni dependencias."
+      ],
+      "quote": "Saltar entre consolas sin reescribir URLs."
+    },
+    "en": {
+      "kicker": "Chrome extension",
+      "body": [
+        "A Chrome extension that adds a floating toolbar to Adobe Experience Manager pages to jump between the Editor, the published view, Sites and CRXDE without retyping URLs, keeping the content path.",
+        "It reopens the same page on another environment (local, dev, QA, stage), gives each one its own coloured favicon so you never mistake Stage for Local, and keeps bookmarks to the paths you use most.",
+        "It works with AEM as a Cloud Service, AMS, on-premise and the local SDK, and settings are shared with the team as a JSON file. Plain JavaScript, Manifest V3, no build step and no dependencies."
+      ],
+      "quote": "Jump between consoles without retyping URLs."
+    }
+  },
+  {
+    "id": "accesibilidad",
+    "name": "Acme Studio",
+    "year": 2026,
+    "tech": [
+      "HTML"
+    ],
+    "demo": "https://nandomunoz.github.io/accessibility/",
+    "repo": "https://github.com/nandomunoz/accessibility",
+    "plate": "keyhole",
+    "es": {
+      "kicker": "Accesibilidad",
+      "body": [
+        "La web de un estudio ficticio, Acme Studio, que parece limpia pero está rota a propósito para practicar auditorías de accesibilidad.",
+        "Tiene un enlace para saltar al contenido que apunta a un destino equivocado, imágenes sin texto alternativo, un botón con solo un icono y sin nombre, un orden de tabulación alterado, encabezados que se saltan niveles, un div que parece un botón pero no responde al teclado y una tabla sin cabeceras. El formulario de contacto suma etiquetas que no se corresponden con sus campos y campos con solo un placeholder.",
+        "Cada error está comentado en el código para comprobar lo que has encontrado."
+      ],
+      "quote": "Rota a propósito, para aprender a arreglarla.",
+      "caption": "La cerradura"
+    },
+    "en": {
+      "kicker": "Accessibility",
+      "body": [
+        "The website of a made-up studio, Acme Studio, that looks clean but is broken on purpose so you can practise accessibility audits.",
+        "It has a skip link pointing to the wrong target, images without alternative text, an icon-only button with no name, a tampered tab order, headings that skip levels, a div that looks like a button but ignores the keyboard, and a table with no headers. The contact form adds labels that do not match their fields and fields with only a placeholder.",
+        "Every error is commented in the code, so you can check what you found."
+      ],
+      "quote": "Broken on purpose, so you can learn to fix it.",
+      "caption": "The keyhole"
+    }
+  },
+  {
+    "id": "libros-del-mundo",
+    "name": "Libros del mundo",
+    "year": 2024,
+    "tech": [
+      "Markdown"
+    ],
+    "demo": null,
+    "repo": "https://github.com/nandomunoz/libros-del-mundo",
+    "ornament": "hedera",
+    "es": {
+      "kicker": "Biblioteca",
+      "body": [
+        "Un viaje literario por los continentes: una lista de libros elegidos con una regla sencilla, que hayan sido publicados a partir de 2010 y escritos por autores del país que representan. La idea es asomarse a lo que se escribe y se lee hoy en cada lugar, contado desde dentro, con las voces y los temas del siglo XXI.",
+        "Es un repositorio abierto y colaborativo: cualquiera puede proponer un libro con un pull request y una breve explicación de por qué lo eligió, siempre que se pueda encontrar en bibliotecas o plataformas."
+      ],
+      "quote": "Un libro por país, publicado desde 2010."
+    },
+    "en": {
+      "kicker": "Library",
+      "body": [
+        "A literary journey across the continents: a list of books chosen by a simple rule, published from 2010 on and written by authors from the country they stand for. The idea is to look at what is being written and read today in each place, told from within, with the voices and themes of the 21st century.",
+        "It is an open, collaborative repository: anyone can suggest a book with a pull request and a short note on why they chose it, as long as it can be found in libraries or online."
+      ],
+      "quote": "One book per country, published since 2010."
+    }
+  },
+  {
+    "id": "string-transformer",
+    "name": "String Transformer",
+    "year": 2023,
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "PWA"
+    ],
+    "demo": "https://nandomunoz.github.io/string-transformer/",
+    "repo": "https://github.com/nandomunoz/string-transformer",
+    "es": {
+      "kicker": "Herramienta de texto",
+      "body": [
+        "Convierte un texto a más de 50 formatos agrupados en ocho categorías: convenciones de nombres como camelCase, snake_case o kebab-case, codificaciones como Base64, URL, hexadecimal o Morse, cifrados clásicos como ROT13 o Atbash, hashes SHA, la carga de un JWT y utilidades para ordenar, deduplicar o limpiar líneas.",
+        "Transforma mientras escribes, avisa cuando la entrada no tiene el formato esperado, sugiere el formato que detecta y permite invertir la conversión con un botón. Todo ocurre en el navegador sin enviar nada a ningún servidor; se instala como PWA, funciona sin conexión y también se usa como librería o desde la línea de comandos."
+      ],
+      "quote": "Lo que escribes no sale de tu navegador."
+    },
+    "en": {
+      "kicker": "Text tool",
+      "body": [
+        "Turns any text into more than 50 formats in eight categories: naming conventions such as camelCase, snake_case or kebab-case, encodings such as Base64, URL, hex or Morse, classic ciphers such as ROT13 or Atbash, SHA hashes, a JWT payload and utilities to sort, dedupe or clean up lines.",
+        "It transforms as you type, tells you when the input is not in the expected format, suggests the format it detects and flips the conversion with one button. It all happens in the browser and nothing is sent to a server; it installs as a PWA, works offline and can also be used as a library or from the command line."
+      ],
+      "quote": "What you type never leaves your browser."
+    }
+  },
+  {
+    "id": "coac-analisis",
+    "name": "Gestor de comparsas",
+    "year": 2026,
+    "tech": [
+      "HTML",
+      "JavaScript",
+      "Chrome AI"
+    ],
+    "demo": "https://nandomunoz.github.io/coac-analisis/",
+    "repo": "https://github.com/nandomunoz/coac-analisis",
+    "es": {
+      "kicker": "Dashboard de datos",
+      "body": [
+        "Una aplicación de una sola página para registrar, importar y analizar las comparsas del COAC y sus modalidades discursivas en cada fase del concurso, de las preliminares a la final. Carga datos desde CSV o Excel o desde un formulario, evita duplicados de comparsa y año, se edita en la propia tabla y guarda los cambios en el navegador.",
+        "Un dashboard muestra métricas y gráficos con filtros, y las preguntas en lenguaje natural las responde la IA local de Chrome usando solo los datos filtrados. No necesita backend ni instalación: todo cabe en un index.html."
+      ],
+      "quote": "Sin backend: todo cabe en un index.html."
+    },
+    "en": {
+      "kicker": "Data dashboard",
+      "body": [
+        "A single-page app to record, import and analyse the comparsas of the COAC, the Cádiz carnival contest, and their kinds of discourse in each round, from the preliminaries to the final. It loads data from CSV, Excel or a form, avoids duplicate comparsa-and-year entries, is edited right in the table and saves changes in the browser.",
+        "A dashboard shows metrics and charts with filters, and questions in plain language are answered by Chrome’s local AI using only the filtered data. No backend and nothing to install: it all fits in one index.html."
+      ],
+      "quote": "No backend: it all fits in one index.html."
+    }
+  },
+  {
+    "id": "illo-loader",
+    "name": "illo-loader",
+    "year": 2025,
+    "tech": [
+      "JavaScript",
+      "Web Components"
+    ],
+    "demo": null,
+    "repo": "https://github.com/nandomunoz/illo-loader",
+    "es": {
+      "kicker": "Componente web",
+      "body": [
+        "Un componente web que muestra un indicador de carga animado y que se usa con una sola etiqueta en cualquier proyecto, con o sin framework.",
+        "La animación se hace con el símbolo que elijas, de un bloque sombreado a puntos, barras o signos musicales, y se adapta a los esquemas de color claro y oscuro con una animación suave y configurable. Se carga como módulo desde un CDN o desde los propios ficheros del repositorio."
+      ],
+      "quote": "Una etiqueta y cualquier símbolo."
+    },
+    "en": {
+      "kicker": "Web component",
+      "body": [
+        "A web component that shows an animated loading indicator and takes a single tag in any project, with or without a framework.",
+        "The animation is made of the symbol you choose, from a shaded block to dots, bars or musical signs, and it follows light and dark colour schemes with a smooth, configurable animation. Load it as a module from a CDN or from the repository’s own files."
+      ],
+      "quote": "One tag and any symbol."
+    }
+  },
+  {
+    "id": "js-subtype",
+    "name": "js-subtype",
+    "year": 2024,
+    "tech": [
+      "JavaScript",
+      "Node.js"
+    ],
+    "demo": null,
+    "repo": "https://github.com/nandomunoz/js-subtype",
+    "es": {
+      "kicker": "Librería npm",
+      "body": [
+        "Una librería pequeña y sin dependencias para saber el subtipo exacto de cualquier valor de JavaScript —Array, Date, Map, RegExp…— allí donde typeof solo dice «object».",
+        "Expone una sola función, getType, que devuelve el nombre del subtipo y sirve para validar entradas con precisión o decidir cómo tratar un valor. Funciona en Node.js y en los navegadores modernos, se instala desde npm o yarn y tiene licencia MIT."
+      ],
+      "quote": "Más preciso que typeof."
+    },
+    "en": {
+      "kicker": "npm library",
+      "body": [
+        "A small, zero-dependency library that tells you the exact subtype of any JavaScript value —Array, Date, Map, RegExp…— where typeof only says “object”.",
+        "It exposes a single function, getType, which returns the subtype’s name, handy to validate input precisely or decide how to handle a value. It works in Node.js and in modern browsers, installs from npm or yarn and is MIT licensed."
+      ],
+      "quote": "More precise than typeof."
+    }
+  },
+  {
+    "id": "kong-sole",
+    "name": "kong.sole",
+    "year": 2019,
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "LUZ"
+    ],
+    "demo": "https://nandomunoz.github.io/kong.sole/",
+    "repo": "https://github.com/nandomunoz/kong.sole",
+    "es": {
+      "kicker": "Estilos para la consola",
+      "body": [
+        "kong.sole hace que la consola del navegador se vea bien. Son ayudantes de una línea, como kong.success() o kong.error(), cada uno con su insignia y su icono, para estados, títulos, tarjetas, tablas, gráficos, banners e imágenes.",
+        "Además de pintar, ayuda a depurar: registros con etiqueta y color propio, objetos y diferencias entre dos estados, temporizadores, contadores y trazas de pila sin el ruido de las librerías. Los colores salen de una paleta oscura y otra clara, así que se leen igual en las dos consolas.",
+        "Es un módulo ES sin dependencias, de 14,4 KB comprimido y con licencia MIT, que se instala desde npm o se carga desde un CDN. Con kong.enabled = false cada llamada no hace nada, y no recoge datos, ni hace peticiones, ni usa cookies. Las imágenes y los banners se ven completos en Chrome y Edge.",
+        "La portada es un banco de pruebas: eliges una receta, pulsas Run y el resultado sale en un panel de la página y en tus DevTools."
+      ],
+      "quote": "Haz que la consola de tu navegador se vea bien."
+    },
+    "en": {
+      "kicker": "Styles for the console",
+      "body": [
+        "kong.sole makes the browser console look good. It is a set of one-line helpers, like kong.success() or kong.error(), each with its own badge and icon, for statuses, headings, cards, tables, charts, banners and images.",
+        "Besides drawing, it helps you debug: tagged loggers with a colour of their own, objects and the differences between two states, timers, counters and stack traces without the noise of libraries. The colours come from a dark and a light palette, so they read the same in both consoles.",
+        "It is an ES module with no dependencies, 14.4 KB gzipped and MIT-licensed, installed from npm or loaded from a CDN. With kong.enabled = false every call does nothing, and it collects no data, makes no requests and uses no cookies. Images and banners show in full in Chrome and Edge.",
+        "The home page is a playground: you pick a recipe, press Run and the result shows in a panel on the page and in your DevTools."
+      ],
+      "quote": "Make your browser console look good."
+    }
+  },
+  {
+    "id": "react-para-torpes",
+    "name": "React para torpes",
+    "year": 2023,
+    "tech": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "MDX"
+    ],
+    "demo": "https://nandomunoz.github.io/react-para-torpes/",
+    "repo": "https://github.com/nandomunoz/react-para-torpes",
+    "es": {
+      "kicker": "Curso de React",
+      "body": [
+        "React para torpes es un curso gratuito y en español para aprender React 19 con TypeScript en 30 días, más una semana extra de Next.js. Está pensado para quien empieza desde cero y quiere avanzar sin agobios.",
+        "Son 31 lecciones en cinco semanas, que van de los fundamentos y una lista de tareas hasta un CRUD final con React Router, Redux Toolkit y tests con Vitest. Todas siguen el mismo formato: un concepto con una analogía cotidiana, pasos numerados, el error típico antes de que tropieces con él, un ejercicio con su solución oculta y un resumen.",
+        "Cada lección trae un editor en vivo: cambias el código y ves el resultado al instante. Los ejemplos se compilan y se prueban en CI, así que el código del sitio no se queda desactualizado.",
+        "El repositorio es el curso y el sitio que lo sirve: un sitio estático hecho con Next.js, Tailwind CSS y MDX, con una portada interactiva cuyo progreso se guarda en tu navegador, sin registro ni cookies. Tiene licencia MIT."
+      ],
+      "quote": "Un concepto por día."
+    },
+    "en": {
+      "kicker": "React course",
+      "body": [
+        "React para torpes («React for dummies») is a free course in Spanish to learn React 19 with TypeScript in 30 days, plus an extra week of Next.js. It is made for anyone starting from zero who wants to move on without feeling overwhelmed.",
+        "It has 31 lessons over five weeks, going from the fundamentals and a to-do list to a final CRUD with React Router, Redux Toolkit and tests with Vitest. They all follow the same format: a concept with an everyday analogy, numbered steps, the typical mistake before you trip over it, an exercise with its solution hidden, and a summary.",
+        "Every lesson comes with a live editor: you change the code and see the result at once. The examples are built and tested in CI, so the code on the site never goes out of date.",
+        "The repository is the course and the site that serves it: a static site made with Next.js, Tailwind CSS and MDX, with an interactive home page whose progress is saved in your browser, with no sign-up and no cookies. It is MIT-licensed."
+      ],
+      "quote": "One concept a day."
+    }
+  }
+]

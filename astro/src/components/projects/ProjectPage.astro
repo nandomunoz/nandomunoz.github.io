@@ -1,0 +1,71 @@
+---
+// One project (plan Phase 7), laid out like a post: breadcrumbs, name, kicker, year and technologies (links to the
+// filter), demo and code, its dotted screen with the kanji, the text, its capture, previous and next, and more
+// projects that share a technology. JSON-LD SoftwareSourceCode.
+import { Picture } from 'astro:assets';
+import { loadProjects, relatedProjects, techSlug } from '../../lib/projects.js';
+import { blogStrings, arrows } from '../../i18n/blog.js';
+import { pathFor, ui, type Locale } from '../../i18n/ui';
+import { breadcrumb, cropped, abs, personNode } from '../../lib/jsonld';
+import ProjectsLayout from './ProjectsLayout.astro';
+import ProjectRow from './ProjectRow.astro';
+interface Props { lang: Locale; id: string }
+const { lang, id } = Astro.props;
+const B = blogStrings(lang), A = arrows(lang), t = ui[lang];
+const { projects } = await loadProjects(lang);
+const i = projects.findIndex((p) => p.id === id);
+const p = projects[i], prev = projects[i - 1], next = projects[i + 1];
+const related = relatedProjects(p, projects);
+const href = (x: { id: string }) => pathFor(lang, 'projects', x.id);
+const list = pathFor(lang, 'projects');
+const here = pathFor(lang, 'projects', p.id);
+const jsonld = [
+  { '@type': 'SoftwareSourceCode', '@id': `${abs(here)}#code`, name: p.name, description: p.kicker, url: abs(here), codeRepository: p.repo, programmingLanguage: p.tech, dateCreated: String(p.year), inLanguage: lang, author: { '@id': 'https://nandomunoz.com/#person' }, ...(p.demo ? { sameAs: p.demo } : {}) },
+  breadcrumb([[t.siteName, pathFor(lang, 'home')], [B.projects, list], [p.name, here]]),
+  await personNode(lang)
+];
+const image = p.shot ? { src: await cropped(p.shot.src, 1200, 630), alt: B.shot(p.name) } : undefined;
+---
+<ProjectsLayout lang={lang} title={`${p.name} · ${B.projects} · ${t.siteName}`} description={`${p.kicker}. ${p.body[0]}`.slice(0, 200)} rest={p.id} cls="blog post project" image={image} jsonld={jsonld}>
+  <header class="post__head">
+    <p class="crumbs"><a href={list}>{B.projects}</a><span aria-hidden="true"> / </span><span>{p.year}</span></p>
+    <h1 class="post__title" dir="ltr">{p.name}</h1>
+    <p class="post__deck">{p.kicker}</p>
+    <dl class="post__meta">
+      <div><dt>{B.year}</dt><dd>{p.year}</dd></div>
+      <div><dt>{B.techLabel}</dt><dd class="ptech">{p.tech.map((x: string, k: number) => <>{k > 0 && ' · '}<a href={`${list}?tech=${techSlug(x)}`}>{x}</a></>)}</dd></div>
+    </dl>
+    <p class="author__links plinks">
+      {p.demo && <a href={p.demo} target="_blank" rel="noopener"><span>{B.demo}</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>}
+      <a href={p.repo} target="_blank" rel="noopener"><span>{B.repo}</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>
+    </p>
+  </header>
+  <div class="post__cover pcover">
+    <canvas aria-hidden="true" data-dots={JSON.stringify(p.cover)}></canvas>
+    {p.gloss && <span class="gloss">{p.gloss}</span>}
+  </div>
+  <div class="post__grid">
+    <aside class="post__side"></aside>
+    <div class="post__main">
+      <div class="prose">{p.body.map((x: string, k: number) => <p class:list={{ prose__lead: k === 0 }}>{x}</p>)}</div>
+      {p.shot && (
+        <figure class="post__shot">
+          <Picture src={p.shot.src} alt={B.shot(p.name)} widths={[640, 1200, 1600]} sizes="(min-width: 64em) 60vw, 100vw" formats={['avif', 'webp']} loading="lazy" decoding="async" />
+        </figure>
+      )}
+    </div>
+  </div>
+  <nav class="post__nav" aria-label={B.projects}>
+    {prev ? <a href={href(prev)} rel="prev"><span class="post__dir">{A.prev} {B.prev}</span><span class="post__to" dir="ltr">{prev.name}</span></a> : <span></span>}
+    {next ? <a href={href(next)} rel="next"><span class="post__dir">{B.next} {A.next}</span><span class="post__to" dir="ltr">{next.name}</span></a> : <span></span>}
+  </nav>
+  {related.length > 0 && (
+    <section class="related" aria-labelledby="rel-title">
+      <h2 id="rel-title" class="related__title">{B.moreProjects}</h2>
+      <div class="blist"><ol class="brows">{related.map((x: any) => <ProjectRow lang={lang} project={x} />)}</ol></div>
+    </section>
+  )}
+</ProjectsLayout>
+<script>
+  import '../../scripts/blocks.js';
+</script>

@@ -1,0 +1,17 @@
+---
+// A post, or page 2, 3… of the list: both live under /blog/<something>/ (a number can never be a slug).
+import BlogIndex from '../../components/blog/BlogIndex.astro';
+import PostPage from '../../components/blog/PostPage.astro';
+import { loadBlog, pagesOf } from '../../lib/blog.js';
+export async function getStaticPaths() {
+  const { posts } = await loadBlog('es');
+  const pages = pagesOf(posts).length;
+  return [
+    ...posts.map((p: any) => ({ params: { slug: p.slug }, props: { kind: 'post', page: 1 } })),
+    ...Array.from({ length: pages - 1 }, (_, i) => ({ params: { slug: String(i + 2) }, props: { kind: 'page', page: i + 2 } }))
+  ];
+}
+const { slug } = Astro.params;
+const { kind, page } = Astro.props;
+---
+{kind === 'post' ? <PostPage lang="es" slug={slug as string} /> : <BlogIndex lang="es" page={page} />}
