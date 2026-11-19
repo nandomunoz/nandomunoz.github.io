@@ -79,6 +79,7 @@ const ui2 = { close: B.close, prev: B.prev, next: B.next, demo: B.demo, repo: B.
       </article>
       <nav class="panel__nav" aria-label={B.projects}>
         <button type="button" id="p-prev"></button>
+        <a class="panel__all" href={pathFor(lang, 'projects')}><span>{h.allProjects}</span> <span aria-hidden="true">{A.next}</span></a>
         <button type="button" id="p-next"></button>
       </nav>
     </div>
