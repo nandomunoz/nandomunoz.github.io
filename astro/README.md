@@ -33,7 +33,7 @@ src/i18n/             ui.ts (rutas y textos por idioma), blog.js, consent.js, le
 src/lib/              datos calculados en build: blog.js, projects.js, home.js, jsonld.ts, feed.ts, search.ts
 src/scripts/          el JS del navegador: dots.js (motor de puntos), rain.js, blocks.js, home.js, panel.js, post.js, consent.js, video.js…
 src/styles/           luz-theme-trama.css (el tema), base.css, chrome.css, home.css, blog.css, projects.css, consent.css…
-tools/                migración, comprobadores, auditoría, redirecciones, tarjetas sociales
+tools/                comprobadores, auditoría, redirecciones, tarjetas sociales, capturas de proyectos (project-shots.cjs)
 ```
 
 ## Escribir
