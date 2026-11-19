@@ -1,4 +1,7 @@
-# local only: nothing under .claude/ (at any depth) is ever committed or pushed (see AGENTS.md)
+# local only, never committed or pushed (see AGENTS.md):
+# .ai/      plans, reports and the review roles, for whichever AI tool is in use
+# .claude/  Claude Code's own settings and worktrees (.claude/agents links to .ai/agents)
+.ai/
 .claude/
 __pycache__/
 *.log
