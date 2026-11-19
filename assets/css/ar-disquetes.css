@@ -1,0 +1,238 @@
+/* ==========================================================================
+   Archive · Disquetes — the creative one. The bio and every project are
+   labelled 3.5" floppy disks (img 10) on a full-width shelf. Press one and it
+   goes straight into the drive: it slides in, the LED blinks and the screen
+   reads it out. Eject puts it back on the shelf.
+   Without JS: each disk is followed by its text.
+   ========================================================================== */
+
+/* physical objects keep their own colours in light and dark */
+.ar--disquetes {
+  --device: #0d3249;
+  --device-2: #163f5c;
+  --disk: #1c2017;
+  --disk-2: #262b20;
+  --tag: #e3e4d4;
+  --tag-ink: #20251b;
+  --metal: linear-gradient(100deg, #d4d6c8, #a3a897 45%, #c7cabb 60%, #9ea392);
+}
+
+/* ---------- station: drive + screen ---------- */
+
+.station {
+  display: grid; gap: var(--gap);
+  /* a definite column, so the drive's % sizes resolve before rows are sized */
+  grid-template-columns: minmax(0, 1fr);
+  padding: clamp(1.25rem, 3vw, 2.5rem) var(--pad);
+  background: var(--panel);
+  border-bottom: 1.5px solid var(--ink);
+}
+@media (min-width: 64em) { .station { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch; } }
+
+/* A 3.5" floppy drive, straight from the front (layout of img: disquetera):
+   a full-width slot, a recessed door below it, a tiny LED on the left and
+   the eject key on the right — in the dark olive of the shelf's disks.
+   All positions are in % of the front, so it scales with the column. */
+.drive {
+  position: relative;
+  transition: outline-color .2s ease;
+  outline: 3px dashed transparent; outline-offset: 8px;
+}
+
+.drive__bezel {
+  position: relative; display: block;
+  aspect-ratio: 4 / 1.08;
+  container-type: inline-size;
+  background: linear-gradient(var(--device-2), var(--device));
+  border-radius: .5rem;
+  box-shadow: inset 0 2px 0 rgb(255 255 255 / .08), inset 0 -3px 0 rgb(0 0 0 / .25), 0 1rem 2rem -1rem rgb(0 0 0 / .5);
+}
+
+/* the slot runs almost the whole width: a black gap under a faint lip */
+.drive__slot {
+  position: absolute; left: 4%; right: 4%; top: 27%; height: 9%;
+  background: #06141e;
+  border-radius: 1cqi;
+  box-shadow: inset 0 2px 3px rgb(0 0 0 / .8), 0 1px 0 rgb(255 255 255 / .08), 0 -1px 0 rgb(0 0 0 / .4);
+}
+.drive__flap { /* the inner shutter seen through the slot */
+  position: absolute; left: 30%; right: 30%; top: 25%; bottom: 0;
+  background: #1a4561;
+  transition: transform .35s ease, background-color .35s ease;
+  transform-origin: top;
+}
+.drive.is-loaded .drive__flap { transform: scaleY(.15); background: #3c7898; }
+
+/* the door under the slot: a recessed panel with bevelled sides */
+.drive__door {
+  position: absolute; left: 31%; right: 31%; top: 36%; bottom: 14%;
+  background: linear-gradient(180deg, #0a2638, #123a54 70%);
+  clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%);
+  box-shadow: inset 0 3px 4px rgb(0 0 0 / .4);
+  transition: transform .35s ease, filter .35s ease;
+  transform-origin: top;
+}
+.drive.is-loaded .drive__door { filter: brightness(.8); transform: scaleY(.96); }
+
+/* activity LED: a tiny dark window that lights terracotta */
+.drive__led {
+  position: absolute; left: 8%; top: 63%; width: 2.6%; height: 4.5%;
+  background: #29435a; border-radius: .4cqi;
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / .6);
+}
+.drive.is-loaded .drive__led { background: var(--accent); box-shadow: 0 0 1.4cqi var(--accent); }
+.drive.is-reading .drive__led { animation: led .18s steps(2) infinite; }
+@keyframes led { 50% { background: #29435a; box-shadow: inset 0 1px 1px rgb(0 0 0 / .6); } }
+
+.drive__brand {
+  position: absolute; left: 12.5%; top: 61%;
+  font: 600 2.1cqi/1 var(--tech); letter-spacing: .14em; color: #93bcc0;
+}
+
+/* eject key: a raised, rounded button on the right with the eject symbol
+   moulded in relief. Pressing it sinks it into the bezel and lets it spring
+   back out; it ejects the disk that is in the drive. */
+.drive__btn {
+  all: unset; box-sizing: border-box;
+  position: absolute; right: 9%; top: 53%; width: 11%; height: 25%;
+  min-width: 2.25rem; min-height: 1.5rem;
+  display: grid; place-items: center;
+  background: linear-gradient(180deg, #2f6187, #1d4563);
+  border-radius: 1.2cqi;
+  box-shadow:
+    0 .6cqi 0 #081e2d,                    /* the key's side: it stands out of the bezel */
+    0 1cqi 1.2cqi rgb(0 0 0 / .35),
+    inset 0 1px 0 rgb(255 255 255 / .16),
+    inset 0 -1px 0 rgb(0 0 0 / .25);
+  cursor: pointer;
+  transition: transform .1s ease, box-shadow .1s ease, filter .2s ease;
+}
+.drive__btn svg {
+  width: 46%; height: auto;
+  /* moulded symbol: a lighter top face with a dark edge below and a highlight above */
+  fill: #4f86ab;
+  filter: drop-shadow(0 .25cqi 0 #0c2a40) drop-shadow(0 -.12cqi 0 rgb(255 255 255 / .22));
+}
+.drive__btn:hover { filter: brightness(1.12); }
+.drive__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* pressed in… */
+.drive__btn:active {
+  transform: translateY(.5cqi);
+  box-shadow: 0 .1cqi 0 #081e2d, inset 0 .3cqi .6cqi rgb(0 0 0 / .45);
+}
+/* …and back out: plays on every press, also when the screen's eject is used */
+.drive.is-ejecting .drive__btn { animation: key-press .32s cubic-bezier(.3, .7, .3, 1); }
+@keyframes key-press {
+  0%   { transform: translateY(0); }
+  35%  { transform: translateY(.5cqi); box-shadow: 0 .1cqi 0 #081e2d, inset 0 .3cqi .6cqi rgb(0 0 0 / .45); }
+  70%  { transform: translateY(-.15cqi); }
+  100% { transform: translateY(0); }
+}
+
+.screen {
+  display: flex; flex-direction: column; gap: 1rem;
+  min-height: 9rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.screen__status { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: baseline; font-family: var(--tech); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.screen__state { color: var(--ink-soft); }
+.screen__state::after { content: "▍"; color: var(--ink); margin-left: .2em; animation: caret 1s steps(2) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.screen__out:empty { display: none; }
+.screen__out { display: grid; gap: .8rem; }
+.screen__out .entry__title { font: 800 clamp(2.2rem, 1.2rem + 4vw, 5rem)/.9 var(--sans); font-stretch: 62%; text-transform: uppercase; }
+.screen__out .entry__use { font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.screen__out .entry__quote { font: 800 clamp(1.3rem, 1rem + 1vw, 1.9rem)/1.05 var(--sans); font-stretch: 70%; text-transform: uppercase; padding: .75rem 1rem; background: var(--accent); color: var(--on-accent); }
+.screen__out p { max-width: 52rem; }
+/* the description, the fields and the links: one even, wider step between them */
+.screen__out .cells { margin-block: 1rem; }
+/* the fields: technologies runs long, status and date are short. Stacked:
+   technologies across the whole width, status and date half and half under
+   it. Only on two columns AND with room in the screen (40rem of text): one
+   row, technologies twice as wide (2 : 1 : 1) */
+.screen__out { container: screen-out / inline-size; }
+.ar--disquetes .cells--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ar--disquetes .cells--3 .cell:first-child { grid-column: 1 / -1; }
+.ar--disquetes .cells--3 .cell:nth-child(2) { padding-left: 0; border-left: 0; }
+.ar--disquetes .cells--3 .cell:nth-child(3) { padding-left: .9rem; border-left: 1px solid var(--rule); }
+@media (min-width: 64em) {
+  @container screen-out (min-width: 40rem) {
+    .ar--disquetes .cells--3 { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); }
+    .ar--disquetes .cells--3 .cell:first-child { grid-column: auto; }
+    .ar--disquetes .cells--3 .cell:nth-child(2) { padding-left: .9rem; border-left: 1px solid var(--rule); }
+  }
+}
+.screen__out > * { animation: line-in .5s both; animation-delay: calc(var(--k, 0) * 90ms + .2s); }
+@keyframes line-in { from { opacity: 0; transform: translateY(.4rem); } }
+.screen { position: relative; --sq: 2.25rem; }
+/* eject: only the symbol, in a plain square at the top right corner: its top
+   on the padding line, its right edge flush with the text's, and the status
+   line centred in the same band */
+.screen__eject {
+  position: absolute; right: 1.25rem; top: 1.1rem;
+  width: var(--sq); height: var(--sq); padding: 0;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--ink); background: var(--bg); color: var(--ink);
+  cursor: pointer;
+}
+.screen__eject svg { width: 55%; height: auto; fill: currentColor; }
+.screen__eject:hover, .screen__eject:focus-visible { background: var(--ink); color: var(--bg); }
+.screen__status { min-height: var(--sq); align-content: center; }
+.screen:has(.screen__eject:not([hidden])) .screen__status { padding-right: calc(var(--sq) + .75rem); }
+.screen__eject[hidden] { display: none; }
+
+/* ---------- the shelf ---------- */
+
+.shelf__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem) var(--gap);
+  padding: var(--gap) var(--pad) calc(var(--pad) * 1.5);
+}
+@media (min-width: 37.5em) { .shelf__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 64em)   { .shelf__list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 90em)   { .shelf__list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.entry { position: relative; }
+.entry__content { margin-top: 1rem; display: grid; gap: .6rem; }
+.entry__title { font: 800 1.8rem/.95 var(--sans); font-stretch: 62%; text-transform: uppercase; }
+.entry__use { font-weight: 700; text-transform: uppercase; font-size: .85rem; }
+.entry__quote { font-weight: 700; }
+
+/* with JS: the shelf holds only disks; their text goes to the screen */
+.js .entry__static, .js .entry__content { display: none; }
+.entry__disk[hidden] { display: none; }
+.entry__disk {
+  all: unset; display: block; width: 100%; cursor: pointer;
+  transition: transform .35s cubic-bezier(.3, .7, .2, 1);
+}
+.entry__disk:hover { transform: translateY(-.5rem) rotate(-2deg); }
+.entry__disk:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
+.entry.is-out .entry__disk { visibility: hidden; }
+.entry.is-out::after {
+  content: ""; position: absolute; inset: 0 0 auto; aspect-ratio: 1 / 1.03;
+  border: 2px dashed var(--rule); border-radius: 0;
+}
+
+/* the disk itself and its covers: ar-disks.css */
+
+/* the disk in flight */
+.disk.disk-ghost { /* beats .disk in ar-disks.css */
+  position: fixed; z-index: 70; left: 0; top: 0; margin: 0;
+  pointer-events: none; transform-origin: 0 0; will-change: transform;
+}
+
+/* the drive stays put at the top while the screen grows */
+@media (min-width: 64em) { .drive { align-self: start; position: sticky; top: 1rem; } }
+/* the read title receives focus programmatically; it is not a control */
+.screen__out .entry__title:focus { outline: none; }
+
+/* the drive swallows: inner shutter opens, the door gives a little */
+.drive.is-swallowing .drive__flap { transform: scaleY(.1); }
+.drive.is-swallowing .drive__door { transform: scaleY(.93); filter: brightness(.82); }
+
+/* the interface is square (boxes, fields, keys, buttons); only the objects
+   (the drive, the disks) keep their rounded plastic */
+.ar--disquetes .btn { border-radius: 0; }

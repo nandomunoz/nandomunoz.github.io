@@ -1,0 +1,50 @@
+---
+// /estilo/ — every element a post or page can contain, in one page, to review Trama's
+// look at a glance (plan Phase 2). Not indexed and not in the sitemap. Astro ignores
+// folders that start with «_», hence «estilo» and not «_estilo».
+import type { Locale } from '../i18n/ui';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const T = {
+  es: { h1: 'Guía de estilo', lead: 'Todo lo que puede llevar un artículo, con el aspecto de Trama y sin una sola clase.', p: 'Texto corrido en Archivo al 100 % de anchura, con un', link: 'enlace punteado', and: 'y un', code: 'fragmento de código', end: 'dentro de la frase. Los enlaces se subrayan con puntos, las esquinas son rectas y el foco es un contorno punteado.', list: ['Primer punto de la lista', 'Segundo punto', 'Tercer punto, algo más largo para ver cómo se parte la línea cuando no cabe en el ancho del texto'], ol: ['Primer paso', 'Segundo paso', 'Tercer paso'], quote: 'Una cita lleva a un lado una columna de puntos verdes en lugar de una barra.', cap: 'Pie de foto en Chakra Petch', th: ['Proyecto', 'Año', 'Tecnología'], more: 'Un detalle desplegable', moreText: 'El contenido de un <details>.', field: 'Un campo de texto', modes: 'Modos de color: añade ?mode=light, ?mode=high-contrast o ?mode=dark a la dirección.' },
+  en: { h1: 'Style guide', lead: 'Everything a post can hold, in Trama’s look and without a single class.', p: 'Running text in Archivo at 100% width, with a', link: 'dotted link', and: 'and a', code: 'code fragment', end: 'inside the sentence. Links are underlined with dots, corners are square and focus is a dotted outline.', list: ['First item of the list', 'Second item', 'Third item, a little longer to see how the line breaks when it does not fit the text width'], ol: ['First step', 'Second step', 'Third step'], quote: 'A quote carries a column of green dots on one side instead of a bar.', cap: 'Caption in Chakra Petch', th: ['Project', 'Year', 'Technology'], more: 'A collapsible detail', moreText: 'The content of a <details>.', field: 'A text field', modes: 'Colour modes: add ?mode=light, ?mode=high-contrast or ?mode=dark to the address.' },
+  ar: { h1: 'دليل الأسلوب', lead: 'كل ما يمكن أن تحويه مقالة، بمظهر «ترما» ودون أي صنف.', p: 'نص متصل بخط أرتشيفو، مع', link: 'رابط منقّط', and: 'و', code: 'مقطع برمجي', end: 'داخل الجملة. الروابط مسطّرة بنقاط، والزوايا قائمة، والتركيز حدّ منقّط.', list: ['العنصر الأول من القائمة', 'العنصر الثاني', 'العنصر الثالث، أطول قليلًا لنرى كيف ينكسر السطر'], ol: ['الخطوة الأولى', 'الخطوة الثانية', 'الخطوة الثالثة'], quote: 'يحمل الاقتباس عمودًا من النقاط الخضراء على جانبه بدل الشريط.', cap: 'تعليق على صورة', th: ['المشروع', 'السنة', 'التقنية'], more: 'تفصيل قابل للطي', moreText: 'محتوى عنصر details.', field: 'حقل نصي', modes: 'أنماط الألوان: أضف ?mode=light أو ?mode=high-contrast أو ?mode=dark إلى العنوان.' }
+}[lang];
+const tokens = ['--luz-surface-page', '--luz-surface', '--luz-surface-muted', '--luz-surface-strong', '--luz-text-primary', '--luz-text-secondary', '--luz-text-muted', '--luz-brand-primary', '--luz-brand-fill', '--accent-fill', '--faint', '--rule'];
+---
+<div class="guide">
+  <p class="label">{T.modes}</p>
+  <h1>{T.h1}</h1>
+  <p class="lead">{T.lead}</p>
+  <h2>H2</h2>
+  <p>{T.p} <a href="#main">{T.link}</a> {T.and} <code>{T.code}</code> {T.end}</p>
+  <h3>H3</h3>
+  <ul>{T.list.map((i) => <li>{i}</li>)}</ul>
+  <h4>H4</h4>
+  <ol>{T.ol.map((i) => <li>{i}</li>)}</ol>
+  <blockquote><p>{T.quote}</p></blockquote>
+  <figure>
+    <svg viewBox="0 0 160 90" width="480" height="270" role="img" aria-label={T.cap}><rect width="160" height="90" fill="currentColor" opacity=".15"/><g fill="currentColor">{Array.from({ length: 8 }).flatMap((_, y) => Array.from({ length: 14 }).map((_, x) => (x * 3 + y * 5) % 7 < 3 ? <circle cx={12 + x * 10.5} cy={10 + y * 10} r="2.2" /> : null))}</g></svg>
+    <figcaption>{T.cap}</figcaption>
+  </figure>
+  <table>
+    <caption>{T.th[0]}</caption>
+    <thead><tr>{T.th.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+    <tbody><tr><td>LUZ</td><td>2024</td><td>Web Components</td></tr><tr><td>IKAY</td><td>2020</td><td>Angular</td></tr></tbody>
+  </table>
+  <pre tabindex="0" role="region" aria-label={T.code}><code>{`const dots = fieldPoints(block, { density: 0.52 });\nfor (const p of dots) draw(p);`}</code></pre>
+  <details><summary>{T.more}</summary><p>{T.moreText}</p></details>
+  <p><label>{T.field}<br><input type="text" placeholder="…"></label></p>
+  <hr>
+  <table><caption>Tokens</caption><tbody>
+    {tokens.map((t) => <tr><th scope="row"><code>{t}</code></th><td><span class="sw" style={`background:var(${t})`}></span></td></tr>)}
+  </tbody></table>
+</div>
+<style>
+  .guide { max-inline-size: 46rem; margin-inline: auto; padding: 5rem var(--gut) 8rem; display: grid; gap: 1.6rem; }
+  .lead { font-size: 1.35rem; font-weight: 250; font-stretch: 80%; color: var(--mute); }
+  .sw { display: inline-block; inline-size: 5rem; block-size: 1.2rem; border: 1px solid var(--luz-divider); }
+</style>
+<script is:inline>
+  try { var m = new URLSearchParams(location.search).get('mode'); if (m === 'light' || m === 'dark' || m === 'high-contrast') document.documentElement.dataset.mode = m; } catch (e) {}
+</script>

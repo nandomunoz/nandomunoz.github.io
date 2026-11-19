@@ -1,0 +1,308 @@
+/* ==========================================================================
+   Chrome — the header and footer every version shares (Disquetes, VHS, and
+   any to come). Load it after archivo.css (fonts, --sans, --tech, --stripe)
+   and before the version's own sheet. It brings its own colours, so it looks
+   the same on any version, whatever palette that version gives the page:
+   cream paper, navy ink, crimson accent (navy paper, cream ink in the dark).
+   The horizontal padding is the page's --pad, so it lines up with each
+   version's content.
+   ========================================================================== */
+
+/* The palette of the masthead and the footer is its own, whatever version they
+   are in: cream paper, navy ink, crimson (navy paper and cream ink in the dark).
+   It is LUZ's semantic tokens, set in this scope, and the short names the CSS
+   reads are re-aliased here so they follow it; a theme can change them (the
+   Cassette's light masthead is silver: themes/cassette.css). */
+.masthead, .colophon {
+  --luz-surface-page: #fbe6b4;
+  --luz-surface: #fdf1d2;
+  --luz-text-primary: #0d3249;
+  --luz-text-secondary: #29557c;
+  --luz-brand-fill: #c8172a;
+  --luz-text-on-fill: #fbe6b4;
+  --bg: var(--luz-surface-page);
+  --panel: var(--luz-surface);
+  --ink: var(--luz-text-primary);
+  --ink-soft: var(--luz-text-secondary);
+  --accent: var(--luz-brand-fill);
+  --on-accent: var(--luz-text-on-fill);
+  --rule: color-mix(in srgb, var(--ink) 70%, transparent);
+  color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="light"]):not(:has(.luz-theme-mode__input[value="light"]:checked)) :is(.masthead, .colophon) {
+    --luz-surface-page: #0b2a3e;
+    --luz-surface: #0d3249;
+    --luz-text-primary: #fbe6b4;
+    --luz-text-secondary: #93bcc0;
+  }
+}
+:root[data-mode="dark"] :is(.masthead, .colophon), :root:not([data-mode]):has(.luz-theme-mode__input[value="dark"]:checked) :is(.masthead, .colophon) {
+  --luz-surface-page: #0b2a3e;
+  --luz-surface: #0d3249;
+  --luz-text-primary: #fbe6b4;
+  --luz-text-secondary: #93bcc0;
+}
+
+/* ---------- the masthead: a magazine cover's ----------
+   The stripe hangs along its bottom edge; above it the three squares and the name in
+   the condensed titling face, with the kicker under it in the technical one;
+   the links are ■ labels, the language a square button with its dropdown.
+   The brand (squares, name, kicker) is one link home. */
+.masthead {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .25rem 2rem;
+  padding: .75rem var(--pad);
+  background: var(--bg);
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  transition: translate .3s ease;
+}
+.masthead::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: .4rem; background: var(--stripe); }
+.masthead a { text-decoration: none; }
+.masthead a:hover { text-decoration: underline; }
+.masthead__title { font-size: inherit; font-weight: 700; }
+
+/* going down it slides away, leaving only the stripe at the top of the window;
+   going up it comes back (chrome.js) */
+.masthead.is-hidden { translate: 0 -100%; }
+@media (prefers-reduced-motion: reduce) { .masthead { transition: none; } }
+/* --head-h is its height, set by chrome.js, so anchors and glides stop under it */
+html:has(.masthead) { scroll-padding-top: calc(var(--head-h, 6rem) + 1rem); }
+
+.brand { display: inline-flex; align-items: center; gap: .75rem; }
+.brand:hover { text-decoration: none; }
+.brand__mark { width: 2.2rem; height: 2.2rem; flex: none; }
+.brand__text { display: grid; }
+.brand__name { font: 800 1.7rem/.9 var(--sans); font-stretch: 62%; letter-spacing: 0; }
+.masthead .brand:hover { text-decoration: none; }
+.brand:hover .brand__name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .12em; }
+.brand__kicker { margin-top: .25rem; font: 600 .66rem/1 var(--tech); letter-spacing: .1em; color: var(--ink-soft); }
+
+/* the sections and the languages sit together: on a wide screen in the bar
+   itself (the sections as type, the language a dropdown); on a phone in a
+   panel that slides in from the right */
+/* the panel is a native popover on phones (below); from 48em its links are part of the bar */
+@media (min-width: 48em) { .masthead__drawer { display: contents; } }
+.masthead__menu { display: none; }
+.masthead__nav { display: flex; gap: 1.6rem; }
+.masthead__nav a { display: inline-flex; align-items: center; gap: .5em; font-size: .72rem; color: var(--ink); }
+.masthead__nav a::before { content: ""; width: .55em; height: .55em; background: var(--accent); }
+/* a link out of the site (the blog) says so */
+.masthead__nav a[data-external]::after { content: "↗"; color: var(--ink-soft); font-weight: 400; }
+
+/* ---------- language: a button with the current code, a popover list ----------
+   As LUZ's lang-switch: native popover, one link per language named in
+   itself, the current one ticked. (On phones the list sits in the menu.) */
+.lang__button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.25rem; min-height: 2.25rem; padding: 0;
+  border: 1.5px solid var(--ink); border-radius: 0;
+  background: transparent; color: var(--ink);
+  font: 600 .78rem/1 var(--tech); letter-spacing: .08em;
+  cursor: pointer;
+}
+.lang__button:hover, .lang__button:has(+ :popover-open) { background: var(--ink); color: var(--bg); }
+.lang__menu {
+  inset: auto; top: var(--head-h, 4.5rem); right: var(--pad, 1rem);
+  margin: 0; min-width: 12rem; padding: .5rem;
+  border: 1.5px solid var(--ink); border-radius: 0;
+  background: var(--panel); color: var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+  font-family: var(--sans); text-transform: none; letter-spacing: 0;
+}
+@supports (position-anchor: --lang) {
+  .lang__button { anchor-name: --lang; }
+  .lang__menu { position-anchor: --lang; top: calc(anchor(bottom) + .5rem); right: anchor(right); }
+}
+.lang__title { padding: .25rem .6rem .45rem; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.lang__list { display: grid; gap: .2rem; list-style: none; margin: 0; padding: 0; }
+.lang__link {
+  display: flex; align-items: center; gap: .6rem;
+  min-height: 2.75rem; padding: 0 .6rem; border-radius: 0;
+  color: var(--ink); font-weight: 600; text-decoration: none;
+}
+.masthead .lang__link:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); text-decoration: none; }
+.lang__link:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.lang__code { width: 1.8em; font: 600 .78rem/1 var(--tech); letter-spacing: .08em; color: var(--ink-soft); }
+/* the current one: a tick (a shape, not colour alone) and weight */
+.lang__link[aria-current] { background: color-mix(in srgb, var(--ink) 10%, transparent); font-weight: 800; }
+.lang__link[aria-current]::after {
+  content: ""; margin-left: auto; width: .4em; height: .75em;
+  border: solid var(--accent); border-width: 0 2px 2px 0; rotate: 45deg; translate: 0 -.1em;
+}
+/* without the popover API: the links in a row, no button */
+@supports not selector(:popover-open) {
+  .lang__button, .lang__title { display: none; }
+  .lang__menu { display: block; position: static; padding: 0; border: 0; box-shadow: none; background: none; min-width: 0; }
+  .lang__list { display: flex; }
+}
+
+/* ---------- wide screens: a magazine's masthead ----------
+   The sections on the right as type; after a hairline the language button. */
+@media (min-width: 48em) {
+  .masthead__nav { margin-left: auto; }
+  .lang { display: flex; align-items: center; padding-left: 1.4rem; border-left: 1px solid color-mix(in srgb, var(--ink) 30%, transparent); }
+}
+
+/* ---------- phones: three bars that open a panel from the right ----------
+   The panel is a native popover (popovertarget on the bars): the browser gives
+   Esc, a click outside to close it, the focus back to the bars, and it works with
+   no script. The bars turn into a cross; the panel comes in from the right at the
+   full height under the masthead, the page dimmed behind it (the masthead's
+   ::before: the bar itself stays lit); the sections at the top, the languages at
+   its foot as two equal boxes, the current one filled. */
+@media (max-width: 47.99em) {
+  .masthead { flex-wrap: nowrap; }
+  .masthead:has(.masthead__drawer:popover-open) { z-index: 40; }
+  .masthead__menu {
+    display: inline-grid; place-items: center; flex: none; margin-left: auto;
+    width: 2.6rem; height: 2.6rem; padding: 0;
+    border: 1.5px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); cursor: pointer;
+  }
+  .masthead__menu:hover, .masthead:has(.masthead__drawer:popover-open) .masthead__menu { background: var(--ink); color: var(--bg); }
+  .masthead__burger { display: grid; gap: .28rem; width: 1.15rem; }
+  .masthead__burger i { display: block; height: 2px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+  .masthead:has(.masthead__drawer:popover-open) .masthead__burger i:nth-child(1) { transform: translateY(calc(.28rem + 2px)) rotate(45deg); }
+  .masthead:has(.masthead__drawer:popover-open) .masthead__burger i:nth-child(2) { opacity: 0; }
+  .masthead:has(.masthead__drawer:popover-open) .masthead__burger i:nth-child(3) { transform: translateY(calc(-.28rem - 2px)) rotate(-45deg); }
+  .masthead__drawer {
+    position: fixed; inset: calc(var(--head-h, 4.5rem) + .4rem) 0 0 auto; margin: 0;
+    width: min(82%, 20rem); height: auto; max-height: none; overflow-x: hidden; overflow-y: auto;
+    flex-direction: column; gap: 1.1rem; color: var(--ink);
+    padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom));
+    border: 0; border-left: 1.5px solid var(--ink); background: var(--bg); box-shadow: -1rem 0 2rem rgb(0 0 0 / .35);
+    /* the panel is above everything, the masthead's stripe too: this leaves the stripe
+       (the .4rem over the panel's top, and the pixel of it that --head-h's rounding
+       leaves over the panel: chrome.js's --head-over) out of the panel, as when the
+       stripe was painted over it. The mask reaches 4rem past the panel, enough for the shadow. */
+    mask: linear-gradient(#000 calc(4rem - .4rem), transparent calc(4rem - .4rem) calc(4rem + var(--head-over, 0px)), #000 calc(4rem + var(--head-over, 0px))) -4rem -4rem / calc(100% + 8rem) calc(100% + 8rem) no-repeat border-box no-clip;
+  }
+  .masthead__drawer:popover-open { display: flex; animation: drawer-in .22s ease; }
+  .masthead__drawer::backdrop { background: transparent; }
+  .masthead:has(.masthead__drawer:popover-open)::before {
+    content: ""; position: fixed; left: 0; right: 0; top: calc(var(--head-h, 4.5rem) + .4rem); bottom: 0;
+    background: rgb(0 0 0 / .5); animation: dim-in .22s ease;
+  }
+  .masthead__nav { flex-direction: column; gap: 0; }
+  .masthead__nav a { display: flex; min-height: 2.9rem; font-size: .95rem; border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+  .masthead__nav a::after { content: "→"; margin-left: auto; color: var(--ink-soft); font-weight: 400; }
+  .masthead__nav a[data-external]::after { content: "↗"; }
+  .lang { margin-top: auto; }
+  .lang__button { display: none; }
+  .lang__menu { display: block; position: static; inset: auto; width: auto; min-width: 0; padding: 0; border: 0; box-shadow: none; background: none; overflow: visible; }
+  .lang__title { padding: 0 0 .5rem; }
+  .lang__list { display: flex; gap: 0; }
+  .lang__link[aria-current]::after { display: none; }
+  .lang__list li { flex: 1; }
+  .lang__link { justify-content: center; width: 100%; min-height: 2.6rem; padding: 0 .5rem; border: 1.5px solid var(--ink); }
+  .lang__list li + li .lang__link { border-left: 0; }
+  .lang__code { color: var(--ink-soft); }
+  .masthead .lang__link:not([aria-current]):hover { background: color-mix(in srgb, var(--ink) 10%, transparent); }
+  .lang__link[aria-current] { background: var(--ink); color: var(--bg); font-weight: 800; }
+  .lang__link[aria-current] .lang__code { color: inherit; }
+}
+@keyframes drawer-in { from { translate: 100% 0; } }
+@keyframes dim-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .masthead__drawer, .masthead::before { animation: none !important; } }
+/* while the panel is open the page under it does not scroll */
+html:has(.masthead__drawer:popover-open) { overflow: hidden; }
+/* a browser without the popover API: no button, the links stay under the bar */
+@supports not selector(:popover-open) {
+  .masthead__menu { display: none; }
+  @media (max-width: 47.99em) {
+    .masthead { flex-wrap: wrap; }
+    .masthead__drawer { display: flex; position: static; width: 100%; padding: .5rem 0; border: 0; box-shadow: none; }
+  }
+}
+
+/* ---------- colophon: today, the colophon, the other version ---------- */
+
+/* the colour mode, as LUZ's theme-mode: without a script a row of three
+   options (Auto, light, dark), the chosen one filled; with it, one round
+   button showing the chosen one's icon, under the date */
+luz-theme-mode { display: block; margin-top: .9rem; }
+.luz-theme-mode__group { display: flex; flex-wrap: wrap; gap: .25rem; min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+.luz-theme-mode__legend { display: block; margin-bottom: .4rem; padding: 0; color: var(--ink-soft); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.luz-theme-mode__option {
+  position: relative; display: flex; flex: 1; align-items: center; justify-content: center; gap: .3rem;
+  min-height: 1.9rem; padding: 0 .5rem; border: 1px solid var(--ink); border-radius: .375rem;
+  color: inherit; font: 600 .72rem/1 var(--tech); cursor: pointer; transition: background .15s, color .15s;
+}
+.luz-theme-mode__input { position: absolute; width: 1px; height: 1px; margin: -1px; opacity: 0; overflow: hidden; clip-path: inset(50%); }
+.luz-theme-mode__option:hover { background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.luz-theme-mode__option:has(:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.luz-theme-mode__option:has(:checked) { background: var(--ink); color: var(--bg); }
+.luz-theme-mode__icon { width: 1em; height: 1em; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* with the button the radios are its memory, out of sight */
+.luz-theme-mode__button ~ .luz-theme-mode__group { display: none; }
+.luz-theme-mode__button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; padding: 0;
+  border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent); border-radius: 50%;
+  background: var(--bg); color: var(--ink); cursor: pointer; transition: background .15s, color .15s;
+}
+.luz-theme-mode__button .luz-theme-mode__icon { width: 1.25rem; height: 1.25rem; }
+.luz-theme-mode__button:hover { background: color-mix(in srgb, var(--ink) 10%, var(--bg)); }
+.luz-theme-mode__button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.luz-theme-mode__status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (forced-colors: active) {
+  .luz-theme-mode__option, .luz-theme-mode__button { border-color: ButtonText; }
+  .luz-theme-mode__option:has(:checked) { forced-color-adjust: none; border: 2px solid Highlight; background: Highlight; color: HighlightText; }
+}
+
+/* The footer: write to me (the contact section of soynando.com, with its
+   logos) on the left, the date and the colour mode, the other version's
+   barcode, and under a hairline whatever fine print the version adds. On a
+   phone it is one column; from 40em the contact takes a row, the date and
+   the barcode share the next; from 64em all three stand in a row. */
+.colophon {
+  display: grid; gap: 1.75rem var(--gap); align-items: start;
+  grid-template-columns: 1fr;
+  grid-template-areas: "contact" "doc" "version" "extra";
+  padding: 2.5rem var(--pad) 2rem;
+  border-top: 1.5px solid var(--ink);
+  background: var(--panel);
+}
+@media (min-width: 40em) {
+  .colophon { grid-template-columns: 1fr auto; grid-template-areas: "contact contact" "doc version" "extra extra"; }
+}
+@media (min-width: 64em) {
+  .colophon { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "contact doc version" "extra extra extra"; gap: 2rem 4rem; }
+}
+.colophon__contact { grid-area: contact; max-width: 40rem; }
+.colophon__doc { grid-area: doc; }
+.colophon__version { grid-area: version; }
+.colophon__extra { grid-area: extra; }
+.colophon .label { color: var(--ink); }
+.colophon__title { margin: 0; font: 800 clamp(1.6rem, 3.2vw, 2.25rem)/1.05 var(--sans); letter-spacing: -.01em; color: var(--ink); }
+.colophon__text { margin: .6rem 0 0; font-size: .95rem; line-height: 1.5; color: var(--ink-soft); max-width: 34rem; }
+.colophon__no { font-family: var(--tech); font-weight: 600; font-size: 1.15rem; margin-top: .25rem; }
+
+/* the contact logos: round buttons, like the colour mode's */
+.colophon__links { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.colophon__link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent); border-radius: 50%;
+  background: var(--bg); color: var(--ink); text-decoration: none;
+  transition: background .15s, color .15s, border-color .15s, transform .2s ease;
+}
+.colophon__link svg { width: 1.3rem; height: 1.3rem; fill: currentColor; }
+.colophon__link:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); text-decoration: none; transform: translateY(-2px); }
+.colophon__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (forced-colors: active) { .colophon__link { border-color: ButtonText; } }
+@media (prefers-reduced-motion: reduce) { .colophon__link { transition: none; } .colophon__link:hover { transform: none; } }
+
+/* fine print (the voice's credit), under a hairline */
+.colophon__extra { margin: 0; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); font-size: .78rem; color: var(--ink-soft); }
+
+/* the other version: only a scannable barcode of its name */
+.colophon__version { justify-self: start; align-self: end; margin: 0; }
+@media (min-width: 40em) { .colophon__version { justify-self: end; } }
+.colophon__version a {
+  display: block; padding: .5rem 0;
+  color: var(--ink); text-decoration: none;
+  transition: transform .2s ease;
+}
+.colophon__version .barcode { width: 13rem; height: 3.2rem; color: var(--ink); }
+.colophon__version a:hover { transform: translateY(-2px); text-decoration: none; }

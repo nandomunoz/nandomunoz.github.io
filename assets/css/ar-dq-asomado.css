@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Disquetes · Asomado — the screen reads the disk that is in the drive (the
+   bio, by default). The drive shows that disk's cover sticking out of the
+   slot, still, like its label; when another disk goes in, the cover sinks
+   into the slot and the new one rises. Under the drive: "insert a disk from
+   the shelf ↓".
+   ========================================================================== */
+
+@media (min-width: 64em) {
+  .dq--asomado .station { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .dq--asomado .deck { position: sticky; top: 1rem; align-self: start; }
+}
+.dq--asomado .deck { display: grid; gap: 1.25rem; }
+
+/* the drive sticks on wide screens: the invitation under it (its arrow is
+   animated, so it has its own layer) scrolls behind it, never over it */
+.dq--asomado .drive { z-index: 2; }
+.dq--asomado .drive__face { display: block; position: relative; z-index: 1; }
+
+/* the cover stands behind the drive, as wide as it, its foot hidden behind
+   the drive's top edge; it sinks down behind the drive when the disk changes */
+.now-well {
+  position: absolute; z-index: 0;
+  left: 0; width: 100%;
+  bottom: calc(100% - 1.25rem);  /* overlaps the drive's top: that part is behind it */
+  aspect-ratio: 1 / .72;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.now-well .now { flex: 1; }
+
+/* the cover of the disk inside: a copy of the disk with only its cover shown,
+   cropped to the cover (it spans 82% × 56% of the disk) */
+.now { display: block; position: relative; aspect-ratio: 1 / .7034; overflow: hidden; }
+.now .disk {
+  width: 121.95%;
+  margin: -51.5% 0 0 -10.98%;
+  background: none; box-shadow: none; filter: none; clip-path: none;
+}
+.now .disk > :not(.cover) { display: none; }
+/* a navy rule around it, so a cream cover still reads as a label on cream paper */
+.now .cover { box-shadow: inset 0 0 0 .5cqi var(--c-navy); }
+
+/* the invitation, pointing down at the shelf */
+.dq--asomado .cta { display: flex; align-items: center; justify-content: center; gap: .75rem; }
+.dq--asomado .cta[hidden] { display: none; }
+.dq--asomado .cta b { font: 800 clamp(1.4rem, 1rem + 1.4vw, 2.1rem)/1 var(--sans); font-stretch: 62%; text-transform: uppercase; }
+.dq--asomado .cta__arrow {
+  display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  flex: none; aspect-ratio: 1;   /* a circle even when the text beside it wraps */
+  background: var(--accent); color: var(--on-accent); font: 800 1.4rem/1 var(--sans);
+  animation: nudge-down 1.2s ease-in-out infinite;
+}
+@keyframes nudge-down { 50% { transform: translateY(.35rem); } }
+
+/* ==========================================================================
+   Everything on the grid of square cells (as in the grid versions).
+   The body is the container; a cell is its width / columns, and every edge
+   in the page falls on a line:
+   · margins are one cell; the station and the shelf list are padded by one
+   · the screen and the drive deck are a whole number of cells wide, and
+     ar-disquetes.js rounds their heights up to whole cells
+   · the cover's top sits on a line: the drive leaves exactly --m cells above
+     it, and the rest of the cover hides behind the drive
+   · the shelf header is one cell tall; each disk box is 3 × 3 cells
+   12 columns mobile · 16 tablet · 16 desktop (finer on small screens).
+   ========================================================================== */
+
+.dq--asomado { container-type: inline-size; }
+.dq--asomado > * {
+  --cols: 12;
+  /* the content is at most --max px wide (16 cells of 120px): past that the
+     cells stop growing, the content is centred and --rim fills each side.
+     The grid lines, the stripe and the backgrounds still run edge to edge. */
+  --max: 1920;
+  --rim: max(0px, (100cqi - var(--max) * 1px) / 2);
+  --cell: calc(min(100cqi, var(--max) * 1px) / var(--cols));
+  --pad: calc(var(--cell) + var(--rim));
+  --deck: 10;   /* drive deck width, in cells */
+  --m: 7;      /* cells of cover above the drive: floor(0.7034 × deck) */
+  --box: 5;    /* disk box side, in cells (2 per row on mobile) */
+  --hr: 2;     /* shelf header height, in cells */
+  --g-line: color-mix(in srgb, var(--ink) 22%, transparent);
+  --g-line-strong: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+@media (min-width: 37.5em) { .dq--asomado > * { --cols: 16; --deck: 14; --m: 7; --box: 4; --hr: 2; } }
+@media (min-width: 64em)   { .dq--asomado > * { --cols: 16; --deck: 5; --m: 3; --box: 3; --hr: 1; } }
+
+.dq--asomado main {
+  background-image:
+    linear-gradient(90deg, var(--g-line) 1px, transparent 1px),
+    linear-gradient(var(--g-line) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  background-position: var(--rim) 0;   /* lines on the content's cells */
+}
+
+/* ---------- station: screen | gap | deck, in cells ---------- */
+
+.dq--asomado .station {
+  padding: var(--cell) var(--pad);
+  gap: var(--cell);
+  align-items: start;
+  background: transparent;
+  border-bottom: 0;
+}
+.dq--asomado .deck { position: static; width: calc(var(--cell) * var(--deck)); justify-self: center; gap: 0; align-content: start; }
+@media (min-width: 64em) {
+  .dq--asomado .station { grid-template-columns: calc(var(--cell) * 8) calc(var(--cell) * 5); }
+  .dq--asomado .deck { justify-self: start; }
+}
+.dq--asomado .cta { margin-top: calc(var(--cell) * .35); justify-content: flex-start; }
+
+/* the cover's top on a grid line, its foot behind the drive */
+@media (min-width: 64em) { .dq--asomado .drive { margin-top: calc(var(--cell) * var(--m)); } }
+.dq--asomado .now-well {
+  top: calc(var(--cell) * var(--m) * -1); bottom: auto;
+  aspect-ratio: 1 / .7034;
+  display: block;
+}
+
+/* ---------- shelf ---------- */
+
+.dq--asomado .section-head {
+  height: calc(var(--cell) * var(--hr));
+  padding-block: 0;
+  align-items: center;
+  border-bottom: 0;
+  background: var(--bg);
+  box-shadow: inset 0 1px 0 var(--g-line-strong), inset 0 -1px 0 var(--g-line-strong);
+}
+.dq--asomado .section-head h2 { font-size: min(3.6rem, calc(var(--cell) * var(--hr) * .62)); }
+
+.dq--asomado .shelf__list {
+  gap: 0;
+  padding: var(--cell) var(--pad);
+  grid-template-columns: repeat(auto-fill, calc(var(--cell) * var(--box)));
+}
+.dq--asomado .entry {
+  aspect-ratio: 1;
+  display: grid; place-items: center;
+  padding: 11%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--g-line-strong);
+  margin: 0 -1px -1px 0;   /* neighbouring boxes share one line */
+}
+.dq--asomado .entry[hidden] { display: none; }
+.dq--asomado .entry .entry__disk { width: 100%; }
+.dq--asomado .entry.is-out::after { inset: 11% 11% auto; }
+
+/* the reading lands just under the top of the window */
+.screen { scroll-margin-top: 3rem; }
+.drive { scroll-margin: 2rem; }
+/* exactly 3 cells tall (+1px that the shared line takes back) */
+.dq--asomado .entry { aspect-ratio: auto; height: calc(var(--cell) * var(--box) + 1px); }
+.dq--asomado .entry .entry__disk { width: 96%; }
+
+/* ---------- one column (phone, tablet) ----------
+   No cover: the drive sits right under the screen, glued to it, and it is the
+   screen that sinks into the slot and rises out of it when the disk changes
+   (ar-disquetes.js). */
+@media (max-width: 63.999em) {
+  .dq--asomado .station { row-gap: 0; }
+  .dq--asomado .now-well { display: none; }
+  .dq--asomado .drive__bezel { border-radius: 0 0 .5rem .5rem; }
+}
+
+/* ---------- two columns: the disk's links under the drive ---------- */
+.deck__links { display: none; }
+@media (min-width: 64em) {
+  .dq--asomado .screen__out .links { display: none; }
+  /* the drive is 5 cells wide and 1.35 tall (4 : 1.08): .65 of a cell more
+     puts the links' top on the next grid line */
+  /* one row of the grid of their own, the buttons centred in it */
+  .dq--asomado .deck__links { display: block; margin-top: calc(var(--cell) * (2 - var(--deck) * .27)); }
+  /* each button two cells wide: it starts on a line and stops a hair short of
+     the next one, so the two never touch */
+  .dq--asomado .deck__links .links {
+    height: var(--cell);
+    display: grid; grid-template-columns: repeat(2, calc(var(--cell) * 2)); gap: 0;
+    align-items: center; align-content: center;
+  }
+  .dq--asomado .deck__links .btn {
+    width: calc(100% - .6rem); justify-content: center; padding-inline: .5rem;
+    white-space: nowrap; font-size: clamp(.68rem, var(--cell) * .17, .82rem);  /* one line, even at 1024px */
+  }
+  .dq--asomado .deck__links .links > * { animation: line-in .5s both; animation-delay: calc(var(--i, 0) * 90ms + .4s); }
+  .dq--asomado .deck__links .links > :nth-child(2) { --i: 1; }
+}
+
+/* ---------- wide screens ----------
+   The cells grow with the window (up to 120px), so the text grows with them:
+   the root size goes up a step at 1600px and another at 1920px. Everything set
+   in rem (text, buttons, paddings) follows; the grid is in cells and does not. */
+@media (min-width: 100em) { html:has(.dq--asomado) { font-size: 106.25%; } }
+@media (min-width: 120em) { html:has(.dq--asomado) { font-size: 112.5%; } }
+
+/* the shelf runs the full width between the margins, like the station above
+   it (line 1 to the last but one): a fixed number of boxes per row share that
+   width (2 · 3 · 4), the rows stay --box cells tall, so their lines fall on
+   the grid's. The disk keeps its size (from the box height) and is centred. */
+.dq--asomado > * { --per: 2; }
+@media (min-width: 37.5em) { .dq--asomado > * { --per: 3; } }
+@media (min-width: 64em)   { .dq--asomado > * { --per: 4; } }
+.dq--asomado .shelf__list { grid-template-columns: repeat(var(--per), minmax(0, 1fr)); }
+.dq--asomado .entry { --side: calc(var(--cell) * var(--box)); padding: calc(var(--side) * .11) 0; }
+.dq--asomado .entry .entry__disk { width: calc(var(--side) * .78 * .96); }
+.dq--asomado .entry.is-out::after { inset: auto; top: calc(var(--side) * .11); left: 50%; width: calc(var(--side) * .78); translate: -50% 0; }
+
+.dq--asomado .screen { scroll-margin-top: 0; }
+

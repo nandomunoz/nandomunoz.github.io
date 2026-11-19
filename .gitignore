@@ -1,0 +1,5 @@
+# local only: nothing under .claude/ (at any depth) is ever committed or pushed (see AGENTS.md)
+.claude/
+__pycache__/
+*.log
+.DS_Store

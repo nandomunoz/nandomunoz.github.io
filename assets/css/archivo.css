@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Archive — base styles for the Disquetes portfolio.
+   Layout of a museum catalogue card (img 10): object number, condensed
+   headline, ruled grid of labelled fields, barcode.
+   Colours of the retro rainbow (img: cream, navy and the stripe between):
+   cream paper, navy ink, red → orange → sand → teal → blue.
+   Contrast rules: navy on cream 10.9:1. Orange is never text on cream
+   (2.1:1): it is a fill with navy text (5.2:1) or text on navy (5.2:1).
+   Crimson may be text on cream (4.7:1).
+   Full width, fluid: mobile < 37.5em ≤ tablet < 64em ≤ desktop < 90em ≤ max.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-latin-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../fonts/chakra-petch-latin-500-normal.woff2") format("woff2");
+  font-weight: 500; font-display: swap;
+}
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../fonts/chakra-petch-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+  /* the stripe, top to bottom */
+  --c-crimson: #c8172a;
+  --c-red: #e2373a;
+  --c-orange: #f5832a;
+  --c-apricot: #f9b874;
+  --c-sand: #f5e3c3;
+  --c-mist: #93bcc0;
+  --c-teal: #4a9db1;
+  --c-steel: #3c7898;
+  --c-blue: #29557c;
+  --c-navy: #0d3249;
+  --stripe: linear-gradient(180deg,
+    var(--c-crimson) 0 10%, var(--c-red) 0 20%, var(--c-orange) 0 30%, var(--c-apricot) 0 40%, var(--c-sand) 0 50%,
+    var(--c-mist) 0 60%, var(--c-teal) 0 70%, var(--c-steel) 0 80%, var(--c-blue) 0 90%, var(--c-navy) 0 100%);
+
+  /* the colours are LUZ's semantic tokens (--luz-*), set by the version's theme
+     (themes/*.css, loaded before this sheet); these are the short names the
+     CSS reads. --ghost, decorative digits only, is the theme's own. */
+  --bg: var(--luz-surface-page);
+  --panel: var(--luz-surface);
+  --panel-2: var(--luz-surface-muted);
+  --ink: var(--luz-text-primary);
+  --ink-soft: var(--luz-text-secondary);
+  --accent: var(--luz-brand-fill);          /* a fill, with --on-accent text on it */
+  --on-accent: var(--luz-text-on-fill);
+  --text-accent: var(--luz-brand-primary);  /* may be text on the page */
+  --rule: color-mix(in srgb, var(--ink) 70%, transparent);
+  --hair: color-mix(in srgb, var(--ink) 25%, transparent);
+
+  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --tech: "Chakra Petch", "Archivo", ui-monospace, monospace;
+
+  --pad: clamp(1rem, 3.5vw, 4rem);
+  --gap: clamp(1rem, 2vw, 2rem);
+}
+/* the colour scheme (form controls, scrollbars) follows the palette: the system's,
+   unless the visitor chose by hand (data-mode on <html>, written by the masthead's
+   colour-mode switch); the palettes themselves are in themes/*.css */
+:root[data-mode="dark"], :root:not([data-mode]):has(.luz-theme-mode__input[value="dark"]:checked) { color-scheme: dark; }
+:root[data-mode="light"], :root:not([data-mode]):has(.luz-theme-mode__input[value="light"]:checked) { color-scheme: light; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--panel); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 clamp(.95rem, .9rem + .2vw, 1.05rem)/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+svg { display: block; }
+button { font: inherit; color: inherit; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.skip { position: absolute; left: 1rem; top: -4rem; z-index: 50; padding: .5rem 1rem; background: var(--ink); color: var(--panel); }
+.skip:focus { top: 1rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- type voices ---------- */
+
+.label {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink);
+}
+.label::before { content: ""; display: inline-block; width: .55em; height: .55em; margin-right: .5em; background: var(--accent); vertical-align: .05em; }
+
+.num { font-family: var(--tech); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.num__ghost { color: var(--ghost); }
+
+.square { display: inline-block; width: 1.6rem; height: 1.6rem; background: var(--accent); flex: none; }
+
+.barcode { width: 16rem; max-width: 100%; height: 2.2rem; color: var(--ink); }
+
+/* ---------- ruled cells of labelled fields ---------- */
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1.5px solid var(--ink);
+}
+.cell { padding: .7rem .9rem .8rem 0; border-bottom: 1px solid var(--rule); }
+.cell + .cell { padding-left: .9rem; border-left: 1px solid var(--rule); }
+.cells .cell:nth-child(2n + 1) { padding-left: 0; border-left: 0; }
+.cell dt { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.cell dd { margin-top: .25rem; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; font-size: .9rem; }
+/* the technologies link to their sites: a fine underline, the accent on hover */
+.cell dd a.tech { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); }
+.cell dd a.tech:hover { color: var(--accent, currentColor); text-decoration-color: currentColor; }
+@media (min-width: 37.5em) {
+  .cells--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cells--3 .cell:nth-child(n) { padding-left: .9rem; border-left: 1px solid var(--rule); }
+  .cells--3 .cell:nth-child(3n + 1) { padding-left: 0; border-left: 0; }
+}
+
+/* ---------- correspondence ---------- */
+
+.socials { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; }
+.socials a { text-decoration: none; display: inline-flex; gap: .5em; align-items: baseline; }
+.socials__label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.socials__handle { font-family: var(--tech); font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+
+/* ---------- section heads ---------- */
+
+.section-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding: 1.25rem var(--pad) .9rem;
+  border-bottom: 1.5px solid var(--ink);
+}
+.section-head h2 { font: 800 clamp(1.8rem, 1rem + 3vw, 3.6rem)/1 var(--sans); font-stretch: 62%; text-transform: uppercase; }
+.section-head__count { font-family: var(--tech); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; font-size: .85rem; }
+
+/* ---------- links ---------- */
+
+/* Demo and code are buttons: an icon and a word. The demo is the main one,
+   an orange fill with navy text (5.2:1); the code is outlined in navy. */
+.links { display: flex; flex-wrap: wrap; gap: .6rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: .55em;
+  min-height: 2.75rem; padding: .55rem 1.1rem .55rem .9rem;
+  border: 1.5px solid var(--ink); border-radius: .35rem;
+  font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: .82rem;
+  text-decoration: none; color: var(--ink); background: transparent;
+  box-shadow: 0 3px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .2s ease;
+}
+.btn--demo { background: var(--accent); color: var(--on-accent); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--ink); text-decoration: none; }
+.btn:active { transform: translateY(3px); box-shadow: 0 0 0 var(--ink); }
+.btn__icon { width: 1.15em; height: 1.15em; flex: none; }
+.btn--repo:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

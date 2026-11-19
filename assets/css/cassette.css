@@ -1,0 +1,970 @@
+/* ==========================================================================
+   Cassette — a silver radio-cassette (img: radio.jpg) over the liner notes
+   of the tape inside, and the tapes stacked spine out in a frame, as on a
+   poster of cassette spines: mustard, pink, sky, orange, mint, cream, black
+   and red J-cards. Built on archivo.css (type, cells, buttons) and
+   chrome.css (masthead, colophon).
+   ========================================================================== */
+
+@font-face {
+  font-family: "Pinyon Script";
+  src: url("../fonts/pinyon-script-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+}
+/* Special Elite (Astigmatic, Apache 2.0): a worn manual typewriter */
+/* the LCDs' dot-matrix lettering (Doto, SIL Open Font License) */
+@font-face { font-family: "Doto"; src: url("../fonts/doto-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Doto"; src: url("../fonts/doto-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face {
+  font-family: "Special Elite";
+  src: url("../fonts/special-elite-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../fonts/playfair-display-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 900; font-display: swap;
+}
+
+@property --u { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
+html:root {
+  color-scheme: light dark;
+  /* the colours (the wall, sage green as behind the oak cabinet; the red of the
+     spines) are in themes/cassette.css */
+  --rule: color-mix(in srgb, var(--ink) 60%, transparent);
+  --hair: color-mix(in srgb, var(--ink) 18%, transparent);
+  --case: #232323;        /* the plastic of the cases */
+  /* textures: brushed aluminium, oak grain, paper, plaster, moulded plastic */
+  --tx-brushed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.002 .9' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-brushed-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.002 .9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .35 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-oak-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .28' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .28  0 0 0 0 .16  0 0 0 0 .06  0 0 0 1.5 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-oak-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='800'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.28 .006' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .28  0 0 0 0 .16  0 0 0 0 .06  0 0 0 1.5 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85 .85' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .2  0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  /* the liner's paper, very faint: soft clouds in the pulp (one tile wider than the card, so it never shows a seam across it) */
+  --tx-paper-mottle: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1400'%20height='1400'%3E%3Cfilter%20id='f'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='.0125'%20numOctaves='4'%20seed='12'/%3E%3CfeColorMatrix%20values='0%200%200%200%20.42%20%200%200%200%200%20.36%20%200%200%200%200%20.24%20%200%200%200%20-.36%20.24'/%3E%3C/filter%3E%3Crect%20width='100%'%20height='100%'%20filter='url(%23f)'/%3E%3C/svg%3E");
+  --tx-plaster: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55 .55' numOctaves='4' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .28 -.02'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .48  0 0 0 .55 -.14'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-plastic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9 .9' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  /* brushed aluminium: fine streaks along the grain, light ones and dark ones */
+  --tx-brush-hi: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='300'%3E%3Cfilter%20id='f'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='.0016%201.3'%20numOctaves='3'%20seed='3'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20values='0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200.45%200%200%200%20-0.17'/%3E%3C/filter%3E%3Crect%20width='100%'%20height='100%'%20filter='url(%23f)'/%3E%3C/svg%3E");
+  --tx-brush-lo: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='300'%3E%3Cfilter%20id='f'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='.0016%201.3'%20numOctaves='3'%20seed='9'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20values='0%200%200%200%200%20%200%200%200%200%200%20%200%200%200%200%200%20%200.28%200%200%200%20-0.12'/%3E%3C/filter%3E%3Crect%20width='100%'%20height='100%'%20filter='url(%23f)'/%3E%3C/svg%3E");
+  /* the metal itself: the two kinds of streak, a soft sheen crossing the grain
+     (the light from the top left), the silver underneath */
+  --alu:
+    var(--tx-brush-hi) 0 0 / 600px 300px, var(--tx-brush-lo) 0 0 / 600px 300px,
+    linear-gradient(105deg, transparent 8%, rgb(255 255 255 / .45) 26%, transparent 42%, transparent 58%, rgb(255 255 255 / .22) 70%, transparent 84%),
+    linear-gradient(#f8f9fa, #eff1f2 50%, #e6e9eb);
+  --alu-deep:
+    var(--tx-brush-hi) 0 0 / 600px 300px, var(--tx-brush-lo) 0 0 / 600px 300px,
+    linear-gradient(105deg, transparent 10%, rgb(255 255 255 / .3) 28%, transparent 46%),
+    linear-gradient(#eef0f2, #e3e6e9 55%, #d8dcdf);
+  --screw: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3CradialGradient id='d' cx='.38' cy='.3' r='.72'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23d2d4d0'/%3E%3Cstop offset='.8' stop-color='%23858783'/%3E%3Cstop offset='1' stop-color='%234d4f4c'/%3E%3C/radialGradient%3E%3CradialGradient id='s' cx='.5' cy='.55' r='.5'%3E%3Cstop offset='.7' stop-color='%23000' stop-opacity='.5'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='20' cy='21.5' r='19' fill='url(%23s)'/%3E%3Ccircle cx='20' cy='20' r='14' fill='url(%23d)' stroke='%23383a37' stroke-width='.8'/%3E%3Cg transform='rotate(20 20 20)'%3E%3Cpath d='M12 20h16M20 12v16' stroke='%23fff' stroke-opacity='.55' stroke-width='3.4' stroke-linecap='round' transform='translate(.7 .9)'/%3E%3Cpath d='M12 20h16M20 12v16' stroke='%23262724' stroke-width='3' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");
+  /* oak: the cabinet, its shelves and the plank the radio stands on */
+  --oak: #c9995f;
+  /* the rays of the oak: short pale flecks across the grain */
+  --tx-oak-ray-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.04 .5' numOctaves='2' seed='21' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 .93  0 0 0 0 .78  0 0 0 1.6 -.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --tx-oak-ray-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5 .04' numOctaves='2' seed='22' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 .93  0 0 0 0 .78  0 0 0 1.6 -.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23f%29'/%3E%3C/svg%3E");
+  --oak-grain:
+    var(--tx-oak-ray-h) 0 0 / 400px 200px,
+    var(--tx-oak-h) 0 0 / 520px 160px,
+    linear-gradient(0deg, rgb(0 0 0 / .12), transparent 30%, rgb(255 240 210 / .14) 85%, rgb(255 245 225 / .3)),
+    linear-gradient(90deg, #b9895a, #cfa36c 14%, #c2945e 30%, #d4aa74 46%, #be8f5a 62%, #d0a66f 80%, #bb8c57);
+  --oak-grain-v:
+    var(--tx-oak-ray-v) 0 0 / 200px 400px,
+    var(--tx-oak-v) 0 0 / 160px 520px,
+    linear-gradient(90deg, rgb(255 245 225 / .2), transparent 12%, transparent 88%, rgb(0 0 0 / .12)),
+    linear-gradient(0deg, #b9895a, #cfa36c 14%, #c2945e 30%, #d4aa74 46%, #be8f5a 62%, #d0a66f 80%, #bb8c57);
+}
+html:root[data-mode="dark"], html:root:not([data-mode]):has(.luz-theme-mode__input[value="dark"]:checked) { color-scheme: dark; }
+html:root[data-mode="light"], html:root:not([data-mode]):has(.luz-theme-mode__input[value="light"]:checked) { color-scheme: light; }
+body.cas {
+  background:
+    var(--tx-plaster) 0 0 / 300px 300px,
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgb(255 250 235 / .16), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgb(0 0 0 / .22)),
+    var(--bg);
+  background-attachment: scroll, fixed, fixed, scroll;
+}
+
+/* the content sits in a 1420px container, centred; the wall runs edge to edge */
+body.cas main { width: min(100%, 1420px); margin-inline: auto; }
+
+/* ---------- the J-card colours (spines, labels, the liner's band) ---------- */
+.jc--yellow { --jc: #f5d43c; --jc-c: #f5d43c; --jc-ink: #1d1d1b; --jc-title: #d6321f; }
+.jc--pink   { --jc: #ef8fb3; --jc-c: #ef8fb3; --jc-ink: #1d1d1b; }
+.jc--sky    { --jc: #2f97d3; --jc-c: #2f97d3; --jc-ink: #ffffff; }
+.jc--orange { --jc: #f29a45; --jc-c: #f29a45; --jc-ink: #1d1d1b; }
+.jc--mint   { --jc: #86d3c9; --jc-c: #86d3c9; --jc-ink: #1d1d1b; --jc-title: #1d5f7a; }
+.jc--cream  { --jc: #efe6d2; --jc-c: #e9dcbd; --jc-ink: #1d1d1b; --jc-title: #d6321f; }
+.jc--tan    { --jc: #ecc095; --jc-c: #ecc095; --jc-ink: #3a2a1c; }
+.jc--white  { --jc: #f7f6f1; --jc-c: #d9d6cc; --jc-ink: #1d1d1b; --jc-title: #d6321f; }
+.jc--black  { --jc: #1e1e1e; --jc-c: #1e1e1e; --jc-ink: #f3f1ea; --jc-title: #f5d43c; }
+.jc--red    { --jc: #e3412b; --jc-c: #e3412b; --jc-ink: #ffffff; }
+.jc--fade   { --jc: linear-gradient(90deg, #f7f6f1 35%, #2f97d3); --jc-c: #2f97d3; --jc-ink: #1d1d1b; --jc-title: #1d5f7a; }
+
+/* the lettering, as varied as on a real stack */
+.ty--cond   :is(.cassette__title, .cspine__title, .hspine__title) { font-family: var(--sans); font-weight: 800; font-stretch: 62%; text-transform: uppercase; }
+.ty--wide   :is(.cassette__title, .cspine__title, .hspine__title) { font-family: var(--sans); font-weight: 900; font-stretch: 118%; text-transform: uppercase; letter-spacing: -.01em; }
+.ty--serif  :is(.cassette__title, .cspine__title, .hspine__title) { font-family: "Playfair Display", Georgia, serif; font-weight: 800; }
+.ty--script :is(.cassette__title, .cspine__title, .hspine__title) { font-family: "Pinyon Script", cursive; font-weight: 400; text-transform: none; }
+.ty--mono   :is(.cassette__title, .cspine__title, .hspine__title) { font-family: var(--tech); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- the studio: the cabinet on the left, the liner notes beside it ---------- */
+
+.studio {
+  display: grid; gap: 1.5rem var(--gap);
+  padding: clamp(1.5rem, 4vw, 3rem) var(--pad) 0;
+  /* one column: the deck, the liner notes under it (with the case's spine
+     shown again, put back "spine" above "deck": its row leaves a gap even empty) */
+  grid-template-columns: minmax(0, 1fr); grid-template-areas: "deck" "liner";
+}
+.studio__deck { grid-area: deck; container-type: inline-size; }
+/* one column: more room between the player and the notes under it */
+@media (max-width: 47.99em) { .studio { row-gap: 3rem; } }
+.studio__spine { grid-area: spine; }
+.studio__spine:empty { display: none; }
+.liner { grid-area: liner; }
+/* two columns from tablet width up: the deck on the left, the liner notes
+   beside it (on a tablet the deck a little narrower, the spine without its line) */
+@media (min-width: 48em) {
+  .studio { grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); grid-template-areas: "deck liner"; align-items: start; }
+}
+/* the deck stays in view under the masthead while the notes beside it scroll,
+   until the notes end — when the window is tall enough to show all of it */
+@media (min-width: 48em) and (max-width: 63.99em) and (min-height: 50em), (min-width: 64em) and (min-height: 54em) {
+  .studio__deck { position: sticky; top: calc(var(--head-h, 0px) + 1.5rem); }
+}
+@media (min-width: 48em) and (max-width: 63.99em) { .hspine__sub { display: none; } }
+/* on a desktop the deck's column is about a third of the row (36%, between
+   24 and 28.8rem) and the notes take the rest, so the two columns run edge
+   to edge with the racks below; the deck is drawn at its column's width, and
+   the rack's cases with the same unit (the rack is as wide as the row) */
+@media (min-width: 64em) {
+  .studio { --deck: max(24rem, min(28.8rem, 36%)); grid-template-columns: minmax(0, var(--deck)) minmax(0, 1fr); }
+  .studio .cabinet { --u: calc(min(100cqi, 28.8rem) / 100); }
+  .rack .rack__cabinet { --u: calc(max(24rem, min(28.8rem, 36cqi)) / 100); }
+}
+
+.studio__cta { display: flex; align-items: center; justify-content: center; gap: .75rem; margin: 2.5rem var(--pad) 0; }
+.studio__cta[hidden] { display: none; }
+.studio__cta b { font: 800 clamp(1.2rem, 1rem + 1vw, 1.8rem)/1 var(--sans); font-stretch: 62%; text-transform: uppercase; }
+.studio__arrow {
+  display: inline-grid; place-items: center; width: 2.6rem; aspect-ratio: 1; flex: none;
+  border-radius: 50%; background: var(--accent); color: var(--on-accent);
+  font: 800 1.3rem/1 var(--sans);
+  animation: nudge-down 1.2s ease-in-out infinite;
+}
+@keyframes nudge-down { 50% { transform: translateY(.35rem); } }
+
+/* ---------- the oak cabinets ----------
+   On the wall, a desk recorder in one warm off-white matte body, after
+   Rams (the speaker on top, under it four meters over a line of six keys: a stereo
+   level meter, a voice-and-tape meter and two band meters, then the tape in an open bay, and a row of
+   keys, EJECT red and PLAY green the only colour) and,
+   under it, a second oak
+   case with the tapes standing spine out in slots. The light comes from the
+   top left: lit top and left edges, shade below and to the right.
+
+   Both cases are drawn in one unit, --u: a hundredth of the width of the
+   deck's cabinet (24rem at most), so the slots, the cases in them and the
+   cassette in the door keep their real proportions (a case is 1287 × 189 px at 300 DPI, 109 × 16 mm,
+   the cassette 100 mm wide) whatever the width of the rack. */
+
+.cabinet, .rack__cabinet {
+  --u: calc(min(100cqi, 24rem) / 100);
+  position: relative; isolation: isolate;
+  padding: calc(5 * var(--u));
+  border-radius: calc(.4 * var(--u));
+  /* the back panel, in the shade of the frame */
+  background:
+    linear-gradient(rgb(0 0 0 / .5) calc(5 * var(--u)), transparent calc(8 * var(--u))),
+    linear-gradient(90deg, rgb(0 0 0 / .4) calc(5 * var(--u)), transparent calc(7.5 * var(--u))),
+    linear-gradient(-90deg, rgb(0 0 0 / .15) calc(5 * var(--u)), transparent calc(5 * var(--u))),
+    var(--oak-grain-v);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / .4),
+    calc(.3 * var(--u)) calc(1.2 * var(--u)) calc(1.6 * var(--u)) calc(-.5 * var(--u)) rgb(0 0 0 / .45),
+    calc(1.2 * var(--u)) calc(5 * var(--u)) calc(9 * var(--u)) calc(-2 * var(--u)) rgb(0 0 0 / .55);
+}
+/* on a tablet (two columns, 48–64em) the rack's cases follow the deck's 20rem
+   unit, so they keep their real size beside the tape (a case 9% longer than the cassette) */
+@media (min-width: 48em) and (max-width: 63.99em) {
+  .rack__cabinet { --u: calc(min(100cqi, 20rem) / 100); }
+}
+.cabinet > *, .rack__cabinet > * { position: relative; z-index: 1; }
+/* the frame: two stiles with the grain running down, two rails across them */
+.cabinet::before, .rack__cabinet::before, .cabinet::after, .rack__cabinet::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit;
+}
+.cabinet::before, .rack__cabinet::before {
+  background:
+    linear-gradient(90deg, rgb(255 248 230 / .5), rgb(255 248 230 / .12) 30%, transparent 65%, rgb(0 0 0 / .25)) left / calc(5 * var(--u)) 100% no-repeat,
+    linear-gradient(90deg, rgb(255 248 230 / .25), transparent 30%, transparent 65%, rgb(0 0 0 / .32)) right / calc(5 * var(--u)) 100% no-repeat,
+    var(--oak-grain-v);
+  -webkit-mask: linear-gradient(90deg, #000 0 calc(5 * var(--u)), transparent calc(5 * var(--u)) calc(100% - calc(5 * var(--u))), #000 calc(100% - calc(5 * var(--u))));
+          mask: linear-gradient(90deg, #000 0 calc(5 * var(--u)), transparent calc(5 * var(--u)) calc(100% - calc(5 * var(--u))), #000 calc(100% - calc(5 * var(--u))));
+}
+.cabinet::after, .rack__cabinet::after {
+  background:
+    linear-gradient(rgb(255 250 235 / .6), rgb(255 248 230 / .14) 30%, transparent 70%, rgb(0 0 0 / .28)) top / 100% calc(5 * var(--u)) no-repeat,
+    linear-gradient(rgb(255 248 230 / .3), transparent 30%, transparent 70%, rgb(0 0 0 / .4)) bottom / 100% calc(5 * var(--u)) no-repeat,
+    var(--oak-grain);
+  -webkit-mask: linear-gradient(#000 0 calc(5 * var(--u)), transparent calc(5 * var(--u)) calc(100% - calc(5 * var(--u))), #000 calc(100% - calc(5 * var(--u))));
+          mask: linear-gradient(#000 0 calc(5 * var(--u)), transparent calc(5 * var(--u)) calc(100% - calc(5 * var(--u))), #000 calc(100% - calc(5 * var(--u))));
+}
+
+/* the recorder has no wooden case: two units, one over the other, each in its
+   own brushed aluminium body, its rounded edge catching the light from the
+   top left, a soft shadow on the wall */
+.cabinet {
+  --r: calc(.6 * var(--u));   /* the one radius for caps, slots and windows */
+  --lab: #5b5b57;             /* the grey of all the labels */
+  --ink2: #2a2a28;            /* icons and signs on the caps */
+  padding: 0; border-radius: 0; background: none; box-shadow: none;
+}
+.unit {
+  position: relative;
+  padding: calc(1.6 * var(--u));
+  border-radius: calc(1.8 * var(--u));
+  background: var(--alu-deep);
+  box-shadow: var(--alu-body-shadow);
+}
+/* the body as a slab of metal seen a little from above: a bright chamfer along
+   its top and left edges, its thickness showing under it (layers of darker
+   metal, one under the other), then the shadows it throws on the wall — a
+   tight dark one where it touches, a soft one down and to the right from the
+   light at the top left, and a wide faint one all round */
+.cabinet { --alu-body-shadow:
+    inset 0 2px 0 rgb(255 255 255 / .95), inset 2px 0 0 rgb(255 255 255 / .55),
+    inset 0 -2px 1px rgb(0 0 0 / .14), inset -2px 0 1px rgb(0 0 0 / .08),
+    inset 0 calc(-1.2 * var(--u)) calc(2 * var(--u)) calc(-1 * var(--u)) rgb(0 0 0 / .12),
+    0 0 0 1px rgb(60 66 72 / .5),
+    0 1px 0 #c9ced2, 0 2px 0 #bec3c8, 0 3px 0 #b3b9be, 0 4px 0 #a8aeb4, 0 5px 0 #9ea4aa, 0 6px 0 #8f959b,
+    0 7px 1px rgb(0 0 0 / .45),
+    0 calc(1.2 * var(--u)) calc(1.6 * var(--u)) calc(-.2 * var(--u)) rgb(0 0 0 / .35),
+    calc(1.6 * var(--u)) calc(5 * var(--u)) calc(8 * var(--u)) calc(-1.4 * var(--u)) rgb(0 0 0 / .45),
+    calc(3 * var(--u)) calc(10 * var(--u)) calc(18 * var(--u)) calc(-2 * var(--u)) rgb(0 0 0 / .28),
+    0 0 calc(10 * var(--u)) rgb(0 0 0 / .12); }
+.cabinet::before, .cabinet::after { display: none; }
+
+/* in each unit a plate of lighter brushed aluminium standing proud of the body,
+   held by four pan-head screws: the upper one with the speaker, the meters and
+   the small keys; the lower one with the bay and the transport keys */
+.panels { display: grid; gap: calc(4 * var(--u)); }
+.panel {
+  position: relative;
+  display: grid; gap: calc(3.2 * var(--u));
+  padding: calc(4.6 * var(--u));
+  border-radius: calc(1.2 * var(--u));
+  color: var(--ink2);
+  background: var(--alu);
+  box-shadow:
+    inset 0 1px 0 #fff, inset 1px 0 0 rgb(255 255 255 / .7), inset 0 -1px 0 rgb(0 0 0 / .22), inset -1px 0 0 rgb(0 0 0 / .12),
+    0 0 0 1px rgb(40 44 48 / .3), 0 1px 1px rgb(0 0 0 / .25), 0 calc(.4 * var(--u)) calc(.8 * var(--u)) rgb(0 0 0 / .18);
+}
+.panel::before {
+  content: ""; position: absolute; inset: calc(1.3 * var(--u)); pointer-events: none;
+  background:
+    var(--screw) 0 0 / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat, var(--screw) 100% 0 / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat,
+    var(--screw) 0 100% / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat, var(--screw) 100% 100% / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat;
+}
+.panel--deck { padding-bottom: calc(6.6 * var(--u)); }
+/* a groove engraved across the plate */
+.panel__meter { border-top: 1px solid rgb(0 0 0 / .14); box-shadow: inset 0 1px 0 rgb(255 255 255 / .85); padding-top: calc(2.2 * var(--u)); }
+
+/* the speaker across the top */
+/* the speaker is not shown at any width (kept in the markup: remove this to bring it back) */
+.panel__top { display: none; }
+.panel__top .grille { height: calc(26 * var(--u)); }
+/* phones (one column): no speaker and no meters, the upper unit is just the
+   line of small keys */
+@media (max-width: 47.99em) {
+  .panel__top, .panel__plate .vu { display: none; }
+  .panel--top .vkeys { border-top: 0; box-shadow: none; }
+}
+/* the two units are one: a single aluminium body holding one plate, four
+   screws at its corners — the speaker, the meters and the small keys over the
+   tape (between phone and tablet, the keys in a column on its right). One step
+   of space everywhere: the plate's margin (4.6 units) round the edge, half of
+   it on each side of the seam, so the gap there is a margin too */
+@media all {
+  .panels {
+    gap: 0; padding: calc(1.6 * var(--u)); border-radius: calc(1.8 * var(--u));
+    background: var(--alu-deep);
+    box-shadow: var(--alu-body-shadow);
+  }
+  .unit { padding: 0; border-radius: 0; background: none; box-shadow: none; }
+  /* the plate is drawn once, under both its parts, so its sheen runs on across
+     the seam: raised a hair off the body, its bevel lit along the top and left
+     and shaded along the bottom and right, its shadow on the body under it */
+  .panels { position: relative; }
+  .panels::before, .panels::after { content: ""; position: absolute; inset: calc(1.6 * var(--u)); border-radius: calc(1.2 * var(--u)); pointer-events: none; }
+  .panels::before {
+    background: var(--tx-brush-hi) 0 0 / 600px 300px, var(--tx-brush-lo) 0 0 / 600px 300px, linear-gradient(105deg, transparent 8%, rgb(255 255 255 / .32) 30%, transparent 50%), #eceef0;
+    box-shadow: 0 0 0 1px rgb(60 66 72 / .28), 0 1px 0 rgb(0 0 0 / .18), 0 calc(.5 * var(--u)) calc(.9 * var(--u)) rgb(0 0 0 / .2), calc(.4 * var(--u)) calc(.4 * var(--u)) calc(.9 * var(--u)) rgb(0 0 0 / .1);
+  }
+  .panels::after { z-index: 1; box-shadow: inset 0 1px 0 #fff, inset 1px 0 0 rgb(255 255 255 / .8), inset 0 -1px 0 rgb(0 0 0 / .2), inset -1px 0 0 rgb(0 0 0 / .14); }
+  .panel--top, .panel--deck { background: none; box-shadow: none; }
+}
+@media (max-width: 47.99em) { .panel--top .vkeys { padding: 0; } }
+@media all {
+  .panel--top { border-radius: calc(1.2 * var(--u)) calc(1.2 * var(--u)) 0 0; padding-bottom: calc(2.3 * var(--u)); }
+  .panel--deck { border-radius: 0 0 calc(1.2 * var(--u)) calc(1.2 * var(--u)); padding-top: calc(2.3 * var(--u)); padding-bottom: calc(7 * var(--u)); box-shadow: none; }
+  .panel--top::before { background: var(--screw) 0 0 / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat, var(--screw) 100% 0 / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat; }
+  .panel--deck::before { background: var(--screw) 0 100% / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat, var(--screw) 100% 100% / calc(2.4 * var(--u)) calc(2.4 * var(--u)) no-repeat; }
+}
+/* the level meters, after a mixer's master meter: columns of small rounded
+   LEDs in dark slots, green, then orange, red at the top, unlit ones still
+   showing their colour faintly; the scale between each pair, the names below
+   (L dB R, then the voice and the tape) */
+.vu {
+  --led-gap: calc(.4 * var(--u));
+  display: grid; grid-template-columns: auto auto auto; column-gap: calc(1 * var(--u)); row-gap: calc(1.2 * var(--u)); align-content: end; justify-content: center;
+}
+.vu + .vu { border-left: 1px solid rgb(0 0 0 / .14); box-shadow: inset 1px 0 0 rgb(255 255 255 / .8); }
+.vu__col {
+  box-sizing: border-box; height: var(--slot-h);
+  display: flex; flex-direction: column-reverse; gap: var(--led-gap); padding: calc(.5 * var(--u));
+  border-radius: var(--r); background: linear-gradient(90deg, #26272a, #333437 50%, #26272a);
+  box-shadow: inset 0 calc(.2 * var(--u)) calc(.4 * var(--u)) rgb(0 0 0 / .8), 0 1px 0 rgb(255 255 255 / .9), 0 0 0 1px rgb(0 0 0 / .15);
+}
+.vu__col i {
+  --c: #7cdc2c;
+  display: block; flex: 1; width: calc(2.6 * var(--u)); border-radius: calc(.3 * var(--u));
+  background: color-mix(in srgb, var(--c) 22%, #232527);
+  transition: background-color .12s linear, box-shadow .12s linear;
+}
+.vu__col i:nth-child(n+10) { --c: #ff9a1f; }
+.vu__col i:nth-child(n+14) { --c: #ff2a3a; }
+.vu__col i.on {
+  background: radial-gradient(ellipse at 50% 35%, color-mix(in srgb, var(--c), #fff 45%), var(--c) 70%);
+  box-shadow: 0 0 calc(.8 * var(--u)) color-mix(in srgb, var(--c) 75%, transparent); transition: none;
+}
+.vu__scale {
+  box-sizing: border-box; height: var(--slot-h);
+  display: flex; flex-direction: column; gap: var(--led-gap); padding-block: calc(.5 * var(--u));
+  font: 700 max(.28rem, calc(1.05 * var(--u)))/1 var(--sans); color: var(--lab); text-align: center;
+}
+.vu__scale b { display: grid; place-items: center; flex: 1; min-height: 0; font-weight: inherit; white-space: nowrap; }
+.vu__foot { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; font: 700 max(.36rem, calc(1.45 * var(--u)))/1 var(--sans); letter-spacing: .1em; color: var(--lab); text-align: center; }
+.vu__foot b { font-weight: inherit; }
+
+/* the speaker: a strict grid of small holes in a shallow recess */
+.grille {
+  position: relative; border-radius: calc(1.2 * var(--u));
+  background:
+    radial-gradient(circle at 50% 50%, #2a2a28 calc(.3 * var(--u)), #4a4a47 calc(.36 * var(--u)), transparent calc(.44 * var(--u))) calc(.95 * var(--u)) calc(.95 * var(--u)) / calc(1.9 * var(--u)) calc(1.9 * var(--u)),
+    var(--tx-brush-lo) 0 0 / 600px 300px, linear-gradient(#e2e5e8, #e9ebed);
+  box-shadow: inset 0 1px 0 rgb(0 0 0 / .14), inset 0 0 0 1px rgb(0 0 0 / .08), 0 1px 0 rgb(255 255 255 / .9);
+}
+.cabinet.is-playing .grille { animation: thump .46s ease-in-out infinite alternate; }
+@keyframes thump { to { filter: brightness(.94); } }
+
+/* the counter: three drums behind a window, a reset button; the lit strip */
+/* (the counter and the strip are kept for the script, but not shown) */
+.panel__meter { display: none; }
+.counter { display: grid; grid-template-columns: auto auto; gap: calc(.5 * var(--u)) calc(1 * var(--u)); align-items: center; }
+.counter__label { grid-column: 1 / -1; font: 700 max(.4rem, calc(1.7 * var(--u)))/1 var(--tech); letter-spacing: .14em; text-transform: uppercase; color: #333431; }
+.counter__win {
+  display: flex; gap: 1px; padding: calc(.6 * var(--u)) calc(.7 * var(--u)); border-radius: calc(.4 * var(--u));
+  background: #0a0a0a;
+  box-shadow: inset 0 calc(.4 * var(--u)) calc(.6 * var(--u)) rgb(0 0 0 / .95), inset 0 0 0 1px #3a3a3a, 0 1px 0 rgb(255 255 255 / .55), 0 0 0 1px rgb(0 0 0 / .25);
+}
+.counter__win b {
+  display: grid; place-items: center; width: calc(3.2 * var(--u)); height: calc(4.4 * var(--u));
+  background: linear-gradient(#050505, #333 32%, #3a3a3a 50%, #333 68%, #050505);
+  color: #f4f4ef; font: 700 max(.55rem, calc(3.1 * var(--u)))/1 var(--sans); font-stretch: 62%;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .05);
+}
+.counter__reset { width: calc(2.6 * var(--u)); height: calc(2.6 * var(--u)); border-radius: calc(.3 * var(--u)); background: linear-gradient(#3a3a3a, #111); box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), 0 calc(.35 * var(--u)) 0 #000, 0 calc(.5 * var(--u)) calc(.4 * var(--u)) rgb(0 0 0 / .4); }
+.strip {
+  position: relative; flex: 1; min-width: 0; overflow: hidden; align-self: end;
+  display: flex; align-items: center; justify-content: space-between; gap: calc(1 * var(--u));
+  margin: 0; padding: calc(.9 * var(--u)) calc(1.4 * var(--u)); border-radius: calc(.4 * var(--u));
+  background: linear-gradient(rgb(255 255 255 / .55), transparent 55%), linear-gradient(#dcebf7, #b3cfe4);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / .4), inset 0 calc(.3 * var(--u)) calc(.5 * var(--u)) rgb(0 0 0 / .35), 0 1px 0 rgb(255 255 255 / .6), 0 0 calc(1.4 * var(--u)) rgb(160 210 255 / .3);
+  color: #1d2d3a; font: 700 max(.45rem, calc(1.9 * var(--u)))/1.2 var(--tech); letter-spacing: .08em; text-transform: uppercase;
+  transition: box-shadow .3s ease;
+}
+.cabinet.is-playing .strip { box-shadow: inset 0 0 0 1px rgb(0 0 0 / .4), inset 0 calc(.3 * var(--u)) calc(.5 * var(--u)) rgb(0 0 0 / .3), 0 1px 0 rgb(255 255 255 / .6), 0 0 calc(2.4 * var(--u)) rgb(160 210 255 / .75); }
+.strip__text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.strip__led { width: calc(1.4 * var(--u)); min-width: 4px; aspect-ratio: 1; flex: none; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgb(255 255 255 / .5), transparent 45%), #5a1b14; }
+.cabinet.is-playing .strip__led { background: radial-gradient(circle at 35% 30%, rgb(255 255 255 / .6), transparent 45%), #ff3b24; box-shadow: 0 0 calc(1 * var(--u)) #ff3b24; }
+
+/* the deck: an open bay in the plate, no door; the tape slides straight in
+   and out. With the tape out, the works show: the black moulded bed, the spindles
+   on their springs, the plate, the head, capstan and pinch roller */
+.tdeck {
+  width: calc(84 * var(--u)); margin-inline: auto;
+  padding: calc(1.4 * var(--u)); border-radius: calc(1.2 * var(--u));
+  background: var(--tx-brush-hi) 0 0 / 600px 300px, var(--tx-brush-lo) 0 0 / 600px 300px, linear-gradient(#e0e3e6, #e8eaec);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / .3), inset 0 0 0 1px rgb(0 0 0 / .14), 0 1px 0 rgb(255 255 255 / .9);
+}
+.tdeck__bay {
+  position: relative; overflow: hidden; padding: calc(1.8 * var(--u)) calc(2 * var(--u)); border-radius: var(--r);
+  background: #0c0c0c;
+}
+/* the works under the tape (an SVG drawn in build.mjs) */
+.tdeck__works { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; }
+/* the rim of the bay and the shade it casts, over the works but under the tape */
+.tdeck__bay::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
+  box-shadow: inset 0 0 0 calc(.3 * var(--u)) #3a3b38, inset 0 calc(1.2 * var(--u)) calc(1.6 * var(--u)) rgb(0 0 0 / .75), inset calc(.6 * var(--u)) 0 calc(1 * var(--u)) rgb(0 0 0 / .4), inset 0 calc(-.4 * var(--u)) calc(.6 * var(--u)) rgb(0 0 0 / .3);
+}
+/* the lip of the slot shading the top of the tape */
+.tdeck__bay::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(2.4 * var(--u)); z-index: 3; pointer-events: none;
+  background: linear-gradient(rgb(0 0 0 / .55), transparent);
+}
+.tdeck__well { position: relative; z-index: 2; }
+.tdeck__well .cassette { filter: brightness(.92); }
+
+/* under the speaker, straight on the plate: along the top four level meters
+   side by side, divided by hairlines (L/R · voice
+   and tape · two pairs of frequency bands); under them, in one line, the six
+   small keys */
+.panel__plate {
+  --slot-h: calc(22 * var(--u));
+  display: grid; grid-template-columns: repeat(4, 1fr); align-items: stretch;
+  margin-top: calc(.6 * var(--u)); border-top: 0;
+}
+.vu { padding: calc(4 * var(--u)) calc(2 * var(--u)) calc(2.8 * var(--u)); }
+/* one label system: a small grey letter-spaced sans, always under its control,
+   a little below it and pressed into the metal (lit under, shaded above) */
+.vkey small, .key__label { font: 700 max(.36rem, calc(1.45 * var(--u)))/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--lab); white-space: nowrap; text-shadow: 0 1px 0 rgb(255 255 255 / .85), 0 -1px 0 rgb(0 0 0 / .18); }
+/* the keys on the left, square push buttons in two rows of three: VOZ (a
+   speaker printed on it, crossed out when the voice is muted), 2× (the voice
+   reads at double speed) and REPEAT (the tape starts again when it ends)
+   latch down; SHUFFLE (a tape from the rack at random), SIDE (the other side
+   of the tape) and LINK (copies this tape's address) spring back */
+/* the five small keys in five equal columns, edge to edge */
+.vkeys { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: calc(1.2 * var(--u)); padding: calc(3.2 * var(--u)) 0 calc(1.4 * var(--u)); border-top: 1px solid rgb(0 0 0 / .14); box-shadow: inset 0 1px 0 rgb(255 255 255 / .8); }
+/* the cap's row is fixed, so the label under it stays put while the cap sinks */
+.vkey { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-rows: calc(7 * var(--u)) auto; align-content: start; justify-items: center; gap: calc(2 * var(--u)); }
+.vkey__cap, .key__cap { grid-area: 1 / 1; position: relative; z-index: 1; }
+.vkey small, .key__label { grid-row: 2; }
+/* the one cap, shared by the small keys and the transport keys: matte plastic in
+   the body colour standing on a darker side, the whole key sinking when pressed */
+.vkey__cap, .key__cap {
+  --ink: var(--ink2); --edge: #9d9b94; --c1: #e4e3dd; --c2: #d0cec8;
+  display: grid; place-items: center; box-sizing: border-box;
+  border: 0; border-bottom: calc(1.4 * var(--u)) solid var(--edge); border-radius: var(--r);
+  background: var(--tx-plastic) 0 0 / 200px 200px, linear-gradient(var(--c1), var(--c2));
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgb(0 0 0 / .1), 0 0 0 1px rgb(0 0 0 / .25), 0 calc(.9 * var(--u)) calc(.7 * var(--u)) rgb(0 0 0 / .3);
+  transition: transform .09s ease, height .09s ease, border-bottom-width .09s ease, box-shadow .09s ease, filter .09s ease;
+}
+/* the small keys wider than tall, like a deck's function keys, as wide as
+   their column */
+.vkey__cap { width: 100%; height: calc(7 * var(--u)); }
+.vkey { justify-items: stretch; }
+.vkey small { justify-self: center; }
+.vkey svg { width: auto; height: 62%; fill: none; stroke: var(--ink2); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.mute__cone { fill: var(--ink2); }
+.mute__x { display: none; stroke: #c2311d; }
+.vkey:active .vkey__cap, .vkey.is-pressed .vkey__cap, .vkey[aria-pressed="true"] .vkey__cap,
+.key:active .key__cap, .key.is-pressed .key__cap, .key[aria-pressed="true"] .key__cap {
+  transform: translateY(calc(1 * var(--u))); border-bottom-width: calc(.4 * var(--u));
+  filter: brightness(.93);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .6), 0 0 0 1px rgb(0 0 0 / .3), 0 calc(.15 * var(--u)) calc(.2 * var(--u)) rgb(0 0 0 / .25);
+}
+.vkey:active .vkey__cap, .vkey.is-pressed .vkey__cap, .vkey[aria-pressed="true"] .vkey__cap { height: calc(6 * var(--u)); }
+.mute[aria-pressed="true"] .mute__waves { display: none; }
+.mute[aria-pressed="true"] .mute__x { display: inline; }
+.vkey__text { font: 800 calc(2.6 * var(--u))/1 var(--sans); color: var(--ink2); letter-spacing: -.02em; }
+/* 2× and REPEAT print their sign green while they are down */
+.vkey[data-latch][aria-pressed="true"] svg { stroke: #2f7a43; }
+.vkey[data-latch][aria-pressed="true"] .vkey__text { color: #2f7a43; }
+.vkey:focus-visible .vkey__cap { outline: 3px solid #1d5f7a; outline-offset: 2px; }
+.mute[hidden] { display: none; }
+/* the keys along the foot: the same cap as the small keys, the symbol
+   printed on the face and the name under it; EJECT red (where a recorder has
+   RECORD), PLAY green; PLAY and PAUSE stay down while pressed */
+.keys { display: grid; grid-template-columns: repeat(6, 1fr); gap: calc(1.2 * var(--u)); }
+.key { all: unset; box-sizing: border-box; position: relative; cursor: pointer; display: grid; grid-template-rows: calc(8.4 * var(--u)) auto; gap: calc(2 * var(--u)); justify-items: center; align-content: start; }
+.key__label { order: 2; }
+.key__cap { width: 100%; height: calc(8.4 * var(--u)); }
+.key__cap i { font: 600 max(.55rem, calc(2.5 * var(--u)))/1 var(--tech); font-style: normal; letter-spacing: -.12em; color: var(--ink); }
+.key--eject .key__cap { --c1: #e4584c; --c2: #cf3d31; --edge: #7a221a; --ink: #fff; }
+.key--play .key__cap { --c1: #6fb67e; --c2: #4f9a61; --edge: #27522f; --ink: #fff; }
+.key:active .key__cap, .key.is-pressed .key__cap, .key[aria-pressed="true"] .key__cap { height: calc(7.4 * var(--u)); }
+.key[aria-pressed="true"] .key__label { color: #2f7a43; }
+.key[aria-disabled="true"] { cursor: default; }
+.key[aria-disabled="true"] .key__label, .key[aria-disabled="true"] .key__cap i { opacity: .45; }
+.key:focus-visible .key__cap { outline: 3px solid #1d5f7a; outline-offset: 2px; }
+
+/* the reels turn as it plays, fast on ◀◀ / ▶▶ */
+.cabinet.is-playing .tdeck__well .reel { animation: reel calc(1.8s / var(--rate, 1)) linear infinite; }
+.cabinet.is-ff .tdeck__well .reel { animation: reel .35s linear infinite; }
+.cabinet.is-rew .tdeck__well .reel { animation: reel .35s linear infinite reverse; }
+@keyframes reel { to { rotate: 1turn; } }
+
+/* ---------- the rack: an oak case under the studio, slots a case wide ----------
+   The rows run as wide as the page, as the VHS shelf does. */
+.rack { padding: 1rem var(--pad) 3rem; container-type: inline-size; }
+.rack .section-head { margin-bottom: 1.25rem; }
+.rack__slots {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(13.85 * var(--u)), 1fr)); gap: calc(5 * var(--u)) calc(1.5 * var(--u));
+  margin: 0; padding: 0; list-style: none;
+}
+/* from tablet width up the rack is only as long as its tapes (it grows as
+   more come in), a slot to each; on phones the rows run the width of the page */
+@media (min-width: 48em) {
+  .rack__cabinet { width: fit-content; max-width: 100%; box-sizing: border-box; }
+  .rack__slots { display: flex; flex-wrap: wrap; }
+  .rack__slots > .slot { flex: none; width: calc(13.85 * var(--u)); box-sizing: border-box; }
+}
+/* each slot a recess in the oak: dark at the back, the shelf above throwing
+   its shade in, the lit edge of the shelf below */
+.slot {
+  position: relative; display: flex; align-items: flex-end; justify-content: center;
+  padding: calc(5 * var(--u)) calc(.5 * var(--u)) 0;
+  background: linear-gradient(#0c0805, #231a10 32%, #1a130b);
+  box-shadow:
+    inset 0 calc(2.4 * var(--u)) calc(2 * var(--u)) rgb(0 0 0 / .85), inset calc(.9 * var(--u)) 0 calc(.9 * var(--u)) rgb(0 0 0 / .6), inset calc(-.6 * var(--u)) 0 calc(.7 * var(--u)) rgb(0 0 0 / .4),
+    0 1px 0 rgb(255 245 225 / .5), 0 -1px 0 rgb(0 0 0 / .45);
+}
+.slot__case { all: unset; box-sizing: border-box; display: block; width: calc(12.35 * var(--u)); max-width: 100%; cursor: pointer; }
+.slot__case:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.slot__case:hover .cspine__card { transform: translateY(calc(-4 * var(--u))); }
+
+/* ---------- the cassette, face on ---------- */
+
+.cassette { display: block; position: relative; width: 100%; aspect-ratio: 100 / 63.5; container-type: inline-size; }
+.cassette__body {
+  position: absolute; inset: 0; border-radius: 3.2cqw;
+  background:
+    /* five screws, cross-headed */
+    radial-gradient(circle 1.3cqw at 4.5cqw 4.5cqw, #dcdcd6 40%, #7b7b75 55%, #3a3a36 70%, transparent 76%),
+    radial-gradient(circle 1.3cqw at calc(100% - 4.5cqw) 4.5cqw, #dcdcd6 40%, #7b7b75 55%, #3a3a36 70%, transparent 76%),
+    radial-gradient(circle 1.3cqw at 4.5cqw calc(100% - 4.5cqw), #dcdcd6 40%, #7b7b75 55%, #3a3a36 70%, transparent 76%),
+    radial-gradient(circle 1.3cqw at calc(100% - 4.5cqw) calc(100% - 4.5cqw), #dcdcd6 40%, #7b7b75 55%, #3a3a36 70%, transparent 76%),
+    var(--tx-plastic) 0 0 / 200px 200px,
+    linear-gradient(170deg, rgb(255 255 255 / .2), transparent 32%, transparent 80%, rgb(0 0 0 / .18)),
+    var(--shell);
+  box-shadow:
+    inset 0 .45cqw 0 rgb(255 255 255 / .28), inset .4cqw 0 0 rgb(255 255 255 / .08),
+    inset 0 -.8cqw 0 rgb(0 0 0 / .28), inset -.4cqw 0 0 rgb(0 0 0 / .15),
+    0 .6cqw 1cqw rgb(0 0 0 / .45);
+}
+.sh--black { --shell: #1f1f20; }
+.sh--smoke { --shell: rgb(70 72 76); }
+.sh--white { --shell: #e9e8e2; }
+.sh--cream { --shell: #e6dabf; }
+/* the label: paper, its writing lines, a printed band round the window */
+.cassette__label {
+  position: absolute; left: 7cqw; right: 7cqw; top: 5cqw; height: 42cqw; overflow: hidden;
+  border-radius: 1.6cqw; color: var(--jc-ink);
+  background: var(--tx-paper) 0 0 / 220px 220px, var(--jc);
+  box-shadow: inset 0 0 0 .25cqw rgb(0 0 0 / .12), 0 .2cqw .3cqw rgb(0 0 0 / .25);
+}
+.cassette__label::before {
+  content: ""; position: absolute; left: 11cqw; right: 4cqw; top: 8.6cqw; height: .3cqw; background: currentColor; opacity: .35;
+}
+.cassette__side { position: absolute; left: 3cqw; top: 2.4cqw; font: 900 6cqw/1 var(--sans); }
+.cassette__title {
+  position: absolute; left: 11cqw; right: 4cqw; top: 2cqw;
+  font-size: 6.6cqw; line-height: 1.05; color: var(--jc-title, var(--jc-ink));
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ty--script .cassette__title { font-size: 8cqw; top: 1cqw; }
+.cassette__meta {
+  position: absolute; left: 11cqw; right: 4cqw; top: 10.2cqw;
+  font: 600 2.6cqw/1 var(--tech); letter-spacing: .08em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85;
+}
+.cassette__band { position: absolute; left: 0; right: 0; top: 15cqw; height: 22cqw; background: rgb(0 0 0 / .82); }
+.jc--black .cassette__band { background: #f5d43c; }
+/* the window: clear plastic over the tape wound on its two hubs */
+.cassette__window {
+  position: absolute; left: 18cqw; right: 18cqw; top: 18cqw; height: 16cqw; overflow: hidden;
+  border-radius: 8cqw; background: #0f0d0c;
+  box-shadow: inset 0 0 0 .6cqw #d9d6cc, inset 0 0 0 .8cqw rgb(0 0 0 / .4);
+}
+/* the wound tape: brown, in rings, more on the left than on the right */
+.cassette__window::before, .cassette__window::after {
+  content: ""; position: absolute; top: 50%; border-radius: 50%; translate: 0 -50%;
+  background:
+    radial-gradient(circle at 40% 35%, rgb(255 220 180 / .18), transparent 60%),
+    repeating-radial-gradient(circle, #3e2a1d 0 .22cqw, #4d3526 .22cqw .45cqw, #392619 .45cqw .6cqw);
+}
+.cassette__window::before { left: -2.5cqw; width: 23cqw; aspect-ratio: 1; }
+.cassette__window::after { right: 1cqw; width: 16cqw; aspect-ratio: 1; }
+.reel {
+  position: absolute; z-index: 1; top: 50%; width: 9cqw; aspect-ratio: 1; margin-top: -4.5cqw; border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 1.55cqw, #bdb8aa 1.6cqw 1.9cqw, transparent 1.95cqw),
+    repeating-conic-gradient(#f6f4ee 0 22deg, #c7c2b4 22deg 26deg, #f6f4ee 26deg 45deg);
+  -webkit-mask: radial-gradient(circle, #000 0 .5cqw, transparent .55cqw 1.6cqw, #000 1.65cqw), conic-gradient(#000 0 0);
+  -webkit-mask-composite: source-in;
+          mask: radial-gradient(circle, transparent 0 1.6cqw, #000 1.65cqw);
+  box-shadow: 0 0 0 .2cqw rgb(0 0 0 / .4);
+}
+.reel--l { left: 4.5cqw; }
+.reel--r { right: 4.5cqw; }
+/* the plastic of the window catching the light */
+.cassette__band::after {
+  content: ""; position: absolute; left: 18cqw; right: 18cqw; top: 3cqw; height: 16cqw; z-index: 2; border-radius: 8cqw;
+  background: linear-gradient(170deg, rgb(255 255 255 / .28), transparent 42%);
+}
+.cassette__code { position: absolute; left: 4cqw; right: 4cqw; bottom: 1.3cqw; display: flex; justify-content: space-between; font: 600 2.4cqw/1 var(--tech); letter-spacing: .08em; }
+/* the head opening along the bottom: guide holes, a pressure pad */
+.cassette__foot {
+  position: absolute; left: 22cqw; right: 22cqw; bottom: 0; height: 11cqw;
+  background:
+    radial-gradient(circle 1.7cqw at 22% 55%, #060606 90%, rgb(255 255 255 / .15) 96%, transparent),
+    radial-gradient(circle 1.7cqw at 78% 55%, #060606 90%, rgb(255 255 255 / .15) 96%, transparent),
+    linear-gradient(#060606, #060606) 50% 60% / 9cqw 3cqw no-repeat,
+    linear-gradient(rgb(255 255 255 / .1), transparent 30%),
+    color-mix(in srgb, var(--shell) 80%, #000);
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+}
+
+/* ---------- the liner notes: a blank J-card, typed on a typewriter ----------
+   Paper in any light (it is an object): a printed band, the title written
+   under it, the spine upside down between two folds, ruled dotted lines
+   inside with the tracks typed on them, the A/B boxes upside down at
+   the foot. The band's right panel takes the colour of the tape. */
+
+.liner {
+  --paper: #f8f5ec; --pen: #22378a; --print: #1b1b1a;
+  --ink: #1b1b1a; --ink-soft: #55534d; --text-accent: #c2311d;
+  --rule: rgb(27 27 26 / .6); --hair: rgb(27 27 26 / .18);
+  --lh: 1.85rem;
+  --type: "Special Elite", "Courier New", Courier, monospace;
+  font-synthesis: none;
+  color: var(--print);
+  border-radius: .15rem;
+  /* the card is not quite flat: lighter where it bows towards the light at the
+     top left, a touch darker towards its bottom and right edges */
+  background:
+    linear-gradient(115deg, rgb(255 255 255 / .28), transparent 35%, transparent 70%, rgb(80 60 30 / .05)),
+    radial-gradient(120% 90% at 30% 20%, transparent 60%, rgb(80 60 30 / .06)),
+    var(--tx-paper) 0 0 / 220px 220px, var(--tx-paper-mottle) 0 0 / 1400px 1400px, var(--paper);
+  /* its edge catching the light, the sheet under it showing a hair below and
+     to the right, a tight shadow where it rests and a soft one it throws */
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .8), inset 1px 0 0 rgb(255 255 255 / .5), inset 0 -1px 0 rgb(80 60 30 / .12),
+    1px 2px 0 #e9e3d3, 2px 4px 0 #dcd5c2, 2px 4px 1px rgb(0 0 0 / .25),
+    0 1px 2px rgb(0 0 0 / .25),
+    0 .5rem .9rem -.3rem rgb(0 0 0 / .3),
+    .6rem 1.8rem 2.6rem -1rem rgb(0 0 0 / .55),
+    1rem 3.5rem 5rem -2rem rgb(0 0 0 / .3);
+  overflow: hidden;
+}
+.jcard { position: relative; }
+
+/* the spine of the case, laid along the top: the J-card's spine seen through
+   the clear plastic, the black of the case above and below */
+/* (hidden for now at every width — the owner may want it back: remove this
+   rule to show it again; the flying case's target falls back to the deck) */
+.hspine, .studio__spine { display: none !important; }
+.hspine {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 1rem;
+  height: clamp(3.6rem, 9vw, 4.6rem); padding: 0 1.2rem;
+  border-block: .45rem solid var(--case);
+  background: var(--tx-paper) 0 0 / 220px 220px, var(--jc); color: var(--jc-ink);
+}
+.hspine::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(rgb(255 255 255 / .4), rgb(255 255 255 / .1) 22%, transparent 45%, transparent 80%, rgb(0 0 0 / .16)),
+    linear-gradient(90deg, rgb(0 0 0 / .35) 0 .5rem, transparent .5rem calc(100% - .5rem), rgb(0 0 0 / .35) calc(100% - .5rem));
+}
+.hspine__logo { flex: none; padding: .25rem .4rem; border: 2px solid currentColor; border-radius: .25rem; font: 900 1rem/1 var(--sans); }
+.hspine__text { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: .8rem; }
+.hspine__title { flex: 0 0 auto; max-width: 100%; font-size: clamp(1.4rem, 1rem + 1.6vw, 2.3rem); line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--jc-title, var(--jc-ink)); }
+/* when it is short of room, the line gives way before the title does */
+.hspine__sub { flex: 0 1 auto; min-width: 0; max-width: 40%; font: 600 .62rem/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85; }
+.hspine__code { flex: none; display: flex; gap: .6rem; font: 600 .68rem/1 var(--tech); letter-spacing: .04em; }
+
+.jcard__tagline {
+  padding: .25rem 1.4rem 0 36%;
+  font: italic 700 clamp(.5rem, .4rem + .3vw, .66rem)/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #b4892c;
+}
+
+/* the title, written under the band */
+.notes__head { position: relative; padding: .6rem 1.4rem 1.2rem; color: var(--pen); }
+.notes__code { position: absolute; right: 1.4rem; top: .4rem; font: 600 .7rem/1 var(--tech); letter-spacing: .1em; color: var(--ink-soft); }
+.notes__title { margin: .5rem 0 .3rem; font: 400 clamp(1.8rem, 1.2rem + 2vw, 2.7rem)/1.05 var(--type); color: var(--pen); overflow-wrap: anywhere; letter-spacing: -.02em; }
+.notes__use { font: 400 .95rem/1.5 var(--type); }
+.notes__quote { margin-top: .5rem; font: 400 1rem/1.5 var(--type); }
+
+/* the spine, printed upside down between two folds */
+.jcard__spine {
+  height: 2.7rem; padding: 0 1.4rem;
+  display: flex; align-items: center;
+  box-shadow: inset 0 1px 0 rgb(0 0 0 / .14), inset 0 2px 0 rgb(255 255 255 / .8), inset 0 -1px 0 rgb(0 0 0 / .14), inset 0 -2px 0 rgb(255 255 255 / .8);
+  background: linear-gradient(rgb(0 0 0 / .03), transparent 30%, transparent 70%, rgb(0 0 0 / .03));
+}
+.jcard__spine-in { display: flex; align-items: center; gap: 1rem; width: 100%; justify-content: flex-start; rotate: 180deg; }
+.jcard__spine-len { font: italic 500 1.5rem/1 "Playfair Display", Georgia, serif; color: var(--jc-c, #e3412b); }
+.jcard__spine-brand {
+  display: flex; align-items: center; gap: .35rem; padding: .35rem .9rem .35rem 1.3rem;
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%); background: #141414; color: #fff;
+  font: 900 .85rem/1 var(--sans);
+}
+
+/* inside: ruled dotted lines, the tracks written on them */
+.jcard__inside { padding: 1rem 1.4rem 1.2rem; }
+.notes__side { display: flex; align-items: center; gap: .5rem; margin: .6rem 0 .3rem; font: 700 .68rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--print); }
+.notes__side b { display: inline-grid; place-items: center; width: 1.15rem; height: 1.15rem; border: 1.5px solid currentColor; font-size: .72rem; }
+.tracks { position: relative; isolation: isolate; margin-bottom: 1rem; }
+/* the ruling: a line under each line of writing, dotted by a mask */
+.tracks::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-linear-gradient(transparent 0 calc(var(--lh) - 1px), rgb(27 27 26 / .5) calc(var(--lh) - 1px) var(--lh));
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 4px);
+          mask: repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 4px);
+}
+.track {
+  padding: 0 .3rem;
+  font: 400 1rem/var(--lh) var(--type); color: var(--pen);
+  transition: background-color .25s ease;
+}
+/* a blank line between paragraphs, as typed: one turn of the platen */
+.track + .track { margin-top: var(--lh); }
+.track__body p + p { margin-top: 0; }
+.track__title { text-shadow: .045em 0 0 currentColor; }
+.track.is-current { background: color-mix(in srgb, var(--jc-c, #f5d43c) 32%, transparent); }
+/* the printed things on side B stay printed */
+.track .cells, .track .links { margin: .4rem 0 calc(var(--lh) - .4rem); font-family: var(--sans); }
+.track .cells { color: var(--print); }
+
+/* the A/B boxes, printed upside down at the foot */
+.jcard__foot {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .6rem 1.4rem .8rem;
+  border-top: 1px solid rgb(27 27 26 / .7);
+  rotate: 180deg;
+  font: 600 .58rem/1.35 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--print);
+}
+.jcard__foot span { display: grid; grid-template-columns: auto auto; column-gap: .4rem; align-items: center; }
+.jcard__foot b { grid-row: span 2; display: inline-grid; place-items: center; width: 1.1rem; height: 1.1rem; border: 1.5px solid currentColor; }
+
+/* ---------- a case standing spine out ----------
+   1287 × 189 px at 300 DPI (109 × 16 mm). The J-card's spine shows through the clear back of the case:
+   the NM logo at the top, the title down the spine, the number at the foot. */
+
+.cspine { display: block; width: 100%; aspect-ratio: 189 / 1287; container-type: size; translate: 0 calc(var(--dx, 0px) * .4); filter: saturate(var(--fade, 1)); }
+.cspine__card {
+  position: relative; height: 100%;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto; justify-items: center; gap: 4cqw;
+  padding: 8cqw 0 7cqw;
+  border-radius: 6cqw;
+  background: var(--tx-paper) 0 0 / 220px 220px, var(--jc); color: var(--jc-ink);
+  box-shadow: 0 0 0 7cqw var(--case), 0 0 0 8cqw rgb(255 255 255 / .14), 2cqw 1cqw 6cqw 8cqw rgb(0 0 0 / .5), inset 0 0 0 1px rgb(0 0 0 / .25);
+  transition: transform .2s ease;
+}
+/* the clear plastic: light running down one edge, the hinge ends darker */
+.cspine__card::after {
+  content: ""; position: absolute; inset: -7cqw; border-radius: 10cqw; pointer-events: none;
+  background:
+    var(--shade, linear-gradient(transparent, transparent)),
+    linear-gradient(90deg, rgb(255 255 255 / .55) 0 3cqw, rgb(255 255 255 / .12) 12%, transparent 34%, transparent 62%, rgb(255 255 255 / .1) 72%, transparent 82%, rgb(0 0 0 / .22)),
+    linear-gradient(rgb(0 0 0 / .45) 0 5cqw, transparent 5cqw calc(100% - 5cqw), rgb(0 0 0 / .45) calc(100% - 5cqw));
+}
+.cspine__logo { padding: 3cqw 4cqw; border: max(1px, 4cqw) solid currentColor; border-radius: 3cqw; font: 900 max(.32rem, 20cqw)/1 var(--sans); letter-spacing: 0; }
+.cspine__text { writing-mode: vertical-rl; display: flex; align-items: center; gap: 6cqw; min-height: 0; overflow: hidden; }
+.cspine__title {
+  --fit: 125;
+  font-size: min(52cqw, calc(var(--fit) * 1cqh / var(--chars, 8)));
+  line-height: 1; white-space: nowrap; color: var(--jc-title, var(--jc-ink));
+}
+.ty--cond .cspine__title { --fit: 165; }
+.ty--wide .cspine__title { --fit: 92; }
+.ty--mono .cspine__title { --fit: 100; }
+.ty--serif .cspine__title { --fit: 125; }
+.ty--script .cspine__title { --fit: 150; }
+.cspine__sub { font: 600 max(.3rem, 20cqw)/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-height: 45cqh; opacity: .85; }
+.cspine__code { writing-mode: vertical-rl; display: flex; gap: 4cqw; font: 600 max(.28rem, 18cqw)/1 var(--tech); letter-spacing: .04em; }
+/* the shelf above throws its shade on the top of each case in the rack */
+.slot .cspine__card { --shade: linear-gradient(rgb(0 0 0 / .55), rgb(0 0 0 / .2) 12%, transparent 26%); }
+/* a case that is in the deck leaves its slot empty */
+.cas-item.is-out .cspine { visibility: hidden; }
+
+/* ---------- the bar at the foot (phones, the deck out of sight) ----------
+   A strip of the deck's aluminium along the bottom of the window, its top edge
+   chamfered: a little green LCD in a black bezel and, in two sunk trays as on
+   a deck, the keys */
+.minibar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .5rem;
+  padding: .5rem max(.6rem, env(safe-area-inset-left)) calc(.55rem + env(safe-area-inset-bottom));
+  background:
+    var(--tx-brush-hi) 0 0 / 600px 300px, var(--tx-brush-lo) 0 0 / 600px 300px,
+    linear-gradient(105deg, transparent 10%, rgb(255 255 255 / .35) 30%, transparent 50%),
+    linear-gradient(#f4f5f6, #e3e6e8 55%, #d3d7da);
+  box-shadow:
+    inset 0 1px 0 #fff, inset 0 2px 0 rgb(255 255 255 / .5), inset 0 -1px 0 rgb(0 0 0 / .12),
+    0 -1px 0 rgb(60 66 72 / .45), 0 -.25rem .5rem rgb(0 0 0 / .18), 0 -.8rem 1.6rem rgb(0 0 0 / .22);
+  animation: minibar-in .25s ease;
+}
+.minibar[hidden] { display: none; }
+@keyframes minibar-in { from { translate: 0 100%; } }
+body.has-minibar { padding-bottom: 4.2rem; }
+
+/* the LCD: a dark grey bezel sunk into the metal; behind its glass the reflective
+   green panel, lit a little brighter in the middle, a faint pixel grid, the
+   segments dark with their own soft shadow on the panel behind them, and the
+   glass catching the light along its top */
+.lcd {
+  min-width: 0; margin: 0; padding: .2rem; border-radius: .4rem;
+  background: linear-gradient(#787c81, #8d9196);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / .55), inset 0 -1px 0 rgb(255 255 255 / .18), 0 1px 0 rgb(255 255 255 / .95), 0 -1px 0 rgb(0 0 0 / .15);
+}
+.lcd__glass {
+  position: relative; overflow: hidden; display: grid; gap: .12rem; align-content: center;
+  height: 2.2rem; padding: 0 .5rem; border-radius: .22rem;
+  background:
+    repeating-linear-gradient(90deg, rgb(30 50 15 / .045) 0 1px, transparent 1px 2px),
+    repeating-linear-gradient(rgb(30 50 15 / .045) 0 1px, transparent 1px 2px),
+    radial-gradient(130% 120% at 50% 45%, #c9d9a6, #afc48c 55%, #93a974);
+  box-shadow: inset 0 .2rem .35rem rgb(0 0 0 / .45), inset 0 0 .6rem rgb(30 50 15 / .25);
+  color: #1b2611; text-shadow: .09rem .09rem 0 rgb(27 38 17 / .2);
+  font-family: "Doto", var(--tech); text-transform: uppercase; white-space: nowrap;
+}
+.lcd__glass::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(170deg, rgb(255 255 255 / .38), rgb(255 255 255 / .08) 38%, transparent 40%);
+}
+.lcd__top { display: flex; gap: .5rem; font-size: .66rem; font-weight: 700; letter-spacing: .08em; line-height: 1; opacity: .9; }
+.lcd__mode { font-weight: inherit; }
+.lcd__title { display: flex; overflow: hidden; font-size: 1.05rem; font-weight: 700; letter-spacing: .04em; line-height: 1.05; }
+/* the marquee: the text twice in a row, sliding left by one copy and over again */
+.lcd__run { flex: none; white-space: pre; animation: lcd-run var(--dur, 14s) linear infinite; }
+@keyframes lcd-run { to { translate: -100%; } }
+
+/* the keys, standing on the metal in two groups */
+.minibar__keys { display: flex; align-items: center; gap: .4rem; }
+.mtray { display: flex; gap: .2rem; }
+.mkey {
+  all: unset; box-sizing: border-box; cursor: pointer; display: grid; place-items: center;
+  width: clamp(1.9rem, 8.6vw, 2.5rem); height: 2.2rem;
+  border-radius: .3rem; border-bottom: .2rem solid #9a988f;
+  background:
+    linear-gradient(rgb(255 255 255 / .55), transparent 40%) 0 0 / 100% 100%,
+    var(--tx-plastic) 0 0 / 200px 200px, linear-gradient(#ecebe5, #d3d1ca);
+  box-shadow: inset 0 1px 0 #fff, inset 1px 0 0 rgb(255 255 255 / .6), inset -1px 0 0 rgb(0 0 0 / .12), 0 0 0 1px rgb(0 0 0 / .25), 0 .15rem .25rem rgb(0 0 0 / .25);
+  font: 600 .74rem/1 var(--tech); letter-spacing: -.12em; color: #2a2a28;
+  transition: transform .08s ease, border-bottom-width .08s ease, box-shadow .08s ease, filter .08s ease;
+}
+.mkey i { font-style: normal; }
+.mkey svg { width: 1.05rem; height: 1.05rem; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.mkey svg .mute__cone { fill: currentColor; }
+.mkey .mute__x { display: none; stroke: #c2311d; }
+.mkey[data-proxy="mute"][aria-pressed="true"] .mute__waves { display: none; }
+.mkey[data-proxy="mute"][aria-pressed="true"] .mute__x { display: inline; }
+.mkey b { font: 800 .85rem/1 var(--sans); letter-spacing: 0; }
+.mkey--small[aria-pressed="true"] { color: #2f7a43; }
+.mkey--play { background: linear-gradient(rgb(255 255 255 / .35), transparent 40%), var(--tx-plastic) 0 0 / 200px 200px, linear-gradient(#74bb83, #4f9a61); border-bottom-color: #27522f; color: #fff; }
+/* playing, the key reads ❚❚ and turns plain like the others */
+.mkey--play.is-playing { background: linear-gradient(rgb(255 255 255 / .55), transparent 40%), var(--tx-plastic) 0 0 / 200px 200px, linear-gradient(#ecebe5, #d3d1ca); border-bottom-color: #9a988f; color: #2a2a28; }
+.mkey--eject { background: linear-gradient(rgb(255 255 255 / .35), transparent 40%), var(--tx-plastic) 0 0 / 200px 200px, linear-gradient(#e8604f, #cf3d31); border-bottom-color: #7a221a; color: #fff; }
+/* pressed (or held down): the cap goes down, its front edge nearly gone */
+.mkey:active, .mkey[aria-pressed="true"] {
+  transform: translateY(.12rem); border-bottom-width: .08rem; filter: brightness(.94);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .6), 0 0 0 1px rgb(0 0 0 / .28);
+}
+.mkey[aria-disabled="true"] { cursor: default; }
+.mkey[aria-disabled="true"] > * { opacity: .4; }
+.mkey:focus-visible { outline: 3px solid #1d5f7a; outline-offset: 2px; position: relative; z-index: 1; }
+/* the deck's own display, on phones and up to the tablet (one column): a low
+   strip across the plate above the small keys, the same green panel as the bar's */
+/* the four sound meters are not shown (the display stands where they were);
+   their markup and animation are kept: remove this rule to show them again */
+.panel__plate .vu { display: none; }
+/* on a tablet and a desktop the display takes the meters' place across the
+   plate, taller than on a phone */
+@media (min-width: 48em) {
+  .panel__plate .lcd--deck { display: block; grid-column: 1 / -1; margin-bottom: calc(2 * var(--u)); }
+  .lcd--deck .lcd__glass { height: auto; gap: calc(1.6 * var(--u)); padding: calc(4 * var(--u)) calc(4 * var(--u)); }
+  .lcd--deck .lcd__top { font-size: max(.58rem, calc(2.7 * var(--u))); }
+  .lcd--deck .lcd__title { font-size: max(.9rem, calc(6 * var(--u))); }
+  .panel__plate .vkeys { border-top: 0; box-shadow: none; padding-top: calc(1.6 * var(--u)); }
+}
+.lcd--deck { display: none; }
+@media (max-width: 47.99em) {
+  .lcd--deck { display: block; grid-column: 1 / -1; margin-bottom: calc(3 * var(--u)); }
+  .lcd--deck .lcd__glass { height: auto; gap: calc(1.2 * var(--u)); padding: calc(2.6 * var(--u)) calc(3.4 * var(--u)); }
+  /* the deck drawn at the full width of the column, up to 40rem (and the rack
+     in step), so its plate is always 100 units wide */
+  .cabinet, .rack__cabinet { --u: calc(min(100cqi, 40rem) / 100); }
+  .panels { width: calc(100 * var(--u)); margin-inline: auto; }
+  /* the tape's window as wide as the display above it */
+  .tdeck { width: auto; margin-inline: 0; justify-self: stretch; }
+  /* the rack's cases at their real size beside the (wider) tape: a case is
+     1287 px long at 300 DPI against the cassette's 1181 (100 mm), 9% longer */
+  .slot__case { width: calc(12.93 * var(--u)); }
+  /* the slots at their real width, a case (16 mm) and a millimetre either side,
+     as many to a row as fit and the row centred (what is left over is wood) */
+  .rack__slots { grid-template-columns: repeat(auto-fill, calc(14.47 * var(--u))); justify-content: center; }
+  .lcd--deck .lcd__top { font-size: max(.58rem, calc(2.6 * var(--u))); }
+  .lcd--deck .lcd__title { font-size: max(.85rem, calc(4.6 * var(--u))); }
+}
+/* narrow phones: the display without the tape's code */
+@media (max-width: 26em) { .lcd__code { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cabinet .reel, .grille, .studio__arrow { animation: none !important; }
+  .minibar { animation: none; }
+  .lcd__run { animation: none; }
+  .lcd__run + .lcd__run { display: none; }
+}
+
+/* Taken off, their space kept: the counter and the tape-name strip, the maker's
+   name on the plate, the J-card's tagline and the upside-down spine's contents. */
+.counter, .strip, .jcard__tagline, .jcard__spine-in { visibility: hidden; }
+
+/* Demo and code, inked on the paper like rubber stamps: no fill, no shadow, a
+   double frame, ink that took unevenly (a noise mask eats a few specks), each a
+   hair crooked. They stay links: hover presses the stamp, focus shows a plain ring. */
+.jcard .btn {
+  --ink-c: #b3261e;
+  position: relative; isolation: isolate;
+  min-height: 2.6rem; padding: .5rem 1.15rem .5rem 1rem;
+  border: 2.5px solid var(--ink-c); border-radius: .3rem;
+  background: transparent; color: var(--ink-c); box-shadow: none;
+  font: 900 .86rem/1 var(--sans); font-stretch: 78%; letter-spacing: .16em;
+  mix-blend-mode: multiply; opacity: .93;
+  rotate: -1.6deg;
+  -webkit-mask: var(--stamp-ink) 0 0 / 160px 160px;
+          mask: var(--stamp-ink) 0 0 / 160px 160px;
+  transition: transform .1s ease, opacity .15s ease;
+}
+.jcard .btn::before {
+  content: ""; position: absolute; inset: 3px; z-index: -1; pointer-events: none;
+  border: 1px solid var(--ink-c); border-radius: .15rem;
+}
+.jcard .btn--repo { --ink-c: #22378a; rotate: 1.1deg; }
+.jcard .btn--demo { background: transparent; color: var(--ink-c); }
+.jcard .btn--repo:hover { background: transparent; }
+.jcard .btn:hover { transform: scale(1.03); box-shadow: none; opacity: 1; }
+.jcard .btn:active { transform: scale(.97) translateY(1px); box-shadow: none; opacity: 1; }
+.jcard .btn:focus-visible { -webkit-mask: none; mask: none; outline: 2px solid var(--print); outline-offset: 4px; }
+.jcard .btn__icon { stroke-width: 2.6; }
+.jcard { --stamp-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 0 0 0 14.8'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ---------- a project's own page (/proyectos/luz/): the liner notes on the wall ---------- */
+
+.project { max-width: 56rem; margin-inline: auto; padding: clamp(1.25rem, 3vw, 2.5rem) var(--pad) 3rem; }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: .25rem .6rem; margin: 0 0 1.5rem; padding: 0; list-style: none; font: 600 .78rem/1.2 var(--tech); letter-spacing: .08em; text-transform: uppercase; }
+.crumbs li + li::before { content: "›"; margin-right: .6rem; color: var(--ink-soft); }
+.crumbs a { color: var(--ink); text-underline-offset: .3em; }
+.crumbs [aria-current] { color: var(--text-accent); }
+.project .liner { grid-area: auto; }
+.project__back { margin: 2rem 0 0; }
+.project__cassette {
+  display: inline-block; padding: .8rem 1.3rem; border: 2px solid var(--ink); border-radius: .3rem;
+  color: var(--ink); text-decoration: none; font: 700 .85rem/1 var(--tech); letter-spacing: .1em; text-transform: uppercase;
+}
+.project__cassette:hover { background: var(--ink); color: var(--bg); }
+.project__more { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--hair); }
+.project__more h2 { margin: 0; font: 700 1.1rem/1.2 var(--tech); letter-spacing: .1em; text-transform: uppercase; }
+.project__more p { margin: .4rem 0 1rem; color: var(--ink-soft); }
+.project__more ul { display: grid; gap: .1rem 2rem; margin: 0; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+.project__more a { display: block; padding: .55rem 0; border-bottom: 1px solid var(--hair); color: var(--ink); text-decoration: none; }
+.project__more a:hover b { text-decoration: underline; text-underline-offset: .25em; }
+.project__more span { display: block; color: var(--ink-soft); font-size: .88rem; }
+.jcard .btn--page { --ink-c: #1b1b1a; rotate: -.5deg; }
