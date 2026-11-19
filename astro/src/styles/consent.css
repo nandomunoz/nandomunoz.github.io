@@ -84,14 +84,16 @@
     :root:has(luz-cookie-consent > :not([hidden])) body { padding-block-end: calc(var(--luz-consent-h, 0px) + .75rem); }
   }
   @media screen and (height > 30rem) and (max-width: 63.99em) {
-    /* while it shows, the pill moves to the edge to make room: beside the card when it fits, riding on it when not (consent.js measures it) */
-    :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { left: max(.75rem, var(--gut)); right: auto; translate: 0 0; inset-block-end: 1.25rem; }
-    :root.docked:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+    /* while it shows, the pill moves to the edge to make room: beside the card when it fits, riding on it when not (consent.js measures it).
+       It moves by translate from where it sits (left: 50%, bottom: max(1rem, safe area)), never by left or bottom: the card comes
+       after the first paint, and a move of the layout would count as a layout shift (CLS), a transform does not */
+    :root.docked:has(luz-cookie-consent > :not([hidden])) .nav { translate: calc(max(.75rem, var(--gut)) - 50vw) calc(max(1rem, env(safe-area-inset-bottom)) - 1.25rem); }
+    :root.docked:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { translate: calc(max(.75rem, var(--gut)) - 50vw) calc(max(1rem, env(safe-area-inset-bottom)) - var(--luz-consent-h, 0px) - 1.5rem); }
   }
   /* on a phone the home's menu is already the pill (CSS only, no .docked class): it makes room the same way */
   @media screen and (height > 30rem) and (max-width: 47.99em) {
-    :root:has(luz-cookie-consent > :not([hidden])) .nav { left: max(.75rem, var(--gut)); right: auto; translate: 0 0; inset-block-end: 1.25rem; }
-    :root:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) .nav { translate: calc(max(.75rem, var(--gut)) - 50vw) calc(max(1rem, env(safe-area-inset-bottom)) - 1.25rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) body[data-consent="stack"] .nav { translate: calc(max(.75rem, var(--gut)) - 50vw) calc(max(1rem, env(safe-area-inset-bottom)) - var(--luz-consent-h, 0px) - 1.5rem); }
     :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: calc(var(--luz-consent-h, 0px) + 6rem); }
   }
   @media screen and (height > 30rem) and (min-width: 48em) {
@@ -106,12 +108,12 @@
   @media screen and (height > 30rem) and (min-width: 64em) {
     :root:has(luz-cookie-consent > :not([hidden])) { scroll-padding-block-end: calc(var(--luz-consent-h, 0px) + 1.5rem); }
   }
-  /* the colour button rides above the card (when the card is fixed) and, on a phone, above the pill */
+  /* the colour button rides above the card (when the card is fixed) and, on a phone, above the pill: by translate, as the pill */
   @media (height > 30rem) {
-    :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { inset-block-end: calc(var(--luz-consent-h, 0px) + max(1rem, env(safe-area-inset-bottom)) + 3.9rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { translate: 0 calc(-1 * var(--luz-consent-h, 0px)); }
   }
   @media (min-width: 64em) and (height > 30rem) {
-    :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { inset-block-end: calc(var(--luz-consent-h, 0px) + 1.75rem); }
+    :root:has(luz-cookie-consent > :not([hidden])) .luz-theme-mode__button--fixed { translate: 0 calc(max(1.25rem, env(safe-area-inset-bottom)) - var(--luz-consent-h, 0px) - 1.75rem); }
   }
   /* a short window (400 % zoom, a phone on its side): the card is in the flow, first in the page */
   @media screen and (height <= 30rem) { .luz-cookie-consent { padding-block-start: calc(var(--luz-masthead-h, 6rem) + .5rem); } }
