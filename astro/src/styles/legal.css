@@ -1,0 +1,23 @@
+/* The policy, privacy and credits pages (plan Phase 9), ported from the maqueta. */
+@layer trama {
+  .legal { max-inline-size: 40rem; }
+  /* a table of what is kept: it scrolls inside its own box (a focusable region, named) and never widens the page */
+  .legal__table { overflow-x: auto; margin: 0 0 1rem; border-block-start: 1px dotted var(--faint); }
+  .legal__table:focus-visible { outline: 3px dotted var(--ink); outline-offset: 4px; }
+  .legal__table table { inline-size: 100%; min-inline-size: 34rem; border-collapse: collapse; font-size: .9rem; }
+  .legal__table th, .legal__table td { padding: .75rem .8rem .75rem 0; text-align: start; vertical-align: top; border-block-end: 1px dotted var(--faint); }
+  .legal__table thead th { font: 600 .66rem/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+  .legal__table tbody th { font-weight: 500; text-transform: none; letter-spacing: 0; font-family: inherit; font-size: inherit; color: inherit; }
+  .glance { margin: 0 0 1rem; border-block-start: 1px dotted var(--faint); }
+  .glance > div { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .2rem 1.5rem; padding-block: .85rem; border-block-end: 1px dotted var(--faint); }
+  .glance dt { font: 600 .7rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+  .glance dd { margin: 0; font-weight: 500; color: var(--ink); }
+  .now { display: grid; gap: .5rem; padding: 1.2rem 1.3rem; background: var(--bg-2) radial-gradient(circle, var(--faint) 1.1px, transparent 1.6px) 0 0 / 8px 6px repeat-x; }
+  .now[hidden] { display: none; }
+  .prose .now__title { margin: 0; font: 600 .66rem/1.4 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .now__title::before { content: ''; display: inline-block; inline-size: 6px; block-size: 6px; margin-inline-end: .6em; border-radius: 50%; background: var(--accent-fill); vertical-align: .1em; }
+  .now p { margin: 0; }
+  .now .consent__btn { justify-self: start; }
+  :lang(ar) .legal__table th, :lang(ar) .legal__table td { padding: .75rem 0 .75rem .8rem; }
+  @media (forced-colors: active) { .now__title::before { background: CanvasText; } }
+}

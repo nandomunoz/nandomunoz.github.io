@@ -1,0 +1,20 @@
+---
+// Numbered pagination with «newer» and «older». The accessible name of each number holds its visible label.
+import { blogStrings, arrows } from '../../i18n/blog.js';
+import { pad } from '../../lib/blog.js';
+import type { Locale } from '../../i18n/ui';
+interface Props { lang: Locale; current: number; total: number; href: (n: number) => string }
+const { lang, current, total, href } = Astro.props;
+const B = blogStrings(lang), A = arrows(lang);
+---
+{total > 1 && (
+  <nav class="pager" aria-label={B.pages}>
+    {current > 1 ? <a class="pager__dir" href={href(current - 1)} rel="prev">{A.prev} {B.newer}</a> : <span class="pager__dir is-off">{A.prev} {B.newer}</span>}
+    <ol>
+      {Array.from({ length: total }, (_, i) => (
+        <li><a href={href(i + 1)} aria-current={i + 1 === current ? 'page' : undefined} aria-label={`${pad(i + 1)}, ${B.page(i + 1, total)}`}>{pad(i + 1)}</a></li>
+      ))}
+    </ol>
+    {current < total ? <a class="pager__dir" href={href(current + 1)} rel="next">{B.older} {A.next}</a> : <span class="pager__dir is-off">{B.older} {A.next}</span>}
+  </nav>
+)}

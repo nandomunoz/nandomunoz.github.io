@@ -1,0 +1,10 @@
+---
+import BlogTag from '../../../../components/blog/BlogTag.astro';
+import { loadBlog } from '../../../../lib/blog.js';
+export async function getStaticPaths() {
+  const { tags } = await loadBlog('en');
+  return Object.values(tags).filter((t: any) => t.count).map((t: any) => ({ params: { id: t.id } }));
+}
+const { id } = Astro.params;
+---
+<BlogTag lang="en" id={id as string} />

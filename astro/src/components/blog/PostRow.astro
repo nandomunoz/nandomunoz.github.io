@@ -1,0 +1,26 @@
+---
+// One row of a post list: its thumbnail, the date, the category and the reading time, the title and the excerpt.
+import { Picture } from 'astro:assets';
+import { pathFor, blogRest, type Locale } from '../../i18n/ui';
+import { blogStrings } from '../../i18n/blog.js';
+import { longDate, isoDate } from '../../lib/blog.js';
+interface Props { lang: Locale; post: any; categories: Record<string, { id: string; name: string; kind?: number }>; /** the first row in the page loads its image at once */ eager?: boolean }
+const { lang, post, categories, eager = false } = Astro.props;
+const B = blogStrings(lang), cat = categories[post.category], c = post.data.cover;
+const loop = { rows: 9, density: post.density, kind: cat.kind, seed: post.seed, label: '', tone: c.tone?.src, bw: true };
+---
+<li class="brow">
+  <div class="brow__thumb">
+    <div class="brow__dots cover-loop is-rest">
+      <Picture src={c.src} alt="" widths={[176, 352]} sizes="(min-width: 48em) 8rem, 5.5rem" formats={['avif', 'webp']} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+      <canvas aria-hidden="true" data-loop={JSON.stringify(loop)}></canvas>
+    </div>
+  </div>
+  <p class="brow__meta">
+    <time datetime={isoDate(post.date)}>{longDate(lang, post.date)}</time>
+    <a class="brow__cat" href={pathFor(lang, 'blog', blogRest.category(cat.id))}>{cat.name}</a>
+    <span>{B.min(post.minutes)}</span>
+  </p>
+  <h3 class="brow__title"><a href={pathFor(lang, 'blog', blogRest.post(post.slug))}>{post.data.title}</a></h3>
+  <p class="brow__excerpt">{post.data.excerpt}</p>
+</li>

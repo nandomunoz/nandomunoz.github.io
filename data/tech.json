@@ -14,5 +14,7 @@
   "Astro": "https://astro.build/",
   "Chrome AI": "https://developer.chrome.com/docs/ai/built-in",
   "Chrome Extension": "https://developer.chrome.com/docs/extensions",
-  "LUZ": "https://luzds.com/"
+  "LUZ": "https://luzds.com/",
+  "Next.js": "https://nextjs.org/",
+  "MDX": "https://mdxjs.com/"
 }

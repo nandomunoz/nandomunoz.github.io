@@ -1,0 +1,358 @@
+/* ==========================================================================
+   Digital — the Cassette's deck, liner notes and racks, no longer
+   modelled in metal, oak, paper and plastic but drawn: one ink on one paper,
+   1px lines, square cells that share their edges, hatching for what is empty
+   and halftone dots for what sounds. After a workbook cover (green grid on
+   black), a club poster (green grid and hatched blocks on cream) and an
+   orange halftone. Same markup and script as the Cassette (cassette.js):
+   load it after cassette.css; the colours are the --l-* tokens of
+   themes/digital.css.
+   ========================================================================== */
+
+body.dig {
+  --line: 1px solid var(--l-ink);
+  --cell: 2rem;
+  --hatch: repeating-linear-gradient(-45deg, var(--l-ink) 0 1px, transparent 1px 7px);
+  --hatch-soft: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--l-ink) 45%, transparent) 0 1px, transparent 1px 7px);
+  --dots: radial-gradient(circle, var(--l-hot) 0 1.3px, transparent 1.7px) 0 0 / 7px 7px;
+  --dots-fine: radial-gradient(circle, var(--l-hot) 0 .8px, transparent 1.1px) 3.5px 3.5px / 7px 7px;
+  /* the page: a sheet of squared paper */
+  background:
+    linear-gradient(90deg, var(--l-grid) 1px, transparent 1px) 0 0 / var(--cell) var(--cell),
+    linear-gradient(var(--l-grid) 1px, transparent 1px) 0 0 / var(--cell) var(--cell),
+    var(--l-paper);
+  color: var(--l-ink);
+}
+body.dig ::selection { background: var(--l-ink); color: var(--l-paper); }
+body.dig :focus-visible { outline: 2px solid var(--l-hot); outline-offset: 2px; }
+
+/* one typeface, plain: the condensed caps, the script, the serif and the
+   typewriter of the objects give way to a neutral grotesque */
+body.dig :is(.cassette__title, .cspine__title, .hspine__title) {
+  font-family: var(--sans); font-weight: 400; font-stretch: 100%; text-transform: none; letter-spacing: -.01em;
+  color: inherit;
+}
+body.dig .cspine__title { --fit: 120; }
+body.dig .ty--script .cassette__title { font-size: 6.6cqw; top: 2cqw; }
+
+/* ---------- the masthead: a ruled band, a hatched strip under it ---------- */
+body.dig .masthead { border-bottom: var(--line); font-weight: 500; }
+body.dig .masthead::after {
+  height: .4rem; background: var(--hatch); border-bottom: var(--line);
+}
+body.dig .brand__mark rect { fill: none !important; stroke: var(--l-ink); stroke-width: 1.2; }
+body.dig .brand__mark { overflow: visible; }
+body.dig .brand__name { font-weight: 500; font-stretch: 100%; font-size: 1.35rem; letter-spacing: -.01em; }
+body.dig .brand__kicker { font-weight: 500; }
+body.dig .masthead__nav a { font-weight: 500; }
+body.dig .masthead__nav a::before { background: none; border: var(--line); }
+body.dig .masthead__nav a:hover::before { background: var(--l-ink); }
+body.dig .lang__button, body.dig .masthead__menu { border-width: 1px; }
+body.dig .lang__menu { border-width: 1px; box-shadow: none; }
+
+/* ---------- the footer: cells ---------- */
+body.dig .colophon { border-top: var(--line); background: var(--l-paper); }
+body.dig .colophon__title { font-weight: 400; letter-spacing: -.02em; }
+body.dig :is(.colophon__link, .luz-theme-mode__button) { border-radius: 0; border-color: var(--l-ink); background: transparent; }
+body.dig .luz-theme-mode__option { border-radius: 0; }
+body.dig .colophon__extra { border-top: var(--line); }
+body.dig .label::before { background: none; border: var(--line); }
+
+/* ---------- section heads ---------- */
+body.dig .section-head { border-bottom: var(--line); padding-inline: 0; }
+body.dig .section-head h2 { font-weight: 400; font-stretch: 100%; letter-spacing: -.02em; }
+body.dig .section-head__count { font-weight: 500; }
+
+/* ---------- the deck: a drawing of the deck ---------- */
+body.dig .cabinet { --ink2: var(--l-ink); --lab: var(--l-ink); --r: 0; }
+body.dig .panels {
+  padding: 0; border-radius: 0; border: var(--line);
+  background: var(--l-paper); box-shadow: none;
+}
+body.dig .panels::before { display: none; }
+/* registration marks at the four corners, as on a print sheet */
+body.dig .panels::after {
+  inset: -.9rem; border-radius: 0; box-shadow: none; z-index: 0;
+  background:
+    linear-gradient(var(--l-ink), var(--l-ink)) 0 .9rem / .6rem 1px no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) .9rem 0 / 1px .6rem no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) 100% .9rem / .6rem 1px no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) calc(100% - .9rem) 0 / 1px .6rem no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) 0 calc(100% - .9rem) / .6rem 1px no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) .9rem 100% / 1px .6rem no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) 100% calc(100% - .9rem) / .6rem 1px no-repeat,
+    linear-gradient(var(--l-ink), var(--l-ink)) calc(100% - .9rem) 100% / 1px .6rem no-repeat;
+}
+body.dig .panel { background: none; box-shadow: none; border-radius: 0; color: var(--l-ink); }
+body.dig .panel::before { display: none; }
+body.dig .panel--top { padding: calc(4.6 * var(--u)); border-bottom: var(--line); }
+body.dig .panel--deck { padding: calc(4.6 * var(--u)); }
+
+/* the display: no glass, a frame on a field of dots, the dot-matrix lettering */
+body.dig .lcd { padding: 0; border: var(--line); border-radius: 0; background: none; box-shadow: none; }
+body.dig .lcd__glass {
+  border-radius: 0; box-shadow: none; text-shadow: none; color: var(--l-ink);
+  background: radial-gradient(circle, color-mix(in srgb, var(--l-ink) 22%, transparent) 0 .7px, transparent 1px) 0 0 / 4px 4px;
+}
+body.dig .lcd__glass::after { display: none; }
+body.dig .lcd__top { opacity: 1; }
+body.dig .cabinet.is-playing .lcd__mode { color: var(--l-hot); }
+
+/* the small keys: five cells in one row, sharing their edges; the label
+   under each in the same ink; a key that is down is filled */
+body.dig .vkeys { gap: 0; border-top: 0; box-shadow: none; }
+body.dig .vkey + .vkey .vkey__cap { margin-left: -1px; width: calc(100% + 1px); }
+body.dig :is(.vkey__cap, .key__cap) {
+  border: var(--line); border-radius: 0; background: transparent; box-shadow: none; filter: none;
+  color: var(--l-ink); transition: background-color .12s ease, color .12s ease;
+}
+body.dig .vkey svg { stroke: currentColor; stroke-width: 1.5; }
+body.dig .mute__cone { fill: none; stroke: currentColor; }
+body.dig .vkey__text, body.dig .key__cap i { color: inherit; font-weight: 500; }
+body.dig :is(.vkey small, .key__label) { color: var(--l-ink); text-shadow: none; font-weight: 500; font-family: var(--tech); letter-spacing: .12em; }
+body.dig :is(.vkey, .key):hover :is(.vkey__cap, .key__cap) { background: var(--hatch-soft); }
+body.dig :is(.vkey:active, .vkey.is-pressed, .vkey[aria-pressed="true"], .key:active, .key.is-pressed, .key[aria-pressed="true"]) :is(.vkey__cap, .key__cap) {
+  transform: none; border-bottom-width: 1px; filter: none; box-shadow: none;
+  background: var(--l-ink); color: var(--l-paper);
+}
+body.dig .vkey:is(:active, .is-pressed, [aria-pressed="true"]) .vkey__cap { height: calc(7 * var(--u)); }
+body.dig .key:is(:active, .is-pressed, [aria-pressed="true"]) .key__cap { height: calc(8.4 * var(--u)); }
+body.dig .vkey[data-latch][aria-pressed="true"] svg { stroke: currentColor; }
+body.dig .vkey[data-latch][aria-pressed="true"] .vkey__text { color: inherit; }
+body.dig .mute__x { stroke: var(--l-hot); }
+body.dig .key[aria-pressed="true"] .key__label { color: var(--l-ink); }
+body.dig :is(.vkey, .key):focus-visible :is(.vkey__cap, .key__cap) { outline: 2px solid var(--l-hot); outline-offset: 2px; }
+
+/* the transport keys: six cells sharing their edges; EJECT hatched, PLAY
+   marked with an orange dot that lights while it plays */
+body.dig .keys { gap: 0; }
+body.dig .key + .key .key__cap { margin-left: -1px; width: calc(100% + 1px); }
+body.dig .key--eject .key__cap { background: var(--hatch-soft); }
+body.dig .key--play .key__cap::after {
+  content: ""; position: absolute; top: calc(1 * var(--u)); right: calc(1 * var(--u));
+  width: calc(1.2 * var(--u)); min-width: 4px; aspect-ratio: 1; border-radius: 50%; border: 1px solid currentColor;
+}
+body.dig .cabinet.is-playing .key--play .key__cap::after { background: var(--l-hot); border-color: var(--l-hot); }
+
+/* the bay: an open frame; behind the tape a field of halftone dots that
+   thins out downwards, and drifts while the tape plays */
+body.dig .tdeck { padding: 0; border-radius: 0; background: none; box-shadow: none; }
+body.dig .tdeck__bay { padding: calc(3 * var(--u)); border-radius: 0; border: var(--line); background: var(--l-paper); }
+body.dig .tdeck__works { display: none; }
+body.dig .tdeck__bay::before {
+  inset: 0; border-radius: 0; box-shadow: none; z-index: 0;
+  background: var(--dots), var(--dots-fine);
+  -webkit-mask: linear-gradient(170deg, #000 5%, rgb(0 0 0 / .55) 30%, transparent 62%) 0 0 / 100% 200%;
+          mask: linear-gradient(170deg, #000 5%, rgb(0 0 0 / .55) 30%, transparent 62%) 0 0 / 100% 200%;
+}
+body.dig .cabinet.is-playing .tdeck__bay::before { animation: halftone-drift 3.2s ease-in-out infinite alternate; }
+@keyframes halftone-drift { to { -webkit-mask-position: 0 100%; mask-position: 0 100%; } }
+body.dig .tdeck__bay::after { display: none; }
+body.dig .tdeck__well .cassette { filter: none; }
+
+/* ---------- the cassette, drawn ---------- */
+body.dig .cassette { color: var(--l-ink); }
+body.dig .cassette__body {
+  border-radius: 2.4cqw; border: 1px solid var(--l-ink); box-shadow: none;
+  /* four screws, as rings */
+  background:
+    radial-gradient(circle 1.4cqw at 4.5cqw 4.5cqw, transparent 55%, var(--l-ink) 60% 72%, transparent 76%),
+    radial-gradient(circle 1.4cqw at calc(100% - 4.5cqw) 4.5cqw, transparent 55%, var(--l-ink) 60% 72%, transparent 76%),
+    radial-gradient(circle 1.4cqw at 4.5cqw calc(100% - 4.5cqw), transparent 55%, var(--l-ink) 60% 72%, transparent 76%),
+    radial-gradient(circle 1.4cqw at calc(100% - 4.5cqw) calc(100% - 4.5cqw), transparent 55%, var(--l-ink) 60% 72%, transparent 76%),
+    var(--l-paper);
+}
+body.dig .cassette__label { border-radius: 1.2cqw; border: 1px solid var(--l-ink); background: var(--l-paper); box-shadow: none; color: var(--l-ink); }
+body.dig .cassette__label::before { opacity: 1; height: 1px; }
+body.dig .cassette__side { font-weight: 400; }
+body.dig .cassette__meta { opacity: 1; font-weight: 500; }
+/* the band round the window, hatched */
+body.dig .cassette__band { background: var(--hatch); border-block: 1px solid var(--l-ink); }
+body.dig .jc--black .cassette__band { background: var(--hatch); }
+body.dig .cassette__band::after { display: none; }
+/* the window: the tape wound on the hubs as rings of line */
+body.dig .cassette__window { background: var(--l-paper); box-shadow: none; border: 1px solid var(--l-ink); }
+body.dig .cassette__window::before, body.dig .cassette__window::after {
+  background: repeating-radial-gradient(circle, transparent 0 .9cqw, var(--l-ink) .9cqw calc(.9cqw + 1px));
+  border: 1px solid var(--l-ink);
+}
+body.dig .reel {
+  background:
+    radial-gradient(circle, transparent 0 1.55cqw, var(--l-ink) 1.55cqw calc(1.55cqw + 1px), transparent calc(1.6cqw + 1px)),
+    repeating-conic-gradient(var(--l-ink) 0 6deg, var(--l-paper) 6deg 60deg);
+  box-shadow: 0 0 0 1px var(--l-ink);
+}
+body.dig .cassette__code { font-weight: 500; }
+body.dig .cassette__foot {
+  background:
+    radial-gradient(circle 1.7cqw at 22% 55%, var(--l-paper) 70%, var(--l-ink) 72% 85%, transparent 88%),
+    radial-gradient(circle 1.7cqw at 78% 55%, var(--l-paper) 70%, var(--l-ink) 72% 85%, transparent 88%),
+    repeating-linear-gradient(90deg, var(--l-ink) 0 1px, var(--l-paper) 1px 1.4cqw);
+  border-top: 1px solid var(--l-ink);
+}
+
+/* ---------- the liner notes: a sheet of cells ----------
+   The title in a big cell, the code in a box at its corner, a row of empty
+   squares where the spine was folded, then the tracks as numbered rows. */
+body.dig .liner {
+  --paper: var(--l-paper); --pen: var(--l-ink); --print: var(--l-ink);
+  --ink: var(--l-ink); --ink-soft: var(--l-soft); --text-accent: var(--l-ink);
+  --rule: var(--l-ink); --hair: color-mix(in srgb, var(--l-ink) 30%, transparent);
+  --type: var(--sans);
+  --lh: 1.6rem;
+  --pad-x: clamp(1rem, 2.4vw, 1.6rem);
+  --sq: 2.6rem;
+  border: var(--line); border-radius: 0; background: var(--l-paper); box-shadow: none; color: var(--l-ink);
+}
+body.dig .jcard__tagline { display: none; }
+body.dig .notes__head { padding: calc(var(--sq) + 1.2rem) var(--pad-x) 1.6rem; color: var(--l-ink); border-bottom: var(--line); }
+/* along the top of the title cell, a row of squares; the code fills the last of them */
+body.dig .notes__head::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--sq);
+  border-bottom: var(--line);
+  background: linear-gradient(90deg, transparent calc(var(--sq) - 1px), var(--l-ink) calc(var(--sq) - 1px)) 0 0 / var(--sq) 100%;
+  -webkit-mask: linear-gradient(90deg, #000 calc(100% - 9rem), transparent calc(100% - 9rem));
+          mask: linear-gradient(90deg, #000 calc(100% - 9rem), transparent calc(100% - 9rem));
+}
+body.dig .notes__code {
+  top: 0; right: 0; height: var(--sq); width: 9rem; display: grid; place-items: center;
+  border-left: var(--line); color: var(--l-ink); font-weight: 500;
+}
+body.dig .notes__title { margin: 0 0 .5rem; font: 400 clamp(2.2rem, 1.4rem + 2.6vw, 3.6rem)/1.02 var(--sans); letter-spacing: -.03em; color: var(--l-ink); }
+body.dig .notes__use { font: 500 .78rem/1.4 var(--tech); letter-spacing: .1em; text-transform: uppercase; }
+body.dig .notes__quote { margin-top: 1rem; max-width: 34em; font: 400 1.05rem/1.5 var(--sans); }
+
+/* the fold: a row of empty squares, edge to edge */
+body.dig .jcard__spine {
+  height: var(--sq); padding: 0; box-shadow: none;
+  background: linear-gradient(90deg, transparent calc(var(--sq) - 1px), var(--l-ink) calc(var(--sq) - 1px)) 0 0 / var(--sq) 100%;
+  border-bottom: var(--line);
+}
+
+/* inside: side A and side B head their rows; each track a row with its number
+   in a cell on the left; the one playing has its number filled */
+body.dig .jcard__inside { padding: 0; }
+body.dig .notes__side {
+  margin: 0; padding: 0 var(--pad-x) 0 0; min-height: var(--sq); gap: 1rem;
+  border-bottom: var(--line);
+  font: 500 .72rem/1 var(--tech); letter-spacing: .14em; color: var(--l-ink);
+}
+body.dig .notes__side b {
+  width: var(--sq); height: var(--sq); border: 0; border-right: var(--line);
+  font: 400 1.3rem/1 var(--sans); background: var(--hatch-soft);
+}
+body.dig .tracks { margin: 0; }
+body.dig .tracks::before { display: none; }
+body.dig .track {
+  position: relative; display: grid; grid-template-columns: var(--sq) minmax(0, 1fr);
+  padding: 0; border-bottom: var(--line);
+  font: 400 1rem/var(--lh) var(--sans); color: var(--l-ink);
+}
+body.dig .track + .track { margin-top: 0; }
+body.dig .track::before {
+  content: attr(data-no); display: grid; place-items: start center; padding-top: .9rem;
+  border-right: var(--line); font: 500 .7rem/1.2 var(--tech); letter-spacing: .06em;
+}
+body.dig .track__body { padding: .8rem var(--pad-x) 1rem 1rem; min-width: 0; }
+body.dig .track__title { text-shadow: none; font: 500 .72rem/1.6 var(--tech); letter-spacing: .14em; text-transform: uppercase; margin-bottom: .4rem; }
+body.dig .track.is-current { background: none; }
+body.dig .track.is-current::before { background: var(--l-ink); color: var(--l-paper); }
+/* while it plays, the lit row gets a margin of orange dots */
+body.dig .track__body { position: relative; }
+body.dig .studio:has(.cabinet.is-playing) .track.is-current .track__body::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: .5rem; background: var(--dots);
+}
+body.dig .track .cells, body.dig .track .links { margin: .5rem 0 .3rem; }
+body.dig .track .cells { color: var(--l-ink); border-top: var(--line); }
+body.dig .track .cell { border-color: var(--l-ink); }
+
+/* the A/B boxes at the foot: cells, the right way up */
+body.dig .jcard__foot { rotate: none; border-top: 0; padding: .7rem var(--pad-x); font-weight: 500; color: var(--l-ink); }
+body.dig .jcard__foot b { border-width: 1px; }
+
+/* demo, code and page: plain line buttons, filled on hover */
+body.dig .jcard .btn {
+  rotate: none; -webkit-mask: none; mask: none; mix-blend-mode: normal; opacity: 1;
+  min-height: 2.6rem; border: var(--line); border-radius: 0; background: transparent; color: var(--l-ink);
+  font: 500 .78rem/1 var(--tech); letter-spacing: .12em;
+}
+body.dig .jcard .btn::before { display: none; }
+body.dig .jcard .btn:hover { transform: none; background: var(--l-ink); color: var(--l-paper); }
+body.dig .jcard .btn:active { transform: none; }
+body.dig .jcard .btn__icon { stroke-width: 1.6; }
+body.dig .btn { border-radius: 0; box-shadow: none; }
+
+/* ---------- the call to pick a tape: a band of halftone ---------- */
+body.dig .studio__cta {
+  position: relative; gap: 1rem; margin: 2.5rem var(--pad) 0; padding: 1.4rem 1rem;
+  border-block: var(--line);
+}
+body.dig .studio__cta::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--dots), var(--dots-fine);
+  -webkit-mask: radial-gradient(60% 140% at 50% 50%, transparent 30%, #000 75%);
+          mask: radial-gradient(60% 140% at 50% 50%, transparent 30%, #000 75%);
+}
+body.dig .studio__cta { isolation: isolate; }
+body.dig .studio__cta b { font-weight: 400; font-stretch: 100%; letter-spacing: -.01em; padding: .3rem .8rem; background: var(--l-paper); }
+body.dig .studio__arrow { border-radius: 0; background: var(--l-paper); color: var(--l-ink); border: var(--line); font-weight: 400; }
+
+/* ---------- the racks: a table of cells, a case in each ----------
+   The cells share their lines; the case in the deck leaves its cell hatched. */
+body.dig .rack__cabinet {
+  padding: 0; border-radius: 0; background: none; box-shadow: none;
+  padding: 0 1px 1px 0;
+}
+body.dig .rack__cabinet::before, body.dig .rack__cabinet::after { display: none; }
+body.dig .rack__slots { gap: 0; }
+body.dig .slot {
+  padding: calc(3 * var(--u)) calc(.9 * var(--u));
+  background: var(--l-paper); box-shadow: none;
+  border: var(--line); margin: 0 -1px -1px 0;
+  align-items: stretch;
+}
+body.dig .slot--empty { background: var(--l-paper); }
+body.dig .cas-item.is-out { background: var(--hatch); }
+body.dig .cspine { translate: none; filter: none; }
+body.dig .cspine__card {
+  padding: 9cqw 0 8cqw; border: 1px solid var(--l-ink); border-radius: 0;
+  background: var(--l-paper); color: var(--l-ink); box-shadow: none;
+  transition: background-color .15s ease, color .15s ease;
+}
+body.dig .cspine__card::after { display: none; }
+body.dig .cspine__logo { border-width: 1px; border-radius: 0; font-weight: 500; }
+body.dig .cspine__sub, body.dig .cspine__code { opacity: 1; font-weight: 500; }
+body.dig .slot__case:hover .cspine__card { transform: none; background: var(--l-ink); color: var(--l-paper); }
+body.dig .slot__case:focus-visible { outline: 2px solid var(--l-hot); outline-offset: 2px; }
+
+/* ---------- the bar at the foot (phones) ---------- */
+body.dig .minibar { background: var(--l-paper); box-shadow: none; border-top: var(--line); }
+body.dig .minibar::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: .4rem; background: var(--hatch); border-top: var(--line); }
+body.dig .mtray { gap: 0; }
+body.dig .mkey + .mkey { margin-left: -1px; }
+body.dig .mkey {
+  border: var(--line); border-radius: 0; background: var(--l-paper); box-shadow: none; filter: none; transform: none;
+  color: var(--l-ink); font-weight: 500;
+}
+body.dig .mkey svg { stroke-width: 1.5; }
+body.dig .mkey svg .mute__cone { fill: none; }
+body.dig :is(.mkey--play, .mkey--play.is-playing) { background: var(--l-paper); color: var(--l-ink); }
+body.dig .mkey--play.is-playing { box-shadow: inset 0 -.25rem 0 var(--l-hot); }
+body.dig .mkey--eject { background: var(--hatch-soft), var(--l-paper); color: var(--l-ink); }
+body.dig :is(.mkey:active, .mkey[aria-pressed="true"]) { background: var(--l-ink); color: var(--l-paper); transform: none; box-shadow: none; filter: none; }
+body.dig .mkey--small[aria-pressed="true"] { color: var(--l-paper); }
+
+/* ---------- a project's own page ---------- */
+body.dig .project__cassette { border-width: 1px; border-radius: 0; font-weight: 500; }
+body.dig .project__cassette:hover { background: var(--l-ink); color: var(--l-paper); }
+body.dig .project__more { border-top: var(--line); }
+body.dig .project__more a { border-bottom: 1px solid color-mix(in srgb, var(--l-ink) 30%, transparent); }
+body.dig .project__more h2 { font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.dig .tdeck__bay::before { animation: none !important; }
+}
+@media (forced-colors: active) {
+  body.dig { background: Canvas; }
+  body.dig :is(.panels, .liner, .slot, .cspine__card, .vkey__cap, .key__cap, .lcd, .tdeck__bay) { border-color: CanvasText; }
+}

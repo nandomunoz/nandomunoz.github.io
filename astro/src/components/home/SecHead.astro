@@ -1,0 +1,11 @@
+---
+// The head of a numbered section: the number, the title (Doto; the script resolves it from noise into dots,
+// the text stays for readers) and an optional line under it.
+interface Props { n: string; id: string; title: string; count?: string }
+const { n, id, title, count } = Astro.props;
+---
+<header class="sec-head">
+  <p class="sec-head__n" aria-hidden="true">{n}</p>
+  <h2 class="decode" id={id}>{title}</h2>
+  {count && <p class="sec-head__count">{count}</p>}
+</header>

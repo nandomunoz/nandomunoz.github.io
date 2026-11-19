@@ -77,7 +77,28 @@
     "canvas": "quénbas",
     "MB": "megas",
     "Prompt": "Prónt",
-    "ai-engine-local": "ei ai ínyin local"
+    "ai-engine-local": "ei ai ínyin local",
+    "chirrÍA": "chirría",
+    "EDS": "e de ese",
+    "SFCC": "ese efe ce ce",
+    "Tech lead de frontend": "Tec lid de fronend",
+    "kong.sole": "Kong sol",
+    "kong.success()": "kong punto sáksess",
+    "kong.error()": "kong punto érror",
+    "kong.enabled = false": "kong punto eneibold igual a false",
+    "DevTools": "Dev Túls",
+    "Run": "Ran",
+    "Edge": "Edch",
+    "Next.js": "Néxt jota ese",
+    "Redux Toolkit": "Ridax Túlkit",
+    "Vitest": "Vaitest",
+    "Tailwind CSS": "Teilwind ce ese ese",
+    "React Router": "Riact Ráuter",
+    "CI": "ce i",
+    "MDX": "eme de equis",
+    "CRUD": "crud",
+    "nandomunoz": "nando muñoz",
+    "soynandomunoz": "soy nando muñoz"
   },
   "en": {
     "Fernando Muñoz": "Fernando Moonyoth",
@@ -111,6 +132,15 @@
     "La Caleta": "La Kah-leh-tah",
     "Teatro Falla": "Teh-ah-tro Faya",
     "ai-engine-local": "ay eye engine local",
-    "coac.com.es": "koh-ack dot com dot es"
+    "coac.com.es": "koh-ack dot com dot es",
+    "kong.sole": "Kong sole",
+    "kong.success()": "kong dot success",
+    "kong.error()": "kong dot error",
+    "kong.enabled = false": "kong dot enabled equals false",
+    "para torpes": "pah-rah tor-pess",
+    "Redux Toolkit": "Redux Toolkit",
+    "Vitest": "Vee-test",
+    "nandomunoz": "nando Moonyoth",
+    "soynandomunoz": "soy nando Moonyoth"
   }
 }

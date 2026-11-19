@@ -1,0 +1,31 @@
+---
+// The old addresses of the Cassette portfolio (src/lib/legacy.js): a page that only sends the visitor on. GitHub Pages
+// cannot answer with a 301, so it is a meta refresh with the new address as canonical, out of the sitemap and of the index.
+import { getCollection } from 'astro:content';
+import { legacyRedirects } from '../lib/legacy.js';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).map((p) => p.data);
+  return Object.entries(legacyRedirects(projects)).map(([from, to]) => ({ params: { legacy: from.slice(1, -1) }, props: { to } }));
+}
+const { to } = Astro.props as { to: string };
+const en = to.startsWith('/en/');
+const href = new URL(to, Astro.site).href;
+---
+<!doctype html>
+<html lang={en ? 'en' : 'es'}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{en ? 'This page has moved' : 'Esta página se ha mudado'} · Nando Muñoz</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href={href}>
+<meta http-equiv="refresh" content={`0; url=${to}`}>
+</head>
+<body>
+<main>
+<h1>{en ? 'This page has moved' : 'Esta página se ha mudado'}</h1>
+<p>{en ? 'It is now at ' : 'Ahora está en '}<a href={to}>{href}</a>.</p>
+</main>
+</body>
+</html>

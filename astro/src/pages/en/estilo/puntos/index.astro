@@ -1,0 +1,41 @@
+---
+// /estilo/puntos/ — the dot engine and the rain, on one page, to review and measure them (plan Phase 5).
+// Not indexed. The real pages (home, projects, 404) mount the same scripts.
+import Base from '../../../../layouts/Base.astro';
+import tone from '../../../../assets/projects/luz.tone.webp';
+const dots = (o: Record<string, unknown>) => JSON.stringify(o);
+const kinds = [0, 1, 2, 3, 4, 5, 6];
+---
+<Base lang="en" title="Puntos · Nando Muñoz" route="estilo" rest="puntos" noindex>
+  <div class="demo">
+    <h1>Puntos</h1>
+    <p class="label">El motor (dots.js), la lluvia (rain.js) y el montaje (blocks.js)</p>
+    <h2>Patrones</h2>
+    <div class="grid">
+      {kinds.map((k) => <canvas data-dots={dots({ kind: k, density: 0.6, rows: 10, seed: 11 + k })} aria-hidden="true"></canvas>)}
+    </div>
+    <h2>Un proyecto: kanji y captura</h2>
+    <div class="grid two">
+      <canvas id="kanji" data-dots={dots({ label: '光', size: 32, density: 0.52, seed: 3, gloss: 5, tone: tone.src })} aria-hidden="true"></canvas>
+      <canvas id="frame" data-dots={dots({ frame: true, rows: 12, density: 0.7, kind: 2, seed: 9 })} aria-hidden="true"></canvas>
+    </div>
+    <h2>La lluvia</h2>
+    <canvas class="rain" id="rain" aria-hidden="true"></canvas>
+  </div>
+</Base>
+<style>
+  .demo { padding: 8rem var(--gut) 6rem; display: grid; gap: 1.6rem; }
+  .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
+  .grid.two { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+  .rain { display: block; inline-size: 100%; block-size: 60vh; background: var(--bg); }
+</style>
+<script>
+  import '../../../../scripts/blocks.js';
+  import { RainField } from '../../../../scripts/rain.js';
+  const cv = document.getElementById('rain') as HTMLCanvasElement;
+  const hero = new RainField(cv, { mask: 'cycle', name: 'Nando Muñoz', dots: true });
+  new IntersectionObserver(([e]) => (e.isIntersecting ? hero.start() : hero.stop())).observe(cv);
+  cv.addEventListener('pointerdown', (e) => { const r = cv.getBoundingClientRect(); hero.poke(e.clientX - r.left, e.clientY - r.top); });
+  document.addEventListener('trama:mode', () => hero.repaint());
+  (window as unknown as { __rain: unknown }).__rain = hero;
+</script>

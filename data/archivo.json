@@ -26,6 +26,8 @@
     "today": "Hoy",
     "vhsVersion": "Versión VHS",
     "vhsCode": "VERSION VHS",
+    "digitalVersion": "Versión digital",
+    "digitalCode": "VERSION DIGITAL",
     "diskCode": "VERSION DISQUETE",
     "diskVersion": "Versión disquete",
     "vhs": {
@@ -134,6 +136,8 @@
     "today": "Today",
     "vhsVersion": "VHS version",
     "vhsCode": "VHS VERSION",
+    "digitalVersion": "Digital version",
+    "digitalCode": "DIGITAL VERSION",
     "diskCode": "FLOPPY VERSION",
     "diskVersion": "Floppy version",
     "vhs": {

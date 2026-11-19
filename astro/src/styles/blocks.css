@@ -1,0 +1,19 @@
+/* The dotted canvases (plan Phase 5). Until the script mounts one (or if it never does) the canvas shows a field
+   of dots made of CSS, so no block is an empty hole; the script sets the canvas height and the field goes away. */
+@layer trama {
+  canvas[data-dots] { display: block; inline-size: 100%; min-block-size: 6rem; }
+  canvas[data-dots]:not([data-mounted]) {
+    background: radial-gradient(circle, var(--faint) 1px, transparent 1.6px) 0 0 / 8px 8px;
+  }
+  /* decoration: never read, never reached, never wider than its box */
+  canvas[data-dots], canvas.rain { max-inline-size: 100%; }
+
+  /* the legend of how to read the blocks (the home and /proyectos/) */
+  .legend { max-inline-size: 22rem; padding-block: 1.25rem; border-block: 1px dotted var(--faint); margin-block-end: 7rem; }
+  .legend h3, .legend .legend__title { margin: 0 0 .5rem; font: 600 .72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .18em; }
+  .legend p { font-size: .92rem; line-height: 1.55; color: var(--mute); }
+  .legend__keys { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+  .legend__keys canvas[data-dots] { display: block; inline-size: 100%; min-block-size: 0; }
+  .legend__keys span { display: block; margin-block-start: .45rem; font: 500 .68rem/1 var(--mono); letter-spacing: .12em; color: var(--mute); }
+  @media (forced-colors: active) { canvas[data-dots], canvas.rain { forced-color-adjust: none; } }
+}

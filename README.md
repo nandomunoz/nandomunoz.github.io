@@ -1,6 +1,10 @@
 # Nando Muñoz · portafolio
 
-Sitio estático: `node build.mjs` genera las páginas (`index.html` —el cassette en español—, `cassette/`, `disquetes/`, `vhs/`, `es/` y `en/`), las de cada proyecto y los ficheros para buscadores a partir de `data/site.json`, `data/projects.json` y `data/archivo.json`. GitHub Pages sirve `main` tal cual.
+Sitio estático: `node build.mjs` genera las páginas (`index.html` —el cassette en español—, `es/` y `en/`, y las otras versiones dentro de `eastereggs/`: `cassette/`, `disquetes/`, `vhs/` y `digital/`), las de cada proyecto y los ficheros para buscadores a partir de `data/site.json`, `data/projects.json` y `data/archivo.json`. GitHub Pages sirve `main` tal cual.
+
+## Easter eggs
+
+Las versiones alternativas del portafolio viven en `eastereggs/<versión>/<es|en>/`: **Disquetes**, **VHS**, **Cassette** (en inglés es la versión canónica, `/eastereggs/cassette/en/`) y **Digital** (el cassette dibujado en línea: `assets/css/digital.css` sobre `cassette.css`, tema `themes/digital.css`). Se encadenan por el pie: Cassette → Disquetes → VHS → Digital → Cassette. Están a una carpeta más de profundidad que las páginas de la raíz, y el build lo corrige solo (`egg()` en `build.mjs` añade un `../` a lo que sale de `eastereggs/`). Esta carpeta y la raíz las sustituirá el sitio de Astro (`astro/`) cuando se publique.
 
 ## SEO
 
@@ -11,7 +15,7 @@ Sitio estático: `node build.mjs` genera las páginas (`index.html` —el casset
 
 ## LUZ
 
-El portafolio toma de [LUZ](https://luzds.com) (el sistema de diseño de [nandovejer/luz](https://github.com/nandovejer/luz)) solo lo que no cambia cómo se ve:
+El portafolio toma de [LUZ](https://luzds.com) (el sistema de diseño de [nandomunoz/luz](https://github.com/nandomunoz/luz)) solo lo que no cambia cómo se ve:
 
 - **Tokens:** `assets/vendor/luz/tokens.min.css` declara las variables `--luz-*` y no da estilo a nada. Es una copia con la versión fijada (LUZ está en beta): `node tools/luz-sync.mjs` la actualiza, junto con el JS del selector de modo.
 - **Un tema por versión:** `assets/css/themes/{disquetes,cassette,vhs}.css` dan valor a los tokens semánticos (`--luz-surface-page`, `--luz-text-primary`, `--luz-brand-fill`…) en claro y oscuro. **Los colores se cambian ahí**; los nombres cortos del CSS (`--bg`, `--ink`, `--accent`…) son alias de esos tokens en `archivo.css`. Cada página nombra su tema con `data-theme` en `<html>` y el modo va en `data-mode`. La paleta propia de cabecera y pie está en `chrome.css`.

@@ -1,0 +1,19 @@
+/* The projects pages (plan Phase 7): rows like the blog's, the project page laid out like a post. */
+@layer trama {
+  .prow__name { text-transform: uppercase; font-weight: 800; font-stretch: 62%; }
+  :lang(ar) .prow__name { font-stretch: 100%; text-transform: none; text-align: right; }
+  .project .post__title { max-inline-size: none; }
+  .project .plinks { margin-block-start: .4rem; }
+  .ptech a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: .3em; }
+  .project .post__side:empty { display: none; }
+  @media (min-width: 64em) { .project .post__main { grid-column: 3 / 11; } }
+  /* the technology filter needs JS: without it the chips are not shown (every project is) */
+  .chips--tech { display: none; }
+  .js .chips--tech { display: block; }
+  .prow[hidden], .byear[hidden] { display: none; }
+  /* the project's own screen: the kanji over the halftone of its capture */
+  .pcover { position: relative; margin-block: 0 3rem; }
+  .pcover canvas[data-dots] { display: block; inline-size: 100%; min-block-size: 0; }
+  .pcover .gloss { position: absolute; inset-inline-end: 12px; inset-block-end: 10px; font: 500 .6rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gloss); pointer-events: none; }
+  .brow__dots[data-dots] { display: block; inline-size: 100%; min-block-size: 0; }
+}

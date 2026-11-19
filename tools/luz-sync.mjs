@@ -1,9 +1,13 @@
 #!/usr/bin/env node
-// Copies what the site takes from LUZ (https://luzds.com, github.com/nandovejer/luz)
+// Copies what the site takes from LUZ (https://luzds.com, github.com/nandomunoz/luz)
 // into assets/vendor/luz/, so the site is served as it is, from its own repository:
 //   tokens.min.css      @luz-ds/tokens: the --luz-* custom properties (no styles of its own)
 //   theme-mode.min.js   @luz-ds/core: <luz-theme-mode>, the colour-mode switch
 //   theme-boot.min.js   @luz-ds/core: sets data-mode before the first paint
+//   highlight.min.js    @luz-ds/core: the code blocks' syntax highlighter (HTML, CSS, JS, JSON, shell), with what it imports:
+//   utils.min.js, i18n.min.js, i18n-es.min.js, clipboard.min.js (the copy button's click and its words)
+//   cookie-consent.min.js  @luz-ds/catalog: <luz-cookie-consent>, the cookie banner (the maqueta styles it as Trama)
+//   timeline.min.js     @luz-ds/catalog: <luz-timeline>, the timeline, horizontal and vertical (the maqueta styles it as Trama)
 // The site's own look is in assets/css/themes/ (a LUZ theme per version).
 // LUZ is in beta: the versions are pinned here. To update them, change them,
 // run `node tools/luz-sync.mjs`, rebuild and compare the pages before committing.
@@ -15,8 +19,8 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
-const VERSIONS = { tokens: '0.4.1', core: '0.4.1' };
-const FILES = [['tokens', 'dist/tokens.min.css', 'tokens.min.css'], ['core', 'dist/theme-mode.min.js', 'theme-mode.min.js'], ['core', 'dist/theme-boot.min.js', 'theme-boot.min.js']];
+const VERSIONS = { tokens: '0.4.1', core: '0.4.1', catalog: '0.4.1' };
+const FILES = [['tokens', 'dist/tokens.min.css', 'tokens.min.css'], ['core', 'dist/theme-mode.min.js', 'theme-mode.min.js'], ['core', 'dist/theme-boot.min.js', 'theme-boot.min.js'], ['core', 'dist/highlight.min.js', 'highlight.min.js'], ['core', 'dist/utils.min.js', 'utils.min.js'], ['core', 'dist/i18n.min.js', 'i18n.min.js'], ['core', 'dist/i18n-es.min.js', 'i18n-es.min.js'], ['core', 'dist/clipboard.min.js', 'clipboard.min.js'], ['catalog', 'dist/cookie-consent.min.js', 'cookie-consent.min.js'], ['catalog', 'dist/timeline.min.js', 'timeline.min.js']];
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'assets/vendor/luz');
@@ -39,7 +43,7 @@ try {
   copyFileSync(join(unpacked.tokens, 'LICENSE'), join(out, 'LICENSE'));
   writeFileSync(join(out, 'README.md'), `# LUZ, copied
 
-Copies of [\`@luz-ds/tokens\`](https://github.com/nandovejer/luz/tree/main/packages/tokens) ${VERSIONS.tokens} and [\`@luz-ds/core\`](https://github.com/nandovejer/luz/tree/main/packages/core) ${VERSIONS.core} (MIT, see LICENSE). Do not edit: change the versions in \`tools/luz-sync.mjs\` and run it.
+Copies of [\`@luz-ds/tokens\`](https://github.com/nandomunoz/luz/tree/main/packages/tokens) ${VERSIONS.tokens}, [\`@luz-ds/core\`](https://github.com/nandomunoz/luz/tree/main/packages/core) ${VERSIONS.core} and [\`@luz-ds/catalog\`](https://github.com/nandomunoz/luz/tree/main/packages/catalog) ${VERSIONS.catalog} (MIT, see LICENSE). Do not edit: change the versions in \`tools/luz-sync.mjs\` and run it.
 
 \`\`\`sh
 node tools/luz-sync.mjs
