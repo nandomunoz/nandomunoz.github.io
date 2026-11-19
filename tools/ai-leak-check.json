@@ -1,0 +1,10 @@
+{
+  "//": "Allow list of tools/ai-leak-check.mjs. allowEmails: addresses that are public on purpose (an entry that starts with @ allows a whole domain). allowSnippets: a line that contains one of these is not checked (known false positives; keep them as narrow as possible).",
+  "allowEmails": [
+    "hola@soynando.com",
+    "noreply@anthropic.com",
+    "@example.com",
+    "@example.org"
+  ],
+  "allowSnippets": []
+}

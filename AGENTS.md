@@ -11,7 +11,7 @@ Dos sitios conviven en el repo, del mismo dueño (Nando Muñoz):
 | **El portafolio actual** (Cassette, Disquetes, VHS y Digital) | raíz: `index.html`, `es/`, `en/`, `projects/`, `proyectos/`, `eastereggs/`, `assets/` | `node build.mjs` desde `data/*.json` y `src/` | Publicado en GitHub Pages (`main`) |
 | **El sitio nuevo** nandomunoz.com | `astro/` | Astro 7 + LUZ, estático, en es, en y ar | En la rama `feature/astro` |
 
-El plan del sitio nuevo y su historia están en `.ai/plan/plan-soynando-astro.md` (solo en la máquina del dueño: `.ai/` no está en el repo). La maqueta (`maqueta/`) que le sirvió de prototipo ya no existe en esta rama; sigue en la rama `proto/home`.
+El plan del sitio nuevo y su historia están en `.ai/plan/plan-soynando-astro.md` . La maqueta (`maqueta/`) que le sirvió de prototipo ya no existe en esta rama; sigue en la rama `proto/home`.
 
 ## Mapa
 
@@ -24,9 +24,10 @@ astro/src/{pages,components,layouts,i18n,lib,scripts,styles}/
 astro/tools/                     comprobadores, auditoría, redirecciones, tarjetas, capturas de proyectos
 astro/DESIGN.md                  el sistema de diseño (tokens, puntos, modos de color)
 astro/tools/kanji-cells.py       el generador de los kanjis en puntos (escribe astro/src/scripts/kanji-cells.js)
-.ai/agents/                      (solo en local) roles de revisión en Markdown: accesibilidad, SEO, legal, rendimiento, tono, etc.
-.ai/plan/                        (solo en local) planes e informes de auditoría
+.ai/agents/                      roles de revisión en Markdown: accesibilidad, SEO, legal, rendimiento, tono, etc.
+.ai/plan/                        planes e informes de auditoría (los informes legales, informe-legal-*.md, solo en local)
 .ai/soynando/                    (solo en local) el volcado del WordPress antiguo
+tools/ai-leak-check.mjs          la auditoría de fugas de .ai/ (la lanza .githooks/pre-push)
 .claude/                         (solo en local) lo propio de Claude Code: ajustes, worktrees y un enlace agents → ../.ai/agents
 ```
 
@@ -82,7 +83,8 @@ Al añadir un proyecto o cambiar un repo, revisa `data/kanjis-repos.json` (un ka
 ## Cómo trabajar
 
 - **Commits:** solo cuando te lo pidan; la excepción es `feature/astro`, donde se commitea por hito. Nunca hagas push sin que te lo pidan. Mensajes en inglés, claros sobre qué cambia y por qué.
-- **`.ai/` y `.claude/` se quedan en local: nunca se commitean, ni se suben con push, ni se copian a un servicio externo** (los dos están en `.gitignore`). `.ai/` es lo de cualquier IA: planes, informes y roles de revisión; `.claude/` solo lo propio de Claude Code. Las herramientas que el sitio necesita van en `astro/tools/` o `tools/`, nunca ahí. Lo que un agente deje por escrito (un informe, un plan) va a `.ai/plan/`. Si una tarea parece pedir lo contrario, pregunta antes. El rol `ai-auditor` revisa esos archivos a petición.
+- **`.ai/` se versiona, pero cada push pasa una auditoría de fugas.** `.ai/` es lo de cualquier IA: planes, informes y roles de revisión. El hook `.githooks/pre-push` lanza `node tools/ai-leak-check.mjs --push`, que revisa cada versión de cada archivo de `.ai/` que va en el push y lo bloquea si hay secretos o tokens, claves, un correo que no está en la lista permitida (`tools/ai-leak-check.json`), un teléfono, una ruta de la máquina (`/home/…`) o un archivo que nunca se versiona (`settings.local.json`, `.env`, claves). Si bloquea, se quita el dato del archivo (y de los commits que van a subir); solo si es público a propósito se añade a la lista. Además, la IA que vaya a hacer push con cambios en `.ai/` pasa antes el rol `ai-auditor` (`.ai/agents/ai-auditor.md`), que ve lo que un script no ve: datos personales de terceros, información interna, instrucciones peligrosas. Para revisar sin hacer push: `node tools/ai-leak-check.mjs`. **Los commits y push que no tocan `.ai/` no esperan al `ai-auditor`**: el rol solo se exige cuando el push lleva cambios en `.ai/` (el hook corre siempre, pero sin cambios en `.ai/` no tiene nada que revisar).
+- **`.claude/` se queda en local: nunca se commitea, ni se sube, ni se copia a un servicio externo** (está en `.gitignore`). Solo guarda lo propio de Claude Code. Las herramientas que el sitio necesita van en `astro/tools/` o `tools/`, nunca ahí. Lo que un agente deje por escrito (un informe, un plan) va a `.ai/plan/`.
 - **Roles de revisión:** `.ai/agents/<rol>.md` describe cada uno (qué mira, cómo y en qué formato informa). Cualquier IA puede leerlos como instrucciones; la cabecera (`name`, `description`, `tools`) es el formato de Claude Code y las demás pueden ignorarla.
 - **Revisa antes de borrar o sobrescribir.** Y no commitees cambios que no hayas revisado (por ejemplo, el trabajo de otro agente a medias).
 - **No inventes contenido.** Los textos de proyectos salen de los README de repos reales de `github.com/nandomunoz`; los hechos, fechas y enlaces se comprueban.

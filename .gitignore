@@ -1,8 +1,11 @@
-# local only, never committed or pushed (see AGENTS.md):
-# .ai/      plans, reports and the review roles, for whichever AI tool is in use
+# .ai/ (plans, reports, review roles) IS versioned: every push that carries it goes through
+# tools/ai-leak-check.mjs (.githooks/pre-push). Local only, never committed or pushed (see AGENTS.md):
 # .claude/  Claude Code's own settings and worktrees (.claude/agents links to .ai/agents)
-.ai/
 .claude/
+# inside .ai/, kept local on purpose (ai-auditor, 2026-11-19): the dump of the still-live WordPress (plugins,
+# versions, routes, the admin slug, its whole content) and the internal legal risk reports
+.ai/soynando/
+.ai/plan/informe-legal-*.md
 __pycache__/
 *.log
 .DS_Store

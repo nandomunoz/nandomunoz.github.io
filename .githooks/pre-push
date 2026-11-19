@@ -1,0 +1,5 @@
+#!/bin/sh
+# Refuses a push that carries, under .ai/, a secret, a token, a private e-mail or phone number, a path of
+# this machine or a file that must never be versioned. Checks every version in the pushed commits.
+# Enable once per clone: git config core.hooksPath .githooks
+exec node tools/ai-leak-check.mjs --push
