@@ -19,6 +19,9 @@ const play_ = blogStrings(lang.startsWith('ar') ? 'ar' : lang.startsWith('en') ?
 
 for (const facade of document.querySelectorAll('figure.video > yt-facade')) {
   const id = facade.getAttribute('video'), start = facade.getAttribute('start');
+  // a YouTube id is 11 characters of [A-Za-z0-9_-] and a start is whole seconds: anything else is never put in a URL, and the
+  // plain link inside the facade stays as the way to the video
+  if (!/^[\w-]{11}$/.test(id || '') || (start != null && !/^\d{1,6}$/.test(start))) continue;
   const name = facade.getAttribute('title') || CT.video;          // a video without a title still has a name
   const frame = el('div', { class: 'video__frame' });
   facade.replaceWith(frame);
