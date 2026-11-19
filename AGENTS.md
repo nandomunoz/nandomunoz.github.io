@@ -80,7 +80,7 @@ Al añadir un proyecto o cambiar un repo, revisa `data/kanjis-repos.json` (un ka
 ## Cómo trabajar
 
 - **Commits:** solo cuando te lo pidan; la excepción es `feature/astro`, donde se commitea por hito. Nunca hagas push sin que te lo pidan. Mensajes en inglés, claros sobre qué cambia y por qué.
-- **Todo lo que está en `.claude/` se queda en local: nunca se commitea, ni se sube con push, ni se copia a un servicio externo.** Vale para agentes, planes, informes y ajustes; las herramientas que el sitio necesita van en `astro/tools/` o `tools/`, nunca ahí. Lo que un agente deje por escrito (un informe, un plan) va a `.claude/plan/` y no se añade a git. Si una tarea parece pedir lo contrario, pregunta antes. El agente `ai-auditor` queda para revisar esos archivos a petición.
+- **Todo lo que está en `.claude/` se queda en local: nunca se commitea, ni se sube con push, ni se copia a un servicio externo.** Vale para agentes, planes, informes y ajustes; las herramientas que el sitio necesita van en `astro/tools/` o `tools/`, nunca ahí. Lo que un agente deje por escrito (un informe, un plan) va a `.claude/plan/` y no se añade a git. Si una tarea parece pedir lo contrario, pregunta antes.
 - **Revisa antes de borrar o sobrescribir.** Y no commitees cambios que no hayas revisado (por ejemplo, el trabajo de otro agente a medias).
 - **No inventes contenido.** Los textos de proyectos salen de los README de repos reales de `github.com/nandomunoz`; los hechos, fechas y enlaces se comprueban.
 - **Voz del sitio:** primera persona, llana, cálida y directa, con tuteo. En español, comillas «» y ortografía RAE; en inglés, británico.
