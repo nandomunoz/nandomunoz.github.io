@@ -1,6 +1,6 @@
 # nandomunoz.com (Astro)
 
-El sitio nuevo de [nandomunoz.com](https://nandomunoz.com): blog, proyectos y portada, en español, inglés y árabe. Estático (Astro 7), con [LUZ](https://luzds.com) como sistema de diseño (tema propio, `trama`) y JavaScript sin dependencias. El plan completo está en [`../.claude/plan-soynando-astro.md`](../.claude/plan-soynando-astro.md); esta carpeta no toca el sitio actual de la raíz (`../index.html`, `../eastereggs/`…), que sigue generándose con `node build.mjs`.
+El sitio nuevo de [nandomunoz.com](https://nandomunoz.com): blog, proyectos y portada, en español, inglés y árabe. Estático (Astro 7), con [LUZ](https://luzds.com) como sistema de diseño (tema propio, `trama`) y JavaScript sin dependencias. El plan completo está en [`../.claude/plan/plan-soynando-astro.md`](../.claude/plan/plan-soynando-astro.md); esta carpeta no toca el sitio actual de la raíz (`../index.html`, `../eastereggs/`…), que sigue generándose con `node build.mjs`.
 
 ## Comandos
 
