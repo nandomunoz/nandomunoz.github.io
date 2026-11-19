@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { legacyRedirects } from './legacy.js';
+
+const map = legacyRedirects([{ id: 'luz' }, { id: 'illo-loader', hidden: true }]);
+
+test('the old Spanish home goes to the root', () => assert.equal(map['/es/'], '/'));
+test('a Spanish project page that still exists is not redirected', () => assert.equal(map['/proyectos/luz/'], undefined));
+test('a hidden project goes to the list', () => {
+  assert.equal(map['/proyectos/illo-loader/'], '/proyectos/');
+  assert.equal(map['/projects/illo-loader/'], '/en/projects/');
+});
+test('the English project pages move under /en/', () => assert.equal(map['/projects/luz/'], '/en/projects/luz/'));
+test('the easter eggs go to the home in their language', () => {
+  assert.equal(map['/eastereggs/vhs/'], '/');
+  assert.equal(map['/eastereggs/vhs/en/'], '/en/');
+});
+test('no address redirects to itself or to another redirect', () => {
+  for (const [from, to] of Object.entries(map)) { assert.notEqual(from, to); assert.equal(map[to], undefined); }
+});
