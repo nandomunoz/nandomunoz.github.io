@@ -6,9 +6,9 @@ name: astro-build
 on:
   push:
     branches: [feature/astro]
-    paths: ['astro/**', '.github/workflows/astro-build.yml']
+    paths: ['astro/**', 'eastereggs/**', 'assets/**', '.github/workflows/astro-build.yml']
   pull_request:
-    paths: ['astro/**']
+    paths: ['astro/**', 'eastereggs/**', 'assets/**']
 permissions: { contents: read }
 jobs:
   build:

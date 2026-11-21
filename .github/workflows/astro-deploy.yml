@@ -7,7 +7,7 @@ name: astro-deploy
 on:
   push:
     branches: [main]
-    paths: ['astro/**', '.github/workflows/astro-deploy.yml']
+    paths: ['astro/**', 'eastereggs/**', 'assets/**', '.github/workflows/astro-deploy.yml']
   workflow_dispatch:
 permissions: { contents: read, pages: write, id-token: write }
 concurrency: { group: pages, cancel-in-progress: false }
