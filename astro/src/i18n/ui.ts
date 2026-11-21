@@ -56,6 +56,7 @@ export const ui = {
     foot: {
       sections: 'Secciones', follow: 'Sígueme', about: 'Sobre esta web', privacy: 'Privacidad', cookies: 'Cookies', credits: 'Créditos y licencia', accessibility: 'Accesibilidad',
       cookieSettings: 'Ajustes de cookies',
+      version: { code: 'VERSION DISQUETE', label: 'Esta web en versión disquete' },
       legal: ['Contenido © ', ', salvo lo que se acredite aparte en los ', 'créditos', '. Hecho con ', ' (licencia MIT). Cómo usa las cookies esta web, en la ', 'política de cookies', '; puedes cambiar tus ', 'ajustes de cookies', ' cuando quieras.']
     },
     home: {
@@ -72,6 +73,7 @@ export const ui = {
     foot: {
       sections: 'Sections', follow: 'Follow me', about: 'About this site', privacy: 'Privacy', cookies: 'Cookies', credits: 'Credits and licence', accessibility: 'Accessibility',
       cookieSettings: 'Cookie settings',
+      version: { code: 'FLOPPY VERSION', label: 'This site as a floppy version' },
       legal: ['Content © ', ', except what is credited separately in the ', 'credits', '. Made with ', ' (MIT licence). How this site uses cookies, in the ', 'cookie policy', '; you can change your ', 'cookie settings', ' whenever you like.']
     },
     home: {
@@ -88,6 +90,7 @@ export const ui = {
     foot: {
       sections: 'الأقسام', follow: 'تابعني', about: 'عن هذا الموقع', privacy: 'الخصوصية', cookies: 'الكوكيز', credits: 'الاعتمادات والترخيص', accessibility: 'إمكانية الوصول',
       cookieSettings: 'إعدادات الكوكيز',
+      version: { code: 'FLOPPY VERSION', label: 'هذا الموقع بنسخة القرص المرن (متوفرة بالإنجليزية)' },
       legal: ['المحتوى © ', '، باستثناء ما يُنسب إلى أصحابه في ', 'الاعتمادات', '. صُنع بـ ', ' (رخصة MIT). كيف يستخدم هذا الموقع الكوكيز، في ', 'سياسة الكوكيز', '؛ ويمكنك تغيير ', 'إعدادات الكوكيز', ' متى شئت.']
     },
     home: {
