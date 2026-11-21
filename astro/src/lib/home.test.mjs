@@ -7,7 +7,7 @@ import { FEATURED, DENSITY, densityOf, hashStr, projectBlocks } from './home.js'
 const project = (id, year, words) => ({ data: { id, year, kanji: { char: '光', meaning: { es: 'luz', en: 'light', ar: 'نور' } }, es: { body: ['x'.repeat(words)] }, en: { body: ['x'.repeat(words)] }, ar: null } });
 
 test('five featured projects, in a fixed order', () => {
-  assert.deepEqual(FEATURED, ['luz', 'quien-canta-hoy', 'streetcai', 'ikay', 'toolbar-aem']);
+  assert.deepEqual(FEATURED, ['luz', 'quien-canta-hoy', 'streetcai', 'cole', 'ikay', 'toolbar-aem']);
 });
 test('the hash is stable and spreads ids', () => {
   assert.equal(hashStr('luz'), hashStr('luz'));

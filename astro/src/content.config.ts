@@ -54,7 +54,8 @@ const projects = defineCollection({
       year: z.number().int(),
       tech: z.array(z.string()),
       demo: httpUrl.nullable().optional(),
-      repo: httpUrl,
+      /** null for a private repository: no link to it */
+      repo: httpUrl.nullable(),
       plate: z.string().optional(),
       kanji: z.object({ char: z.string(), meaning: label }).nullable(),
       shot: z.object({ src: image(), tone: image().optional() }).nullable(),

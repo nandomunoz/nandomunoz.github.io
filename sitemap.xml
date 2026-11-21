@@ -73,6 +73,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nandomunoz.github.io/proyectos/streetcai/"/>
   </url>
   <url>
+    <loc>https://nandomunoz.github.io/proyectos/cole/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nandomunoz.github.io/proyectos/cole/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nandomunoz.github.io/projects/cole/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nandomunoz.github.io/proyectos/cole/"/>
+  </url>
+  <url>
+    <loc>https://nandomunoz.github.io/projects/cole/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nandomunoz.github.io/proyectos/cole/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nandomunoz.github.io/projects/cole/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nandomunoz.github.io/proyectos/cole/"/>
+  </url>
+  <url>
     <loc>https://nandomunoz.github.io/proyectos/ares-api/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nandomunoz.github.io/proyectos/ares-api/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nandomunoz.github.io/projects/ares-api/"/>

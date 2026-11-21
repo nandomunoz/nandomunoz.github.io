@@ -188,6 +188,41 @@
     }
   },
   {
+    "id": "cole",
+    "name": "Cole",
+    "year": 2026,
+    "tech": [
+      "Astro",
+      "JavaScript",
+      "PWA",
+      "Cloudflare Workers"
+    ],
+    "demo": "https://cole.com.es/",
+    "repo": null,
+    "es": {
+      "kicker": "Repaso de Primaria",
+      "body": [
+        "Cole es una web de repaso para peques de 6 y 7 años, de 1.º de Primaria, con ejercicios y juegos y con Lola la lombriz, que les habla y les pregunta qué quieren aprender hoy.",
+        "Cada curso tiene sus asignaturas, cada asignatura sus lecciones, y cada lección trae ejercicios, hojas A4 para hacer en pantalla o en papel, y juegos. Cada juego tiene su propia dirección, así que el botón de atrás del navegador funciona.",
+        "Es una web estática: no hay servidor, ni cuentas, ni base de datos. Las estrellas, el nombre y los ejercicios hechos se quedan en el navegador. Se instala como aplicación y, desde el perfil, un adulto puede guardar una copia completa para usarla sin conexión.",
+        "La voz de Lola se genera antes con Piper, de código abierto y sin conexión, con una voz de España y otra de Inglaterra; si falta algún audio, usa la del navegador. Está en español y en inglés, hecha con Astro y pensada para el móvil.",
+        "Una contraseña, comprobada en un Worker de Cloudflare antes de servir nada, guarda la entrada, y ninguna página quiere salir en los buscadores.",
+        "Es un proyecto personal, hecho en ratos libres y todavía en beta, para echar una mano a madres y padres. No es oficial ni sustituye al colegio ni a un libro de texto."
+      ]
+    },
+    "en": {
+      "kicker": "Primary school revision",
+      "body": [
+        "Cole is a revision site for children aged 6 and 7, in the first year of Spanish primary school, with exercises and games and with Lola the earthworm, who talks to them and asks what they want to learn today.",
+        "Each year has its subjects, each subject its lessons, and each lesson brings exercises, A4 sheets to do on screen or on paper, and games. Every game has its own address, so the browser’s back button works.",
+        "It is a static site: no server, no accounts, no database. Stars, name and finished exercises stay in the browser. It installs as an app and, from the profile, an adult can save a full copy to use offline.",
+        "Lola’s voice is generated beforehand with Piper, open source and offline, with a voice from Spain and one from England; if a clip is missing, it uses the browser’s. It is in Spanish and English, built with Astro and made for phones.",
+        "A password, checked in a Cloudflare Worker before anything is served, guards the door, and no page wants to show up in search engines.",
+        "It is a personal project, made in spare moments and still in beta, to give mums and dads a hand. It is not official and does not replace school or a textbook."
+      ]
+    }
+  },
+  {
     "id": "ares-api",
     "name": "Ares API",
     "year": 2026,

@@ -80,22 +80,24 @@
       "url": "https://github.com/nandomunoz/cole",
       "fork": false,
       "archived": false,
-      "inferred": true,
+      "inferred": false,
       "kanji": {
-        "char": "学",
+        "char": "教",
         "on": [
-          "gaku"
+          "kyō"
         ],
         "kun": [
-          "mana(bu)"
+          "oshi(eru)",
+          "oso(waru)"
         ],
-        "meaning": "aprender",
-        "reason": "«Cole» es colegio"
+        "meaning": "educación, enseñar",
+        "meaning_en": "education, to teach",
+        "reason": "Una web de repaso para 1.º de Primaria: la educación"
       },
       "alternative": {
-        "text": "学校",
-        "romaji": "gakkō",
-        "meaning": "escuela"
+        "text": "教育",
+        "romaji": "kyōiku",
+        "meaning": "educación"
       }
     },
     {
