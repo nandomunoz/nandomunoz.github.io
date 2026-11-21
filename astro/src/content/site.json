@@ -37,8 +37,8 @@
     {
       "id": "rss",
       "label": "RSS",
-      "handle": "nandomunoz.com/feed",
-      "url": "https://nandomunoz.com/feed/"
+      "handle": "nandomunoz.com/rss.xml",
+      "url": "https://nandomunoz.com/rss.xml"
     }
   ],
   "es": {
