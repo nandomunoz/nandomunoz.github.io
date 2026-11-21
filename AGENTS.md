@@ -32,7 +32,7 @@ Hay datos que existen dos veces, uno por sitio (por ejemplo los enlaces sociales
 
 ## Comandos
 
-**Astro** (desde `astro/`, Node 22.22 o más):
+**Astro** (desde `astro/`, Node 22.23.4 o más (lo exige Astro 7.4.13)):
 
 | Comando | Qué hace |
 |---|---|
