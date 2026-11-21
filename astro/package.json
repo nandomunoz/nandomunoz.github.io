@@ -24,7 +24,7 @@
     "@luz-ds/catalog": "0.4.1",
     "@luz-ds/core": "0.4.1",
     "@luz-ds/tokens": "0.4.1",
-    "astro": "7.4.1"
+    "astro": "7.4.13"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",

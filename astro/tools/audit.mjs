@@ -20,7 +20,9 @@ const dist = new URL('../dist/', import.meta.url).pathname;
 const quick = process.argv.includes('--quick');
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.xml': 'application/xml', '.png': 'image/png' };
 const server = http.createServer((req, res) => {
-  let f = path.join(dist, decodeURIComponent(req.url.split('?')[0]));
+  let f;
+  try { f = path.join(dist, decodeURIComponent(req.url.split('?')[0])); } catch { res.writeHead(400); return res.end(); }
+  if (f !== dist.replace(/\/$/, '') && !f.startsWith(dist)) { res.writeHead(403); return res.end(); }   // never above dist/
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
   if (!fs.existsSync(f)) { res.writeHead(404, { 'Content-Type': 'text/html' }); return res.end(fs.readFileSync(path.join(dist, '404.html'))); }
   res.writeHead(200, { 'Content-Type': types[path.extname(f)] ?? 'application/octet-stream' });

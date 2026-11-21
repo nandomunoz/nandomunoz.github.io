@@ -29,16 +29,19 @@ const NOIDLE = ['react-para-torpes'];   // pages whose network never goes idle: 
 const ZOOM = { 'illo-loader': 4 };   // the loaders are tiny: enlarged (a smaller viewport at a higher pixel ratio) so the picture says what they are
 // repos with nothing to open: the README is the picture (just the rendered article, not GitHub's chrome)
 const README = ['libros-del-mundo'];
+// screenshots taken by hand, kept as they are: the site is behind a password, so a fresh shot would only catch the door
+const MANUAL = ['cole'];
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.gif': 'image/gif', '.png': 'image/png', '.svg': 'image/svg+xml' };
 function serveRepo(p) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), `shot-${p.id}-`));
   execFileSync('git', ['clone', '-q', '--depth', '1', p.repo, dir]);
   return new Promise((ok) => {
     const srv = http.createServer((req, res) => {
-      const f = path.join(dir, decodeURIComponent(req.url.split('?')[0]).replace(/\/$/, '/index.html'));
-      if (!f.startsWith(dir) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
+      let rel; try { rel = decodeURIComponent(req.url.split('?')[0]); } catch { res.writeHead(400); return res.end(); }
+      const f = path.join(dir, rel.replace(/\/$/, '/index.html'));
+      if (!f.startsWith(dir + path.sep) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
       res.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(res);
-    }).listen(0, () => ok({ url: `http://localhost:${srv.address().port}/`, close: () => srv.close() }));
+    }).listen(0, '127.0.0.1', () => ok({ url: `http://127.0.0.1:${srv.address().port}/`, close: () => srv.close() }));
   });
 }
 
@@ -48,6 +51,7 @@ function serveRepo(p) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, colorScheme: 'dark' });
   for (const p of projects) {
     if (only.length && !only.includes(p.id)) continue;
+    if (MANUAL.includes(p.id)) { console.log('·', p.id, 'by hand, left as it is'); continue; }
     const url = p.demo || p.repo;
     const png = path.join(out, `${p.id}.png`);
     try {
