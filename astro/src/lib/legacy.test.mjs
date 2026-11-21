@@ -11,9 +11,8 @@ test('a hidden project goes to the list', () => {
   assert.equal(map['/projects/illo-loader/'], '/en/projects/');
 });
 test('the English project pages move under /en/', () => assert.equal(map['/projects/luz/'], '/en/projects/luz/'));
-test('the easter eggs go to the home in their language', () => {
-  assert.equal(map['/eastereggs/vhs/'], '/');
-  assert.equal(map['/eastereggs/vhs/en/'], '/en/');
+test('the easter eggs are published, not redirected', () => {
+  for (const k of Object.keys(map)) assert.ok(!k.startsWith('/eastereggs/'), k);
 });
 test('no address redirects to itself or to another redirect', () => {
   for (const [from, to] of Object.entries(map)) { assert.notEqual(from, to); assert.equal(map[to], undefined); }

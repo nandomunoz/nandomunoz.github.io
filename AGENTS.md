@@ -22,11 +22,14 @@ assets/                          estilos, audio de la cinta (assets/audio/<idiom
 astro/src/content/               datos del sitio nuevo: site.json, projects.json, categories.json, tags.json, posts/<slug>/{index,en,ar}.md
 astro/src/{pages,components,layouts,i18n,lib,scripts,styles}/
 astro/tools/                     comprobadores, auditoría, redirecciones, tarjetas, capturas de proyectos
+astro/tools/eastereggs.mjs         copia eastereggs/ y assets/ a dist/ (con robots noindex/noai y el logo de cada versión apuntando a la home de Astro, `/` o `/en/`) tras el build: el código de barras del footer de Astro lleva a esas versiones
 astro/DESIGN.md                  el sistema de diseño (tokens, puntos, modos de color)
 astro/tools/kanji-cells.py       el generador de los kanjis en puntos (escribe astro/src/scripts/kanji-cells.js)
 .claude/agents/                  (solo en local) agentes de revisión: accesibilidad, SEO, legal, rendimiento, tono, etc.
 .claude/plan/                    (solo en local) planes e informes de auditoría
 ```
+
+Las versiones alternativas del Cassette (`eastereggs/`: cassette, disquetes, vhs, digital) se publican **con el sitio nuevo**, tal cual, desde `astro/tools/eastereggs.mjs`; son juegos, no contenido: `noindex, nofollow, noai` en la copia, `Disallow: /eastereggs/` en el `robots.txt` y fuera del sitemap (`npm run seo` lo comprueba). El footer de Astro tiene un código de barras (Code 128, `astro/src/lib/barcode.js`) que entra en la cadena disquetes → VHS → digital → cassette, cada una con su propio código de barras al siguiente; el del cassette, el último, devuelve a la portada de Astro (`/` o `/en/`), cosa que `build.mjs` hace solo en la copia de `eastereggs/cassette/` (la portada de la raíz sigue yendo a disquetes). Los workflows de Astro también se disparan si cambian `eastereggs/` o `assets/`.
 
 Hay datos que existen dos veces, uno por sitio (por ejemplo los enlaces sociales en `data/site.json` y en `astro/src/content/site.json`, o los proyectos en `data/projects.json` y `astro/src/content/projects.json`). Si cambias uno, cambia el otro.
 

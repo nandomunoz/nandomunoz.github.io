@@ -922,7 +922,7 @@ const jsonLd = (lang, t, url) => {
 };
 // The Cassette and Digital are the same page (cassette.js drives both): Digital draws it in line
 // (themes/digital.css, digital.css over cassette.css).
-const cassettePage = (lang, { digital = false } = {}) => {
+const cassettePage = (lang, { digital = false, home = false } = {}) => {
   const t = { ...site.i18n[lang], lang };
   const u = ui[lang];
   const c = u.cassette;
@@ -1110,7 +1110,7 @@ ${masthead(lang, t, u, { bioHref: '#liner', langHref: (k) => (digital ? `../${k}
     </span>
   </div>
 </div>
-${colophon(t, u, digital ? { href: `../../cassette/${lang}/`, code: u.cassetteCode, label: u.cassetteVersion } : { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion }, voiceCredit(lang, c))}
+${colophon(t, u, digital ? { href: `../../cassette/${lang}/`, code: u.cassetteCode, label: u.cassetteVersion } : home ? { href: lang === 'es' ? '/' : `/${lang}/`, code: u.homeCode, label: u.homeVersion } : { href: `../../disquetes/${lang}/`, code: u.diskCode, label: u.diskVersion }, voiceCredit(lang, c))}
 </body>
 </html>
 `;
@@ -1300,7 +1300,7 @@ write('index.html', cassettePage('es')
   .replaceAll('href="../en/"', `href="${EGGS}/cassette/en/"`));
 for (const lang of LANGS) write(`${EGGS}/vhs/${lang}/index.html`, egg(vhsPage(lang)));
 write(`${EGGS}/vhs/index.html`, toLanguage('', '../../assets/favicon.svg'));
-for (const lang of LANGS) write(`${EGGS}/cassette/${lang}/index.html`, egg(cassettePage(lang)));
+for (const lang of LANGS) write(`${EGGS}/cassette/${lang}/index.html`, egg(cassettePage(lang, { home: true })));
 write(`${EGGS}/cassette/index.html`, toLanguage('', '../../assets/favicon.svg'));
 for (const lang of LANGS) write(`${EGGS}/digital/${lang}/index.html`, egg(cassettePage(lang, { digital: true })));
 write(`${EGGS}/digital/index.html`, toLanguage('', '../../assets/favicon.svg'));

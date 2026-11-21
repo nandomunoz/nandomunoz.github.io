@@ -19,8 +19,8 @@
     {
       "id": "blog",
       "label": "Blog",
-      "handle": "soynando.com",
-      "url": "https://soynando.com"
+      "handle": "nandomunoz.com",
+      "url": "https://nandomunoz.com"
     },
     {
       "id": "linkedin",
@@ -39,11 +39,11 @@
     {
       "id": "rss",
       "label": "RSS",
-      "handle": "soynando.com/feed",
-      "url": "https://soynando.com/feed/"
+      "handle": "nandomunoz.com/rss.xml",
+      "url": "https://nandomunoz.com/rss.xml"
     }
   ],
-  "blogUrl": "https://soynando.com/blog/",
+  "blogUrl": "https://nandomunoz.com/blog/",
   "i18n": {
     "es": {
       "langName": "Español",

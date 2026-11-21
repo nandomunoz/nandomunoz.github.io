@@ -30,6 +30,8 @@
     "digitalCode": "VERSION DIGITAL",
     "diskCode": "VERSION DISQUETE",
     "diskVersion": "Versión disquete",
+    "homeCode": "NANDOMUNOZ.COM",
+    "homeVersion": "Volver a nandomunoz.com",
     "vhs": {
       "tv": "Televisor",
       "channel": "CANAL 1",
@@ -140,6 +142,8 @@
     "digitalCode": "DIGITAL VERSION",
     "diskCode": "FLOPPY VERSION",
     "diskVersion": "Floppy version",
+    "homeCode": "NANDOMUNOZ.COM",
+    "homeVersion": "Back to nandomunoz.com",
     "vhs": {
       "tv": "Television",
       "channel": "CHANNEL 1",

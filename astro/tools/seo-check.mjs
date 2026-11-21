@@ -97,6 +97,15 @@ for (const p of indexable) if (!inMap.has(p) && !/\/\d+\/$/.test(p)) fail(p, 'in
 // robots and feeds
 const robots = fs.readFileSync(path.join(dist, 'robots.txt'), 'utf8');
 if (!robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) fail('robots.txt', 'does not name the sitemap');
+if (!/^Disallow: \/eastereggs\/$/m.test(robots)) fail('robots.txt', 'does not disallow /eastereggs/ (games, not for search or AI)');
+(function eggs(d) {                                                   // every easter-egg page says noindex, and none is in the sitemap
+  for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+    const f = path.join(d, e.name);
+    if (e.isDirectory()) eggs(f);
+    else if (e.name.endsWith('.html') && !/<meta[^>]*name="robots"[^>]*noindex[^>]*noai/.test(fs.readFileSync(f, 'utf8'))) fail('/' + path.relative(dist, f), 'easter egg without noindex and noai');
+  }
+})(path.join(dist, 'eastereggs'));
+if (/\/eastereggs\//.test(fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8'))) fail('sitemap.xml', 'lists an easter egg');
 for (const f of ['rss.xml', 'en/rss.xml', 'ar/rss.xml']) if (!fs.existsSync(path.join(dist, f))) fail(f, 'missing');
 
 warn.forEach((w) => console.log('  ~', w));
