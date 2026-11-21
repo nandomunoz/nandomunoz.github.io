@@ -1,41 +1,50 @@
-# Nando Muñoz · portafolio
+<div align="center">
 
-Sitio estático: `node build.mjs` genera las páginas (`index.html` —el cassette en español—, `es/` y `en/`, y las otras versiones dentro de `eastereggs/`: `cassette/`, `disquetes/`, `vhs/` y `digital/`), las de cada proyecto y los ficheros para buscadores a partir de `data/site.json`, `data/projects.json` y `data/archivo.json`. GitHub Pages sirve `main` tal cual.
+# nandomunoz.com
 
-## Easter eggs
+**Mi web personal: estática, en español, inglés y árabe, sin cookies propias y dibujada con puntos.**
 
-Las versiones alternativas del portafolio viven en `eastereggs/<versión>/<es|en>/`: **Disquetes**, **VHS**, **Cassette** (en inglés es la versión canónica, `/eastereggs/cassette/en/`) y **Digital** (el cassette dibujado en línea: `assets/css/digital.css` sobre `cassette.css`, tema `themes/digital.css`). Se encadenan por el pie: Cassette → Disquetes → VHS → Digital → Cassette. Están a una carpeta más de profundidad que las páginas de la raíz, y el build lo corrige solo (`egg()` en `build.mjs` añade un `../` a lo que sale de `eastereggs/`). Esta carpeta y la raíz las sustituirá el sitio de Astro (`astro/`) cuando se publique.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/cover-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/readme/cover-light.webp">
+  <img alt="Portada de nandomunoz.com sobre una lluvia de puntos: «Proyecto, el motivo. Humano, el centro. TecnologIA, sólo el medio.»" src=".github/assets/readme/cover-light.webp" width="900" height="506">
+</picture>
 
-## SEO
+[Qué es](#qué-es) · [Issues](#issues) · [Créditos](#créditos) · [Licencia](#licencia) · [nandomunoz.com](https://nandomunoz.com)
 
-- **Páginas por proyecto:** cada proyecto tiene la suya, `/proyectos/<id>/` en español y `/projects/<id>/` en inglés (el cassette solo lo muestra con un hash, que los buscadores no indexan). Título, descripción, canonical, pareja es/en y JSON-LD salen de `data/projects.json`; no se edita el HTML.
-- **Para los buscadores:** `robots.txt`, `sitemap.xml` (con los alternates es/en) y `404.html` los escribe el build.
-- **Tarjetas para redes** (Open Graph y Twitter): `node tools/og-images.mjs` dibuja una imagen de 1200 × 630 por página y idioma en `assets/og/` (necesita Chromium e ImageMagick, tarda unos minutos). No forma parte del build: se repite si cambian el nombre, los títulos o el diseño, y se commitean los JPG.
-- **Search Console y Bing:** pega el contenido de la meta de verificación en `verification` de `data/site.json`; el build escribe las etiquetas cuando no están vacías.
+[![check](https://github.com/nandomunoz/nandomunoz.github.io/actions/workflows/check.yml/badge.svg)](https://github.com/nandomunoz/nandomunoz.github.io/actions/workflows/check.yml)
+[![astro-deploy](https://github.com/nandomunoz/nandomunoz.github.io/actions/workflows/astro-deploy.yml/badge.svg)](https://github.com/nandomunoz/nandomunoz.github.io/actions/workflows/astro-deploy.yml)
+[![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue)](LICENSE)
+[![Último commit](https://img.shields.io/github/last-commit/nandomunoz/nandomunoz.github.io)](https://github.com/nandomunoz/nandomunoz.github.io/commits)
+[![Issues](https://img.shields.io/github/issues/nandomunoz/nandomunoz.github.io)](https://github.com/nandomunoz/nandomunoz.github.io/issues)
 
-## LUZ
+</div>
 
-El portafolio toma de [LUZ](https://luzds.com) (el sistema de diseño de [nandomunoz/luz](https://github.com/nandomunoz/luz)) solo lo que no cambia cómo se ve:
+## Qué es
 
-- **Tokens:** `assets/vendor/luz/tokens.min.css` declara las variables `--luz-*` y no da estilo a nada. Es una copia con la versión fijada (LUZ está en beta): `node tools/luz-sync.mjs` la actualiza, junto con el JS del selector de modo.
-- **Un tema por versión:** `assets/css/themes/{disquetes,cassette,vhs}.css` dan valor a los tokens semánticos (`--luz-surface-page`, `--luz-text-primary`, `--luz-brand-fill`…) en claro y oscuro. **Los colores se cambian ahí**; los nombres cortos del CSS (`--bg`, `--ink`, `--accent`…) son alias de esos tokens en `archivo.css`. Cada página nombra su tema con `data-theme` en `<html>` y el modo va en `data-mode`. La paleta propia de cabecera y pie está en `chrome.css`.
-- **Selector de modo:** es `<luz-theme-mode>` de LUZ (`assets/vendor/luz/theme-mode.min.js`) y su script de arranque (`theme-boot.min.js`); la elección se guarda en `luz-theme` (la clave antigua, `theme`, se migra sola).
-- **Menú del móvil:** el panel es un `popover` nativo (`popovertarget`): el navegador da Escape, cerrar al pulsar fuera y devolver el foco, y funciona sin JavaScript.
+El código de [nandomunoz.com](https://nandomunoz.com): la portada, mis proyectos y mi blog. Está hecho con Astro 7, sin framework de interfaz, y usa [LUZ](https://luzds.com), mi sistema de diseño, con un tema propio, Trama, en el que todo es una rejilla de puntos que se arma al entrar en pantalla (las decisiones están en [astro/DESIGN.md](astro/DESIGN.md)). Se escribe de izquierda a derecha en español e inglés y de derecha a izquierda en árabe, con la misma hoja de estilos.
 
-## La voz del Cassette
+Prefiero que el despliegue falle a publicar una página rota. Por eso, antes de subir nada, un workflow pasa las pruebas, busca enlaces rotos, comprueba el peso de cada página frente a un presupuesto y abre Chromium para auditar WCAG 2.2 AA con axe.
 
-En la versión Cassette una voz lee cada cinta: un audio para la cabecera (título, línea, cita) y uno por pista, en `assets/audio/<idioma>/`. Los genera el build con [Piper](https://github.com/OHF-Voice/piper1-gpl) y las voces [davefx](https://huggingface.co/rhasspy/piper-voices/tree/main/es/es_ES/davefx/medium) (español de España) y [joe](https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_US/joe/medium) (inglés), ambas CC0.
+El repo guarda además mi portafolio anterior, el Cassette, que se genera con `node build.mjs` y tiene una voz que lee cada cinta. Ya no es la web.
 
-- **Instalar la voz** (una vez por máquina, en `~/.cache/tts`): `tools/voice-setup.sh`
-- **Activar el hook** (una vez por clon): `git config core.hooksPath .githooks`
+## Issues
 
-Cada audio se llama por el hash de lo que dice, la voz y sus ajustes. Al cambiar un texto, `node build.mjs` genera solo los audios nuevos y borra los que ya no se usan.
+Los errores y las dudas van a [Issues](https://github.com/nandomunoz/nandomunoz.github.io/issues). Si es un fallo de la web, dime la página, el idioma (es, en o ar) y el navegador. Si es un enlace roto, un texto con una errata o algo que no se puede usar con teclado o lector de pantalla, con la dirección de la página basta.
 
-| Comando | Qué hace |
-|---|---|
-| `node build.mjs` | Páginas y audios que falten |
-| `node build.mjs --check` | No cambia nada; falla si una página o un audio no está al día (hook `pre-commit` y CI) |
-| `node build.mjs --no-audio` | Solo páginas (el check fallará hasta generar los audios) |
-| `node build.mjs --no-audio --say` | Muestra lo que dirá cada audio |
+Discussions está desactivado: no hay otro sitio donde preguntar.
 
-Pronunciación de palabras que la voz lee mal: `data/pronounce.json`. Voces, ritmo y pausas: `src/speech.mjs`.
+## Créditos
+
+Lo escribo yo. Lo programo yo con ayuda de la IA: ella ayuda, pero no decide.
+
+- [Astro](https://astro.build) y [LUZ](https://luzds.com), mi sistema de diseño (MIT, su licencia está en `assets/vendor/luz/LICENSE`).
+- Tipografías con licencia SIL Open Font License 1.1: Archivo, Chakra Petch, Doto y Playfair Display, con sus avisos de copyright en [assets/fonts/OFL.txt](assets/fonts/OFL.txt). Los trazos de los kanjis de los proyectos salen de Noto Sans CJK JP, de Google y Adobe.
+- Las voces davefx y joe (CC0) y [Piper](https://github.com/OHF-Voice/piper1-gpl), que las lee, para la voz del Cassette.
+- Las letras de comparsa que cito en los análisis son de sus autores, que se nombran en cada artículo.
+
+El resto, con sus autores y las imágenes de cada artículo, en [nandomunoz.com/creditos](https://nandomunoz.com/creditos/).
+
+## Licencia
+
+El código es MIT, en [LICENSE](LICENSE). Los textos y las imágenes que son míos son © Nando Muñoz, con todos los derechos reservados. Quedan fuera de la MIT las letras citadas, las fotos y vídeos de otras personas, las tipografías (SIL OFL) y LUZ (MIT).
