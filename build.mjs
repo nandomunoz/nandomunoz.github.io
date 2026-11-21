@@ -6,6 +6,7 @@
 // Usage: node build.mjs
 
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { plates } from './src/plates.mjs';
@@ -24,6 +25,37 @@ const projects = read('data/projects.json');
 const ui = read('data/archivo.json');
 const techUrl = read('data/tech.json');
 const LANGS = ['es', 'en'];
+
+// Links from the data go into href attributes: they must be http(s), never javascript: or data: (the Astro site checks
+// the same in its content schema). A bad one stops the build.
+const URL_KEYS = new Set(['url', 'demo', 'repo', 'original', 'href', 'blogUrl']);
+const checkUrls = (v, where) => {
+  if (Array.isArray(v)) v.forEach((x, i) => checkUrls(x, `${where}[${i}]`));
+  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) {
+    if (k === 'i18n') continue;                                  // interface labels share the names demo and repo
+    if (URL_KEYS.has(k) && typeof x === 'string' && !/^https?:\/\/[^\s"'<>]+$/i.test(x)) throw new Error(`${where}.${k}: not an http(s) URL: ${x}`);
+    else checkUrls(x, `${where}.${k}`);
+  }
+};
+checkUrls(site, 'data/site.json'); checkUrls(projects, 'data/projects.json'); checkUrls(techUrl, 'data/tech.json');
+for (const [name, u] of Object.entries(techUrl)) if (name !== '_' && (typeof u !== 'string' || !/^https?:\/\/[^\s"'<>]+$/i.test(u))) throw new Error(`data/tech.json.${name}: not an http(s) URL`);
+
+// Content-Security-Policy as a <meta> (GitHub Pages sends no headers): same-origin only, and each inline script allowed by
+// its SHA-256 hash, so an injected one would not run. Inserted right after <meta charset> in every page that has a head.
+const csp = (html) => {
+  if (!/<head[^>]*>/.test(html) || html.includes('http-equiv="content-security-policy"')) return html;
+  const hashes = new Set();
+  for (const m of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) {
+    if (/\bsrc=/.test(m[1])) continue;
+    const type = m[1].match(/\btype="([^"]+)"/)?.[1];
+    if (type && type !== 'module') continue;                     // JSON-LD is data
+    hashes.add(createHash('sha256').update(m[2]).digest('base64'));
+  }
+  const policy = ["default-src 'self'", `script-src 'self'${[...hashes].map((h) => ` 'sha256-${h}'`).join('')}`, "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:", "font-src 'self'", "connect-src 'self'", "media-src 'self'", "object-src 'none'", "base-uri 'none'", "form-action 'self'"].join('; ');
+  const meta = `<meta http-equiv="content-security-policy" content="${policy}">`;
+  return /<meta charset="[^"]*">/.test(html) ? html.replace(/(<meta charset="[^"]*">)/, `$1\n  ${meta}`) : html.replace(/<head([^>]*)>/, `<head$1>${meta}`);
+};
 
 const esc = (s) => String(s)
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -143,7 +175,7 @@ const icon = {
 };
 const links = (o, t, page = null) => `<ul class="links">
   ${o.demo ? `<li><a class="btn btn--demo" href="${o.demo}" title="${pretty(o.demo)}">${icon.demo}<span>${t.demo}</span></a></li>` : ''}
-  <li><a class="btn btn--repo" href="${o.repo}" title="${pretty(o.repo)}">${icon.repo}<span>${t.repo}</span></a></li>${page ? `
+  ${o.repo ? `<li><a class="btn btn--repo" href="${o.repo}" title="${pretty(o.repo)}">${icon.repo}<span>${t.repo}</span></a></li>` : ''}${page ? `
   <li><a class="btn btn--page" href="${page.href}">${icon.page}<span>${page.label}</span></a></li>` : ''}
 </ul>`;
 
@@ -882,7 +914,7 @@ const jsonLd = (lang, t, url) => {
     person,
     ...projects.map((p) => ({
       '@type': 'SoftwareSourceCode', '@id': `${base}/#project-${p.id}`, name: p.name, description: p[lang].kicker,
-      codeRepository: p.repo, url: p.demo || p.repo, mainEntityOfPage: projectUrl(lang, p.id), keywords: p.tech.join(', '), dateCreated: String(p.year),
+      ...(p.repo ? { codeRepository: p.repo } : {}), url: p.demo || p.repo, mainEntityOfPage: projectUrl(lang, p.id), keywords: p.tech.join(', '), dateCreated: String(p.year),
       author: { '@id': `${base}/#person` }, inLanguage: lang
     }))
   ];
@@ -1117,7 +1149,7 @@ const projectPage = (lang, p, i) => {
     { '@type': 'WebSite', '@id': `${site.baseUrl}/#website`, url: `${site.baseUrl}/`, name: site.name, inLanguage: LANGS, publisher: { '@id': `${site.baseUrl}/#person` } },
     {
       '@type': 'SoftwareSourceCode', '@id': `${url}#project`, name: p.name, description: o.use,
-      codeRepository: p.repo, url: p.demo || p.repo, mainEntityOfPage: url, keywords: p.tech.join(', '), dateCreated: String(p.year),
+      ...(p.repo ? { codeRepository: p.repo } : {}), url: p.demo || p.repo, mainEntityOfPage: url, keywords: p.tech.join(', '), dateCreated: String(p.year),
       programmingLanguage: p.tech.slice(0, 1), author: { '@id': `${site.baseUrl}/#person` }, inLanguage: lang
     },
     {
@@ -1223,6 +1255,7 @@ const toLanguage = (prefix, icon = 'assets/favicon.svg') => `<!doctype html>
 
 const stale = [];
 const write = (path, html) => {
+  html = csp(html);
   const f = join(root, path);
   if (CHECK) {
     // the footer's "today" is the day it was built; it says nothing about being up to date
