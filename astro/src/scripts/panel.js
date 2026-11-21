@@ -50,7 +50,7 @@ if (dlg && raw) {
     $('#p-shot').replaceChildren(...(p.shot ? [el('picture', {},
       el('source', { srcset: p.shot.avif, type: 'image/avif' }), el('source', { srcset: p.shot.webp, type: 'image/webp' }),
       el('img', { src: p.shot.jpg, alt: p.shotAlt, width: 1200, height: 750, loading: 'lazy', decoding: 'async' }))] : []));
-    $('#p-links').replaceChildren(...[p.demo && out(p.demo, ui.demo), out(p.repo, ui.repo),
+    $('#p-links').replaceChildren(...[p.demo && out(p.demo, ui.demo), p.repo && out(p.repo, ui.repo),
       el('a', { href: p.url }, el('span', { text: ui.page }), el('span', { 'aria-hidden': 'true', text: ' ' + ui.arrows.next }))].filter(Boolean));
     const n = projects.length, a = (i - 1 + n) % n, b = (i + 1) % n;
     $('#p-prev').replaceChildren(el('span', { class: 'panel__dir', text: ui.arrows.prev + ' ' + ui.prev }), el('span', { class: 'panel__to', dir: 'ltr', text: projects[a].name }));

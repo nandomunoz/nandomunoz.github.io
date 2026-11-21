@@ -41,7 +41,8 @@ def load():
     site = {p['id']: p.get('kanji') or {} for p in json.loads((ROOT / 'astro/src/content/projects.json').read_text())}
     out = []
     for p in projects:
-        e = repos.get((p.get('repo') or '').rstrip('/').lower())
+        # by repo URL; a private repo is not linked (repo: null), so it is found by its name, the project's id
+        e = repos.get((p.get('repo') or '').rstrip('/').lower()) or next((r for r in repos.values() if r['repo'] == p['id']), None)
         out.append((p['id'], e['kanji']['char'] if e else None))
         if e:
             k = e['kanji']

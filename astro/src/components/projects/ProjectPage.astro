@@ -20,7 +20,7 @@ const href = (x: { id: string }) => pathFor(lang, 'projects', x.id);
 const list = pathFor(lang, 'projects');
 const here = pathFor(lang, 'projects', p.id);
 const jsonld = [
-  { '@type': 'SoftwareSourceCode', '@id': `${abs(here)}#code`, name: p.name, description: p.kicker, url: abs(here), codeRepository: p.repo, programmingLanguage: p.tech, dateCreated: String(p.year), inLanguage: lang, author: { '@id': 'https://nandomunoz.com/#person' }, ...(p.demo ? { sameAs: p.demo } : {}) },
+  { '@type': 'SoftwareSourceCode', '@id': `${abs(here)}#code`, name: p.name, description: p.kicker, url: abs(here), ...(p.repo ? { codeRepository: p.repo } : {}), programmingLanguage: p.tech, dateCreated: String(p.year), inLanguage: lang, author: { '@id': 'https://nandomunoz.com/#person' }, ...(p.demo ? { sameAs: p.demo } : {}) },
   breadcrumb([[t.siteName, pathFor(lang, 'home')], [B.projects, list], [p.name, here]]),
   await personNode(lang)
 ];
@@ -37,7 +37,7 @@ const image = p.shot ? { src: await cropped(p.shot.src, 1200, 630), alt: B.shot(
     </dl>
     <p class="author__links plinks">
       {p.demo && <a href={p.demo} target="_blank" rel="noopener"><span>{B.demo}</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>}
-      <a href={p.repo} target="_blank" rel="noopener"><span>{B.repo}</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>
+      {p.repo && <a href={p.repo} target="_blank" rel="noopener"><span>{B.repo}</span><span class="vh"> {t.newTab}</span><span aria-hidden="true"> ↗</span></a>}
     </p>
   </header>
   <div class="post__cover pcover">

@@ -16,5 +16,6 @@
   "Chrome Extension": "https://developer.chrome.com/docs/extensions",
   "LUZ": "https://luzds.com/",
   "Next.js": "https://nextjs.org/",
-  "MDX": "https://mdxjs.com/"
+  "MDX": "https://mdxjs.com/",
+  "Cloudflare Workers": "https://developers.cloudflare.com/workers/"
 }
