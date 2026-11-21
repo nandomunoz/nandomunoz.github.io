@@ -186,12 +186,18 @@ for (const [name, url] of [['es home', '/'], ['es post', `/blog/${POST}/`], ['es
     const pg = await ctx.newPage();
     await pg.addInitScript(() => {
       window.__cls = 0; window.__lcp = 0;
-      new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+      window.__shifts = [];
+      new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) {
+        window.__cls += e.value;
+        const r = (x) => x && [Math.round(x.x), Math.round(x.y), Math.round(x.width), Math.round(x.height)].join(',');
+        window.__shifts.push(`${e.value.toFixed(3)} at ${Math.round(e.startTime)} ms: ` + e.sources.slice(0, 3).map((s) => `${s.node?.nodeName?.toLowerCase()}.${String(s.node?.className?.baseVal ?? s.node?.className ?? '').slice(0, 40)} [${r(s.previousRect)}] -> [${r(s.currentRect)}]`).join(' | '));
+      } }).observe({ type: 'layout-shift', buffered: true });
       new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
     });
     await pg.goto(base + url); await pg.waitForTimeout(2500);
-    const { cls, lcp } = await pg.evaluate(() => ({ cls: window.__cls, lcp: window.__lcp }));
+    const { cls, lcp, shifts } = await pg.evaluate(() => ({ cls: window.__cls, lcp: window.__lcp, shifts: window.__shifts }));
     console.log(`  ${name} @${width}: CLS ${cls.toFixed(3)}, LCP ${Math.round(lcp)} ms`);
+    if (cls >= (process.env.CLS_DEBUG ? 0 : 0.1)) for (const sh of shifts) console.log('    shift', sh);
     note(cls < 0.1, `${name} @${width}: CLS ${cls.toFixed(3)} (limit 0.1)`);
     note(lcp < 2500, `${name} @${width}: LCP ${Math.round(lcp)} ms (limit 2500)`);
     await ctx.close();
