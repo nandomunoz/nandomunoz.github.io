@@ -23,7 +23,10 @@ const rows = posts.map((p) => [`soynando.com${p.from}`, `${NEW}/blog/${p.slug}/`
 rows.push(['soynando.com/politica-de-cookies/', `${NEW}/politica-de-cookies/`], ['soynando.com/privacidad/', `${NEW}/privacidad/`], ['soynando.com/feed/', `${NEW}/rss.xml`],
   ['soynando.com/blog/', `${NEW}/blog/`], ['soynando.com/proyectos/', `${NEW}/proyectos/`],
   // the authors' archives (a WordPress page with nothing the new site has): the home, where the bio is
-  ['soynando.com/author/nando-munoz/', `${NEW}/`], ['soynando.com/author/admin/', `${NEW}/`]);
+  ['soynando.com/author/nando-munoz/', `${NEW}/`], ['soynando.com/author/admin/', `${NEW}/`],
+  // a post that was published twice: the first version was removed and the one that stays took its slug, so the first
+  // version's old address goes there too (the second's comes from its `original`)
+  ['soynando.com/introduccion-a-la-ia/', `${NEW}/blog/introduccion-a-la-ia/`]);
 // categories and tags, one by one (the inventory of the old site: tools/wp-inventory.mjs). The categories changed their slug;
 // the tags kept it (and `historia-de-la-informatica`, `frontend`, `uncategorized` had no posts: they fall to the list).
 const WP_CATEGORIES = { 'hablo-de-codigo-y-gestion': 'codigo-y-gestion', 'hablo-de-literatura-y-pensamiento': 'literatura-y-pensamiento' };

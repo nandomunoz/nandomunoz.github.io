@@ -6,7 +6,7 @@ these are served by whoever serves soynando.com (plan D11).
 ## Cloudflare (recommended)
 
 1. Put soynando.com's DNS on Cloudflare (proxied records).
-2. **Bulk Redirects** → create a list from `soynando-bulk-redirects.csv` (31 entries: the 11 posts, the policy pages, the projects, the authors, every category and tag, the feed and the blog;
+2. **Bulk Redirects** → create a list from `soynando-bulk-redirects.csv` (33 entries: the 11 posts, the policy pages, the projects, the authors, every category and tag, the feed and the blog;
    `/category/` and `/tag/` match by prefix) and a Bulk Redirect rule that uses it.
 3. A **Redirect Rule** after it for everything else: `(http.host eq "soynando.com" or http.host eq "www.soynando.com")` → static `https://nandomunoz.com/`, 301.
 4. In Search Console add nandomunoz.com and use *Change of address* from soynando.com.

@@ -8,10 +8,12 @@ const lang = document.documentElement.lang.startsWith('ar') ? 'ar' : document.do
 const B = blogStrings(lang);
 const LUZ = new Set(['css', 'html', 'js', 'jsx', 'json', 'bash', 'sh', 'shell']);
 const ALIAS = { javascript: 'js', mjs: 'js', ts: 'js', typescript: 'js', tsx: 'jsx', htm: 'html', xml: 'html', svg: 'html', scss: 'css', zsh: 'sh', console: 'sh' };
-const NAMES = { js: 'JavaScript', jsx: 'JSX', css: 'CSS', html: 'HTML', json: 'JSON', sh: 'Shell', bash: 'Shell', shell: 'Shell' };
+const PLAIN = { markdown: 'markdown', md: 'markdown', yaml: 'yaml', yml: 'yaml', text: 'text', txt: 'text', plain: 'text' }; // named, but LUZ's highlighter does not know them: shown as they are
+const NAMES = { markdown: 'Markdown', yaml: 'YAML', text: 'Texto', js: 'JavaScript', jsx: 'JSX', css: 'CSS', html: 'HTML', json: 'JSON', sh: 'Shell', bash: 'Shell', shell: 'Shell' };
 
 function guess(src, hint) {
   const l = (hint || '').toLowerCase(), a = ALIAS[l] || l;
+  if (PLAIN[a]) return PLAIN[a];
   if (LUZ.has(a)) return a;
   const s = src.trim();
   if (/^</.test(s)) return 'html';
@@ -37,7 +39,7 @@ for (const old of document.querySelectorAll('.prose pre')) {
   const hint = (old.querySelector('code')?.className.match(/language-(\w+)/) ?? [])[1];
   const l = guess(src, hint);
   const pre = el('pre', { class: 'luz-code-block', 'data-lang': l, tabindex: '0', role: 'region', 'aria-label': `${NAMES[l]} ${n}` }, el('code', { text: src }));
-  highlightBlock(pre);
+  if (!Object.values(PLAIN).includes(l)) highlightBlock(pre);
   const btn = el('button', { type: 'button', class: 'luz-copy-btn code__copy', 'aria-label': `${B.codeCopyLabel} (${NAMES[l]})`, text: B.codeCopy });
   let tm;
   btn.addEventListener('click', async () => {

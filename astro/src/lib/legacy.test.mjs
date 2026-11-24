@@ -17,3 +17,8 @@ test('the easter eggs are published, not redirected', () => {
 test('no address redirects to itself or to another redirect', () => {
   for (const [from, to] of Object.entries(map)) { assert.notEqual(from, to); assert.equal(map[to], undefined); }
 });
+test('a post whose address changed goes to the new one, in every language', () => {
+  assert.equal(map['/blog/introduccion-a-la-ia-2/'], '/blog/introduccion-a-la-ia/');
+  assert.equal(map['/en/blog/introduccion-a-la-ia-2/'], '/en/blog/introduccion-a-la-ia/');
+  assert.equal(map['/ar/blog/introduccion-a-la-ia-2/'], '/ar/blog/introduccion-a-la-ia/');
+});

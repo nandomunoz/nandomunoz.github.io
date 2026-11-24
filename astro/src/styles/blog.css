@@ -244,6 +244,14 @@ a.pager__dir:hover { background-image: radial-gradient(circle, var(--matrix) 1.3
 .pull blockquote p { color: var(--ink); font-weight: 300; font-style: italic; font-stretch: 90%; font-size: clamp(1.15rem, 4.6vw, 1.4rem); line-height: 1.5; }
 .pull figcaption { font: 500 .72rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
 
+/* an aside: LUZ's alert (info) in the blog's own look. The dotted column is a pseudo-element so it sits on the
+   inline-start side in Arabic too; no fill and no colour, the dots are what marks it */
+.prose .luz-alert { position: relative; display: block; margin: 0; padding: .2rem 0; padding-inline-start: 1.6rem; border: 0; border-radius: 0; background: none; }
+.prose .luz-alert::before { content: ''; position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: 6px;
+  background: radial-gradient(circle, var(--matrix) 1.4px, transparent 1.9px) 0 0 / 6px 9px repeat-y; }
+.prose .luz-alert__body { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--prose); }
+@media (forced-colors: active) { .prose .luz-alert::before { background-image: radial-gradient(circle, CanvasText 1.4px, transparent 1.9px); } }
+
 /* a tweet, as a quoted card */
 .tweet { padding: 1.4rem 1.5rem; box-shadow: inset 0 0 0 1px var(--edge-2); }
 .tweet blockquote { margin: 0; padding: 0; background: none; color: var(--ink); font-size: 1.1rem; line-height: 1.5; }
@@ -307,6 +315,26 @@ luz-timeline { display: block; margin: 1.6rem 0; --dot: 10px; }
 .prose luz-timeline .luz-timeline__title { margin: 0; font-weight: 700; font-stretch: 75%; font-size: 1.25rem; line-height: 1.15; color: var(--ink); }
 .prose luz-timeline .luz-timeline__text { margin: 0; font-size: .98rem; line-height: 1.6; color: var(--prose); }
 .prose luz-timeline .luz-timeline__by { margin: .3rem 0 0; font: 500 .62rem/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+
+/* a timeline whose steps carry code leaves the text column and takes the whole width of the post; the rest of the
+   article keeps its column. The post grid is a size container only when a post has one. From 64em, where the text
+   starts four columns in, the timeline is pulled back to the start of the grid (4 columns + 4 gaps of 1.5rem). The sticky
+   contents column stays above it. Its card keeps the width of the text: the rail is what runs full width. The cards are sized by that width, not by the longest line of code. */
+.post__grid:has(.timeline--wide) { container-type: inline-size; }
+/* .prose is a grid with an automatic column, which would grow to the timeline and stretch the text with it: the column stays
+   the width of the text and the timeline overflows it */
+.prose:has(.timeline--wide) { grid-template-columns: minmax(0, 1fr); }
+.prose luz-timeline.timeline--wide { inline-size: 100cqw; max-inline-size: none; justify-self: start; padding-block: 1.4rem; }
+.post__grid:has(.timeline--wide) .post__side { z-index: 2; } /* the contents stay above the timeline: visible and clickable */
+@media (min-width: 64em) { .prose luz-timeline.timeline--wide { margin-inline-start: calc(-1 * ((100cqw - 11 * 1.5rem) / 3 + 4 * 1.5rem)); } }
+.prose luz-timeline.timeline--wide .luz-timeline, .prose luz-timeline.timeline--wide .luz-timeline__item { grid-template-columns: minmax(0, 1fr); min-inline-size: 0; }
+.prose luz-timeline.timeline--wide .code { margin: .6rem 0 0; }
+/* every card fills the height LUZ reserves for the tallest one: no gap over the short ones, the arrows centred on all */
+.prose luz-timeline.timeline--wide[data-luz-ready] .luz-timeline { place-items: stretch; }
+.prose luz-timeline.timeline--wide[data-luz-ready] .luz-timeline__item { align-content: start; }
+/* the long example scrolls inside its block (it is focusable), so the band is about half as tall */
+.prose luz-timeline.timeline--wide .luz-code-block { max-block-size: 9rem; overflow: auto; }
+@container (min-width: 44rem) { .prose luz-timeline.timeline--wide .luz-timeline__stage { grid-template-columns: 1fr minmax(0, 40rem) 1fr; } }
 
 /* horizontal */
 luz-timeline[data-luz-ready] { container-type: inline-size; }
