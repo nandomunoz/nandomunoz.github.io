@@ -52,5 +52,11 @@
     "es": "Web Components",
     "en": "Web Components",
     "ar": "Web Components"
+  },
+  {
+    "id": "asistentes-de-codigo",
+    "es": "Asistentes de código",
+    "en": "Coding assistants",
+    "ar": "مساعدات البرمجة"
   }
 ]
